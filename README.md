@@ -29,5 +29,4 @@ We're building a cooperative platformer game for Android 4.1, using Unity 5. The
 
 ### Who do I talk to? ###
 
-
 Message us on [slack](https://itphq.slack.com/messages/git/) with questions, or email Matt at farrugiam@student.unimelb.edu.au.
