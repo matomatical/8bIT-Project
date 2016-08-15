@@ -70,7 +70,10 @@ After configuring your device, follow these steps to deploy your application dir
 
 If you have any questions, email anyone of the following:
 * Matt at farrugiam@student.unimelb.edu.au
+
 * Mariam at mariams@student.unimelb.edu.au
+
 * Sam at sbeyer@student.unimelb.edu.au
+
 * Athir at isaleem@student.unimelb.edu.au
 * Li at lcheng3@student.unimelb.edu.au
