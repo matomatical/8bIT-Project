@@ -41,7 +41,7 @@ If you want to build and install the application directly on your device, follow
 
 ##### Deploying to Android Device Remotely
 
-If you want to avoid having to manually install the application on your device, you can build and run it remotely using the Unity Remote 5.
+If you want to avoid having to manually install the application on your device, you can build and run it remotely using the Unity Remote 5 app.
 
 To do this, you will first need to configure your Android device
 
@@ -68,4 +68,9 @@ After configuring your device, follow these steps to deploy your application dir
 
 ### Who do I talk to? ###
 
-Message us on [slack](https://itphq.slack.com/messages/git/) with questions, or email Matt at farrugiam@student.unimelb.edu.au.
+If you have any questions, email anyone of the following:
+* Matt at farrugiam@student.unimelb.edu.au 
+* Mariam at mariams@student.unimelb.edu.au
+* Sam at sbeyer@student.unimelb.edu.au
+* Athir at isaleem@student.unimelb.edu.au
+* Li at lcheng3@student.unimelb.edu.au
