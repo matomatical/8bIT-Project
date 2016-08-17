@@ -19,11 +19,11 @@ Before checking out the project, you'll want to have installed the following sof
 
 Once you have those installed, you'll be able to follow these steps to get the project from the bitbucket repository and into Unity.
 
-* First you’ll want to create a folder for the repository, and then download the repository and put it in that folder.
-* Next, you’ll want to open up Unity.
+* First you'll want to create a folder for the repository, and then download the repository and put it in that folder.
+* Next, you'll want to open up Unity.
 * Click on the "Open" button, navigate to and choose the folder you downloaded the repository to.
-* If you haven’t already, make sure you’ve told Unity where the Android SDK is on your computer. You can do this by going to Unity preferences, then external tools.
-* All done! The project should open up in Unity no worries!
+* If you haven't already, make sure you've told Unity where the Android SDK is on your computer. You can do this by going to Unity preferences, then external tools.
+* All done! The project should open up in Unity, no worries!
 
 ##### Deploying to Android Device Manually
 
@@ -49,14 +49,14 @@ After configuring your device, follow these steps to deploy your application dir
 
 * Connect your device to your computer using a USB cable, and ensure that USB debugging is enabled over the connection.
 * Start the Unity 5 Remote on your device.
-* In Unity, navigate to `Edit > Project Settings > Editor`, and select ‘Any Android Device’ for the Device field in the Unity Remote section.
-* Now, when you run your project within Unity (by pressing the ‘play’ button), after a short delay you should be able to control the game using your device.
+* In Unity, navigate to `Edit > Project Settings > Editor`, and select 'Any Android Device' for the Device field in the Unity Remote section.
+* Now, when you run your project within Unity (by pressing the `Play` button), after a short delay you should be able to control the game using your device.
 
-Note: If the remote doesn’t begin to show the game on your device, try restarting Unity.
+Note: If the remote doesn't begin to show the game on your device, try restarting Unity.
 
 ##### Deploying to Android Emulator
 
-* Open android studio project and hit ‘Run’.
+* Open android studio project and hit `Run`.
 * Further error or warning message resolutions can be found [here](https://developer.android.com/studio/run/emulator.html)
 
 #### Testing
