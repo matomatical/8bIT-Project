@@ -1,41 +1,56 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MattPlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour {
 
-	public float speedX, speedY;
+	public float speedX, speedY, maxJumpTime;
+	public float normalGravity, jumpingGravity;
+	public bool enableFauxInfiniteJump;
 
 	bool forward = true;
-	bool jumping = true;
+	bool jumping = false;
+	bool canVarJump = false;
+	float jumpTimer = 0f;
 
 	public Joystick joystick;
 
 	bool  inputJump, inputLeft, inputRight;
 
-
 	Animator animator;
 	Rigidbody2D body;
-	BoxCollider2D box;
 
 	void Start () {
 		animator = GetComponent<Animator> ();
-		box = GetComponent<BoxCollider2D> ();
 		body = GetComponent<Rigidbody2D> ();
 	}
-	
-	// Update is called once per frame
-	void Update () {
 
+	void FixedUpdate ()
+	{
 		// gather input
 
-		bool jump = InputJump();
-		float walk = InputWalk();
+		bool jump = InputJump ();
+		float walk = InputWalk ();
 
 		// update velocity
 
-		body.velocity = UpdatedVelocity(walk, jump);
+		body.velocity = UpdatedVelocity (walk, jump);
 
+		if (body.velocity.y > 0) {
+			body.gravityScale = jumpingGravity;
+		} else {
+			body.gravityScale = normalGravity;
+		}
 
+		// reflect if we're facing a new direction
+
+		if(walk > 0) {
+			forward = true;
+		} else if (walk < 0) {
+			forward = false;
+		}
+	}
+
+	void Update () {
 		// update animation state
 
 		if (body.velocity.x != 0 && jumping == false) {
@@ -49,13 +64,6 @@ public class MattPlayerController : MonoBehaviour {
 		}
 		
 		// reflect if we're facing a new direction
-
-		if(walk > 0) {
-			forward = true;
-		} else if (walk < 0) {
-			forward = false;
-		}
-
 		if(forward == (transform.localScale.x < 0)) {
 			Vector3 scale = transform.localScale;
 			scale.x = -scale.x;
@@ -69,6 +77,16 @@ public class MattPlayerController : MonoBehaviour {
 
 		if (jump && !jumping) {
 			jumping = true;
+			canVarJump = true;
+			jumpTimer = maxJumpTime;
+		}
+
+		if (canVarJump && !jump) {
+			canVarJump = false;
+		}
+
+		if ((enableFauxInfiniteJump ? jump : canVarJump) && jumpTimer > 0) {
+			jumpTimer -= Time.deltaTime;
 			speed.y = speedY;
 		}
 
@@ -79,7 +97,8 @@ public class MattPlayerController : MonoBehaviour {
 
 	void OnCollisionEnter2D (Collision2D other){
 		if (other.gameObject.CompareTag ("Ground")) {
-			this.jumping = false;
+			jumping = false;
+			canVarJump = false;
 		}
 	}
 
