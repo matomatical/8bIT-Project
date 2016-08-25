@@ -2,10 +2,10 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class Clock : MonoBehaviour {
+public class ClockController : MonoBehaviour {
 
 	float time = 0;
-	bool timing = false;
+	bool timing = true;
 
 	private Text label; // the text object we're attached to
 
