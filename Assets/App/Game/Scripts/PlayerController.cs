@@ -5,7 +5,6 @@ public class PlayerController : MonoBehaviour {
 
 	public float speedX, speedY, maxJumpTime;
 	public float normalGravity, jumpingGravity;
-	public bool enableFauxInfiniteJump;
 
 	bool forward = true;
 	bool jumping = false;
@@ -72,7 +71,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private Vector2 UpdatedVelocity(float walk, bool jump) {
-
 		Vector2 speed = body.velocity;
 
 		if (jump && !jumping) {
@@ -85,7 +83,7 @@ public class PlayerController : MonoBehaviour {
 			canVarJump = false;
 		}
 
-		if ((enableFauxInfiniteJump ? jump : canVarJump) && jumpTimer > 0) {
+		if (canVarJump && jumpTimer > 0) {
 			jumpTimer -= Time.deltaTime;
 			speed.y = speedY;
 		}
@@ -103,7 +101,6 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private float InputWalk() {
-		
 		bool left =  inputLeft  || Input.GetKey(KeyCode.LeftArrow);
 		bool right = inputRight || Input.GetKey(KeyCode.RightArrow);
 
