@@ -8,11 +8,6 @@ public class UIHelper : MonoBehaviour {
 		Application.LoadLevel (sceneName);
 	}
 
-	// instance version of GoTo for use as button on click handlers (static methods don't work)
-	public void iGoTo (string sceneName) {
-		UIHelper.GoTo(sceneName);
-	}
-
     public static void Login (System.Action<bool> callback, bool silent=false) {
         if (Social.localUser.authenticated) return;
 
@@ -21,6 +16,16 @@ public class UIHelper : MonoBehaviour {
 
     public static void Logout () {
     	PlayGamesPlatform.Instance.SignOut();
-    }
+	}
+
+	// instance versions for use as button on click handlers (static methods don't work)
+
+	public void iGoTo (string sceneName) {
+		UIHelper.GoTo(sceneName);
+	}
+
+	public void iLogout () {
+		UIHelper.Logout();
+	}
 
 }
