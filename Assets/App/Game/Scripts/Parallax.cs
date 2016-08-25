@@ -17,14 +17,11 @@ public class Parallax : MonoBehaviour {
 		float bgWidth  = background.bounds.size.x * background.sprite.pixelsPerUnit;
 		float bgHeight = background.bounds.size.y * background.sprite.pixelsPerUnit;
 
-		Debug.Log ("L - B is " + (levelx - bgWidth) + " and L - C is " + (levelx - camera.pixelWidth));
+		float camWidth = 0; //	CAMERA VIEWPORT WIDTH IN IN-GAME PIXELS
+		float camHeight = 0; // CAMERA VIEWPORT HIGHT IN IN-GAME PIXELS
 
-		scalex = (float) ((levelx - bgWidth)  / (levelx - camera.pixelRect.x ));
-
-		Debug.Log ("then for y, L - B is " + (levely - bgHeight) + " and L - C is " + (levely - camera.pixelHeight ));
-		scaley = (float) ((levely - bgHeight) / (levely - camera.pixelRect.y));
-
-		Debug.Log ("scalex " + scalex + " scaley " + scaley);
+		scalex = (float) ((levelx - bgWidth )  / (levelx - camWidth));
+		scaley = (float) ((levely - bgHeight) / (levely - camHeight));
 	}
 	
 	// Guaranteed to run after all Update processing
