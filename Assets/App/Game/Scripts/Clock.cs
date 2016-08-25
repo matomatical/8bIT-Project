@@ -33,11 +33,11 @@ public class Clock : MonoBehaviour {
 		}
 	}
 
-	public void Stop(){
+	public void StopTiming(){
 		timing = false;
 	}
 
-	public void Start(){
+	public void StartTiming(){
 		timing = true;
 	}
 }
