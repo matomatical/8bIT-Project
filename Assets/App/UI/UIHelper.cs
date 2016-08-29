@@ -28,4 +28,8 @@ public class UIHelper : MonoBehaviour {
 		UIHelper.Logout();
 	}
 
+	public void ToggleVisiblity(GameObject go) {
+		go.SetActive(!go.activeSelf);
+	}
+
 }
