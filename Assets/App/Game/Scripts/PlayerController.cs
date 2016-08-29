@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour {
 			keyInput = 1;
 		}
 
-		return Mathf.Clamp(joystick.Input() + keyInput, -1, 1);
+		return Mathf.Clamp((joystick != null ? joystick.Input() : 0) + keyInput, -1, 1);
 	}
 
 	private bool InputJump() {
