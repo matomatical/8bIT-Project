@@ -1,8 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
+using System;
 
-public class MatchMaking : MonoBehaviour {
+public class MatchMaking : MonoBehaviour, MPRoomListener {
     // Holds the image that will be the background of the dialogue box
     public GUISkin guiSkin;
 
@@ -27,7 +28,7 @@ public class MatchMaking : MonoBehaviour {
         {
             roomMessage = "Starting a multi-player game...";
             showRoomDialogue = true;
-            MultiplayerController.Instance.room = this;
+            MultiplayerController.Instance.roomListener = this;
             MultiplayerController.Instance.StartMPGame();
         }
         
@@ -43,7 +44,6 @@ public class MatchMaking : MonoBehaviour {
         roomMessage = message;
     }
 
-    // Instructs the title Screen to
     public void HideRoom()
     {
         roomMessage = "";
