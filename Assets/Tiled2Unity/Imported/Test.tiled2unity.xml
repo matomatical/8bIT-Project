@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 31/8/2016 7:15:17 AM-->
+<!--Last exported: 31/8/2016 8:20:27 AM-->
 <Tiled2Unity version="1.0.7.8">
   <AssignMaterial mesh="mesh_0001" material="spritesheet_transparent" />
   <Prefab name="Test" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="60" numTilesHigh="10" tileWidth="21" tileHeight="21" exportScale="0.04761905" mapWidthInPixels="1260" mapHeightInPixels="210">
@@ -16,11 +16,35 @@
     </GameObject>
     <GameObject name="Objects" x="0" y="0" z="0">
       <GameObject name="RectangleObject" x="17" y="-7" rotation="0" layer="">
+        <Property name="PressurePlateBlock" value="2" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="8" y="-6" rotation="0" layer="">
+        <Property name="Key" value="" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="13" y="-7" rotation="0" layer="">
         <Property name="KeyBlock" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
-      <GameObject name="RectangleObject" x="9" y="-6" rotation="0" layer="">
-        <Property name="Key" value="" />
+      <GameObject name="RectangleObject" x="15" y="-7" rotation="0" layer="">
+        <Property name="PressurePlateBlock" value="1" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="19" y="-7" rotation="0" layer="">
+        <Property name="PressurePlateBlock" value="1" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="14" y="-4" rotation="0" layer="">
+        <Property name="PressurePlate" value="1" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="16" y="-2" rotation="0" layer="">
+        <Property name="PressurePlate" value="2" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="10" y="-7" rotation="0" layer="">
+        <Property name="PressurePlate" value="1" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
     </GameObject>

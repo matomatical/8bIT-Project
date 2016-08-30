@@ -7,14 +7,20 @@ class CustomImporter : ICustomTiledImporter
 {
 	GameObject keyPrefab = (GameObject)Resources.Load("Key");
 	GameObject keyBlockPrefab = (GameObject)Resources.Load("KeyBlock");
+	GameObject pressurePlatePrefab = (GameObject)Resources.Load("PressurePlate");
+	GameObject pressurePlateBlockPrefab = (GameObject)Resources.Load("PressurePlateBlock");
 
     public void HandleCustomProperties(GameObject marker,
-        IDictionary<string, string> keyValuePairs)
+        IDictionary<string, string> props)
 	{
-        if (keyValuePairs.ContainsKey("Key")) {
+        if (props.ContainsKey("Key")) {
 			replaceMarker(marker, keyPrefab);
-		} else if (keyValuePairs.ContainsKey("KeyBlock")) {
+		} else if (props.ContainsKey("KeyBlock")) {
 			replaceMarker(marker, keyBlockPrefab);
+		} else if (props.ContainsKey("PressurePlate")) {
+			replaceMarker(marker, pressurePlatePrefab).GetComponent<PressurePlate>().address = props["PressurePlate"];
+		} else if (props.ContainsKey("PressurePlateBlock")) {
+			replaceMarker(marker, pressurePlateBlockPrefab).GetComponent<PressurePlateBlock>().address = props["PressurePlateBlock"];
         }
     }
 
@@ -29,7 +35,8 @@ class CustomImporter : ICustomTiledImporter
 		newObject.transform.position = marker.transform.position;
 
 		GameObject.DestroyImmediate(marker.GetComponent<BoxCollider2D>());
-		marker.name = "__to_delete__";
+		marker.name = "__ignored__";
+		marker.transform.position = Vector3.zero;
 
 		return newObject;
     }
