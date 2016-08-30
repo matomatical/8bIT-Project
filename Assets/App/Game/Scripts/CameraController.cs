@@ -3,8 +3,10 @@ using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-	public Transform follow;
-	public SpriteRenderer level;
+	public Transform follow;	 // gameobject to follow around
+	public SpriteRenderer level; // level to lock camera view to
+
+	public float smoothing = 4;
 
 	private float minx, miny, maxx, maxy;
 
@@ -32,16 +34,22 @@ public class CameraController : MonoBehaviour {
 		miny = centery - (levely / 2) + (cameray / 2);
 	}
 
+
 	// Guaranteed to run after all Update processing
-	void LateUpdate () {
+	void FixedUpdate () {
 
-		// Calculations assume map is position at the origin
+		// head towards target object
 
+		Vector3 displacement = follow.position - transform.position;
 
-		// follow the target object
+		float nextx = transform.position.x + displacement.x * smoothing * Time.deltaTime;
+		float nexty = transform.position.y + displacement.y * smoothing * Time.deltaTime;
+
+		// clamp to screen
+
 		transform.position = new Vector3 (
-			Mathf.Clamp(follow.position.x, minx, maxx),
-			Mathf.Clamp(follow.position.y, miny, maxy),
+			Mathf.Clamp(nextx, minx, maxx),
+			Mathf.Clamp(nexty, miny, maxy),
 			transform.position.z
 		);
 	}
