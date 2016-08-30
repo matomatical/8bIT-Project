@@ -94,7 +94,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter2D (Collision2D other){
-		if (other.gameObject.CompareTag ("Ground")) {
+		if (other.transform.parent.CompareTag("Ground")) {
 			jumping = false;
 			canVarJump = false;
 		}
