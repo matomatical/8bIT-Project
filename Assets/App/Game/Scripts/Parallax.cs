@@ -3,25 +3,26 @@ using System.Collections;
 
 public class Parallax : MonoBehaviour {
 
-	// find a better way to do this after figuring tiled2unity out
-	public int levelx, levely;
-
+	public SpriteRenderer level;
 	public Camera camera;
 
 	private float scalex, scaley;
 
 	// Use this for initialization
 	void Start () {
+		
 		SpriteRenderer background = GetComponent<SpriteRenderer> ();
+		float bgx = background.bounds.size.x;
+		float bgy = background.bounds.size.y;
 
-		float bgWidth  = background.bounds.size.x * background.sprite.pixelsPerUnit;
-		float bgHeight = background.bounds.size.y * background.sprite.pixelsPerUnit;
+		float levelx = level.bounds.size.x;
+		float levely = level.bounds.size.y;
 
-		float camWidth = 0; //	CAMERA VIEWPORT WIDTH IN IN-GAME PIXELS
-		float camHeight = 0; // CAMERA VIEWPORT HIGHT IN IN-GAME PIXELS
+		float camerax = camera.orthographicSize * Screen.width / Screen.height * 2;
+		float cameray = camera.orthographicSize * 2;
 
-		scalex = (float) ((levelx - bgWidth )  / (levelx - camWidth));
-		scaley = (float) ((levely - bgHeight) / (levely - camHeight));
+		scalex = (float) ((levelx - bgx )/ (levelx - camerax));
+		scaley = (float) ((levely - bgy) / (levely - cameray));
 	}
 	
 	// Guaranteed to run after all Update processing

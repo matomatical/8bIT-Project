@@ -24,7 +24,8 @@ public class ClockController : MonoBehaviour {
 			// convert to clock time string
 			int mins = (int) (time / 60);
 			int secs = ((int) time) % 60;
-			string text = string.Format("{0:00}:{1:00}", mins, secs);
+			int msec = (int)(10*(time - mins * 60 - secs));
+			string text = string.Format("{0:00}:{1:00}.{2:0}", mins, secs, msec);
 
 			// lazy refresh text
 			if(!(label.text == text)){
