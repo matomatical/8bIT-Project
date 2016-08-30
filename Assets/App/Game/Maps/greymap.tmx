@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="99" height="27" tilewidth="21" tileheight="21" nextobjectid="2">
  <tileset firstgid="1" name="gts" tilewidth="21" tileheight="21" tilecount="25" columns="5">
-  <image source="gts.png" trans="5e81a2" width="105" height="105"/>
+  <image source="../Sprites/gts.png" trans="5e81a2" width="105" height="105"/>
   <tile id="1">
    <objectgroup draworder="index">
     <object id="1" x="0" y="0" width="21" height="21"/>

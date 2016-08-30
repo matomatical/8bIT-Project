@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="10" tilewidth="21" tileheight="21" nextobjectid="1">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="60" height="10" tilewidth="21" tileheight="21" nextobjectid="6">
  <tileset firstgid="1" name="Spritesheet" tilewidth="21" tileheight="21" spacing="2" margin="2" tilecount="900" columns="30">
   <image source="../Sprites/Character/spritesheet_transparent.png" width="692" height="692"/>
   <tile id="121">
@@ -13,7 +13,7 @@
    </objectgroup>
   </tile>
  </tileset>
- <layer name="Tile Layer 1" width="60" height="10">
+ <layer name="Foreground" width="60" height="10">
   <properties>
    <property name="unity:tag" value="Ground"/>
   </properties>
@@ -25,9 +25,21 @@
 0,0,0,153,153,153,0,0,0,0,0,0,0,0,0,153,153,153,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,153,153,153,0,0,0,0,0,0,153,153,153,153,153,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,153,153,153,153,153,153,153,0,0,0,0,0,153,153,153,153,153,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-153,153,153,153,153,153,153,153,153,153,0,0,0,153,153,153,153,153,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+153,153,153,153,153,153,153,153,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,153,153,153,
 153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153,153
 </data>
  </layer>
+ <objectgroup name="Objects">
+  <object id="4" x="357" y="147" width="21" height="21">
+   <properties>
+    <property name="KeyBlock" value=""/>
+   </properties>
+  </object>
+  <object id="5" x="189" y="126" width="21" height="21">
+   <properties>
+    <property name="Key" value=""/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>
