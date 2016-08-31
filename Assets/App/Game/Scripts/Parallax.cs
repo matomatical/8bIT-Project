@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using Tiled2Unity;
+using UnityEngine;
 using System.Collections;
 
 public class Parallax : MonoBehaviour {
 
-	public SpriteRenderer level;
+	public TiledMap level;
 	public Camera camera;
 
 	private float scalex, scaley;
@@ -15,14 +16,24 @@ public class Parallax : MonoBehaviour {
 		float bgx = background.bounds.size.x;
 		float bgy = background.bounds.size.y;
 
-		float levelx = level.bounds.size.x;
-		float levely = level.bounds.size.y;
+		float levelx = level.GetMapWidthInPixelsScaled();
+		float levely = level.GetMapHeightInPixelsScaled();
 
 		float camerax = camera.orthographicSize * Screen.width / Screen.height * 2;
 		float cameray = camera.orthographicSize * 2;
 
-		scalex = (float) ((levelx - bgx )/ (levelx - camerax));
-		scaley = (float) ((levely - bgy) / (levely - cameray));
+		// make this work for centered levels
+		if (levelx == camerax) {
+			scalex = 1;
+		} else {
+			scalex = (float)((levelx - bgx) / (levelx - camerax));
+		}
+
+		if (levely == cameray) {
+			scaley = 1;
+		} else {
+			scaley = (float)((levely - bgy) / (levely - cameray));
+		}
 	}
 	
 	// Guaranteed to run after all Update processing
