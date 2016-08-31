@@ -3,8 +3,11 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-	public float speedX, speedY, maxJumpTime;
-	public float normalGravity, jumpingGravity;
+	public float speedX = 9.5f;
+	public float speedY = 16.5f;
+	public float maxJumpTime = 0.25f;
+	public float normalGravity = 4.5f;
+	public float jumpingGravity = 14f;
 
 	bool forward = true;
 	bool jumping = false;
