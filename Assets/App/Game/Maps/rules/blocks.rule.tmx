@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="3" height="3" tilewidth="21" tileheight="21" nextobjectid="1">
+ <tileset firstgid="1" name="gts" tilewidth="21" tileheight="21" tilecount="25" columns="5">
+  <image source="../tilesets/gts.png" trans="5e81a2" width="105" height="105"/>
+ </tileset>
+ <layer name="regions" width="3" height="3">
+  <data encoding="csv">
+0,24,0,
+24,24,24,
+0,24,0
+</data>
+ </layer>
+ <layer name="input_Ground" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,7,0,
+0,0,0
+</data>
+ </layer>
+ <layer name="inputnot_Ground" width="3" height="3">
+  <data encoding="csv">
+0,7,0,
+7,0,7,
+0,7,0
+</data>
+ </layer>
+ <layer name="output_Edges" width="3" height="3">
+  <data encoding="csv">
+0,0,0,
+0,4,0,
+0,0,0
+</data>
+ </layer>
+</map>
