@@ -1,0 +1,4 @@
+edges.rule.tmx
+corners.rule.tmx
+peaks.rule.tmx
+blocks.rule.tmx

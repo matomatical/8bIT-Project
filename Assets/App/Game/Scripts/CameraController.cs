@@ -1,10 +1,11 @@
-﻿using UnityEngine;
+﻿using Tiled2Unity;
+using UnityEngine;
 using System.Collections;
 
 public class CameraController : MonoBehaviour {
 
-	public Transform follow;	 // gameobject to follow around
-	public SpriteRenderer level; // level to lock camera view to
+	public Transform follow;	// gameobject to follow around
+	public TiledMap level; 		// level to lock camera view to
 
 	public float smoothing = 4;
 
@@ -19,19 +20,19 @@ public class CameraController : MonoBehaviour {
 		float camerax = camera.orthographicSize * Screen.width / Screen.height * 2;
 		float cameray = camera.orthographicSize * 2;
 
-		float levelx = level.bounds.size.x;
-		float levely = level.bounds.size.y;
+		float levelx = level.GetMapWidthInPixelsScaled();
+		float levely = level.GetMapHeightInPixelsScaled();
 
-		float centerx = level.transform.position.x;
-		float centery = level.transform.position.x;
+		float cornerx = level.transform.position.x;
+		float cornery = level.transform.position.y;
 
 		// calculate max/min values
 
-		maxx = centerx + (levelx / 2) - (camerax / 2);
-		minx = centerx - (levelx / 2) + (camerax / 2);
+		maxx = cornerx + levelx - (camerax / 2);
+		minx = cornerx + (camerax / 2);
 
-		maxy = centery + (levely / 2) - (cameray / 2);
-		miny = centery - (levely / 2) + (cameray / 2);
+		maxy = cornery - (cameray / 2);
+		miny = cornery - levely + (cameray / 2);
 	}
 
 
