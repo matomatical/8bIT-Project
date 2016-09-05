@@ -7,11 +7,10 @@ namespace Team8bITProject
 	{
 		private float partnerPosx = 0;
 		private float partnerPosy = 0;
-		//private System.Collections.Queue<I HATE TYPES> obstacleQueue;
-		private System.Collections.Queue<ChatMessage> chatQueue;
+		private Queue<ChatMessage> chatQueue;
 		public static readonly byte PROTOCOL_VERSION = 0;
 
-		public void HandleUpdate (List update)
+		public void HandleUpdate (List<Byte> update)
 		{
 			throw new NotImplementedException ();
 		}

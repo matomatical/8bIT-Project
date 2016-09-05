@@ -13,12 +13,12 @@ namespace Team8bITProject
 			this.posy = posy;
 		}
 
-		float GetPosx()
+		public float GetPosx()
 		{
 			return posx;
 		}
 
-		float GetPosy()
+		public float GetPosy()
 		{
 			return posy;
 		}

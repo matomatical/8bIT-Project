@@ -3,7 +3,7 @@ using System.Collections;
 using System;
 
 namespace Team8bITProject {
-	public class PlayerSerializer : Serializer {
+	public class PlayerRecorder : Serializer {
 
 		public override string Serialize() {
 			return transform.position.x + " " + transform.position.y;
