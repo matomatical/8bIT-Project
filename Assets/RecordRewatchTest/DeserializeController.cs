@@ -9,7 +9,6 @@ namespace Team8bITProject {
 		public Serializer[] objects;
 
 
-
 		void Start() {
 
 		}
