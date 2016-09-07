@@ -35,7 +35,7 @@ public class Leaderboard {
 			if(score.compareTo(leaders[i]) < 0){
 				// found a spot! the score at index i > new score
 				
-				lock.readLock();
+				lock.readLock().unlock();
 				return i+1; // the player ended up in position i+1 (1-based positions)
 			}
 		}

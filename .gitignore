@@ -44,4 +44,4 @@ Assets/Plugins/Android/play-services*
 # Server #
 # ====== #
 *.pem
-[Ss]erver/bin/
+Server/bin/

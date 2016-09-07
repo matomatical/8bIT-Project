@@ -1,0 +1,4 @@
+bin/
+*.pem
+.project
+.settings/
