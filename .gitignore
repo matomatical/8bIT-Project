@@ -38,4 +38,5 @@ ehthumbs.db
 # user #
 # ==== #
 *.keystore
+*.pem
 Assets/Plugins/Android/play-services*

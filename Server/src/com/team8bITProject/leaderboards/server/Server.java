@@ -5,7 +5,7 @@ import com.matomatical.net.Peer;
 
 public class Server {
 	
-	public static final short PORT = 1024;
+	public static final short PORT = 2693;
 	
 	public static void main(String[] args) {
 		
