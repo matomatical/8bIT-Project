@@ -15,7 +15,8 @@ public class Server {
 			Peer client = arrivals.meet();
 			
 			Servant servant = new Servant(client);
-			servant.run();
+		    Thread thread = new Thread(servant);
+		    thread.start();
 		}
 		
 		arrivals.close();
