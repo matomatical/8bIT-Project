@@ -24,16 +24,9 @@ public class Message {
 				throw new MessageException("request message without request");
 			}
 			
-		case "finished":
-			return null;
-			
 		default:
 			throw new MessageException("missing or unknown message type");
 		}
-	}
-
-	public boolean isOver(){
-		return type.equals("finished");
 	}
 	
 	

@@ -39,6 +39,8 @@ ehthumbs.db
 # ==== #
 *.keystore
 Assets/Plugins/Android/play-services*
+.metadata/
+.recommenders/
 
 # ====== #
 # Server #
