@@ -9,7 +9,7 @@ using System.Collections.Generic;
 public class MultiplayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener
 {
     public MPRoomListener roomListener;
-    public MPUpdateListener updateListener;
+    public Team8bITProject.IUpdateManager updateManager;
 
     // Making this a singleon as it'll be used in both the main menu and the game
     private static MultiplayerController _instance = null;
@@ -113,26 +113,11 @@ public class MultiplayerController : GooglePlayGames.BasicApi.Multiplayer.RealTi
     }
 
     public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data)
-    {
-        // We'll be doing more with this later...
-        byte messageVersion = (byte)data[0];
-
-        // Let's figure out what type of message this is.
-        char messageType = (char)data[1];
-
-        // The u represents 'update'
-        if (messageType == 'U' && data.Length == (updateMessageLength))
+	{
+        // Tell our GameController about this.
+        if (updateManager != null)
         {
-            float posX = System.BitConverter.ToSingle(data, 2);
-            float posY = System.BitConverter.ToSingle(data, 6);
-            float velX = System.BitConverter.ToSingle(data, 10);
-            float velY = System.BitConverter.ToSingle(data, 14);
-            Debug.Log("Player " + senderId + " is at (" + posX + ", " + posY + ") traveling (" + velX + ", " + velY + ") ");
-            // Tell our GameController about this.
-            if (updateListener != null)
-            {
-                updateListener.UpdateReceived(senderId, posX, posY, velX, velY);
-            }
+            updateManager.HandleUpdate(data, senderId);
         }
     }
 
@@ -146,19 +131,13 @@ public class MultiplayerController : GooglePlayGames.BasicApi.Multiplayer.RealTi
         return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
     }
 
-    public void SendMyUpdate(float posX, float posY, Vector2 velocity)
+	public void SendMyReliable(List<byte> data)
     {
-        updateMessage.Clear();
-        updateMessage.Add(protocolVersion);
-
-        // The u represents the message type i.e 'update'
-        updateMessage.Add((byte)'U');
-        updateMessage.AddRange(System.BitConverter.GetBytes(posX));
-        updateMessage.AddRange(System.BitConverter.GetBytes(posY));
-        updateMessage.AddRange(System.BitConverter.GetBytes(velocity.x));
-        updateMessage.AddRange(System.BitConverter.GetBytes(velocity.y));
-        byte[] messageToSend = updateMessage.ToArray();
-
-        PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, messageToSend);
+		PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, data.ToArray ());
     }
+
+	public void SendMyUnreliable(List<byte> data)
+	{
+		PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
+	}
 }
