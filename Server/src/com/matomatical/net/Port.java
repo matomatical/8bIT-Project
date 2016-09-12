@@ -3,7 +3,7 @@ package com.matomatical.net;
 import java.io.IOException;
 import java.net.ServerSocket;
 
-/** A Port acts as a unix sockets-style welcoming socket.
+/** A Port acts as a unix-sockets-style welcoming socket.
  * Binds to a port and listens for connections.
  * Transforms all exceptions into sensible (unchecked)
  * Connection and Disconnect exceptions. 

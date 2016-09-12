@@ -2,10 +2,18 @@ package com.matomatical.util;
 
 import java.io.PrintStream;
 
+/** A default unchecked (runtime) exception with some additional,
+ *  commonly used helpful wrapper methods provided
+ * @author Matt Farrugia
+ */
 public class AntiException extends RuntimeException {
 
+	/** Generated default serial version unique identifier */
 	protected static final long serialVersionUID = 6246280879205431706L;
 
+	/** Create a new AntiException with a message
+	 * @param message Exception's message
+	 */
 	public AntiException(String message){
 		super(message);
 	}
