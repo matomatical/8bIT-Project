@@ -1,4 +1,4 @@
-package com.team8bITProject.leaderboards.server;
+package xyz._8bitproject.cooperace.leaderboards;
 
 import static com.matomatical.util.Log.log;
 import com.matomatical.net.Port;
@@ -6,7 +6,7 @@ import com.matomatical.net.Peer;
 
 /** Simple thread-spawning server driver, listens on a port specified
  *  in args[0] (or on a default port) for incoming connections
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class Server {
 	
@@ -60,7 +60,7 @@ public class Server {
 			}
 		}
 		
-		// missing or invalid port option, use default
+		// missing or invalid port option: use default
 		return new Options(DEFAULT_PORT);
 	}
 	

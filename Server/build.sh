@@ -1,1 +1,1 @@
-javac -cp "src/:./boon.jar" -d bin/ src/com/team8bITProject/leaderboards/server/Server.java
+javac -cp "src/:./boon.jar" -d bin/ src/xyz/_8bitproject/cooperace/leaderboards/Server.java

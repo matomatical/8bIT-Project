@@ -1,4 +1,4 @@
-package com.team8bITProject.leaderboards.server;
+package xyz._8bitproject.cooperace.leaderboards;
 
 import static com.matomatical.util.Log.log;
 
@@ -7,11 +7,15 @@ import org.boon.Boon;
 import com.matomatical.net.DisconnectException;
 import com.matomatical.net.Peer;
 
+import xyz._8bitproject.cooperace.leaderboards.protocol.Message;
+import xyz._8bitproject.cooperace.leaderboards.protocol.MessageException;
+import xyz._8bitproject.cooperace.leaderboards.protocol.Response;
+
 /** Simple client handler thread driver - dispatches incoming
  *  client messages to the Message class and and sends their
  *  response back. 
  *  Handles conversion of messages from-and-to JSON using Boon
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class Servant implements Runnable {
 
@@ -44,13 +48,15 @@ public class Servant implements Runnable {
 				log("new message received!");
 				
 				Message message = Boon.fromJson(msg, Message.class);
+				log("translated message: " + message.toString());
 				
 				// formulate, serialise and send response
 				
-				Message.Response response = message.response();
-				client.send(Boon.toJson(response));
+				Response response = message.response();
+				log("formulated reply: " + response.toString());
 				
-				log("sent reply");
+				client.send(Boon.toJson(response));
+				log("sent reply!");
 			}
 
 		} catch (DisconnectException e) {
@@ -82,5 +88,6 @@ public class Servant implements Runnable {
 		}
 		
 		// communication has ended, safe to end the thread
+		log("end of communication loop, servant ending");
 	}
 }

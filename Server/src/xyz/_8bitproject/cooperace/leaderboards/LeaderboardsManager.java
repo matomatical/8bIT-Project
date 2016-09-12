@@ -1,9 +1,9 @@
-package com.team8bITProject.leaderboards.server;
+package xyz._8bitproject.cooperace.leaderboards;
 
 import java.util.HashMap;
 
 /** Singleton collector of leaderboards, providing access by level-name 
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class LeaderboardsManager {
 	
@@ -23,7 +23,7 @@ public class LeaderboardsManager {
 		leaderboards = new HashMap<String, Leaderboard>();
 	}
 	
-	/** collection of leaderboards indexed by level */
+	/** Collection of leaderboards, indexed by level */
 	private HashMap<String, Leaderboard> leaderboards;
 	
 	/** Get the leaderboard corresponding to a particular level name

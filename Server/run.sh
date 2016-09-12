@@ -1,3 +1,3 @@
 cd bin/
-java -cp ".:../boon.jar" com.team8bITProject.leaderboards.server.Server
+java -cp ".:../boon.jar" xyz._8bitproject.cooperace.leaderboards.Server
 cd ../
