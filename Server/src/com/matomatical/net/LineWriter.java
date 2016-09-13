@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 
 /** A wrapper for java.io's PrintWriter, serving to
  *  drastically simplify creation and use
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class LineWriter {
 	

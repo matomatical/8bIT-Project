@@ -12,7 +12,7 @@ import java.io.IOException;
  *  drastically simplify creation and use, and also to
  *  convert annoying IO exceptions into meaningful,
  *  unchecked anti-exceptions
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class LineReader {
 	

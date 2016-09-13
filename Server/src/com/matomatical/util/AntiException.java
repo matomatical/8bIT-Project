@@ -4,7 +4,7 @@ import java.io.PrintStream;
 
 /** A default unchecked (runtime) exception with some additional,
  *  commonly used helpful wrapper methods provided
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class AntiException extends RuntimeException {
 

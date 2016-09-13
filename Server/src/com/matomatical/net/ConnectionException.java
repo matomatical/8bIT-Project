@@ -4,7 +4,7 @@ import com.matomatical.util.AntiException;
 
 /** An unchecked anti-exception for use when something goes wrong
  *  establishing a network connection
- *  @author Matt Farrugia
+ *  @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class ConnectionException extends AntiException {
 

@@ -7,7 +7,7 @@ import java.net.ServerSocket;
  * Binds to a port and listens for connections.
  * Transforms all exceptions into sensible (unchecked)
  * Connection and Disconnect exceptions. 
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class Port {
 

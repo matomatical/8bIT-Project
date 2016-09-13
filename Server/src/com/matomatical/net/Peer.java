@@ -11,7 +11,7 @@ import java.io.IOException;
  *  access to its reader and writer in C-style send() and recv() calls,
  *  and converting annoying checked IO Exceptions to sensible, unchecked
  *  network anti-exceptions
- * @author Matt Farrugia
+ * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class Peer {
 

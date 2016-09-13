@@ -4,7 +4,7 @@ import com.matomatical.util.AntiException;
 
 /** An unchecked anti-exception for use when something
  *  interrupts a network connection
- *  @author Matt Farrugia
+ *  @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
 public class DisconnectException extends AntiException {
 
