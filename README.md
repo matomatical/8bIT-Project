@@ -2,11 +2,11 @@
 
 Welcome to team 8-bIT Project's IT Project Project repository.
 
-### What is this repository for? ###
+## What is this repository for? ##
 
-We're building a cooperative platformer game for Android 4.1, using Unity 5. The game is currently unnamed. You can read more about it by checking out the [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
+We're building a cooperative platformer game for Android 4.1, using Unity 5. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
-### How do I get set up? ###
+## How do I get set up? ##
 
 #### Dependencies
 
@@ -67,11 +67,26 @@ In order to run all tests
 1. Go to the "Unity Test Tools > Integration Test Runner".
 1. Click the "Run All" button.
 
-### Contribution guidelines ###
+## Contribution guidelines ##
 
-Coming soon.
+### Developing ###
 
-### Who do I talk to? ###
+Every major feature will be developed outside of the repository's master branch, in its own branch. This method will ensure that the master branch will always compile and contain a fully tested, working version of the project. The lifecycle for a feature will follow these steps:
+
+1. Create a new git branch for the feature.
+2. Develop the feature in that branch, making regular commits as usual.
+3. When the feature is ready for an initial review, or when you'd like feedback or advice on your progress, use Bitbucket's pull request feature to conduct this (but don't merge the branch into master just yet).
+4. Finish development of the feature, including all tests.
+5. After the team has finished reviewing the code, and confirmed that all necessary tests are present and working the pull request will be accepted.
+
+### Coding Conventions ###
+
+In terms of conventions, we're not fussed about indentation or brace placement. However, code should be properly documented and all names should be descriptive and intuitive, while follow the language's standard conventions for casing.
+
+In general, if you're adding new code, make sure that it conforms with the code around it.
+
+
+## Who do I talk to? ##
 
 If you have any questions, email anyone of the following:
 
