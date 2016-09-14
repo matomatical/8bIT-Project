@@ -8,7 +8,7 @@ using System.Collections.Generic;
 // Making this controller the listener as well to keep all the MultiPlayer logic in one class
 public class MultiplayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener
 {
-    public MPRoomListener roomListener;
+    public IRoomListener roomListener;
     public Team8bITProject.IUpdateManager updateManager;
 
     // Making this a singleon as it'll be used in both the main menu and the game

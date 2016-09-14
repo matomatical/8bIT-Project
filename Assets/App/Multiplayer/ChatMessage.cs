@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * Represents a message sent between users for text chat
+ * 
+ * Sam Beyer, <sbeyer@student.unimelb.edu.au>
+*/
+
+using System;
 
 namespace Team8bITProject
 {
@@ -6,9 +12,9 @@ namespace Team8bITProject
 	{
 		public ChatMessage ()
 		{
-			// work out an actual type l8r
+			// This is the time sent in terms of the timer for the map
 			float timeSent;
-			// emoji support would be cool, we'll probaby need to handle emojis in some way or another
+			// Text to be sent
 			String message;
 		}
 	}

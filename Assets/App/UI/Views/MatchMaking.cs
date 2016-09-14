@@ -3,7 +3,7 @@ using System.Collections;
 using GooglePlayGames;
 using System;
 
-public class MatchMaking : MonoBehaviour, MPRoomListener {
+public class MatchMaking : MonoBehaviour, IRoomListener {
     // Holds the image that will be the background of the dialogue box
     public GUISkin guiSkin;
 
