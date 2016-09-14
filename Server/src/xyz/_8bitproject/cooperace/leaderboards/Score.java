@@ -1,4 +1,4 @@
-package xyz._8bitproject.cooperace.leaderboards;
+package xyz._8bITProject.cooperace.leaderboards;
 
 /** A data structure to represent a single high-score entry
  *  Implements the comparable interface so that scores can

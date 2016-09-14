@@ -1,4 +1,4 @@
-package xyz._8bitproject.cooperace.leaderboards.protocol;
+package xyz._8bITProject.cooperace.leaderboards.protocol;
 
 /** Simple data structure containing information requered by client
  *  in response to a score submission. Ready to be converted straight

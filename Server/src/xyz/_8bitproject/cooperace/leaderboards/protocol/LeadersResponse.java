@@ -1,6 +1,6 @@
-package xyz._8bitproject.cooperace.leaderboards.protocol;
+package xyz._8bITProject.cooperace.leaderboards.protocol;
 
-import xyz._8bitproject.cooperace.leaderboards.Score;
+import xyz._8bITProject.cooperace.leaderboards.Score;
 
 /** Simple data structure containing information requered by client
  *  in response to a score request. Ready to be converted straight

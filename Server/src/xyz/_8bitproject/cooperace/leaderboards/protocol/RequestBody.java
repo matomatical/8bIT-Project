@@ -1,7 +1,7 @@
-package xyz._8bitproject.cooperace.leaderboards.protocol;
+package xyz._8bITProject.cooperace.leaderboards.protocol;
 
-import xyz._8bitproject.cooperace.leaderboards.Leaderboard;
-import xyz._8bitproject.cooperace.leaderboards.LeaderboardsManager;
+import xyz._8bITProject.cooperace.leaderboards.Leaderboard;
+import xyz._8bITProject.cooperace.leaderboards.LeaderboardsManager;
 
 /** This command object represents the body of a score request message,
  *  which is comprised of a level name (for which the leading scores

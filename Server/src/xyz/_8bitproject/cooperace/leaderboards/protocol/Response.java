@@ -1,4 +1,4 @@
-package xyz._8bitproject.cooperace.leaderboards.protocol;
+package xyz._8bITProject.cooperace.leaderboards.protocol;
 
 /** This interface (intentionally left blank) is used to provide
  *  polymorphic response-object-to-JSON server logic. All response

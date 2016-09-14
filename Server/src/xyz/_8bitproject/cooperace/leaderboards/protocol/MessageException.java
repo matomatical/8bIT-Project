@@ -1,4 +1,4 @@
-package xyz._8bitproject.cooperace.leaderboards.protocol;
+package xyz._8bITProject.cooperace.leaderboards.protocol;
 
 import com.matomatical.util.AntiException;
 

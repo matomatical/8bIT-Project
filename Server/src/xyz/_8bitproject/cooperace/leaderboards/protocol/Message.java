@@ -1,4 +1,4 @@
-package xyz._8bitproject.cooperace.leaderboards.protocol;
+package xyz._8bITProject.cooperace.leaderboards.protocol;
 
 /** A Message is a command dispatcher populated with data from
  *  incoming JSON messages.

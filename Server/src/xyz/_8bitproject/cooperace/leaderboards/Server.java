@@ -1,4 +1,4 @@
-package xyz._8bitproject.cooperace.leaderboards;
+package xyz._8bITProject.cooperace.leaderboards;
 
 import static com.matomatical.util.Log.log;
 import com.matomatical.net.Port;

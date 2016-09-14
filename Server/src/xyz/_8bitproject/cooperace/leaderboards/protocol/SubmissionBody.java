@@ -1,8 +1,8 @@
-package xyz._8bitproject.cooperace.leaderboards.protocol;
+package xyz._8bITProject.cooperace.leaderboards.protocol;
 
-import xyz._8bitproject.cooperace.leaderboards.Leaderboard;
-import xyz._8bitproject.cooperace.leaderboards.LeaderboardsManager;
-import xyz._8bitproject.cooperace.leaderboards.Score;
+import xyz._8bITProject.cooperace.leaderboards.Leaderboard;
+import xyz._8bITProject.cooperace.leaderboards.LeaderboardsManager;
+import xyz._8bITProject.cooperace.leaderboards.Score;
 
 /** This command object represents the body of a score submit message,
  *  comprised of a level-name and a score to be submitted to that level.
