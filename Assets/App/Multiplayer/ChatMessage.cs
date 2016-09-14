@@ -6,7 +6,7 @@
 
 using System;
 
-namespace Team8bITProject
+namespace _8bITProject.cooperace.multiplayer
 {
 	public class ChatMessage
 	{

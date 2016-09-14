@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Team8bITProject
+namespace _8bITProject.cooperace.multiplayer
 {
 	public interface IObservable<T>
 	{
-		void Subscribe(T o);
+		void Subscribe(IListener<T> o);
 	}
 }
 

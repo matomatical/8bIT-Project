@@ -1,5 +1,8 @@
-﻿public interface IRoomListener
+﻿namespace _8bITProject.cooperace.multiplayer
 {
-    void SetRoomStatusMessage(string message);
-    void HideRoom();
+	public interface IRoomListener
+	{
+	    void SetRoomStatusMessage(string message);
+    	void HideRoom();
+	}
 }

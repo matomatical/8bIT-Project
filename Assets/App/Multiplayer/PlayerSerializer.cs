@@ -9,7 +9,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Team8bITProject
+namespace _8bITProject.cooperace.multiplayer
 {
 	public class PlayerSerializer : MonoBehaviour, ISerializer
 	{
@@ -75,6 +75,11 @@ namespace Team8bITProject
 			bytes.AddRange (BitConverter.GetBytes (posy));
 			bytes.Add (state);
 			return bytes;
+		}
+
+		public void Notify (List<byte> message)
+		{
+			Deserialize (message);
 		}
 	}
 }

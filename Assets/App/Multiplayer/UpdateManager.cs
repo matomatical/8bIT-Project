@@ -7,9 +7,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Team8bITProject
+namespace _8bITProject.cooperace.multiplayer
 {
-	public class UpdateManager : IUpdateManager
+	public class UpdateManager : IUpdateManager, IObservable<List<byte>>, IListener<List<byte>>
 	{
 		// The protcol being used to attatch the header
 		public static readonly byte PROTOCOL_VERSION = 0;
@@ -19,6 +19,9 @@ namespace Team8bITProject
 		private static readonly char PLAYER = 'p';
 		// Chat update identifier
 		private static readonly char CHAT = 't';
+
+		// List of subscribers
+		private List<IListener<List<byte>>> Parnters;
 
 		// Takes an update and the sender and then distributes the update to subscribers
 		public void HandleUpdate (byte[] data, string senderID)
@@ -43,8 +46,18 @@ namespace Team8bITProject
 		// Sends an update for a chat message
 		public void SendTextChat (List<byte> data)
 		{
-			ApplyHeader (data, OBSTACLE);
+			ApplyHeader (data, CHAT);
 			MultiplayerController.Instance.SendMyReliable (data);
+		}
+
+		public void Subscribe (IListener<List<byte>> o)
+		{
+			throw new NotImplementedException ();
+		}
+
+		public void Notify (List<byte> message)
+		{
+			throw new NotImplementedException ();
 		}
 
 		// Strips off the header of an update, returns information contained in the header

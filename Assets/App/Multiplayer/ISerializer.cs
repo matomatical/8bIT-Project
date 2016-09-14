@@ -9,9 +9,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace Team8bITProject
+namespace _8bITProject.cooperace.multiplayer
 {
-	public interface ISerializer : IObservable<IListener<List<byte>>>
+	public interface ISerializer : IObservable<List<byte>>, IListener<List<byte>>
 	{
 		// Takes an update, turns it into something meaningful and updates the object
 		void Deserialize (List<byte> update);

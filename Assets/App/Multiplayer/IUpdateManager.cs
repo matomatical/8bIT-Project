@@ -8,7 +8,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Team8bITProject
+namespace _8bITProject.cooperace.multiplayer
 {
 	public interface IUpdateManager
 	{
