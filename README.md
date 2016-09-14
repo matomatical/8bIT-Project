@@ -64,8 +64,8 @@ Note: If the remote doesn't begin to show the game on your device, try restartin
 In order to run all tests
 
 1. Open the project in unity.
-1. Go to the "Unity Test Tools > Integration Test Runner".
-1. Click the "Run All" button.
+1. Go to the `Unity Test Tools > Integration Test Runner`.
+1. Click the `Run All` button.
 
 ## Contribution guidelines ##
 
@@ -83,7 +83,7 @@ Every major feature will be developed outside of the repository's master branch,
 
 In terms of conventions, we're not fussed about indentation or brace placement. However, code should be properly documented and all names should be descriptive and intuitive, while follow the language's standard conventions for casing.
 
-In general, if you're adding new code, make sure that it conforms with the code around it.
+In general, if you're adding new code, a rule of thumb is to make sure that it conforms with the code around it.
 
 
 ## Who do I talk to? ##
