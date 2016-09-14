@@ -6,7 +6,7 @@ Welcome to team 8-bIT Project's IT Project Project repository.
 
 We're building a cooperative platformer game for Android 4.1, using Unity 5. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
-The repo also includes our homemade leaders boards server (under `Server/`). It has its own build and test instructions, included later in this README.
+The repo also includes our homemade leaders boards server (under `Server/`). It has its own build and test instructions, included later in this README. The leaderboards server is built in Java.
 
 ## How do I get set up? ##
 
@@ -75,13 +75,58 @@ In order to run all tests
 
 #### Dependencies
 
+The server aspect of the project has no external dependencies! However, the scripts for automated building, testing and running the server assume that the user is working in a unix environment with access to `sh` (the java classpath is specified with colons instead of semicolons, for example, so these might not run in properly on Windows).
+
 #### Build Instructions
 
-##### Configuring the Application to Connect to 
+To build the Server, simply `cd` into the `Server/` directory and run `sh build.sh`. This may take a moment, but will recompile all of the classes into subfolders of the `bin/` directory, ready to be run.
+
+You can then run the server using `sh run.sh` (making sure you are still within the `Server/` directory). This will launch the server for you! You can quit any time using `ctl`+`C`.
+
+(Or, disown the process and logout to leave it running. Instructions to come.)
+
+(Have an option for running the server perpetually, and include instructions for this case)
+
+(Also, mention configuration options like Ports)
+
+##### Configuring the Application to connect to an instance of the Server
+
+Instructions to come.
+
 
 #### Testing
 
+Once you have compiled the project (see build instructions) and are in the `Server/` directory, you can run the test suite by calling `sh test.sh`. This will re-build all jUnit test classes involved and then
 
+##### Adding New Tests
+
+You can add new jUnit test classes anywhere under `Server/xyz/_8bITProject/cooperace/leaderboards/test/`. A final step is then to add the names of your test classes to the list of tests included in the test suite. Open `Server/tests/TestSuite.java` and add your classes as shown:
+
+```
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+
+@RunWith(Suite.class)
+@Suite.SuiteClasses({
+    ExampleTest1.class,
+    ExampleTest2.class,
+    ExampleTest3.class,
+    // add your tests here, delimited by commas
+    ExampleTestN.class // final class has no comma
+})
+
+public class TestSuite {
+  // empty, used only as a holder for the above annotations
+}
+```
+
+Once you have finished, running `sh test.sh` (from within `Server/`) will compile and run all tests, including your new ones.
+
+#### Server Logs
+
+While the server is running, it contributes to a logfile.
+
+(Information about this will go here.)
 
 ## Contribution guidelines ##
 

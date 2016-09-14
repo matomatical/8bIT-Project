@@ -2,6 +2,8 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="boon.jar"/>
+	<classpathentry kind="lib" path="/Users/Matt/dev/uni/itp/itprepo/Server/jar/boon.jar"/>
+	<classpathentry kind="lib" path="jar/hamcrest.jar"/>
+	<classpathentry kind="lib" path="jar/junit.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
