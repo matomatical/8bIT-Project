@@ -25,7 +25,7 @@ public abstract class Log {
 	private static PrintWriter logfile = logfile();
 	private static PrintWriter logfile() {
 		try{
-			PrintWriter logfile = new PrintWriter(new FileWriter(path, !overwrite));
+			PrintWriter logfile = new PrintWriter(new FileWriter(path, !overwrite), true);
 			logfile.println("*** BEGIN LOG ***");
 			return logfile;
 		} catch (IOException e) {

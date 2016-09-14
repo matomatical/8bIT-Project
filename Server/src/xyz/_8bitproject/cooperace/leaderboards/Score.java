@@ -50,7 +50,7 @@ public class Score implements Comparable<Score> {
 	 * (longer than 3 chars)
 	 */
 	private String validateName(String player) {
-		if(player.length() == 3) {
+		if(player != null && player.length() == 3) {
 			return player;
 		} else {
 			throw new InvalidScoreException("Invalid player name length: "
@@ -74,7 +74,6 @@ public class Score implements Comparable<Score> {
 	 * @return A new default score object
 	 */
 	public static Score newDefaultScore() {
-		// 
 		return new Score(60000, "---", "---");
 	}
 }

@@ -1,4 +1,5 @@
 bin/
+**/*.class
 *.pem
 .project
 .settings/

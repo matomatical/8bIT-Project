@@ -6,7 +6,7 @@ Welcome to team 8-bIT Project's IT Project Project repository.
 
 We're building a cooperative platformer game for Android 4.1, using Unity 5. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
-The repo also includes our homemade leaders boards server (under `Server/`). It has its own build and test instructions, included later in this README. The leaderboards server is built in Java.
+The repository also includes our home-made leaders boards server (under `Server/`). It has its own build and test instructions, included later in this README. The leaderboards server is built in Java.
 
 ## How do I get set up? ##
 
@@ -21,7 +21,7 @@ Before checking out the project, you'll want to have installed the following sof
 
 #### Deployment Instructions
 
-Once you have those installed, you'll be able to follow these steps to get the project from the bitbucket repository and into Unity.
+Once you have those installed, you'll be able to follow these steps to get the project from the Bitbucket repository and into Unity.
 
 * First you'll want to create a folder for the repository, and then download the repository and put it in that folder.
 * Next, you'll want to open up Unity.
@@ -81,13 +81,19 @@ The server aspect of the project has no external dependencies! However, the scri
 
 To build the Server, simply `cd` into the `Server/` directory and run `sh build.sh`. This may take a moment, but will recompile all of the classes into subfolders of the `bin/` directory, ready to be run.
 
-You can then run the server using `sh run.sh` (making sure you are still within the `Server/` directory). This will launch the server for you! You can quit any time using `ctl`+`C`.
+You can then run the server using `sh run.sh` (making sure you are still within the `Server/` directory). This will launch the server for you on the default ports. You can quit any time using `ctl`+`C`.
 
-(Or, disown the process and logout to leave it running. Instructions to come.)
+You may want to select your own port for the server to listen on for testing purposes. You can do this using the `-p` option like so: `sh run.sh -p 2693` to run on port 2693, for example.
 
-(Have an option for running the server perpetually, and include instructions for this case)
+You may also want the server to run perpetually. That is, to start itself up again even if it ever closes. To achieve this, you can use the `-f` (forever) flag: `sh run.sh -f`.
 
-(Also, mention configuration options like Ports)
+> Note: You'll no longer be able to shut down the script with `ctrl`+`C`; this will now close (and restart) the server. You can end the script with `ctrl`+`Z` followed by `kill PID` where `PID` is the process ID of the script, found using the `ps` command.
+
+If you want to leave the server running while you are away, the simplest way to do this is to background the launch script with `sh run.sh [opts] &`, and then disown it using `disown -h PID` where `PID` is the process ID of the script, found using the `ps` command.
+
+> Note: You'll no longer be able to shut down the script the usual way, you'll have to use `kill PID` (if you don't know the ID at this point, `ps -x` lists IDs of disowned processes). If the server shows up as still running, kill that process too.
+
+> Also: disowning a process nulls its standard input/output streams. If you want to keep these, you should redirect them using `>` and `<`.
 
 ##### Configuring the Application to connect to an instance of the Server
 
@@ -100,7 +106,7 @@ Once you have compiled the project (see build instructions) and are in the `Serv
 
 ##### Adding New Tests
 
-You can add new jUnit test classes anywhere under `Server/xyz/_8bITProject/cooperace/leaderboards/test/`. A final step is then to add the names of your test classes to the list of tests included in the test suite. Open `Server/tests/TestSuite.java` and add your classes as shown:
+You can add new jUnit test classes anywhere under `Server/tests/`. A final step is then to add the names of your test classes to the list of tests included in the main test suite. To do this, open `Server/tests/TestSuite.java` and add your classes as shown:
 
 ```
 import org.junit.runner.RunWith;
@@ -120,13 +126,11 @@ public class TestSuite {
 }
 ```
 
-Once you have finished, running `sh test.sh` (from within `Server/`) will compile and run all tests, including your new ones.
+Once you have finished, running `sh test.sh` again (from within `Server/`) as per the instructions above will compile and run all tests, including your new ones.
 
 #### Server Logs
 
-While the server is running, it contributes to a logfile.
-
-(Information about this will go here.)
+While the server is running, it contributes to a logfile. This logfile can be found at either `Server/bin/logfile.txt` or `Server/logfile.txt`, depending on how the server was started. Check it out to see details of the interactions with connecting clients.
 
 ## Contribution guidelines ##
 

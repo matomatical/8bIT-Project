@@ -5,7 +5,7 @@ import xyz._8bITProject.cooperace.leaderboards.tests.*;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
 	// tests here
-	EmptyTest.class
+	ScoreTest.class
 })
 
 public class TestSuite {
