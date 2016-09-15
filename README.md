@@ -100,7 +100,7 @@ If you want to leave the server running while you are away, the simplest way to 
 Instructions to come.
 
 
-#### Testing
+#### Unit Testing
 
 Once you have compiled the project (see build instructions) and are in the `Server/` directory, you can run the test suite by calling `sh test.sh`. This will re-build all jUnit test classes involved and then
 
@@ -127,6 +127,16 @@ public class TestSuite {
 ```
 
 Once you have finished, running `sh test.sh` again (from within `Server/`) as per the instructions above will compile and run all tests, including your new ones.
+
+#### Integration Tests
+
+More info to come
+
+#### Acceptance Tests
+
+The easiest way to perform end-to-end tests of the server is to use a command line utility such as netcat to open a TCP connection with the server and (e.g. `nc lb.cooperace.8bitproject.xyz 2693`, where you fill in the appropriate name and port number based on where you are running the server), and type/paste JSON messages as if you were the game contacting the server, to see what the replies are. Refer to the design documentation in our [Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU) for info on the format of messages.
+
+In the future, the aim is to provide a series of automated tests for this too.
 
 #### Server Logs
 
