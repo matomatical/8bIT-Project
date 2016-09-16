@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class PressurePlate : MonoBehaviour {
@@ -7,6 +6,8 @@ public class PressurePlate : MonoBehaviour {
 	public string address;
 
 	List<PressurePlateBlock> linked;
+
+	int isColliding;
 
 	void Start () {
 		PressurePlateBlock[] allBlocks = transform.parent.GetComponentsInChildren<PressurePlateBlock>();
@@ -18,20 +19,24 @@ public class PressurePlate : MonoBehaviour {
 		}
 	}
 
-	void OnTriggerEnter2D() {
-		Debug.Log("enter plate: " + address + ":" + linked.Count);
+	void UpdateBlocksStatus() {
 		foreach (PressurePlateBlock block in linked) {
-			Debug.Log("disable:" + block);
-			block.gameObject.SetActive(false);
+			block.UpdateStatus();
 		}
 	}
 
+	void OnTriggerEnter2D() {
+		++isColliding;
+		UpdateBlocksStatus();
+	}
+
 	void OnTriggerExit2D() {
-		Debug.Log("exit plate: " + address + ":" + linked.Count);
-		foreach (PressurePlateBlock block in linked) {
-			Debug.Log("enable:" + block);
-			block.gameObject.SetActive(true);
-		}
+		--isColliding;
+		UpdateBlocksStatus();
+	}
+
+	public bool IsPressed() {
+		return isColliding > 0;
 	}
 
 }

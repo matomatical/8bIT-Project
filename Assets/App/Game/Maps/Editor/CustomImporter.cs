@@ -11,11 +11,12 @@ class CustomImporter : ICustomTiledImporter {
 	GameObject keyBlockPrefab = (GameObject)Resources.Load("KeyBlock");
 	GameObject pressurePlatePrefab = (GameObject)Resources.Load("PressurePlate");
 	GameObject pressurePlateBlockPrefab = (GameObject)Resources.Load("PressurePlateBlock");
+	GameObject pushBlockPrefab = (GameObject)Resources.Load("PushBlock");
 	GameObject finishLinePrefab = (GameObject)Resources.Load("FinishLine");
 	GameObject exitPrefab = (GameObject)Resources.Load("Exit");
 
     public void HandleCustomProperties(GameObject marker,
-        IDictionary<string, string> props) {
+			IDictionary<string, string> props) {
         if (props.ContainsKey("Key")) {
 			replaceMarker(marker, keyPrefab);
 		} else if (props.ContainsKey("KeyBlock")) {
@@ -26,6 +27,8 @@ class CustomImporter : ICustomTiledImporter {
 		} else if (props.ContainsKey("PressurePlateBlock")) {
 			GameObject block = replaceMarker(marker, pressurePlateBlockPrefab);
 			block.GetComponent<PressurePlateBlock>().address = props["PressurePlateBlock"];
+        } else if (props.ContainsKey("PushBlock")) {
+			replaceMarker(marker, pushBlockPrefab);
         } else if (props.ContainsKey("FinishLine")) {
 			replaceMarker(marker, finishLinePrefab);
 		} else if (props.ContainsKey("Exit")) {
