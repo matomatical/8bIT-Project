@@ -13,48 +13,43 @@ public class Score implements Comparable<Score> {
 	/** One of the player names associated with this score */
 	public final String player1, player2;
 	
-	/** Create a new score
-	 * @param time Time component (in tenths-of-a-second)
-	 * @param player1 Name of player 1 (a three-letter string)
-	 * @param player2 Name of player 2 (a three-letter string)
+	/** Create a new score */
+	public Score(int time, String p1, String p2){
+		this.time = time;
+		this.player1 = p1;
+		this.player2 = p2;
+	}
+	
+	/** Validate this score
 	 * @throws InvalidScoreException if a part of the score is
 	 * not valid
 	 */
-	public Score(int time, String player1, String player2)
-									throws InvalidScoreException {
-		
-		this.time = validateTime(time); 
-		
-		this.player1 = validateName(player1);
-		this.player2 = validateName(player2);
+	public void validate() throws InvalidScoreException {
+		validateTime(time);
+		validateName(player1);
+		validateName(player2);
 	}
 	
 	/** Helper function to validate time inputs 
 	 * @param time The time to validate
-	 * @return The validated time
 	 * @throws InvalidScoreException if the time is invalid (<= 0)
 	 */
-	private int validateTime(int time) throws InvalidScoreException {
-		if(time > 0){
-			return time;
-		} else {
+	private void validateTime(int time) throws InvalidScoreException {
+		if(time <= 0){
 			 // TODO: Add more validation rules (e.g. lower bounds on time)
 			throw new InvalidScoreException("Invalid time: " + time);
 		}
 	}
 	
 	/** Helper function to validate name inputs 
-	 * @param player The name to validate
+	 * @param name The name to validate
 	 * @return The validated name
 	 * @throws InvalidScoreException if the name is invalid
 	 * (longer than 3 chars)
 	 */
-	private String validateName(String player) {
-		if(player != null && player.length() == 3) {
-			return player;
-		} else {
-			throw new InvalidScoreException("Invalid player name length: "
-					+ player.length());
+	private void validateName(String name) {
+		if(name == null || name.length() != 3) {
+			throw new InvalidScoreException("Invalid player name: " + name);
 		}
 	}
 
@@ -62,6 +57,23 @@ public class Score implements Comparable<Score> {
 	public int compareTo(Score that) {
 		// compare based on time
 		return this.time - that.time;
+	}
+	
+	@Override
+	public boolean equals(Object that){
+		if(this == that){
+			return true;
+		} else if(that != null && that.getClass() == this.getClass()) {
+			return this.equals((Score)that);
+		}
+		return false;
+	}
+	
+	/** Helper equals method, just for Scores */
+	private boolean equals(Score that){
+		return that!=null && this.time == that.time
+				&& this.player1.equals(that.player1)
+				&& this.player2.equals(that.player2);
 	}
 	
 	@Override

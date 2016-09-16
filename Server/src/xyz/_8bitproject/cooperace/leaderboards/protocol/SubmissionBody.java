@@ -23,19 +23,11 @@ class SubmissionBody {
 		
 		if(level == null){
 			throw new MessageException("missing level in submission message");
-		
 		} else if(score == null){
 			throw new MessageException("missing score in submission message");
-		
-		} else if (score.time <= 0){ // TODO NOTE: actual scores of 0 will be considered invalid 
-			throw new MessageException("incomplete score: time field missing or zero");
-			
-		} else if (score.player1 == null){ // TODO: This checking should reall happen within score?
-			throw new MessageException("incomplete score: player1 field missing");
-			
-		} else if (score.player2 == null) {
-			throw new MessageException("incomplete score: player2 field missing");
 		}
+		score.validate(); // throws InvalidScoreException if invalid
+		
 		
 		// build response
 		

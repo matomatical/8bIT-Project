@@ -41,6 +41,30 @@ public class Leaderboard {
 		} 
 	}
 	
+	/** Create a new leaderboard for a level with a given name, and a given
+	 * set of initial scores (truncated or padded to the right length)
+	 * @param levelName The name of the level this leaderboard tracks
+	 * @param scores The scores to start with
+	 */
+	public Leaderboard(String levelName, Score[] scores) {
+		
+		this.levelName = levelName;
+		
+		// initialise the scoreboard with provided scores
+		
+		leaders = new Score[NUMSCORES];
+		
+		for(int i = 0; i < NUMSCORES; i ++){
+			if(i < scores.length){
+				leaders[i] = scores[i];
+			} else {
+				// pad to NUMSCORES with default ones
+				// if necessary
+				leaders[i] = Score.newDefaultScore();
+			}
+		} 
+	}
+	
 	/** Where would this score rank on the leaderboard?
 	 * Requests a read lock on the leaderboard, so may block.
 	 * Check this before trying to {@link #record(Score)}, to save a
