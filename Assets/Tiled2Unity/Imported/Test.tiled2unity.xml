@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 31/8/2016 8:20:27 AM-->
+<!--Last exported: 17/9/2016 12:42:01 AM-->
 <Tiled2Unity version="1.0.7.8">
   <AssignMaterial mesh="mesh_0001" material="spritesheet_transparent" />
   <Prefab name="Test" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="60" numTilesHigh="10" tileWidth="21" tileHeight="21" exportScale="0.04761905" mapWidthInPixels="1260" mapHeightInPixels="210">
@@ -45,6 +45,14 @@
       </GameObject>
       <GameObject name="RectangleObject" x="10" y="-7" rotation="0" layer="">
         <Property name="PressurePlate" value="1" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="37" y="-7" rotation="0" layer="">
+        <Property name="FinishLine" value="" />
+        <BoxCollider2D width="1" height="1" />
+      </GameObject>
+      <GameObject name="RectangleObject" x="57" y="-7" rotation="0" layer="">
+        <Property name="Exit" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
     </GameObject>
