@@ -7,6 +7,7 @@ class CustomImporter : ICustomTiledImporter {
 
 	Vector3 offset = new Vector3(0.5f, -0.5f, 0);
 
+	GameObject playerPrefab = (GameObject)Resources.Load("Player");
 	GameObject keyPrefab = (GameObject)Resources.Load("Key");
 	GameObject keyBlockPrefab = (GameObject)Resources.Load("KeyBlock");
 	GameObject pressurePlatePrefab = (GameObject)Resources.Load("PressurePlate");
@@ -17,7 +18,9 @@ class CustomImporter : ICustomTiledImporter {
 
     public void HandleCustomProperties(GameObject marker,
 			IDictionary<string, string> props) {
-        if (props.ContainsKey("Key")) {
+        if (props.ContainsKey("Player")) {
+			replaceMarker(marker, playerPrefab);
+		} else if (props.ContainsKey("Key")) {
 			replaceMarker(marker, keyPrefab);
 		} else if (props.ContainsKey("KeyBlock")) {
 			replaceMarker(marker, keyBlockPrefab);

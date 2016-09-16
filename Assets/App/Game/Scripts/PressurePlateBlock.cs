@@ -25,7 +25,6 @@ public class PressurePlateBlock : MonoBehaviour {
 			isOpen = isOpen || plate.IsPressed();
 		}
 
-		Debug.Log("Block " + address + ": " + isOpen);
 		gameObject.SetActive(!isOpen);
 	}
 
