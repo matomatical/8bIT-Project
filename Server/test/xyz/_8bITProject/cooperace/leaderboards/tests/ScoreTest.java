@@ -145,6 +145,16 @@ public class ScoreTest {
 	}
 	
 	@Test
+	public void equalsShouldRejectNonScore() {
+		
+		Score score = new Score(100, "ABC", "DEF");
+		
+		boolean result = score.equals(new Object());
+		
+		Assert.assertEquals(false, result);
+	}
+	
+	@Test
 	public void equalsShouldRejectDifferentTime() {
 		
 		Score score1 = new Score(100, "ABC", "DEF");

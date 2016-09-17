@@ -55,7 +55,7 @@ public class Leaderboard {
 		leaders = new Score[NUMSCORES];
 		
 		for(int i = 0; i < NUMSCORES; i ++){
-			if(i < scores.length){
+			if(scores != null && i < scores.length){
 				leaders[i] = scores[i];
 			} else {
 				// pad to NUMSCORES with default ones
