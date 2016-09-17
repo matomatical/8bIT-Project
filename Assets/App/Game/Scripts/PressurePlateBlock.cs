@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class PressurePlateBlock : MonoBehaviour {
 
+	[HideInInspector]
 	public string address;
 	public List<PressurePlate> linked;
 
