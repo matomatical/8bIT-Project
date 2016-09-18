@@ -8,7 +8,7 @@ import xyz._8bITProject.cooperace.leaderboards.LeaderboardsManager;
  *  are sought).
  * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
-class RequestBody {
+public class RequestBody {
 	
 	/** The name of the level for which scores are sought in this request */
 	public String level;

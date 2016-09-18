@@ -8,7 +8,7 @@ import xyz._8bITProject.cooperace.leaderboards.Score;
  *  comprised of a level-name and a score to be submitted to that level.
  * @author Matt Farrugia <farrugiam@student.unimelb.edu.au>
  */
-class SubmissionBody {
+public class SubmissionBody {
 	
 	/** The name of the level for submission */
 	public String level;
