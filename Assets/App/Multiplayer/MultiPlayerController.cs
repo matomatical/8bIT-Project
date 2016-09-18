@@ -13,7 +13,7 @@ namespace _8bITProject.cooperace.multiplayer
 	    public IRoomListener roomListener;
 	    public IUpdateManager updateManager;
 
-	    // Making this a singleon as it'll be used in both the main menu and the game
+	    // Making this a singleton as it'll be used in both the main menu and the game
 	    private static MultiplayerController _instance = null;
 
 	    // Sticking to a 2 player game
@@ -23,7 +23,7 @@ namespace _8bITProject.cooperace.multiplayer
 	    // Sticking with a single game mode
 	    private uint gameVariation = 0;
 
-	    private String levelName = "MP Empty Level";
+	    private String levelName = "Multiplayer Test Level";
 
 	    private byte protocolVersion = 1;
 	    // Byte + Byte + 2 floats for position + 2 floats for velcocity
@@ -116,10 +116,14 @@ namespace _8bITProject.cooperace.multiplayer
 
 	    public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data)
 		{
-	        // Tell our GameController about this.
+			// turn the data into a List instead of an array
+			List<byte> listData = new List<byte> ();
+			listData.AddRange (data);
+
+	        // Tell our update manager about this.
 	        if (updateManager != null)
 	        {
-	            updateManager.HandleUpdate(data, senderId);
+	            updateManager.HandleUpdate(listData, senderId);
 	        }
 	    }
 

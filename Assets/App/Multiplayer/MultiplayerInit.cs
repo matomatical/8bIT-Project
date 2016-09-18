@@ -50,9 +50,5 @@ namespace _8bITProject.cooperace.multiplayer
 				player2.GetComponent<PlayerSerializer> ().Subscribe(updateManager);
 			}
 		}
-
-		void Update () {
-			// Nothing to do here...
-		}
 	}
 }

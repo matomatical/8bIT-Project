@@ -5,6 +5,7 @@
  * 
 */
 using System;
+using UnityEngine;
 using System.Collections.Generic;
 
 namespace _8bITProject.cooperace.multiplayer
@@ -14,70 +15,96 @@ namespace _8bITProject.cooperace.multiplayer
 		// The protcol being used to attatch the header
 		public static readonly byte PROTOCOL_VERSION = 0;
 		// Obstacle update identifier
-		private static readonly char OBSTACLE = 'u';
+		public static readonly byte OBSTACLE = BitConverter.GetBytes ('o')[0];
 		// Player update identifier
-		private static readonly char PLAYER = 'p';
+		public static readonly byte PLAYER = BitConverter.GetBytes ('p')[0];
 		// Chat update identifier
-		private static readonly char CHAT = 't';
+		public static readonly byte CHAT = BitConverter.GetBytes ('t')[0];
 
 		// List of subscribers
-		private List<IListener<List<byte>>> Parnters;
+		private List<IListener<List<byte>>> subscribers = new List<IListener<List<byte>>> ();
 
 		// Takes an update and the sender and then distributes the update to subscribers
-		public void HandleUpdate (byte[] data, string senderID)
+		public void HandleUpdate (List<byte> data, string senderID)
 		{
-			throw new NotImplementedException ();
+			Debug.Log ("Update recieved from " + senderID);
+			List<byte> header = StripHeader (data);
+			if (header [0] == PROTOCOL_VERSION) {
+				if (header [1] == PLAYER) {
+					Debug.Log ("Notifying everyone");
+					NotifyAll (data);
+				}
+			} else {
+				// We're in trouble!!
+			}
 		}
 
 		// Sends an update for an obstacle
 		public void SendObstacleUpdate (List<byte> data)
 		{
-			ApplyHeader (data, OBSTACLE);
+			ApplyHeader (data);
 			MultiplayerController.Instance.SendMyReliable (data);
+			Debug.Log ("Sending obstacle update");
 		}
 
 		// Sends an update for a player
 		public void SendPlayerUpdate (List<byte> data)
 		{
-			ApplyHeader (data, PLAYER);
+			ApplyHeader (data);
 			MultiplayerController.Instance.SendMyUnreliable (data);
+			Debug.Log ("Sending player update");
 		}
 
 		// Sends an update for a chat message
 		public void SendTextChat (List<byte> data)
 		{
-			ApplyHeader (data, CHAT);
+			ApplyHeader (data);
 			MultiplayerController.Instance.SendMyReliable (data);
+			Debug.Log ("Sending chat message");
 		}
 
 		public void Subscribe (IListener<List<byte>> o)
 		{
-			throw new NotImplementedException ();
+			subscribers.Add (o);
 		}
 
+		// Send the appropriate update
 		public void Notify (List<byte> message)
 		{
-			throw new NotImplementedException ();
+			ApplyHeader (message);
+			// at the moment the only message to send is from a player
+			SendPlayerUpdate (message);
 		}
 
 		// Strips off the header of an update, returns information contained in the header
 		private List<byte> StripHeader(List<byte> data) {
+			// get the protocol
 			byte protocol = data[0];
 			List<byte> headerInfo = new List<byte>();
 
+			// remove the protocol
+			data.RemoveAt (0);
+
 			if (protocol == PROTOCOL_VERSION) {
-				data.RemoveAt (0);
+				// get the update type
 				headerInfo.Add (data[0]);
+				// remove the update type
 				data.RemoveAt (0);
 			}
 
 			return headerInfo;
 		}
 
-		// Applies a header to an upddate (data), type is the type of update
-		private void ApplyHeader(List<byte> data, char type) {
+		// Applies a header to an upddate (data), at this point just a protocol version
+		private void ApplyHeader(List<byte> data) {
 			data.Insert (0, PROTOCOL_VERSION);
-			data.InsertRange (1, BitConverter.GetBytes(type));
+		}
+
+		// Notifies all subscribers of an update
+		private void NotifyAll (List<byte> data) {
+			foreach (IListener<List<byte>> sub in subscribers) {
+				sub.Notify (data);
+			}
 		}
 	}
 }

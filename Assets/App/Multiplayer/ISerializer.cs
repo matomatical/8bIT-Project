@@ -13,10 +13,7 @@ namespace _8bITProject.cooperace.multiplayer
 {
 	public interface ISerializer : IObservable<List<byte>>, IListener<List<byte>>
 	{
-		// Takes an update, turns it into something meaningful and updates the object
-		void Deserialize (List<byte> update);
-		// Looks at the state of an object and turns it into a list of bytes
-		List<byte> Serialize();
+
 	}
 }
 	

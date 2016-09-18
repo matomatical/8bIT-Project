@@ -13,7 +13,7 @@ namespace _8bITProject.cooperace.multiplayer
 	public interface IUpdateManager
 	{
 		// When an update is recieved, this method is called
-		void HandleUpdate (byte[] data, String senderID);
+		void HandleUpdate (List<byte> data, String senderID);
 		// Methods for sending update of different kinds of game objects
 		void SendObstacleUpdate (List<byte> data);
 		void SendPlayerUpdate (List<byte> data);
