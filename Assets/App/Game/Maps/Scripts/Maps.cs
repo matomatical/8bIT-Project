@@ -8,7 +8,7 @@
 using UnityEngine;
 
 namespace _8bITProject.cooperace {
-	public class Maps {
+	public static class Maps {
 
 		// list of all levels
 		public static string[] maps = new string[] {
@@ -17,7 +17,10 @@ namespace _8bITProject.cooperace {
 			"Test_Level_3"
 		};
 
-		public static GameObject Load(string name) {
+		public static GameObject Load(string name=null) {
+			if (name == null) {
+				name = maps[Random.Range(0, maps.Length)];
+			}
 			return Resources.Load("Maps/" + name) as GameObject;
 		}
 

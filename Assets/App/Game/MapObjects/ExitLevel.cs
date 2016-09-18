@@ -13,7 +13,7 @@ namespace _8bITProject.cooperace {
 
 		void OnTriggerEnter2D(Collider2D other) {
 			if (other.gameObject.CompareTag("Player")) {
-				UIHelper.GoTo("PostGameMenu");
+				SceneManager.Load("PostGameMenu");
 			}
 		}
 

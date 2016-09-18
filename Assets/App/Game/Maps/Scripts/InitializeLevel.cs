@@ -19,7 +19,7 @@ namespace _8bITProject.cooperace {
 		public GameObject level;
 
 		void Awake() {
-			GameObject prefab = Maps.Load("Test_Level_3");
+			GameObject prefab = Maps.Load(SceneManager.levelToLoad);
 			if (prefab) {
 				level = GameObject.Instantiate<GameObject>(prefab);
 				camera.level = level.GetComponent<TiledMap>();
