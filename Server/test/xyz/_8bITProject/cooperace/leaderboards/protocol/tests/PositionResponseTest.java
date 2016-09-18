@@ -9,7 +9,7 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.PositionResponse;
 public class PositionResponseTest {
 	
 	@Test
-	public void boonToJsonOrRankingPositionShouldMatchProtocol(){
+	public void boonToJsonOfRankingPositionShouldMatchProtocol(){
 		
 		// create a position response to convert
 		
