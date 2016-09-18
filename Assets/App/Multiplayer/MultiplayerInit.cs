@@ -30,24 +30,28 @@ namespace _8bITProject.cooperace.multiplayer
 
 				// Disable the controller for the partner
 				player2.GetComponent<PlayerController> ().enabled = false;
+				// And make sure the controller is enabled for the player
+				player1.GetComponent<PlayerController> ().enabled = true;
 
 				// Tell update manager about the serialiser for player 2 so updates get recieved
 				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
 
 				// Tell player 1 to send updates to the update manager
-				player1.GetComponent<PlayerSerializer> ().Subscribe(updateManager);
+				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;
 			} else {
 				// Partner is player 1
 				partner = participants [0];
 
 				// Disable the controller for the partner
 				player1.GetComponent<PlayerController> ().enabled = false;
+				// And make sure the controller is enabled for the player
+				player2.GetComponent<PlayerController> ().enabled = true;
 
 				// Tell update manager about the serialiser for player 1 so updates get recieved
 				updateManager.Subscribe(player1.GetComponent<PlayerSerializer> ());
 
 				// Tell player 2 to send updates to the update manager
-				player2.GetComponent<PlayerSerializer> ().Subscribe(updateManager);
+				player2.GetComponent<PlayerSerializer> ().updateManager = updateManager;
 			}
 		}
 	}

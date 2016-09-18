@@ -10,7 +10,7 @@ using System.Collections.Generic;
 
 namespace _8bITProject.cooperace.multiplayer
 {
-	public class UpdateManager : IUpdateManager, IObservable<List<byte>>, IListener<List<byte>>
+	public class UpdateManager : IUpdateManager, IObservable<List<byte>>
 	{
 		// The protcol being used to attatch the header
 		public static readonly byte PROTOCOL_VERSION = 0;
@@ -33,16 +33,14 @@ namespace _8bITProject.cooperace.multiplayer
 				if (header [1] == PLAYER) {
 					Debug.Log ("Notifying everyone");
 					NotifyAll (data);
-				}
-			} else {
-				// We're in trouble!!
-			}
+				} // handle other types of updates in this if/else tree
+			} // Handle other protocols in this if/else tree
 		}
 
 		// Sends an update for an obstacle
 		public void SendObstacleUpdate (List<byte> data)
 		{
-			ApplyHeader (data);
+			ApplyHeader (data, OBSTACLE);
 			MultiplayerController.Instance.SendMyReliable (data);
 			Debug.Log ("Sending obstacle update");
 		}
@@ -50,15 +48,17 @@ namespace _8bITProject.cooperace.multiplayer
 		// Sends an update for a player
 		public void SendPlayerUpdate (List<byte> data)
 		{
-			ApplyHeader (data);
+			ApplyHeader (data, PLAYER);
+			// uncomment/comment the following lines to change between in editor and real testing
 			MultiplayerController.Instance.SendMyUnreliable (data);
+			//HandleUpdate(data, "memes");
 			Debug.Log ("Sending player update");
 		}
 
 		// Sends an update for a chat message
 		public void SendTextChat (List<byte> data)
 		{
-			ApplyHeader (data);
+			ApplyHeader (data, CHAT);
 			MultiplayerController.Instance.SendMyReliable (data);
 			Debug.Log ("Sending chat message");
 		}
@@ -68,21 +68,14 @@ namespace _8bITProject.cooperace.multiplayer
 			subscribers.Add (o);
 		}
 
-		// Send the appropriate update
-		public void Notify (List<byte> message)
-		{
-			ApplyHeader (message);
-			// at the moment the only message to send is from a player
-			SendPlayerUpdate (message);
-		}
-
 		// Strips off the header of an update, returns information contained in the header
 		private List<byte> StripHeader(List<byte> data) {
 			// get the protocol
 			byte protocol = data[0];
 			List<byte> headerInfo = new List<byte>();
 
-			// remove the protocol
+			// add protocol to header and remove from message
+			headerInfo.Add(protocol);
 			data.RemoveAt (0);
 
 			if (protocol == PROTOCOL_VERSION) {
@@ -95,9 +88,10 @@ namespace _8bITProject.cooperace.multiplayer
 			return headerInfo;
 		}
 
-		// Applies a header to an upddate (data), at this point just a protocol version
-		private void ApplyHeader(List<byte> data) {
+		// Applies a header to an upddate (data), at this point just a protocol version and update type
+		private void ApplyHeader(List<byte> data, byte type) {
 			data.Insert (0, PROTOCOL_VERSION);
+			data.Insert(1, type);
 		}
 
 		// Notifies all subscribers of an update

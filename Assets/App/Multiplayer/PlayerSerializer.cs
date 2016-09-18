@@ -34,6 +34,9 @@ namespace _8bITProject.cooperace.multiplayer
 		// Keeps track of the last update to see if anything has changed
 		private float lastPosx;
 		private float lastPosy;
+
+		// used to guard serialize and deserialize being run if the transform is not yet found
+		private bool ready = false;
 	 
 		void Start () {
 			// Get compenents
@@ -48,58 +51,55 @@ namespace _8bITProject.cooperace.multiplayer
 			// Fill out last positions with dummys
 			lastPosx = 0;
 			lastPosy = 0;
+
+			ready = true;
 		}
 
 		// Called at set intervals, used to let update manager know there is an update
-		void Update () {
+		void FixedUpdate () {
 			// stores current state
 			List<byte> update;
 
-			Debug.Log ("x: " + thisTransform.position.x + "y: " + thisTransform.position.y);
+			// only send if there is an update manager to send to and the transform is found
+			if (updateManager != null && ready) {
+				// if it's time to send another update
+				if (stepsUntilSend < 1) {
+					// get the update to be sent
+					update = Serialize ();
+					// if the update is different to the last one sent
+					if (thisTransform.position.x != lastPosx || thisTransform.position.y != lastPosy) {
+						Debug.Log ("Serializing");
 
+						// send the update
+						Send (update);
 
-			// if it's time to send another update
-			if (stepsUntilSend < 1) {
-				// get the update to be sent
-				update = Serialize ();
-				// if the update is different to the last one sent
-				if (thisTransform.position.x != lastPosx || thisTransform.position.y != lastPosy) {
-					Debug.Log ("Serializing");
-
-					// send the update
-					Send (update);
-
-					// reflect changes in the last update
-					lastPosx = thisTransform.position.x;
-					lastPosy = thisTransform.position.y;
+						// reflect changes in the last update
+						lastPosx = thisTransform.position.x;
+						lastPosy = thisTransform.position.y;
+					} else {
+						Debug.Log ("Nothing has changed since last update");
+					}
 				} else {
-					Debug.Log ("Nothing has changed since last update");
+					// reset the steps since an update was sent
+					stepsUntilSend = MAX_STEPS_BETWEEN_SENDS;
 				}
-			} else {
-				// reset the steps since an update was sent
-				stepsUntilSend = MAX_STEPS_BETWEEN_SENDS;
+				// show a step has been taken regardless of what happens
+				stepsUntilSend -= 1;
 			}
-			// show a step has been taken regardless of what happens
-			stepsUntilSend -= 1;
-		}
-
-		// Add the object wanting to subscribe to the list of subscribers
-		public void Subscribe(IListener<List<byte>> sub) {
-			subscribers.Add (sub);
 		}
 
 		// Tell this object there is an update from an observable
 		public void Notify (List<byte> message)
 		{
-			Deserialize (message);
+			if (ready) {
+				Deserialize (message);
+			}
 		}
 
 		// Let subscribers know there is an update
 		private void Send (List<byte> message)
 		{
-			foreach (IListener<List<byte>> sub in subscribers) {
-				sub.Notify (message);
-			}
+			updateManager.SendPlayerUpdate (message);
 		}
 
 		// Takes an update and applies it to this serializer's object
@@ -107,12 +107,12 @@ namespace _8bITProject.cooperace.multiplayer
 		{
 			float posx, posy;
 			byte state;
-			byte[] data = update.ToArray();
+			byte[] data = update.ToArray ();
 
 			// Get the information from the list of bytes
 			posx = BitConverter.ToSingle (data, 0);
 			posy = BitConverter.ToSingle (data, 4);
-			state = data[8];
+			state = data [8];
 
 			// Update the position and the animation state
 			thisTransform.position = new Vector3 (posx, posy, 0); 
@@ -128,10 +128,9 @@ namespace _8bITProject.cooperace.multiplayer
 			// get current state and x and y values
 			float posx = thisTransform.position.x;
 			float posy = thisTransform.position.y;
-			byte state = (byte)(animator.GetInteger("State"));
+			byte state = (byte)(animator.GetInteger ("State"));
 
 			// Add the byte representation of the above values into the list
-			bytes.Add(UpdateManager.PLAYER);
 			bytes.AddRange (BitConverter.GetBytes (posx));
 			bytes.AddRange (BitConverter.GetBytes (posy));
 			bytes.Add (state);

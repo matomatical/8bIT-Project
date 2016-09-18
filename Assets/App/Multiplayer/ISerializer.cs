@@ -11,7 +11,7 @@ using System.Collections.Generic;
 
 namespace _8bITProject.cooperace.multiplayer
 {
-	public interface ISerializer : IObservable<List<byte>>, IListener<List<byte>>
+	public interface ISerializer : IListener<List<byte>>
 	{
 
 	}
