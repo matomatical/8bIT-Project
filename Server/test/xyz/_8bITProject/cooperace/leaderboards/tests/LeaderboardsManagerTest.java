@@ -6,6 +6,9 @@ import org.junit.Test;
 import xyz._8bITProject.cooperace.leaderboards.Leaderboard;
 import xyz._8bITProject.cooperace.leaderboards.LeaderboardsManager;
 
+/** LeaderboardManagerTest tests the LeaderboardManager unit
+ * @author Matt <farrugiam@student.unimelb.edu.au>
+ */
 public class LeaderboardsManagerTest {
 	
 	@Test

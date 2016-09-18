@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import xyz._8bITProject.cooperace.leaderboards.protocol.PositionResponse;
 
+/** PositionResponseTest tests the PositionResponse unit
+ * @author Matt <farrugiam@student.unimelb.edu.au>
+ */
 public class PositionResponseTest {
 	
 	@Test

@@ -6,6 +6,9 @@ import org.junit.Test;
 import xyz._8bITProject.cooperace.leaderboards.InvalidScoreException;
 import xyz._8bITProject.cooperace.leaderboards.Score;
 
+/** ScoreTes tests the Score unit
+ * @author Matt <farrugiam@student.unimelb.edu.au>
+ */
 public class ScoreTest {
 	
 	@Test

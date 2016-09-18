@@ -10,6 +10,9 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.LeadersResponse;
 import xyz._8bITProject.cooperace.leaderboards.protocol.MessageException;
 import xyz._8bITProject.cooperace.leaderboards.protocol.RequestBody;
 
+/** RequestBodyTest tests the RequestBody unit
+ * @author Matt <farrugiam@student.unimelb.edu.au>
+ */
 public class RequestBodyTest {
 	
 	@Test

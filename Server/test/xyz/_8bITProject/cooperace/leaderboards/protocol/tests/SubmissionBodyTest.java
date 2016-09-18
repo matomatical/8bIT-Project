@@ -11,6 +11,9 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.MessageException;
 import xyz._8bITProject.cooperace.leaderboards.protocol.PositionResponse;
 import xyz._8bITProject.cooperace.leaderboards.protocol.SubmissionBody;
 
+/** SubmissionBodyTest tests the SubmissionBody unit
+ * @author Matt <farrugiam@student.unimelb.edu.au>
+ */
 public class SubmissionBodyTest {
 	
 	@Test

@@ -12,6 +12,9 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.RequestBody;
 import xyz._8bITProject.cooperace.leaderboards.protocol.Response;
 import xyz._8bITProject.cooperace.leaderboards.protocol.SubmissionBody;
 
+/** MessageTes tests the Message unit
+ * @author Matt <farrugiam@student.unimelb.edu.au>
+ */
 public class MessageTest {
 
 	@Test

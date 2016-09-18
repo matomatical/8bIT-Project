@@ -7,6 +7,9 @@ import org.junit.Test;
 import xyz._8bITProject.cooperace.leaderboards.Score;
 import xyz._8bITProject.cooperace.leaderboards.protocol.LeadersResponse;
 
+/** LeadersResponseTes tests the LeadersResponse unit
+ * @author Matt <farrugiam@student.unimelb.edu.au>
+ */
 public class LeadersResponseTest {
 	
 	@Test
