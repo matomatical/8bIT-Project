@@ -1,13 +1,23 @@
-﻿using UnityEngine;
+﻿/*
+ * Finish line logic.
+ *
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using System.Collections;
 
-public class FinishLine : MonoBehaviour {
+namespace _8bITProject.cooperace {
+	public class FinishLine : MonoBehaviour {
 
-	public ClockController clock;
+		public ClockController clock;
 
-	void OnTriggerEnter2D (Collider2D other) {
-		if (clock != null && other.gameObject.CompareTag("Player")) {
-			clock.StopTiming ();
+		void OnTriggerEnter2D (Collider2D other) {
+			if (clock != null && other.gameObject.CompareTag("Player")) {
+				clock.StopTiming();
+			}
 		}
+
 	}
 }

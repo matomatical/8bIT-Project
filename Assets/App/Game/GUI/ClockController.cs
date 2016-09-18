@@ -1,44 +1,50 @@
-﻿using UnityEngine;
+﻿/*
+ * Controller for the time text ui object.
+ *
+ * Matt Farrugiam <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class ClockController : MonoBehaviour {
+namespace _8bITProject.cooperace {
+	public class ClockController : MonoBehaviour {
 
-	float time = 0;
-	bool timing = true;
+		float time = 0;
+		bool isTiming = true;
 
-	private Text label; // the text object we're attached to
+		Text label; // the text object we're attached to
 
-	void Start () {
-		label = GetComponent<Text> ();
-	}
+		void Start () {
+			label = GetComponent<Text>();
+		}
 
-	// Update is called once per frame
-	void Update () {
-		
-		if(timing){
+		void Update () {
+			if (isTiming) {
+				// count
+				time += Time.deltaTime;
 
-			// count
-			time += Time.deltaTime;
+				// convert to clock time string
+				int mins = (int) (time / 60);
+				int secs = ((int) time) % 60;
+				int msec = (int)(10*(time - mins * 60 - secs));
+				string text = string.Format("{0:00}:{1:00}.{2:0}", mins, secs, msec);
 
-			// convert to clock time string
-			int mins = (int) (time / 60);
-			int secs = ((int) time) % 60;
-			int msec = (int)(10*(time - mins * 60 - secs));
-			string text = string.Format("{0:00}:{1:00}.{2:0}", mins, secs, msec);
-
-			// lazy refresh text
-			if(!(label.text == text)){
-				label.text = text;
+				// lazy refresh text
+				if (label.text != text) {
+					label.text = text;
+				}
 			}
 		}
-	}
 
-	public void StopTiming(){
-		timing = false;
-	}
+		public void StopTiming() {
+			isTiming = false;
+		}
 
-	public void StartTiming(){
-		timing = true;
+		public void StartTiming() {
+			isTiming = true;
+		}
 	}
 }

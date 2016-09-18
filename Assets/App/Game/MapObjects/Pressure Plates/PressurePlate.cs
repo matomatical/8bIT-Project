@@ -1,32 +1,44 @@
-﻿using UnityEngine;
+﻿/*
+ * Pressure plate logic.
+ *
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using System.Collections.Generic;
 
-public class PressurePlate : MonoBehaviour {
+namespace _8bITProject.cooperace {
+	public class PressurePlate : MonoBehaviour {
 
-	[HideInInspector]
-	public string address;
-	public List<PressurePlateBlock> linked;
+		[HideInInspector]
+		public string address;
 
-	int isColliding;
+		public List<PressurePlateBlock> linked;
 
-	void UpdateBlocksStatus() {
-		foreach (PressurePlateBlock block in linked) {
-			block.UpdateStatus();
+		int isColliding;
+
+		void UpdateBlocksStatus() {
+			// notify the block that pressure plate status may have changed.
+			foreach (PressurePlateBlock block in linked) {
+				block.UpdateStatus();
+			}
 		}
-	}
 
-	void OnTriggerEnter2D() {
-		++isColliding;
-		UpdateBlocksStatus();
-	}
+		void OnTriggerEnter2D() {
+			++isColliding;
+			UpdateBlocksStatus();
+		}
 
-	void OnTriggerExit2D() {
-		--isColliding;
-		UpdateBlocksStatus();
-	}
+		void OnTriggerExit2D() {
+			--isColliding;
+			UpdateBlocksStatus();
+		}
 
-	public bool IsPressed() {
-		return isColliding > 0;
-	}
+		public bool IsPressed() {
+			// true if any object is colliding with the plate.
+			return isColliding > 0;
+		}
 
+	}
 }

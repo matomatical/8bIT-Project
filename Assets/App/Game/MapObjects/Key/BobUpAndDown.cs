@@ -1,31 +1,40 @@
-﻿using UnityEngine;
+﻿/*
+ * Key bobbing animation logic.
+ *
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using System.Collections;
 
-public class BobUpAndDown : MonoBehaviour {
+namespace _8bITProject.cooperace {
+	public class BobUpAndDown : MonoBehaviour {
 
-	public float bobSpeed = 0.25f;
-	public float bobOffset = 0.3f;
+		public float bobSpeed = 0.25f;
+		public float bobOffset = 0.3f;
 
-	float originY;
-	int bobDir;
+		float originY;
+		int bobDir;
 
-	void Start () {
-		originY = transform.position.y;
-		bobDir = 1;
-	}
-	
-	void Update () {
-		if (transform.position.y > originY + bobOffset) {
-			bobDir = -1;
-		}
-		if (transform.position.y < originY) {
+		void Start () {
+			originY = transform.position.y;
 			bobDir = 1;
 		}
-		transform.position = new Vector3(
-			transform.position.x,
-			transform.position.y + bobDir * Time.deltaTime * bobSpeed,
-			transform.position.z
-		);
-	}
 
+		void Update () {
+			if (transform.position.y > originY + bobOffset) {
+				bobDir = -1;
+			}
+			if (transform.position.y < originY) {
+				bobDir = 1;
+			}
+			transform.position = new Vector3(
+				transform.position.x,
+				transform.position.y + bobDir * Time.deltaTime * bobSpeed,
+				transform.position.z
+			);
+		}
+
+	}
 }
