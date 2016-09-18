@@ -2,4 +2,5 @@ bin/
 **/*.class
 *.pem
 .settings/
+.metadata/
 **/logfile.txt
