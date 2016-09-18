@@ -3,3 +3,4 @@ bin/
 *.pem
 .project
 .settings/
+Server/**/logfile.txt

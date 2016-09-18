@@ -34,5 +34,4 @@ public class LeadersResponseTest {
 				+"{\"time\":3,\"player1\":\"arr\",\"player2\":\"ay!\"},"
 				+"{\"time\":4,\"player1\":\"yay\",\"player2\":\"woo\"}]}", json);
 	}
-	
 }

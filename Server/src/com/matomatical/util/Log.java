@@ -12,16 +12,20 @@ import java.util.Date;
  */
 public abstract class Log {
 
+	// OPTIONS
+	
 	/** Path to logfile */
 	private static final String path = "logfile.txt";
 	
 	/** Overwrite existing logfile? */
 	private static final boolean overwrite = false;
 	
-	/** for formatting the current time for log messages */
+	/** Format for displaying the current time in log messages */
 	private static SimpleDateFormat date = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss:SSS");
 	
-	/** for writing to the logfile */
+	// LOGFILE
+	
+	/** For writing to the logfile */
 	private static PrintWriter logfile = logfile();
 	private static PrintWriter logfile() {
 		try{
@@ -32,6 +36,8 @@ public abstract class Log {
 			throw new AntiException("Error opening logfile: " + e.getMessage());
 		}
 	}
+	
+	// STATIC LOG MESSAGE
 	
 	/** Print a message to the logfile */
 	public static synchronized void log(String msg){

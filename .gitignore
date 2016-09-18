@@ -48,3 +48,4 @@ Assets/Plugins/Android/play-services*
 *.pem
 Server/bin/
 Server/bin/**/*.class
+Server/**/logfile.txt

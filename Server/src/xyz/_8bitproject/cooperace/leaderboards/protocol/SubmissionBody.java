@@ -11,13 +11,21 @@ import xyz._8bITProject.cooperace.leaderboards.Score;
 public class SubmissionBody {
 	
 	/** The name of the level for submission */
-	public String level;
+	public final String level;
 	/** The score submission to make */
-	public Score score;
+	public final Score score;
+	
+	/** Create a new submission body
+	 * @param level The name of the level to submit to
+	 * @param score The score to submit to this level */
+	public SubmissionBody(String level, Score score){
+		this.level = level;
+		this.score = score;
+	}
 	
 	/** If this request is well-formed, execute it and return our response
 	 *  object for the client */
-	public Response response() {
+	public PositionResponse response() {
 		
 		// validation
 		

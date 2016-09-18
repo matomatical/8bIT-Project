@@ -9,19 +9,32 @@ public class Message {
 	/** string describing incoming message type (used for dispatching) */
 	private String type;
 	
-	
 	/** Data needed to responding to score request message */
 	private RequestBody request;
 	
 	/** Data needed for responding to score submission message */
 	private SubmissionBody submission;
 	
+	/** Create a new Message with
+	 * @param type Type of message
+	 * @param submission Submission body of message
+	 * @param request Request body of message
+	 */
+	public Message(String type, SubmissionBody submission, RequestBody request){
+		this.type = type;
+		this.submission = submission;
+		this.request = request;
+	}
 	
 	/** Carry out the request contained in the message, return response
 	 *  to request.
 	 * @return Response object ready to be converted back into JSON
 	 */
 	public Response response(){
+		
+		if(type == null){
+			throw new MessageException("missing message type");
+		}
 		
 		switch(type){
 		case "submission":
@@ -42,7 +55,7 @@ public class Message {
 			
 		default:
 			// this type of message is unknown to us
-			throw new MessageException("missing or unknown message type");
+			throw new MessageException("unknown message type");
 		}
 	}
 	

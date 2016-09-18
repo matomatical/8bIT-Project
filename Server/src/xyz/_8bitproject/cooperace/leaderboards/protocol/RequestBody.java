@@ -11,11 +11,17 @@ import xyz._8bITProject.cooperace.leaderboards.LeaderboardsManager;
 public class RequestBody {
 	
 	/** The name of the level for which scores are sought in this request */
-	public String level;
+	public final String level;
+	
+	/** Create a new request body
+	 * @param level The name of the level to request */
+	public RequestBody(String level){
+		this.level = level;
+	}
 
 	/** If this request is well-formed, execute it and return our response
 	 *  object for the client */
-	public Response response() {
+	public LeadersResponse response() {
 		
 		// validation
 		
@@ -32,6 +38,6 @@ public class RequestBody {
 	
 	@Override
 	public String toString(){
-		return "level " + this.level;
+		return "level: " + this.level;
 	}
 }
