@@ -2,7 +2,7 @@ cd test/
 
 # Build Tests
 echo "building tests..."
-javac -cp ".:../bin:../jar/junit.jar" TestSuite.java
+javac -cp ".:../bin:../jar/boon.jar:../jar/junit.jar" TestSuite.java
 echo "built!"
 
 # Run Tests

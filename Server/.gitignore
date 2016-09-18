@@ -1,6 +1,5 @@
 bin/
 **/*.class
 *.pem
-.project
 .settings/
-Server/**/logfile.txt
+**/logfile.txt
