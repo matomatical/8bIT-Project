@@ -250,7 +250,7 @@ Prefab:
     - target: {fileID: 114000012416656840, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Something
+      value: SendChatMessage
       objectReference: {fileID: 0}
     - target: {fileID: 114000012416656840, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
         type: 2}
@@ -475,7 +475,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54de2f58aa7ec954caf0e01534d163a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chatHistory: []
+  FONT_SIZE: 20
+  MSG_X: 0.4
+  MSG_Y: 1350
+  MSG_Y_OFFSET: 20
+  chatHistory: {fileID: 0}
 --- !u!1 &1030511294
 GameObject:
   m_ObjectHideFlags: 0

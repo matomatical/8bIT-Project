@@ -9,34 +9,53 @@ namespace _8bITProject.cooperace.multiplayer {
         
         // the update manager which should be told about any updates
         public IUpdateManager updateManager;
-
-        private Button chatButton;
-        
-
-        public List<String> chatHistory = new List<string>();
-        private String currMessage = string.Empty;
+        public int FONT_SIZE = 80;
+        //public float MSG_X = 0.4f;
+        //public float MSG_Y = Screen.width;
+        //public float MSG_Y_OFFSET = 30;
 
 
-        public void Something() {
-            //UIHelper.GoTo("MainMenu");
-            TouchScreenKeyboardType keyboard = TouchScreenKeyboardType.Default;
-            bool autocorrection = true;
-            bool multiline = false;
-            bool secure = false;
-            bool alert = false;
-            string textPlaceholder = "";
+        public ChatHistory chatHistory;
+        private String currMessage;
+        private TouchScreenKeyboard keyboard;
 
-            TouchScreenKeyboard.Open(currMessage, keyboard, autocorrection,  multiline, secure, alert, textPlaceholder);
+
+        public void SendChatMessage() {
+            keyboard = TouchScreenKeyboard.Open("Enter message here");
+        }
+
+        void OnGUI() {
+            GUIStyle myStyle = new GUIStyle();
+            myStyle.fontSize = FONT_SIZE;
+            int y_offset = 20;
+            int ypos = 45-y_offset;
+
+            List<ChatMessage> recentMessages = chatHistory.MostRecent();
+            //float ypos = MSG_Y-MSG_Y_OFFSET;
+
+            for (int i = 0; i< recentMessages.Count; i++) {
+                GUI.Label(new Rect(Screen.height*0.3f, ypos+=y_offset, Screen.width, Screen.height), recentMessages[i].getMessage(), myStyle);
+            }
+
+            //GUI.Label(new Rect(Screen.height*0.3f, 45, Screen.width, Screen.height), "hello", myStyle);
+            //GUI.Label(new Rect(Screen.height * 0.3f, 75, Screen.width, Screen.height), "hello", myStyle);
         }
 
         // Use this for initialization
         void Start() {
-             chatButton = GameObject.Find("btnChat").GetComponent<Button>();
+            chatHistory = new ChatHistory();
+            currMessage = string.Empty;
         }
 
         // Update is called once per frame
         void Update() {
 
+            if (keyboard!=null && keyboard.done) {
+
+                currMessage = keyboard.text;
+                chatHistory.AddMessage(currMessage);
+                keyboard = null;
+            }
         }
 
         public void Deserialize(List<byte> message) {
