@@ -415,6 +415,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 842959325}
   - 114: {fileID: 842959324}
+  - 114: {fileID: 842959326}
   m_Layer: 0
   m_Name: MultiplayerInitialisation
   m_TagString: Untagged
@@ -446,6 +447,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+--- !u!114 &842959326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 842959323}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0feadc2ef18524780bfd4d3623f712aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &992831329
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,9 +504,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FONT_SIZE: 20
-  MSG_X: 0.4
-  MSG_Y: 1350
-  MSG_Y_OFFSET: 20
   chatHistory: {fileID: 0}
 --- !u!1 &1030511294
 GameObject:
@@ -621,7 +630,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1113955553}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c32b229154b6342b9ae259303d40fe9d, type: 3}
   m_Name: 
