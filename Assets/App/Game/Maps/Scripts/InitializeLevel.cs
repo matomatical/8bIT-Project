@@ -5,6 +5,7 @@ using System.Collections;
 public class InitializeLevel : MonoBehaviour {
 
 	new public CameraController camera;
+	public Parallax background;
 	public GameObject gui;
 	public GameObject level;
 
@@ -13,6 +14,7 @@ public class InitializeLevel : MonoBehaviour {
 		if (prefab) {
 			level = GameObject.Instantiate<GameObject>(prefab);
 			camera.level = level.GetComponent<TiledMap>();
+			background.level = level.GetComponent<TiledMap>();
 		}
 	}
 
