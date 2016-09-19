@@ -16,9 +16,9 @@ namespace xyz._8bITProject.cooperace {
 			// if the key collides with another game object that has a
 			// KeyHolder component that isn't already holding a key object,
 			KeyHolder holder = other.gameObject.GetComponent<KeyHolder>();
-			if (holder != null && !holder.holdingKey) {
+			if (holder != null && holder.canPickupKey()) {
 				// then mark that object as holding a key and deactivate self
-				holder.holdingKey = true;
+				holder.pickupKey();
 				gameObject.SetActive(false);
 			}
 		}

@@ -15,10 +15,10 @@ namespace xyz._8bITProject.cooperace {
 			// if the block collides with another game object that has a
 			// KeyHolder component that is holding a key object,
 			KeyHolder holder = other.gameObject.GetComponent<KeyHolder>();
-			if (holder != null && holder.holdingKey) {
+			if (holder != null && holder.isHoldingKey()) {
 				// open (deactivate self) and mark the object as no longer
 				// holding a key
-				holder.holdingKey = false;
+				holder.dropKey();
 				gameObject.SetActive(false);
 			}
 		}
