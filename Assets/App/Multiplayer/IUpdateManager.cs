@@ -2,7 +2,8 @@
  * Interface for the updateManger used by the MultiplayerController class
  * It is a central place where updates can be sent out from, and also recieved
  * 
- * Sam Beyer <sbeyer@student.unimelb.edu.au>
+ * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
 */
 
 using System;

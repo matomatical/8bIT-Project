@@ -1,4 +1,9 @@
-﻿using UnityEngine;
+﻿/*
+ * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+ */
+
+using UnityEngine;
 using System.Collections.Generic;
 using GooglePlayGames.BasicApi.Multiplayer;
 

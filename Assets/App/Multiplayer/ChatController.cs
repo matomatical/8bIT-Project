@@ -3,7 +3,10 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+/*
+ * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+ */
 namespace _8bITProject.cooperace.multiplayer {
     public class ChatController : MonoBehaviour {
         

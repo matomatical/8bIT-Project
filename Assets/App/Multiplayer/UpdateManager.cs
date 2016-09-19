@@ -3,6 +3,9 @@
  * It attatches and detatches a header to the update telling the game about what will be in the update
  * It is also responsible for deciding whether 
  * 
+ * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+ * 
 */
 using System;
 using UnityEngine;

@@ -1,4 +1,9 @@
-﻿namespace _8bITProject.cooperace.multiplayer
+﻿/*
+ * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+ */
+
+namespace _8bITProject.cooperace.multiplayer
 {
 	public interface IRoomListener
 	{

@@ -1,7 +1,8 @@
 ﻿/*
  * Contains all the messages sent by players.
  * 
- * Mariam Shahid, mariams@student.unimelb.edu.au
+ * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 
 using UnityEngine;
