@@ -9,7 +9,7 @@ using Tiled2Unity;
 using UnityEngine;
 using System.Collections;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public class Parallax : MonoBehaviour {
 
 		public TiledMap level;

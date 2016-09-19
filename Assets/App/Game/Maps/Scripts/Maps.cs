@@ -7,7 +7,7 @@
 
 using UnityEngine;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public static class Maps {
 
 		// list of all levels

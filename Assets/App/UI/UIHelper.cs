@@ -5,7 +5,7 @@ using GooglePlayGames;
 public class UIHelper : MonoBehaviour {
 
     public static void GoTo (string sceneName) {
-		_8bITProject.cooperace.SceneManager.Load(sceneName);
+		xyz._8bITProject.cooperace.SceneManager.Load(sceneName);
 	}
 
     public static void Login (System.Action<bool> callback, bool silent=false) {

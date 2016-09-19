@@ -9,7 +9,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public class MockPlayerInput : MonoBehaviour {
 
 		public PlayerController player;

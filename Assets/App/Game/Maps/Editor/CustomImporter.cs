@@ -9,7 +9,7 @@ using UnityEngine;
 using Tiled2Unity;
 using System.Collections.Generic;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	[CustomTiledImporter]
 	class CustomImporter : ICustomTiledImporter {
 

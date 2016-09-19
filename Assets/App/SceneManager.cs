@@ -9,7 +9,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public static class SceneManager {
 
 		public static string levelToLoad;

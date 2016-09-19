@@ -9,7 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public class ClockController : MonoBehaviour {
 
 		float time = 0;

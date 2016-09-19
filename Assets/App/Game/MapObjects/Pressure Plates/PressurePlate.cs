@@ -8,7 +8,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public class PressurePlate : MonoBehaviour, IAddressLinkedObject {
 
 		// a list of all blocks that are linked to this plate

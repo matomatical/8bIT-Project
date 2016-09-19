@@ -11,7 +11,7 @@ using UnityEngine.EventSystems;
 
 using System.Collections;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public class Joystick : MonoBehaviour, IDragHandler, IPointerUpHandler,
 			IPointerDownHandler {
 

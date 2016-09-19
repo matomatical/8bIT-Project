@@ -8,7 +8,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public class BobUpAndDown : MonoBehaviour {
 
 		public float bobSpeed = 0.25f;

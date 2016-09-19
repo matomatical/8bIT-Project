@@ -8,7 +8,7 @@
 using UnityEngine;
 using System.Collections;
 
-namespace _8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace {
 	public class KeyBlock : MonoBehaviour {
 
 		void OnCollisionEnter2D(Collision2D other) {
