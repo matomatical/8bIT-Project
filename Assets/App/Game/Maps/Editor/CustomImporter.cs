@@ -69,8 +69,6 @@ namespace xyz._8bITProject.cooperace {
 				replaceMarker(marker, pushBlockPrefab);
 			} else if (props.ContainsKey("FinishLine")) {
 				replaceMarker(marker, finishLinePrefab);
-			} else if (props.ContainsKey("Exit")) {
-				replaceMarker(marker, exitPrefab);
 			}
 		}
 
@@ -83,6 +81,19 @@ namespace xyz._8bITProject.cooperace {
 					GameObject.DestroyImmediate(transform.gameObject);	
 				}
 			}
+
+			// initialize exit colliders all around the map
+			TiledMap map = mapPrefab.GetComponent<TiledMap>();
+			float width = map.NumTilesWide;
+			float height = map.NumTilesHigh;
+			float pad = 2;
+			float hWidth = width / 2;
+			float hHeight = height / 2;
+			float hPad = pad / 2;
+			newExit(mapPrefab, "left",   -hPad,        -hHeight,         pad,         height + pad);
+			newExit(mapPrefab, "right",  width + hPad, -hHeight,         pad,         height + pad);
+			newExit(mapPrefab, "top",    hWidth,       hPad,             width + pad, pad);
+			newExit(mapPrefab, "bottom", hWidth,       -(height + hPad), width + pad, pad);
 
 			// setup links between pressure plates and blocks
 			// first group all plates and blocks by address
@@ -132,6 +143,19 @@ namespace xyz._8bITProject.cooperace {
 			}
 			
 			return groups;
+		}
+
+		// Helper method to create exit portals around the level
+		GameObject newExit(GameObject parent, string name,
+				float posX, float posY, float scaleX, float scaleY) {
+			GameObject exit = GameObject.Instantiate(exitPrefab);
+
+			exit.name = name;
+			exit.transform.parent = parent.transform;
+			exit.transform.position = new Vector3(posX, posY, 0);
+			exit.transform.localScale = new Vector3(scaleX, scaleY, 0);
+
+			return exit;
 		}
 
 	}

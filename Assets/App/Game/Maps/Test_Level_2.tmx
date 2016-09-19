@@ -86,11 +86,6 @@
     <property name="FinishLine" value=""/>
    </properties>
   </object>
-  <object id="14" x="1197" y="357" width="21" height="21">
-   <properties>
-    <property name="Exit" value=""/>
-   </properties>
-  </object>
   <object id="16" x="441" y="210" width="21" height="21">
    <properties>
     <property name="PushBlock" value=""/>
