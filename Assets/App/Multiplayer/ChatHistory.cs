@@ -12,9 +12,6 @@ using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
     public class ChatHistory : MonoBehaviour {
-        // Display the n most recent messages 
-        public int TOPN = 3;
-
         // A record of every single message sent
         private List<ChatMessage> history;
 
@@ -32,11 +29,11 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Returns the most n recent messages
         // NOTE : Assumes that the list is sorted in ascending order. This may not always be the case
         // when sending messages between devices
-        public List<ChatMessage> MostRecent() {
+		public List<ChatMessage> MostRecent(int n) {
             List<ChatMessage> mostRecent = new List<ChatMessage>();
 
             for (int i = 0; i < history.Count; i++) {
-                if (i >= history.Count - TOPN) {
+                if (i >= history.Count - n) {
                     mostRecent.Add(history[i]);
                 }
             }

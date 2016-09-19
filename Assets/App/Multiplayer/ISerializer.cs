@@ -12,9 +12,10 @@ using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
-	public interface ISerializer : IListener<List<byte>>
+	public interface ISerializer<T> : IListener<List<byte>>
 	{
-
+		List<byte> Serialize (T information);
+		T Deserialize (List<byte> data);
 	}
 }
 	

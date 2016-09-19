@@ -14,9 +14,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		// font size for the chat messages for when they show up on screen.
 		private int FONT_SIZE = 20;
 
-		private float MSG_X = 0.3f;
-		private float MSG_Y = 0.03f;
-		private int MSG_Y_OFFSET = 30;
+		// Details of where to render chat
+		private readonly float MSG_X = 0.3f;
+		private readonly float MSG_Y = 0.03f;
+		private readonly int MSG_Y_OFFSET = 30;
+
+		// Display the n most recent messages 
+		private readonly int TOPN = 3;
 
 		private ChatHistory chatHistory;
 
@@ -33,7 +37,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			float ypos = (Screen.width * MSG_Y)-MSG_Y_OFFSET;
 			float xpos = Screen.height * MSG_X;
 
-			List<ChatMessage> recentMessages = chatHistory.MostRecent();
+			List<ChatMessage> recentMessages = chatHistory.MostRecent(TOPN);
 
 			for (int i = 0; i< recentMessages.Count; i++) {
 				GUI.Label(new Rect(xpos, ypos+=MSG_Y_OFFSET, Screen.width, Screen.height),

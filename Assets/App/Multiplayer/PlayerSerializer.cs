@@ -12,12 +12,8 @@ using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
-	public class PlayerSerializer : MonoBehaviour, ISerializer
+	public class PlayerSerializer : MonoBehaviour, ISerializer<PlayerInformation>
 	{
-		// Defines what states the player can be in
-		// NEEDS UPDATING (Talk to Athir and Matt about PlayerController)
-		public enum PlayerState : byte { MOVING, STILL, JUMP, DEFAULT };
-
 		// the update manager which should be told about any updates
 		public IUpdateManager updateManager;
 
@@ -52,28 +48,45 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// Called at set intervals, used to let update manager know there is an update
 		void FixedUpdate () {
-			// stores current state
+			// Stores current state
 			List<byte> update;
+			// Stores current information about the player
+			PlayerInformation info;
 
-			// only send if there is an update manager to send to and the transform is found
+			// Variables to store the players current state in the game
+			float posx;
+			float posy;
+			byte state;
+
+			// Only send if there is an update manager to send to and the transform is found
 			if (updateManager != null && ready) {
-				// if it's time to send another update
+				
+				// Ff it's time to send another update
 				if (stepsUntilSend < 1) {
-					// get the update to be sent
-					update = Serialize ();
-					// if the update is different to the last one sent
+					// Read information about the player currently
+					posx = thisTransform.position.x;
+					posy = thisTransform.position.y;
+					state = (byte)animator.GetInteger ("State");
+
+					// Get the update to be sent
+					info = new PlayerInformation(posx, posy, (PlayerInformation.PlayerState)state);
+					update = Serialize (info);
+
+					// Ff the update is different to the last one sent
 					if (thisTransform.position.x != lastPosx || thisTransform.position.y != lastPosy) {
 						Debug.Log ("Serializing");
 
-						// send the update
+						// Send the update
 						Send (update);
 
 						// reflect changes in the last update
 						lastPosx = thisTransform.position.x;
 						lastPosy = thisTransform.position.y;
+						
 					} else {
 						Debug.Log ("Nothing has changed since last update");
 					}
+
 				} else {
 					// reset the steps since an update was sent
 					stepsUntilSend = MAX_STEPS_BETWEEN_SENDS;
@@ -86,9 +99,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Tell this object there is an update from an observable
 		public void Notify (List<byte> message)
 		{
-			if (ready) {
-				Deserialize (message);
-			}
+			PlayerInformation info = Deserialize (message);
+			Apply (info);
 		}
 
 		// Let subscribers know there is an update
@@ -97,8 +109,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			updateManager.SendPlayerUpdate (message);
 		}
 
+		// Applies information in info to the player this serializer is attatched to
+		private void Apply(PlayerInformation info) {
+			thisTransform.position = new Vector3 (info.posx, info.posy, 0);
+			animator.SetInteger ("State", (int)info.state);
+		}
+
 		// Takes an update and applies it to this serializer's object
-		private void Deserialize(List<byte> update)
+		public PlayerInformation Deserialize(List<byte> update)
 		{
 			float posx, posy;
 			byte state;
@@ -109,21 +127,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			posy = BitConverter.ToSingle (data, 4);
 			state = data [8];
 
-			// Update the position and the animation state
-			thisTransform.position = new Vector3 (posx, posy, 0); 
-			animator.SetInteger ("State", state);
+			// Create and return PlayerInformation with the data deserialized
+			return new PlayerInformation(posx, posy, (PlayerInformation.PlayerState)state);
 		}
 
 		// Takes the state of this object and turns it into an update
-		private List<byte> Serialize()
+		public List<byte> Serialize(PlayerInformation info)
 		{
-			// initialize list
+			// initialize list to return
 			List<byte> bytes = new List<byte> ();
 
-			// get current state and x and y values
-			float posx = thisTransform.position.x;
-			float posy = thisTransform.position.y;
-			byte state = (byte)(animator.GetInteger ("State"));
+			// get the data to Serialize from the PlayerInformation
+			float posx = info.posx;
+			float posy = info.posy;
+			byte state = (byte)info.state;
 
 			// Add the byte representation of the above values into the list
 			bytes.AddRange (BitConverter.GetBytes (posx));
