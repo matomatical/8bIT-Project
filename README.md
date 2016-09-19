@@ -64,6 +64,7 @@ Note: If the remote doesn't begin to show the game on your device, try restartin
 In order to run all tests
 
 1. Open the project in unity.
+1. Open the unity scene Assets/App/Tests/GameplayTests.
 1. Go to the `Unity Test Tools > Integration Test Runner`.
 1. Click the `Run All` button.
 
