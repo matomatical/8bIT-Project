@@ -9,13 +9,12 @@ using UnityEngine;
 using System.Collections.Generic;
 
 namespace _8bITProject.cooperace {
-	public class PressurePlateBlock : MonoBehaviour {
-
-		[HideInInspector]
-		public string address;
+	public class PressurePlateBlock : MonoBehaviour, IAddressLinkedObject {
 
 		// a list of all plates that are linked to this block
 		public List<PressurePlate> linked;
+
+		string address;
 
 		// Called by the PressurePlate class whenever its state may have
 		// changed.
@@ -31,6 +30,14 @@ namespace _8bITProject.cooperace {
 			}
 
 			gameObject.SetActive(!anyPressed);
+		}
+
+		public string GetAddress() {
+			return address;
+		}
+
+		public void SetAddress(string address) {
+			this.address = address;
 		}
 
 	}

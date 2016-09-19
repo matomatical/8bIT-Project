@@ -61,10 +61,10 @@ namespace _8bITProject.cooperace {
 				replaceMarker(marker, keyBlockPrefab);
 			} else if (props.ContainsKey("PressurePlate")) {
 				GameObject plate = replaceMarker(marker, pressurePlatePrefab);
-				plate.GetComponent<PressurePlate>().address = props["PressurePlate"];
+				plate.GetComponent<PressurePlate>().SetAddress(props["PressurePlate"]);
 			} else if (props.ContainsKey("PressurePlateBlock")) {
 				GameObject block = replaceMarker(marker, pressurePlateBlockPrefab);
-				block.GetComponent<PressurePlateBlock>().address = props["PressurePlateBlock"];
+				block.GetComponent<PressurePlateBlock>().SetAddress(props["PressurePlateBlock"]);
 			} else if (props.ContainsKey("PushBlock")) {
 				replaceMarker(marker, pushBlockPrefab);
 			} else if (props.ContainsKey("FinishLine")) {
@@ -76,10 +76,9 @@ namespace _8bITProject.cooperace {
 
 		// Automatically called by tiled2unity after the map is completly
 		// imported.
-		// This function and final changes to the map object.
-		public void CustomizePrefab(GameObject prefab) {
+		public void CustomizePrefab(GameObject mapPrefab) {
 			// delete all objects marked for deletion
-			foreach (Transform transform in prefab.GetComponentsInChildren<Transform>()) {
+			foreach (Transform transform in mapPrefab.GetComponentsInChildren<Transform>()) {
 				if (transform.name == "__to_be_destroyed__") {
 					GameObject.DestroyImmediate(transform.gameObject);	
 				}
@@ -91,43 +90,48 @@ namespace _8bITProject.cooperace {
 
 			// pressure plate groups
 			PressurePlate[] allPlates =
-				prefab.GetComponentsInChildren<PressurePlate>();
+				mapPrefab.GetComponentsInChildren<PressurePlate>();
 			Dictionary<string, List<PressurePlate>> groupedPlates =
-				new Dictionary<string, List<PressurePlate>>();
-			foreach (PressurePlate plate in allPlates) {
-				List<PressurePlate> list;
-				if (groupedPlates.ContainsKey(plate.address)) {
-					list = groupedPlates[plate.address];
-				} else {
-					list = new List<PressurePlate>(allPlates.Length);
-					groupedPlates.Add(plate.address, list);
-				}
-				list.Add(plate);
-			}
+				groupByAddress<PressurePlate>(allPlates);
 
 			// pressure plate block groups
 			PressurePlateBlock[] allBlocks =
-				prefab.GetComponentsInChildren<PressurePlateBlock>();
+				mapPrefab.GetComponentsInChildren<PressurePlateBlock>();
 			Dictionary<string, List<PressurePlateBlock>> groupedBlocks =
-				new Dictionary<string, List<PressurePlateBlock>>();
-			foreach (PressurePlateBlock block in allBlocks) {
-				List<PressurePlateBlock> list;
-				if (groupedBlocks.ContainsKey(block.address)) {
-					list = groupedBlocks[block.address];
-				} else {
-					list = new List<PressurePlateBlock>(allBlocks.Length);
-					groupedBlocks.Add(block.address, list);
-				}
-				list.Add(block);
-			}
+				groupByAddress<PressurePlateBlock>(allBlocks);
 
 			// give the appropriate list to each plate and block
 			foreach (PressurePlate plate in allPlates) {
-				plate.linked = groupedBlocks[plate.address];
+				plate.linked = groupedBlocks[plate.GetAddress()];
 			}
 			foreach (PressurePlateBlock block in allBlocks) {
-				block.linked = groupedPlates[block.address];
+				block.linked = groupedPlates[block.GetAddress()];
 			}
+		}
+
+		// Helper method to group a list of game objects by its address field.
+		// Returns a dictionary mapping the address to lists of objects with
+		// that address.
+		Dictionary<string, List<T>> groupByAddress<T>(T[] allObjects) where T : IAddressLinkedObject {
+			Dictionary<string, List<T>> groups = new Dictionary<string, List<T>>();
+
+			foreach (T obj in allObjects) {
+				List<T> list;
+				// See if there is already a list with the appropriate address.
+				if (groups.ContainsKey(obj.GetAddress())) {
+					// Yes, so use that list.
+					list = groups[obj.GetAddress()];
+				} else {
+					// Nope, so make a new one and add to the dictionary.
+					list = new List<T>(allObjects.Length);
+					groups.Add(obj.GetAddress(), list);
+				}
+
+				// Add the game object to the appropriate list.
+				list.Add(obj);
+			}
+			
+			return groups;
 		}
 
 	}
