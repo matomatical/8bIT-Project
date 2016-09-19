@@ -30,14 +30,8 @@ namespace _8bITProject.cooperace.multiplayer
 
 	    private String levelName = "Multiplayer Test Level";
 
-	    private byte protocolVersion = 1;
-	    // Byte + Byte + 2 floats for position + 2 floats for velcocity
-	    private int updateMessageLength = 18;
-	    private List<byte> updateMessage;
-
 	    private MultiplayerController()
 	    {
-	        updateMessage = new List<byte>(updateMessageLength);
 	        PlayGamesPlatform.DebugLogEnabled = true;
 	        PlayGamesPlatform.Activate();
 	    }

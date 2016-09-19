@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System;
+using System.Text;
 using System.Collections.Generic;
 using UnityEngine.UI;
 /*
@@ -41,11 +41,16 @@ namespace _8bITProject.cooperace.multiplayer {
 
         // Update is called once per frame
         void Update() {
+			List<byte> messageList;
 
-            // If the user is done typing a message, add it to the chat history
+            // If the user is done typing a message, add it to the chat history and send
             if (keyboard != null && keyboard.done) {
                 string currMessage = keyboard.text;
                 chatHistory.AddMessage(currMessage);
+				if (updateManager != null) {
+					messageList = Serialize (currMessage);
+					updateManager.SendTextChat (messageList);
+				}
                 keyboard = null;
             }
         }
@@ -66,23 +71,20 @@ namespace _8bITProject.cooperace.multiplayer {
             }
         }
 
-        
+		public void GiveMessage(List<byte> message) {
+			string strMessage = Deserialize (message);
+			chatHistory.AddMessage(strMessage);
+		}
 
-        public void Deserialize(List<byte> message) {
-            throw new NotImplementedException();
+		private string Deserialize(List<byte> message) {
+			return Encoding.ASCII.GetString (message.ToArray ());
         }
 
-        public void Notify(List<byte> message) {
-            throw new NotImplementedException();
+        public List<byte> Serialize(String message) {
+			List<byte> ret = new List<byte> ();
+			// Turn the string into an array of bytes and that array into a list
+			ret.AddRange (Encoding.ASCII.GetBytes (message));
+			return ret;
         }
-
-        public List<byte> Serialize(String meesage) {
-            throw new NotImplementedException();
-        }
-
-        public void Subscribe(IListener<List<byte>> o) {
-            throw new NotImplementedException();
-        }
-
     }
 }

@@ -27,6 +27,9 @@ namespace _8bITProject.cooperace.multiplayer
 		// List of subscribers
 		private List<IListener<List<byte>>> subscribers = new List<IListener<List<byte>>> ();
 
+		// The ChatController to which chat message updates should be sent
+		public ChatController chatController;
+
 		// Takes an update and the sender and then distributes the update to subscribers
 		public void HandleUpdate (List<byte> data, string senderID)
 		{
@@ -36,7 +39,10 @@ namespace _8bITProject.cooperace.multiplayer
 				if (header [1] == PLAYER) {
 					Debug.Log ("Notifying everyone");
 					NotifyAll (data);
-				} // handle other types of updates in this if/else tree
+				} else if (header [1] == CHAT && chatController != null) {
+					Debug.Log ("Notifying ChatController");
+					chatController.GiveMessage(data);
+				}// handle other types of updates in this if/else tree
 			} // Handle other protocols in this if/else tree
 		}
 
