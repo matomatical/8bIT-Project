@@ -12,13 +12,13 @@ namespace xyz._8bITProject.cooperace {
 	public class PressurePlate : MonoBehaviour, IAddressLinkedObject {
 
 		// a list of all blocks that are linked to this plate
-		public List<PressurePlateBlock> linked;
+		public List<PressurePlateBlock> linkedBlocks;
 
 		string address;
 
 		// notify all linked blocks that pressure plate status may have changed.
 		void NotifyStatusChangeToBlocks() {
-			foreach (PressurePlateBlock block in linked) {
+			foreach (PressurePlateBlock block in linkedBlocks) {
 				block.UpdateStatus();
 			}
 		}

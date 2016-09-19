@@ -12,7 +12,7 @@ namespace xyz._8bITProject.cooperace {
 	public class PressurePlateBlock : MonoBehaviour, IAddressLinkedObject {
 
 		// a list of all plates that are linked to this block
-		public List<PressurePlate> linked;
+		public List<PressurePlate> linkedPlates;
 
 		string address;
 
@@ -22,7 +22,7 @@ namespace xyz._8bITProject.cooperace {
 		// opening if any are and closing if none are.
 		public void UpdateStatus() {
 			bool anyPressed = false; // true if any pressure plate is pressed
-			foreach (PressurePlate plate in linked) {
+			foreach (PressurePlate plate in linkedPlates) {
 				if (plate.IsPressed()) {
 					anyPressed = true;
 					break;
