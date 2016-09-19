@@ -4,6 +4,9 @@ using System;
 using System.Collections.Generic;
 using UnityEngine.UI;
 /*
+ * Is responsible for taking text input from the user, sending it the update manager,
+ * and displaying the top n mos recent messages on screen.
+ * 
  * Mariam Shaid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
@@ -12,54 +15,58 @@ namespace _8bITProject.cooperace.multiplayer {
         
         // the update manager which should be told about any updates
         public IUpdateManager updateManager;
+
+        // font size for the chat messages for when they show up on screen.
         public int FONT_SIZE = 80;
-        //public float MSG_X = 0.4f;
-        //public float MSG_Y = Screen.width;
-        //public float MSG_Y_OFFSET = 30;
 
+        private float MSG_X = 0.3f;
+        private float MSG_Y = 0.03f;
+        private int MSG_Y_OFFSET = 30;
 
+        // A record of every message sent
         public ChatHistory chatHistory;
-        private String currMessage;
+
+        // The OS keyboard
         private TouchScreenKeyboard keyboard;
-
-
-        public void SendChatMessage() {
-            keyboard = TouchScreenKeyboard.Open("Enter message here");
-        }
-
-        void OnGUI() {
-            GUIStyle myStyle = new GUIStyle();
-            myStyle.fontSize = FONT_SIZE;
-            int y_offset = 20;
-            int ypos = 45-y_offset;
-
-            List<ChatMessage> recentMessages = chatHistory.MostRecent();
-            //float ypos = MSG_Y-MSG_Y_OFFSET;
-
-            for (int i = 0; i< recentMessages.Count; i++) {
-                GUI.Label(new Rect(Screen.height*0.3f, ypos+=y_offset, Screen.width, Screen.height), recentMessages[i].getMessage(), myStyle);
-            }
-
-            //GUI.Label(new Rect(Screen.height*0.3f, 45, Screen.width, Screen.height), "hello", myStyle);
-            //GUI.Label(new Rect(Screen.height * 0.3f, 75, Screen.width, Screen.height), "hello", myStyle);
-        }
 
         // Use this for initialization
         void Start() {
             chatHistory = new ChatHistory();
-            currMessage = string.Empty;
+        }
+
+        // This is called when the chat icon is pressed on screen. It initialises the device's onscreen keyboard.
+        public void SendChatMessage() {
+            keyboard = TouchScreenKeyboard.Open("Enter message here");
         }
 
         // Update is called once per frame
         void Update() {
 
-            if (keyboard!=null && keyboard.done) {
-
-                currMessage = keyboard.text;
+            // If the user is done typing a message, add it to the chat history
+            if (keyboard != null && keyboard.done) {
+                string currMessage = keyboard.text;
                 chatHistory.AddMessage(currMessage);
                 keyboard = null;
             }
         }
+        
+        // displays the n most recent messages on screen
+        void OnGUI() {
+            GUIStyle myStyle = new GUIStyle();
+            myStyle.fontSize = FONT_SIZE;
+            
+            // The x and y positions at which to display the messages
+            float ypos = (Screen.width * MSG_Y)-MSG_Y_OFFSET;
+            float xpos = Screen.height * MSG_X;
+
+            List<ChatMessage> recentMessages = chatHistory.MostRecent();
+
+            for (int i = 0; i< recentMessages.Count; i++) {
+                GUI.Label(new Rect(xpos, ypos+=MSG_Y_OFFSET, Screen.width, Screen.height), recentMessages[i].getMessage(), myStyle);
+            }
+        }
+
+        
 
         public void Deserialize(List<byte> message) {
             throw new NotImplementedException();

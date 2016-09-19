@@ -1,13 +1,13 @@
-﻿using UnityEngine;
-using System.Collections;
-using System;
-
-/*
+﻿/*
  * Represents a message sent between users for text chat
  * 
  * Mariam Shaid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
+
+using UnityEngine;
+using System.Collections;
+using System;
 
 namespace _8bITProject.cooperace.multiplayer {
 
@@ -15,10 +15,12 @@ namespace _8bITProject.cooperace.multiplayer {
         // Text to be sent
         String message;
 
+        // Use this for initialization
         public ChatMessage(string message) {
             this.message = message;
         }
 
+        // return the message
         public string getMessage() {
             return this.message;
         }
