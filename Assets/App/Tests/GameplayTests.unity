@@ -649,9 +649,9 @@ MonoBehaviour:
   timeout: 5
   ignored: 0
   succeedAfterAllAssertionsAreExecuted: 1
-  expectException: 1
-  expectedExceptionList: MissingReferenceException
-  succeedWhenExceptionIsThrown: 1
+  expectException: 0
+  expectedExceptionList: 
+  succeedWhenExceptionIsThrown: 0
   includedPlatforms: -1
   platformsToIgnore: []
   dynamic: 0
@@ -691,7 +691,7 @@ MonoBehaviour:
   repeatEveryFrame: 1
   hasFailed: 0
   checkMethods: 1
-  m_ActionBase: {fileID: 1115738177}
+  m_ActionBase: {fileID: 1105230665}
   checksPerformed: 0
 --- !u!1 &677767581
 GameObject:
@@ -1083,7 +1083,7 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 2108231939}
   m_Script: {fileID: 11500000, guid: 27e9d0c5bfd8f9240b658ffda46bb3aa, type: 3}
---- !u!114 &1115738177
+--- !u!114 &1105230665
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -1091,15 +1091,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902961c69f102f4409c29b9e54258701, type: 3}
+  m_Script: {fileID: 11500000, guid: 2586c8e41f35d2f4fadde53020bf4207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   go: {fileID: 76451011}
-  thisPropertyPath: gameObject
-  compareToType: 2
+  thisPropertyPath: gameObject.activeSelf
+  compareToType: 1
   other: {fileID: 0}
   otherPropertyPath: 
-  compareType: 0
+  constantValueGeneric: 0
 --- !u!1 &1118125828
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,7 +1521,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1366665764
 MonoBehaviour:
   m_ObjectHideFlags: 0

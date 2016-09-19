@@ -16,10 +16,10 @@ namespace _8bITProject.cooperace {
 			// KeyHolder component that is holding a key object,
 			KeyHolder holder = other.gameObject.GetComponent<KeyHolder>();
 			if (holder != null && holder.holdingKey) {
-				// open (destroy self) and mark the object as no longer holding
-				// a key
+				// open (deactivate self) and mark the object as no longer
+				// holding a key
 				holder.holdingKey = false;
-				Destroy(gameObject);
+				gameObject.SetActive(false);
 			}
 		}
 

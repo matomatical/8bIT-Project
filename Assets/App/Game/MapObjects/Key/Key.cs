@@ -17,9 +17,9 @@ namespace _8bITProject.cooperace {
 			// KeyHolder component that isn't already holding a key object,
 			KeyHolder holder = other.gameObject.GetComponent<KeyHolder>();
 			if (holder != null && !holder.holdingKey) {
-				// then mark that object as holding a key and delete self
+				// then mark that object as holding a key and deactivate self
 				holder.holdingKey = true;
-				Destroy(gameObject);
+				gameObject.SetActive(false);
 			}
 		}
 
