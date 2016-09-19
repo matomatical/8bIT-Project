@@ -83,17 +83,8 @@ namespace xyz._8bITProject.cooperace {
 			}
 
 			// initialize exit colliders all around the map
-			TiledMap map = mapPrefab.GetComponent<TiledMap>();
-			float width = map.NumTilesWide;
-			float height = map.NumTilesHigh;
-			float pad = 2;
-			float hWidth = width / 2;
-			float hHeight = height / 2;
-			float hPad = pad / 2;
-			newExit(mapPrefab, "left",   -hPad,        -hHeight,         pad,         height + pad);
-			newExit(mapPrefab, "right",  width + hPad, -hHeight,         pad,         height + pad);
-			newExit(mapPrefab, "top",    hWidth,       hPad,             width + pad, pad);
-			newExit(mapPrefab, "bottom", hWidth,       -(height + hPad), width + pad, pad);
+
+			BuildExits (mapPrefab);
 
 			// setup links between pressure plates and blocks
 			// first group all plates and blocks by address
@@ -145,17 +136,45 @@ namespace xyz._8bITProject.cooperace {
 			return groups;
 		}
 
-		// Helper method to create exit portals around the level
-		GameObject newExit(GameObject parent, string name,
-				float posX, float posY, float scaleX, float scaleY) {
-			GameObject exit = GameObject.Instantiate(exitPrefab);
+
+		// Helper method to create exits colliders around a level
+		void BuildExits(GameObject mapPrefab){
+
+			TiledMap map = mapPrefab.GetComponent<TiledMap>();
+
+			float width = map.NumTilesWide;
+			float height = map.NumTilesHigh;
+			float padding = 1;		// space between level boundary and portal start
+			float thickness = 2;	// width of exit portals
+
+			// create a parent object for all four exit portals
+			GameObject exits = new GameObject ("Exits");
+			exits.transform.parent = mapPrefab.transform;
+
+			// create the actual exits around the level
+			NewExit(exits, "left",
+				0 - padding - thickness/2, -height/2, thickness, height + 2 * padding + 2 * thickness);
+
+			NewExit(exits, "right",
+				width + padding + thickness/2, -height/2, thickness, height + 2 * padding + 2 * thickness);
+
+			NewExit(exits, "above",
+				width/2, 0 + padding + thickness/2, width + 2 * padding + 2 * thickness, thickness);
+
+			NewExit(exits, "below",
+				width/2, -height - padding - thickness/2, width + 2 * padding + 2 * thickness, thickness);
+
+		}
+
+		// Helper method to create a single exit portal at a given position
+		void NewExit(GameObject parent, string name, float posX, float posY, float scaleX, float scaleY) {
+
+			GameObject exit = GameObject.Instantiate (exitPrefab);
 
 			exit.name = name;
 			exit.transform.parent = parent.transform;
 			exit.transform.position = new Vector3(posX, posY, 0);
 			exit.transform.localScale = new Vector3(scaleX, scaleY, 0);
-
-			return exit;
 		}
 
 	}
