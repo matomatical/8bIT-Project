@@ -18,12 +18,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public IUpdateManager updateManager;
 
 		// Used for getting position and state
-		Animator animator;
-		Transform thisTransform;
+		private Animator thisAnimator;
+		private Transform thisTransform;
 
 		// Keeps track of how long until we send an update
 		private int stepsUntilSend;
-		private static readonly int MAX_STEPS_BETWEEN_SENDS = 5;
+		private readonly int MAX_STEPS_BETWEEN_SENDS = 5;
 
 		// Keeps track of the last update to see if anything has changed
 		private float lastPosx;
@@ -34,7 +34,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	 
 		void Start () {
 			// Get compenents
-			animator = GetComponent<Animator> ();
+			thisAnimator = GetComponent<Animator> ();
 			thisTransform = GetComponent<Transform> ();
 
 			stepsUntilSend = 0;
@@ -66,7 +66,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					// Read information about the player currently
 					posx = thisTransform.position.x;
 					posy = thisTransform.position.y;
-					state = (byte)animator.GetInteger ("State");
+					state = (byte)thisAnimator.GetInteger ("State");
 
 					// Get the update to be sent
 					info = new PlayerInformation(posx, posy, (PlayerInformation.PlayerState)state);
@@ -103,7 +103,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			Apply (info);
 		}
 
-		// Let subscribers know there is an update
+		// Let updateManager know there is an update
 		private void Send (List<byte> message)
 		{
 			updateManager.SendPlayerUpdate (message);
@@ -112,7 +112,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Applies information in info to the player this serializer is attatched to
 		private void Apply(PlayerInformation info) {
 			thisTransform.position = new Vector3 (info.posx, info.posy, 0);
-			animator.SetInteger ("State", (int)info.state);
+			thisAnimator.SetInteger ("State", (int)info.state);
 		}
 
 		// Takes an update and applies it to this serializer's object
