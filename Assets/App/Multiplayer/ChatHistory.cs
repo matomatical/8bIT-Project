@@ -10,7 +10,7 @@ using System.Collections;
 using System;
 using System.Collections.Generic;
 
-namespace _8bITProject.cooperace.multiplayer {
+namespace xyz._8bITProject.cooperace.multiplayer {
     public class ChatHistory : MonoBehaviour {
         // Display the n most recent messages 
         public int TOPN = 3;

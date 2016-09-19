@@ -272,6 +272,21 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 224000011255745308, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000010564630336, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000010581356880, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0, type: 2}
   m_IsPrefabParent: 0
@@ -468,7 +483,7 @@ GameObject:
   - 224: {fileID: 992831330}
   - 114: {fileID: 992831331}
   m_Layer: 5
-  m_Name: Chat
+  m_Name: ChatController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -503,7 +518,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54de2f58aa7ec954caf0e01534d163a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FONT_SIZE: 20
   chatHistory: {fileID: 0}
 --- !u!1 &1030511294
 GameObject:

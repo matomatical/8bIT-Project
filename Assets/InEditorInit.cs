@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace _8bITProject.cooperace.multiplayer {
+namespace xyz._8bITProject.cooperace.multiplayer {
 	public class InEditorInit : MonoBehaviour {
 
 		// Use this for initialization

@@ -3,7 +3,7 @@
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public interface IRoomListener
 	{

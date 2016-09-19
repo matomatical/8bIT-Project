@@ -3,7 +3,7 @@ using System.Collections;
 using GooglePlayGames;
 using System;
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class MatchMaking : MonoBehaviour, IRoomListener {
 	    // Holds the image that will be the background of the dialogue box

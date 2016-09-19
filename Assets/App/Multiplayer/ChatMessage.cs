@@ -9,7 +9,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-namespace _8bITProject.cooperace.multiplayer {
+namespace xyz._8bITProject.cooperace.multiplayer {
 
     public class ChatMessage : MonoBehaviour {
         // Text to be sent

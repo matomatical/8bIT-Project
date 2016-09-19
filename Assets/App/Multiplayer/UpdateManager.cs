@@ -11,7 +11,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class UpdateManager : IUpdateManager, IObservable<List<byte>>
 	{

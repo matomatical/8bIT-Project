@@ -10,7 +10,7 @@ using GooglePlayGames.BasicApi.Multiplayer;
 using System;
 using System.Collections.Generic;
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	// Making this controller the listener as well to keep all the MultiPlayer logic in one class
 	public class MultiplayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener

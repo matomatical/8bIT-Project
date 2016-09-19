@@ -7,7 +7,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using GooglePlayGames.BasicApi.Multiplayer;
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class MultiplayerInit : MonoBehaviour {
 
@@ -23,9 +23,17 @@ namespace _8bITProject.cooperace.multiplayer
 			GameObject player1 = GameObject.Find("Player1");
 			GameObject player2 = GameObject.Find("Player2");
 
+			// Get the chat game object and chatConrtoller
+			GameObject chat = GameObject.Find("ChatController");
+			ChatController chatController = chat.GetComponent<ChatController> ();
+
 			// Get the update manager ready
 			UpdateManager updateManager = new UpdateManager();
 			MultiplayerController.Instance.updateManager = updateManager;
+
+			// Tell updateManager and chatController about each other
+			updateManager.chatController = chatController;
+			chatController.updateManager = updateManager;
 
 			// Decide if the local user is player 1 or player 2
 			// Activate appropriate components

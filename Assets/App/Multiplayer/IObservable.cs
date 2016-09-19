@@ -5,7 +5,7 @@
 
 using System;
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public interface IObservable<T>
 	{

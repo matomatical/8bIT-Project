@@ -10,7 +10,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class PlayerSerializer : MonoBehaviour, ISerializer
 	{
@@ -24,9 +24,6 @@ namespace _8bITProject.cooperace.multiplayer
 		// Used for getting position and state
 		Animator animator;
 		Transform thisTransform;
-
-		// The list of subscribers
-		private List<IListener<List<byte>>> subscribers;
 
 		// Keeps track of how long until we send an update
 		private int stepsUntilSend;
@@ -43,9 +40,6 @@ namespace _8bITProject.cooperace.multiplayer
 			// Get compenents
 			animator = GetComponent<Animator> ();
 			thisTransform = GetComponent<Transform> ();
-
-			// set up list of subscribers
-			subscribers = new List<IListener<List<byte>>> ();
 
 			stepsUntilSend = 0;
 

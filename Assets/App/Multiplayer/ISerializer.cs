@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace _8bITProject.cooperace.multiplayer
+namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public interface ISerializer : IListener<List<byte>>
 	{
