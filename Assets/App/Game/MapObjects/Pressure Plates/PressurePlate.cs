@@ -14,25 +14,27 @@ namespace _8bITProject.cooperace {
 		[HideInInspector]
 		public string address;
 
+		// a list of all blocks that are linked to this plate
 		public List<PressurePlateBlock> linked;
 
-		int isColliding;
-
-		void UpdateBlocksStatus() {
-			// notify the block that pressure plate status may have changed.
+		// notify all linked blocks that pressure plate status may have changed.
+		void NotifyStatusChangeToBlocks() {
 			foreach (PressurePlateBlock block in linked) {
 				block.UpdateStatus();
 			}
 		}
 
+		// greater than zero if anything is colliding with the pressure plate
+		int isColliding;
+
 		void OnTriggerEnter2D() {
 			++isColliding;
-			UpdateBlocksStatus();
+			NotifyStatusChangeToBlocks();
 		}
 
 		void OnTriggerExit2D() {
 			--isColliding;
-			UpdateBlocksStatus();
+			NotifyStatusChangeToBlocks();
 		}
 
 		public bool IsPressed() {

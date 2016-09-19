@@ -17,6 +17,10 @@ namespace _8bITProject.cooperace {
 			"Test_Level_3"
 		};
 
+		// Loads and returns a tiled map prefab object,
+		// Levels are identified by name (a string), but passing null will
+		// return a random level instead.
+		// If no level is found, null is returned instead.
 		public static GameObject Load(string name=null) {
 			if (name == null) {
 				name = maps[Random.Range(0, maps.Length)];

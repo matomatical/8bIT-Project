@@ -17,18 +17,22 @@ namespace _8bITProject.cooperace {
 		float originY;
 		int bobDir;
 
-		void Start () {
+		void Start() {
+			// record original position
 			originY = transform.position.y;
 			bobDir = 1;
 		}
 
-		void Update () {
+		void Update() {
+			// reverse direction if the object moves too far
 			if (transform.position.y > originY + bobOffset) {
 				bobDir = -1;
 			}
 			if (transform.position.y < originY) {
 				bobDir = 1;
 			}
+
+			// move the object up and down
 			transform.position = new Vector3(
 				transform.position.x,
 				transform.position.y + bobDir * Time.deltaTime * bobSpeed,

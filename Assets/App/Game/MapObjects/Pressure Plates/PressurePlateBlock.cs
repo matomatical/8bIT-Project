@@ -14,20 +14,23 @@ namespace _8bITProject.cooperace {
 		[HideInInspector]
 		public string address;
 
+		// a list of all plates that are linked to this block
 		public List<PressurePlate> linked;
 
+		// Called by the PressurePlate class whenever its state may have
+		// changed.
+		// This method checks if any linked plate is currently pressed,
+		// opening if any are and closing if none are.
 		public void UpdateStatus() {
-			// open if any pressure plate is pressed
-			// else close
-			bool isOpen = false;
+			bool anyPressed = false; // true if any pressure plate is pressed
 			foreach (PressurePlate plate in linked) {
 				if (plate.IsPressed()) {
-					isOpen = true;
+					anyPressed = true;
 					break;
 				}
 			}
 
-			gameObject.SetActive(!isOpen);
+			gameObject.SetActive(!anyPressed);
 		}
 
 	}

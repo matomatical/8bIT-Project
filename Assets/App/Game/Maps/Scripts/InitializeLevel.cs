@@ -18,6 +18,9 @@ namespace _8bITProject.cooperace {
 		public GameObject gui;
 		public GameObject level;
 
+		// Runs before Start()
+		// Loads the map prefab for the given name into the scene.
+		// The map is passed via the SceneManager class.
 		void Awake() {
 			GameObject prefab = Maps.Load(SceneManager.levelToLoad);
 			if (prefab) {
@@ -27,6 +30,10 @@ namespace _8bITProject.cooperace {
 			}
 		}
 
+		// Run after Awake()
+		// Responsible for setting up all the new connections between
+		// pre-existing objects in the scene and the new objects in the level
+		// prefab.
 		void Start () {
 			// finish line should have a reference to the clock
 			FinishLine finishLine = level.GetComponentInChildren<FinishLine>();

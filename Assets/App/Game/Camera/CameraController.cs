@@ -16,11 +16,12 @@ namespace _8bITProject.cooperace {
 		public Transform follow;
 		// level to lock camera view to
 		public TiledMap level;
-
+		// how much smoothing to apply to camera movement
 		public float smoothing = 4;
 
 		float minx, miny, maxx, maxy;
 
+		// Initialization code
 		void Start () {
 			Camera camera = GetComponent<Camera> ();
 
@@ -54,10 +55,10 @@ namespace _8bITProject.cooperace {
 
 			// clamp to screen
 			transform.position = new Vector3 (
-					Mathf.Clamp(nextx, minx, maxx),
-					Mathf.Clamp(nexty, miny, maxy),
-					transform.position.z
-					);
+				Mathf.Clamp(nextx, minx, maxx),
+				Mathf.Clamp(nexty, miny, maxy),
+				transform.position.z
+			);
 		}
 	}
 }

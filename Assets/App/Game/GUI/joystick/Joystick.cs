@@ -20,7 +20,7 @@ namespace _8bITProject.cooperace {
 
 		float input = 0;
 
-		/* Public method to allow getting the joystick state.
+		/* Allow getting the joystick state.
 		 */
 		public float Input() {
 			return input;
