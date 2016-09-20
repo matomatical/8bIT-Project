@@ -17,6 +17,10 @@ namespace xyz._8bITProject.cooperace {
 
 		private bool input = false;
 
+//		void Start(){
+//			SpriteRenderer
+//		}
+
 		public bool Input(){
 			return input;
 		}

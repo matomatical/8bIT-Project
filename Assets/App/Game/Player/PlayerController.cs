@@ -41,41 +41,115 @@ namespace xyz._8bITProject.cooperace {
 
 		InputManager inputManager;
 
+		// raycasting
+
+		public LayerMask collisionMask;
+
+		public const float skinWidth = 0.015f;
+		public const float raySpacing = 0.25f;
+
+		BoxCollider2D box;
+		
+		private struct RaycastOrigins {
+			public Vector2 bottomLeft, bottomRight;
+			public Vector2 topLeft, topRight;
+		}
+
+		RaycastOrigins origins;
+
+		int rayCountHorizontal;
+		int rayCountVertical;
+
+		float raySpacingHorizontal;
+		float raySpacingVertical;
+
+		// link components
+		void Awake () {
+			animator = GetComponent<Animator> ();
+			inputManager = GetComponent<InputManager> ();
+			box = GetComponent<BoxCollider2D> ();
+		}
+
 		void Start() {
 
-			// perform physics calculations
+			// perform physics initialising calculations
 
 			gravity = - 2 * maxJumpHeight / (timeToApex * timeToApex);
 			maxJumpSpeed = - gravity * timeToApex;
 			minJumpSpeed = Mathf.Sqrt (- 2 * gravity * minJumpHeight);
 
-			// link components
 
-			animator = GetComponent<Animator> ();
-			inputManager = GetComponent<InputManager> ();
+			// calculate ray origins and ray spacing
+
+			UpdateRayOrigins();
+
+			Bounds bounds = collider.bounds;
+			bounds.Expand (skinWidth * -2);
+
+			float width = bounds.size.x;
+			float height = bounds.size.y;
+
+			
+			rayCountHorizontal = Mathf.Ceil(height / raySpacing) + 1;
+			rayCountVertical   = Mathf.Ceil(width  / raySpacing) + 1;
+			// (minimum value of 2)
+
+			raySpacingHorizontal = height / (rayCountHorizontal - 1);
+			raySpacingVertical   = width  / (rayCountVertical   - 1);
 		}
+
 
 		void Update() {
 
+			// sync raycast origins with current position
+
+			UpdateRayOrigins();
+
 			// apply physics and inputs to velocity
 
-			VelocityUpdate();
+			UpdateVelocity();
 
 			// move with this input, updating collisions and velocity
 
-			Move(velocity * Time.deltaTime);
+			UpdatePosition(velocity * Time.deltaTime);
 
-			// update the animation state
+			// finally, update the animation state
 
 			UpdateAnimator();
 		}
 
+
+
+		void UpdateRayOrigins(){
+			Bounds bounds = box.bounds;
+			bounds.Expand(skinWidth * -2);
+
+			origins.bottomLeft = new Vector2(bounds.min.x, mounds.min.y);
+			origins.bottomRight = new Vector2(bounds.max.x, mounds.min.y);
+			origins.topLeft = new Vector2(bounds.min.x, mounds.max.y);
+			origins.topRight = new Vector2(bounds.max.x, mounds.max.y);	
+		}
+
 		// track old up input to know when up is released
-		// (just for this method)
+		// (used _just_ for this method)
 		private bool oldUp;
 
 		// apply physics and inputs to velocity
-		void VelocityUpdate(){
+
+		void UpdateVelocity(){
+
+			// apply physics in y direction if there's gravity,
+			// or land if there's not
+
+			if (!collisions.below) {
+				velocity.y = velocity.y + gravity * Time.deltaTime;
+			}
+
+			// if (collisions.below || collisions.above) {
+				// velocity.y = 0;
+			// }
+
+
 			// query inputs
 
 			InputManager.Inputs inputs = inputManager.GetInputs();
@@ -83,13 +157,11 @@ namespace xyz._8bITProject.cooperace {
 			// apply input in x direction
 
 			float target = inputs.horizontal * maxMoveSpeed;
-			if(collisions.below){
-				// grounded
+			if(collisions.below){ 	// grounded
 				velocity.x = Mathf.SmoothDamp(velocity.x, 
 					target, ref smoothDampVariable, accelTimeGrounded);
-
-			} else {
-				// airborne
+				
+			} else { 				// airborne
 				velocity.x = Mathf.SmoothDamp(velocity.x, 
 					target, ref smoothDampVariable, accelTimeAirborne);
 			}
@@ -100,7 +172,7 @@ namespace xyz._8bITProject.cooperace {
 				if(collisions.below){
 					// can jump
 					velocity.y = maxJumpSpeed;
-				}				
+				}
 			}
 
 			if(oldUp && !inputs.up){
@@ -111,8 +183,102 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		// move the player, updating collisions and velocity
-		void Move(Vector2 movement){
+		void UpdatePosition(Vector2 movement){
 
+			collisions.Reset ();
+
+			// handle horizontal collisions
+
+			if(movement.x != 0){
+
+				// where to cast rays?
+
+				float direction = Mathf.Sign(movement.x);
+				float magnitude = Mathf.Abs (movement.x) + skinWidth;
+
+				// cast the rays (bottom up)
+
+				for(int i = 0; i < rayCountHorizontal; i++){
+
+					Vector2 origin = i * Vector2.up + (direction > 0) ?
+						origins.bottomRight : origins.bottomLeft;
+
+					// draw ray to see direction
+					Debug.DrawRay(origin,
+						Vector2.right * direction, Color.black);
+					// draw ray to see magnitude
+					Debug.DrawRay(origin,
+						Vector2.right * direction * magnitude, Color.red);
+
+					RaycastHit2D = Physics2D.Raycast(origin,
+						Vector2.right * direction, magnitude, collisionMask);
+
+					if(hit) {
+						// a collision has been detected, horizontally
+						collisions.left = direction < 0;
+						collisions.right = direction > 0;
+
+						// truncate movement to account
+						movement.x = (hit.distance - skinWidth) * direction;
+					
+						// update magnitude for remaining raycasts
+						magnitude = hit.distance;
+					}
+
+					// draw one more ray, AFTER raycast to see truncation
+					Debug.DrawRay(origin,
+						Vector2.right * direction * magnitude, Color.green);
+				}
+				
+			}
+
+			// handle vertical collisions
+
+			if(movement.y != 0){
+
+				// where to cast rays?
+
+				float direction = Mathf.Sign(movement.y);
+				float magnitude = Mathf.Abs (movement.y) + skinWidth;
+
+				// cast the rays (left-to-right)
+
+				for(int i = 0; i < rayCountVertical; i++){
+					Vector2 origin = i * Vector2.right + (direction > 0) ?
+						origins.topLeft : origins.bottomLeft;
+
+					// draw ray to see direction
+					Debug.DrawRay(origin,
+						Vector2.up * direction, Color.black);
+					// draw ray to see magnitude
+					Debug.DrawRay(origin,
+						Vector2.up * direction * magnitude, Color.red);
+
+					RaycastHit2D = Physics2D.Raycast(origin,
+						Vector2.up * direction, magnitude, collisionMask);
+
+					if(hit) {
+						// a collision has been detected, horizontally
+						collisions.below = direction < 0;
+						collisions.above = direction > 0;
+
+						// truncate movement to account
+						movement.y = (hit.distance - skinWidth) * direction;
+					
+						// update magnitude for remaining raycasts
+						magnitude = hit.distance;
+					}
+
+					// draw one more ray, AFTER raycast to see truncation
+					Debug.DrawRay(origin,
+						Vector2.up * direction * magnitude, Color.green);
+				}
+
+			}
+
+			// finally, actually move!
+
+			transform.Translate (movement);
 		}
 
 		// update the animation state of the player
@@ -149,6 +315,8 @@ namespace xyz._8bITProject.cooperace {
 
 			// animator.SetInteger("State", A NUMBER REPRESENTING STATE);
 			// also maybe FLIP ANIMATOR.TRANSFORM to reflect DIRECTION
+			// SpriteRenderer sr; // flipX method set to true if facing left!!
+			// 
 		}
 
 		private struct CollisionInfo {
