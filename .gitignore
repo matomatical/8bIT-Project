@@ -41,3 +41,6 @@ ehthumbs.db
 # ==== #
 *.keystore
 Assets/Plugins/Android/play-services*
+
+# ONLY ON THIS BRANCH
+/Server
