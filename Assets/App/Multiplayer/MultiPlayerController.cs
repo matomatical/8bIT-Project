@@ -1,4 +1,7 @@
 ﻿/*
+ * Acts a controller for the multiplayer side of the game
+ * Works as an interface between the game and Google Play
+ * 
  * Mariam Shaid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
@@ -113,6 +116,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	        }
 	    }
 
+		/* Called when an update is recieved from a peer
+		 * 
+		 * isReliable	- Whether the message was sent using the reliable protocol or not
+		 * senderID		- The ParticipantID of the sender
+		 * data			- The message recieved
+		 */
 	    public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data)
 		{
 			// turn the data into a List instead of an array
@@ -126,21 +135,25 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	        }
 	    }
 
+		// Get a list of all Participants in the room
 	    public List<Participant> GetAllPlayers()
 	    {
 	        return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
 	    }
 
+		// Returns the ParticipantID of the device
 	    public string GetMyParticipantId()
 	    {
 	        return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
 	    }
 
+		// Sends an update to all participants in the room using the reliable protocol
 		public void SendMyReliable(List<byte> data)
 	    {
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, data.ToArray ());
 	    }
 
+		// Sends an update to all participants in the room using the unreliable protocol
 		public void SendMyUnreliable(List<byte> data)
 		{
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
