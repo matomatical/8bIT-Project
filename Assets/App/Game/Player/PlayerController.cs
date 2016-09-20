@@ -1,143 +1,163 @@
-﻿/*
- * The player controller class.
- * Has all the logic for all player movement.
- *
- * Matt Farrugiam <farrugiam@student.unimelb.edu.au>
- *
- */
-
 using UnityEngine;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
+	[RequireComponent (typeof (InputManager))]
 	public class PlayerController : MonoBehaviour {
 
-		public float speedX = 9.5f;
-		public float speedY = 16.5f;
-		public float maxJumpTime = 0.25f;
-		public float normalGravity = 4.5f;
-		public float jumpingGravity = 14f;
+		// jumping movement variables
 
-		bool forward = true;
-		bool jumping = false;
-		bool canVarJump = false;
-		float jumpTimer = 0f;
+		public float maxJumpHeight = 4;
+		public float minJumpHeight = 1;
+		public float timeToApex = 0.4f;
+		
+		float gravity;
+		float maxJumpSpeed;
+		float minJumpSpeed;
 
-		public Joystick joystick;
+		// horizontal movement variables
 
-		bool  inputJump, inputLeft, inputRight;
+		public float maxMoveSpeed = 6;
+		public float accelTimeAirborne = 0.2f;
+		public float accelTimeGrounded = 0.1f;
+		private float smoothDampVariable;
+
+		// kinematic state
+
+		Vector2 velocity = Vector2.zero;
+		CollisionInfo collisions;
+
+		// animation state
+
+		private enum AnimationDirection { LEFT, RIGHT }
+		AnimationDirection animationDirection = AnimationDirection.RIGHT;
+
+		private enum AnimationState { STOPPED, WALKING, JUMPING, FALLING }
+		AnimationState animationState = AnimationState.STOPPED;
 
 		Animator animator;
-		Rigidbody2D body;
 
-		void Start () {
+		// input management
+
+		InputManager inputManager;
+
+		void Start() {
+
+			// perform physics calculations
+
+			gravity = - 2 * maxJumpHeight / (timeToApex * timeToApex);
+			maxJumpSpeed = - gravity * timeToApex;
+			minJumpSpeed = Mathf.Sqrt (- 2 * gravity * minJumpHeight);
+
+			// link components
+
 			animator = GetComponent<Animator> ();
-			body = GetComponent<Rigidbody2D> ();
+			inputManager = GetComponent<InputManager> ();
 		}
 
-		void FixedUpdate () {
-			// gather input
-			bool jump = InputJump ();
-			float walk = InputWalk ();
+		void Update() {
 
-			// update velocity
-			body.velocity = UpdatedVelocity (walk, jump);
+			// apply physics and inputs to velocity
 
-			if (body.velocity.y > 0) {
-				body.gravityScale = jumpingGravity;
+			VelocityUpdate();
+
+			// move with this input, updating collisions and velocity
+
+			Move(velocity * Time.deltaTime);
+
+			// update the animation state
+
+			UpdateAnimator();
+		}
+
+		// track old up input to know when up is released
+		// (just for this method)
+		private bool oldUp;
+
+		// apply physics and inputs to velocity
+		void VelocityUpdate(){
+			// query inputs
+
+			InputManager.Inputs inputs = inputManager.GetInputs();
+
+			// apply input in x direction
+
+			float target = inputs.horizontal * maxMoveSpeed;
+			if(collisions.below){
+				// grounded
+				velocity.x = Mathf.SmoothDamp(velocity.x, 
+					target, ref smoothDampVariable, accelTimeGrounded);
+
 			} else {
-				body.gravityScale = normalGravity;
+				// airborne
+				velocity.x = Mathf.SmoothDamp(velocity.x, 
+					target, ref smoothDampVariable, accelTimeAirborne);
 			}
 
-			// reflect if we're facing a new direction
-			if (walk > 0) {
-				forward = true;
-			} else if (walk < 0) {
-				forward = false;
+			// apply input in y-direction
+
+			if(inputs.up){
+				if(collisions.below){
+					// can jump
+					velocity.y = maxJumpSpeed;
+				}				
 			}
+
+			if(oldUp && !inputs.up){
+				// up input was released! stunt jump
+				velocity.y = Mathf.Min (minJumpSpeed, velocity.y);
+			}
+			oldUp = inputs.up;
 		}
 
-		void Update () {
-			// update animation state
-			if (body.velocity.x != 0 && jumping == false) {
-				animator.SetInteger("State", 1);
-			} else if (body.velocity.x == 0 && jumping == false) {
-				animator.SetInteger("State", 0);
-			} else if (body.velocity.y > 0) {
-				animator.SetInteger("State", 2);
+		// move the player, updating collisions and velocity
+		void Move(Vector2 movement){
+
+		}
+
+		// update the animation state of the player
+		void UpdateAnimator(){
+
+			// which way are we facing?
+
+			if (velocity.x < 0) {
+				animationDirection = AnimationDirection.LEFT;
+			} else if (velocity.y > 0) {
+				animationDirection = AnimationDirection.RIGHT;
+			}
+
+			// and how are we moving?
+
+			if(collisions.below){
+				// grounded
+				if(velocity.x != 0){
+					animationState = AnimationState.WALKING;
+				} else {
+					animationState = AnimationState.STOPPED;
+				}
+
 			} else {
-				animator.SetInteger("State", 3);
+				// airborne
+				if(velocity.y > 0){
+					animationState = AnimationState.JUMPING;
+				} else {
+					animationState = AnimationState.FALLING;
+				}
 			}
+			
+			// update actual animator:
 
-			// reflect if we're facing a new direction
-			if (forward == (transform.localScale.x < 0)) {
-				Vector3 scale = transform.localScale;
-				scale.x = -scale.x;
-				transform.localScale = scale;
-			}
+			// animator.SetInteger("State", A NUMBER REPRESENTING STATE);
+			// also maybe FLIP ANIMATOR.TRANSFORM to reflect DIRECTION
 		}
 
-		Vector2 UpdatedVelocity(float walk, bool jump) {
-			Vector2 speed = body.velocity;
-
-			if (jump && !jumping) {
-				jumping = true;
-				canVarJump = true;
-				jumpTimer = maxJumpTime;
-			}
-
-			if (canVarJump && !jump) {
-				canVarJump = false;
-			}
-
-			if (canVarJump && jumpTimer > 0) {
-				jumpTimer -= Time.deltaTime;
-				speed.y = speedY;
-			}
-
-			speed.x = walk * speedX;
-
-			return speed;
-		}
-
-		void OnCollisionEnter2D (Collision2D other) {
-			if (other.transform.parent.CompareTag("Ground")) {
-				jumping = false;
-				canVarJump = false;
+		private struct CollisionInfo {
+			public bool above, below;
+			public bool left, right;
+			public void Reset(){
+				above = below = false;
+				left  = right = false;
 			}
 		}
-
-		float InputWalk() {
-			bool left =  inputLeft  || Input.GetKey(KeyCode.LeftArrow);
-			bool right = inputRight || Input.GetKey(KeyCode.RightArrow);
-
-			float keyInput = 0;
-
-			if (left == right) { // left and right or neither
-				keyInput = 0;
-			} else if (left) {
-				keyInput = -1;
-			} else {
-				keyInput = 1;
-			}
-
-			float joystickInput = joystick != null ? joystick.Input() : 0;
-
-			return Mathf.Clamp(joystickInput + keyInput, -1, 1);
-		}
-
-		bool InputJump() {
-			return inputJump
-				|| Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.Space);
-		}
-
-		public void SetInputLeft() {   inputLeft = true; }
-		public void UnsetInputLeft() { inputLeft = false; }
-
-		public void SetInputRight() {   inputRight = true; }
-		public void UnsetInputRight() { inputRight = false; }
-
-		public void SetInputJump() {   inputJump = true; }
-		public void UnsetInputJump() { inputJump = false; }
 	}
 }
