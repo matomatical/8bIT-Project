@@ -1,4 +1,6 @@
 ﻿/*
+ * A simple interface for the waiting room UI
+ * 
  * Mariam Shaid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */

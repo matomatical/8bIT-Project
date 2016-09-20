@@ -31,14 +31,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	    // Sticking with a single game mode
 	    private uint gameVariation = 0;
 
+        // The unity scene to go to when starting the game
 	    private String levelName = "Multiplayer Test Level";
 
+        // initialises the Multiplayer controller instance
 	    private MultiplayerController()
 	    {
 	        PlayGamesPlatform.DebugLogEnabled = true;
 	        PlayGamesPlatform.Activate();
 	    }
 
+        // makes multiplayer controller a singleton
 	    public static MultiplayerController Instance
 	    {
 	        get
@@ -51,16 +54,19 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	        }
 	    }
 
+        // Start a new Multiplayer game by looking for someone to play with
 	    public void StartMPGame()
 	    {
 	        StartMatchMaking();
 	    }
 
+        // Look for a suitable partner to play the game with
 	    private void StartMatchMaking()
 	    {
 	        PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 	    }
 
+        // Let's the player know how the matchmaking process is going
 	    private void ShowMPStatus(string message)
 	    {
 	        Debug.Log(message);
@@ -70,11 +76,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	        }
 	    }
 
+        // How's progress with setting up the room?
 	    public void OnRoomSetupProgress(float percent)
 	    {
 	        ShowMPStatus("We are " + percent + "% done with setup");
 	    }
 
+        // After connection is established go to the level specified, otherwise print an error message
 	    public void OnRoomConnected(bool success)
 	    {
 	        if (success)
@@ -90,16 +98,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	        }
 	    }
 
+        // What to do if the player leaves the room.
+        // NOTE : Have still to handle this properly
 	    public void OnLeftRoom()
 	    {
 	        ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
 	    }
 
+        // What to do when a particular player leaves the room
 	    public void OnParticipantLeft(Participant participant)
 	    {
 	        ShowMPStatus("Player " + participant.DisplayName + " has left.");
 	    }
 
+        // What to do when a player has joined the room
 	    public void OnPeersConnected(string[] participantIds)
 	    {
 	        foreach (string participantID in participantIds)
@@ -108,6 +120,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	        }
 	    }
 
+        // What to do when players leave the room
 	    public void OnPeersDisconnected(string[] participantIds)
 	    {
 	        foreach (string participantID in participantIds)
