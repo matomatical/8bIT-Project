@@ -40,8 +40,9 @@ namespace xyz._8bITProject.cooperace {
 			finishLine.clock = gui.GetComponentInChildren<ClockController>();
 
 			// player should have a reference to the joystick
-			PlayerController player = level.GetComponentInChildren<PlayerController>();
-			player.joystick = gui.GetComponentInChildren<Joystick>();
+			PlayerController player = level.GetComponentInChildren<PlayerController> ();
+			InputManager inputManager = level.GetComponentInChildren<InputManager> ();
+			inputManager.joystick = gui.GetComponentInChildren<Joystick>();
 
 			// camera should have a reference to the player
 			camera.follow = player.gameObject.transform;
