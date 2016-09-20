@@ -22,8 +22,10 @@ GameObject:
   - 212: {fileID: 212000013859232158}
   - 95: {fileID: 95000012961684102}
   - 61: {fileID: 61000010313508328}
-  - 114: {fileID: 114000012644887968}
   - 114: {fileID: 114000010732364216}
+  - 114: {fileID: 114000012953468230}
+  - 114: {fileID: 114000013538040042}
+  - 50: {fileID: 50000010468580636}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -44,6 +46,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &50000010468580636
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013806612336}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61000010313508328
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -55,9 +74,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.15, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.7, y: 1}
 --- !u!95 &95000012961684102
 Animator:
   serializedVersion: 3
@@ -86,7 +105,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ab3f9430a1dbf4287277e960538692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012644887968
+--- !u!114 &114000012953468230
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013806612336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ca342a55400f4341ab4bf1da3570250, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  joystick: {fileID: 0}
+  jumpButton: {fileID: 0}
+--- !u!114 &114000013538040042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -97,12 +129,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6beefd5a1a9354228827a26432a6792c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedX: 9.5
-  speedY: 16.5
-  maxJumpTime: 0.25
-  normalGravity: 4.5
-  jumpingGravity: 14
-  joystick: {fileID: 0}
+  maxJumpHeight: 4
+  minJumpHeight: 1
+  timeToApex: 0.4
+  maxMoveSpeed: 6
+  accelTimeAirborne: 0.2
+  accelTimeGrounded: 0.1
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!212 &212000013859232158
 SpriteRenderer:
   m_ObjectHideFlags: 1
