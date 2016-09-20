@@ -36,6 +36,7 @@ namespace xyz._8bITProject.cooperace {
 		AnimationState animationState = AnimationState.STOPPED;
 
 		Animator animator;
+		SpriteRenderer renderer;
 
 		// input management
 
@@ -65,8 +66,12 @@ namespace xyz._8bITProject.cooperace {
 
 		// link components
 		void Awake () {
+			
 			animator = GetComponent<Animator> ();
+			renderer = GetComponent<SpriteRenderer> ();
+
 			inputManager = GetComponent<InputManager> ();
+
 			box = GetComponent<BoxCollider2D> ();
 		}
 
@@ -83,16 +88,16 @@ namespace xyz._8bITProject.cooperace {
 
 			UpdateRayOrigins();
 
-			Bounds bounds = collider.bounds;
+			Bounds bounds = box.bounds;
 			bounds.Expand (skinWidth * -2);
 
 			float width = bounds.size.x;
 			float height = bounds.size.y;
 
 			
-			rayCountHorizontal = Mathf.Ceil(height / raySpacing) + 1;
-			rayCountVertical   = Mathf.Ceil(width  / raySpacing) + 1;
-			// (minimum value of 2)
+			rayCountHorizontal = Mathf.CeilToInt(height / raySpacing) + 1;
+			rayCountVertical   = Mathf.CeilToInt(width  / raySpacing) + 1;
+			// (minimum value of 2 - rays from corners)
 
 			raySpacingHorizontal = height / (rayCountHorizontal - 1);
 			raySpacingVertical   = width  / (rayCountVertical   - 1);
@@ -124,10 +129,10 @@ namespace xyz._8bITProject.cooperace {
 			Bounds bounds = box.bounds;
 			bounds.Expand(skinWidth * -2);
 
-			origins.bottomLeft = new Vector2(bounds.min.x, mounds.min.y);
-			origins.bottomRight = new Vector2(bounds.max.x, mounds.min.y);
-			origins.topLeft = new Vector2(bounds.min.x, mounds.max.y);
-			origins.topRight = new Vector2(bounds.max.x, mounds.max.y);	
+			origins.bottomLeft = new Vector2(bounds.min.x, bounds.min.y);
+			origins.bottomRight = new Vector2(bounds.max.x, bounds.min.y);
+			origins.topLeft = new Vector2(bounds.min.x, bounds.max.y);
+			origins.topRight = new Vector2(bounds.max.x, bounds.max.y);	
 		}
 
 		// track old up input to know when up is released
@@ -139,15 +144,24 @@ namespace xyz._8bITProject.cooperace {
 		void UpdateVelocity(){
 
 			// apply physics in y direction if there's gravity,
-			// or land if there's not
+
 
 			if (!collisions.below) {
 				velocity.y = velocity.y + gravity * Time.deltaTime;
 			}
 
-			// if (collisions.below || collisions.above) {
-				// velocity.y = 0;
-			// }
+			// or, land if there's not
+
+			if (collisions.below) {
+				velocity.y = 0;
+			}
+
+			// also, finish jumping if there's something above us
+
+			if (collisions.above) {
+				velocity.y = 0;
+			}
+
 
 
 			// query inputs
@@ -169,14 +183,13 @@ namespace xyz._8bITProject.cooperace {
 			// apply input in y-direction
 
 			if(inputs.up){
-				if(collisions.below){
-					// can jump
+				if(collisions.below){ // can jump
 					velocity.y = maxJumpSpeed;
 				}
 			}
 
 			if(oldUp && !inputs.up){
-				// up input was released! stunt jump
+				// up input was released! stunt the jump, now
 				velocity.y = Mathf.Min (minJumpSpeed, velocity.y);
 			}
 			oldUp = inputs.up;
@@ -200,8 +213,9 @@ namespace xyz._8bITProject.cooperace {
 
 				for(int i = 0; i < rayCountHorizontal; i++){
 
-					Vector2 origin = i * Vector2.up + (direction > 0) ?
+					Vector2 origin = (direction > 0) ?
 						origins.bottomRight : origins.bottomLeft;
+					origin += i * Vector2.up * raySpacingHorizontal;
 
 					// draw ray to see direction
 					Debug.DrawRay(origin,
@@ -210,7 +224,7 @@ namespace xyz._8bITProject.cooperace {
 					Debug.DrawRay(origin,
 						Vector2.right * direction * magnitude, Color.red);
 
-					RaycastHit2D = Physics2D.Raycast(origin,
+					RaycastHit2D hit = Physics2D.Raycast(origin,
 						Vector2.right * direction, magnitude, collisionMask);
 
 					if(hit) {
@@ -244,8 +258,9 @@ namespace xyz._8bITProject.cooperace {
 				// cast the rays (left-to-right)
 
 				for(int i = 0; i < rayCountVertical; i++){
-					Vector2 origin = i * Vector2.right + (direction > 0) ?
+					Vector2 origin = (direction > 0) ?
 						origins.topLeft : origins.bottomLeft;
+					origin += i * Vector2.right * raySpacingVertical;
 
 					// draw ray to see direction
 					Debug.DrawRay(origin,
@@ -254,7 +269,7 @@ namespace xyz._8bITProject.cooperace {
 					Debug.DrawRay(origin,
 						Vector2.up * direction * magnitude, Color.red);
 
-					RaycastHit2D = Physics2D.Raycast(origin,
+					RaycastHit2D hit = Physics2D.Raycast(origin,
 						Vector2.up * direction, magnitude, collisionMask);
 
 					if(hit) {
@@ -316,7 +331,6 @@ namespace xyz._8bITProject.cooperace {
 			// animator.SetInteger("State", A NUMBER REPRESENTING STATE);
 			// also maybe FLIP ANIMATOR.TRANSFORM to reflect DIRECTION
 			// SpriteRenderer sr; // flipX method set to true if facing left!!
-			// 
 		}
 
 		private struct CollisionInfo {
