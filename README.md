@@ -4,7 +4,7 @@ Welcome to team 8-bIT Project's IT Project Project repository.
 
 ## What is this repository for? ##
 
-We're building a cooperative platformer game for Android 4.1, using Unity 5. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
+We're building a cooperative platformer game for Android 4.1, using Unity 5.4. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
 ## How do I get set up? ##
 
