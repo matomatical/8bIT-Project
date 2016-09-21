@@ -2,7 +2,7 @@
  * Acts a controller for the multiplayer side of the game
  * Works as an interface between the game and Google Play
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 

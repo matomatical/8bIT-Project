@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /*
  * Is responsible for taking text input from the user and sending it to the update manager
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 namespace xyz._8bITProject.cooperace.multiplayer {

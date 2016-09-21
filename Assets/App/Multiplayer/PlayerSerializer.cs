@@ -2,7 +2,7 @@
  * The multiplayer serializer for Player game objects (includes the partner)
  * Used for representation of the state of the object as a list of bytes and updating the state of from a list of bytes.
  *
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
 */
 

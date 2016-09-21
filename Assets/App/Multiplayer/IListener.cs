@@ -2,7 +2,7 @@
  * The interface which should be implemented by classes who which to be a subscriber in the observer pattern
  * T is the type of message exchanged between the observable and subscriber
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 
