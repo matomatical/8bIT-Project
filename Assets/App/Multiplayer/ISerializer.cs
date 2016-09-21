@@ -18,4 +18,3 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		T Deserialize (List<byte> data);
 	}
 }
-	

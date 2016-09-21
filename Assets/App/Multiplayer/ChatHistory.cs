@@ -29,7 +29,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Returns the most n recent messages
         // NOTE : Assumes that the list is sorted in ascending order. This may not always be the case
         // when sending messages between devices
-		public List<ChatMessage> MostRecent(int n) {
+        public List<ChatMessage> MostRecent(int n) {
             List<ChatMessage> mostRecent = new List<ChatMessage>();
 
             for (int i = 0; i < history.Count; i++) {

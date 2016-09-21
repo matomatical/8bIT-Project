@@ -21,4 +21,3 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void SendTextChat(List<byte> data);
 	}
 }
-

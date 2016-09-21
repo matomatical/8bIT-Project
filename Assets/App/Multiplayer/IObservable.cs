@@ -16,4 +16,3 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void Subscribe(IListener<T> o);
 	}
 }
-
