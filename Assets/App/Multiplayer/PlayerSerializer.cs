@@ -18,7 +18,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public IUpdateManager updateManager;
 
 		// Used for getting position and state
-		private Animator thisAnimator;
 		private Transform thisTransform;
 
 		// Keeps track of how long until we send an update
@@ -34,7 +33,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	 
 		void Start () {
 			// Get compenents
-			thisAnimator = GetComponent<Animator> ();
 			thisTransform = GetComponent<Transform> ();
 
 			stepsUntilSend = 0;
@@ -56,7 +54,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// Variables to store the players current state in the game
 			float posx;
 			float posy;
-			byte state;
 
 			// Only send if there is an update manager to send to and the transform is found
 			if (updateManager != null && ready) {
@@ -66,12 +63,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					// Read information about the player currently
 					posx = thisTransform.position.x;
 					posy = thisTransform.position.y;
-					state = (byte)thisAnimator.GetInteger("State");
 
 					// If the update is different to the last one sent
 					if (thisTransform.position.x != lastPosx || thisTransform.position.y != lastPosy) {
 						// Get the update to be sent
-						info = new PlayerInformation(posx, posy, (PlayerInformation.PlayerState)state);
+						info = new PlayerInformation(posx, posy);
 						update = Serialize(info);
 
 						Debug.Log ("Serializing");
@@ -112,23 +108,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Applies information in info to the player this serializer is attatched to
 		private void Apply(PlayerInformation info) {
 			thisTransform.position = new Vector3 (info.posx, info.posy, 0);
-			thisAnimator.SetInteger ("State", (int)info.state);
 		}
 
 		// Takes an update and applies it to this serializer's object
 		public PlayerInformation Deserialize(List<byte> update)
 		{
 			float posx, posy;
-			byte state;
 			byte[] data = update.ToArray ();
 
 			// Get the information from the list of bytes
 			posx = BitConverter.ToSingle (data, 0);
 			posy = BitConverter.ToSingle (data, 4);
-			state = data [8];
 
 			// Create and return PlayerInformation with the data deserialized
-			return new PlayerInformation(posx, posy, (PlayerInformation.PlayerState)state);
+			return new PlayerInformation(posx, posy);
 		}
 
 		// Takes the state of this object and turns it into an update
@@ -140,12 +133,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// get the data to Serialize from the PlayerInformation
 			float posx = info.posx;
 			float posy = info.posy;
-			byte state = (byte)info.state;
 
 			// Add the byte representation of the above values into the list
 			bytes.AddRange (BitConverter.GetBytes (posx));
 			bytes.AddRange (BitConverter.GetBytes (posy));
-			bytes.Add (state);
 			return bytes;
 		}
 	}
