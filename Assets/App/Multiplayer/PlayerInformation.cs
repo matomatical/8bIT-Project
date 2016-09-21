@@ -11,18 +11,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class PlayerInformation
 	{
-		// Defines what states the player can be in
-		public enum PlayerState : byte { MOVING, STILL, JUMP, DEFAULT };
-
 		public readonly float posx;
 		public readonly float posy;
-		public readonly PlayerState state;
 
-		public PlayerInformation (float posx, float posy, PlayerState state)
+		public PlayerInformation (float posx, float posy)
 		{
 			this.posx = posx;
 			this.posy = posy;
-			this.state = state;
 		}
 
 		public override bool Equals(Object obj)
