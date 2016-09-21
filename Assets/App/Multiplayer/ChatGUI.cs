@@ -1,7 +1,7 @@
 ﻿/*
  * ChatGUI is responsible for displaying the history of chat messages
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 
@@ -20,7 +20,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         private readonly int MSG_Y_OFFSET = 20;
 
         // Display the n most recent messages 
-        private readonly int TOPN = 3;
+        public readonly int TOPN = 3;
 
         private ChatHistory chatHistory;
 
