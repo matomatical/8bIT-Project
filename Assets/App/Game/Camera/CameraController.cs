@@ -1,7 +1,8 @@
 ﻿/*
- * Camera controller with smoothing, lookahead and deadzone
+ * Advanced camera controller with smoothing,
+ * lookahead, simple lookabove, and a deadzone (focus area)
  *
- * Matt Farrugiam <farrugiam@student.unimelb.edu.au>
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *
  */
 
@@ -12,12 +13,24 @@ using System.Collections;
 namespace xyz._8bITProject.cooperace {
 	public class CameraController : MonoBehaviour {
 
+		// this is the level we will lock to
+
 		public TiledMap level;
+
+		// the bounds imposed by the level
+
+		float minx, miny, maxx, maxy;
+
+		// the player to follow
 
 		public PlayerController target;
 		
+		// deadzone ('focus area')
+
 		FocusArea focus;
 		public Vector2 focusAreaSize = new Vector2(3, 5);
+
+		// lookahead/above settings
 
 		public float lookAheadDistance = 3, lookAheadTime = 0.4f;
 		public float lookAboveDistance = 1, lookAboveTime = 0.2f;
@@ -33,7 +46,36 @@ namespace xyz._8bITProject.cooperace {
 		float smoothDampAboveVariable;
 
 		void Start() {
+
+			// set up level lock
+
+			Camera camera = GetComponent<Camera> ();
+
+			// helper values
+
+			float camerax = camera.orthographicSize * Screen.width / Screen.height * 2;
+			float cameray = camera.orthographicSize * 2;
+
+			float levelx = level.GetMapWidthInPixelsScaled();
+			float levely = level.GetMapHeightInPixelsScaled();
+
+			float cornerx = level.transform.position.x;
+			float cornery = level.transform.position.y;
+
+			// actual values
+
+			maxx = cornerx + levelx - (camerax / 2);
+			minx = cornerx + (camerax / 2);
+
+			maxy = cornery - (cameray / 2);
+			miny = cornery - levely + (cameray / 2);
+
+
+			// set up deadzone ('focus area')
+
 			focus = new FocusArea(target.BoxCollider().bounds, focusAreaSize);
+
+
 		}
 
 		void LateUpdate(){
@@ -44,7 +86,8 @@ namespace xyz._8bITProject.cooperace {
 
 			// handle lookAbove (the easy one)
 
-			goal.y = Mathf.SmoothDamp(transform.position.y, goal.y, ref smoothDampAboveVariable, lookAboveTime);
+			goal.y = Mathf.SmoothDamp(transform.position.y,
+				goal.y, ref smoothDampAboveVariable, lookAboveTime);
 
 			// and lookAhead (a little less simple)
 
@@ -56,29 +99,45 @@ namespace xyz._8bITProject.cooperace {
 					lookAheadStopped = false;
 				} else {
 					if (!lookAheadStopped) {
-						goalLookAhead = currentLookAhead + (lookAheadDirection * lookAheadDistance - currentLookAhead) / 4;
+						goalLookAhead = currentLookAhead + (lookAheadDirection
+							* lookAheadDistance - currentLookAhead) / 4;
 						lookAheadStopped = true;
 					}
 				}
 			}
 
-			currentLookAhead = Mathf.SmoothDamp(currentLookAhead, goalLookAhead, ref smoothDampAheadVariable, lookAheadTime);
+			currentLookAhead = Mathf.SmoothDamp(currentLookAhead,
+				goalLookAhead, ref smoothDampAheadVariable, lookAheadTime);
 			goal.x += currentLookAhead;
 
 
-			// apply these movements
+			// apply these movements, locking to the level
 
-			transform.position = (Vector3)goal - 10 * Vector3.forward;
+			Vector3 position;
+
+			position.x = Mathf.Clamp(goal.x, minx, maxx);
+			position.y = Mathf.Clamp(goal.y, miny, maxy);
+			position.z = transform.position.z; // Don't mess with the Z
+
+			// change the actual camera position
+
+			transform.position = position;
 		}
+
+		// show the focus area as a gizmo
 
 		void OnDrawGizmos() {
 			Gizmos.color = new Color (1, 0, 0, 0.5f);
 			Gizmos.DrawCube (focus.bounds.center, focus.bounds.size);
 		}
 
+		// the area of focus
+
 		private struct FocusArea {
 			public Vector2 shift;
 			public Bounds bounds;
+
+			// set up a new focus area
 
 			public FocusArea(Bounds target, Vector2 size) {
 
@@ -87,6 +146,8 @@ namespace xyz._8bITProject.cooperace {
 
 				shift = Vector2.zero;
 			}
+
+			// move a focus area to capture a specified bound object
 
 			public void Update(Bounds target){
 

@@ -1,4 +1,13 @@
-using UnityEngine;
+/*
+ * Unified Input manager, making all inputs (keyboard, virtual, touch)
+ * available to any object through a consistent interface, and
+ * encapsulating rules for resolving multiple simultaneous inputs
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
+ using UnityEngine;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace {

@@ -1,3 +1,13 @@
+/*
+ * Advanced Player Controller. Detects collisions with configurable layers
+ * of objects using configurable raycasting. Follows simple arcade physics,
+ * controlled by an InputManager. In the future, this class will be refactored
+ * to create a raycasting body for any moving objects.
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
 using UnityEngine;
 using System.Collections;
 
