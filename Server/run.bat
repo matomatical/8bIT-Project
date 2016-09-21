@@ -13,6 +13,6 @@ cd bin/
 
 echo starting server once on port %port%
 
-java -cp ".;../jar/boon.jar;../jar/hamcrest.jar;../jar/junit.jar" xyz._8bITProject.cooperace.leaderboards.Server
+java -cp ".;../jar/boon.jar;../jar/hamcrest.jar;../jar/junit.jar" xyz._8bITProject.cooperace.leaderboards.Server %port%
 
 cd ../
