@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class ChatHistory : MonoBehaviour {
+    public class ChatHistory {
         // A record of every single message sent
         private List<ChatMessage> history;
 

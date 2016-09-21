@@ -415,6 +415,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32b229154b6342b9ae259303d40fe9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &294723382 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4000013962525040, guid: 7a0710637a4997243a1cd1ed6370020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 294723372}
 --- !u!1 &842959323
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,8 +546,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9e0f65149c12486dbb2b77739430fb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: {fileID: 0}
-  camera: {fileID: 0}
+  level: {fileID: 2095179431}
+  camera: {fileID: 1401004706}
 --- !u!212 &1030511296
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -703,8 +708,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0fe5325f5e149c9a575041c33018ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  follow: {fileID: 0}
-  level: {fileID: 0}
+  follow: {fileID: 294723382}
+  level: {fileID: 2095179431}
   smoothing: 4
 --- !u!81 &1401004708
 AudioListener:
@@ -740,3 +745,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &2095179431 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000012269861316, guid: 077daf6813300dd4f9d3d0fe11bb1cd6,
+    type: 2}
+  m_PrefabInternal: {fileID: 109220450}
+  m_Script: {fileID: 11500000, guid: c0619e460a775cc458d37cb4a214a189, type: 3}
