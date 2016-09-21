@@ -75,7 +75,11 @@ In order to run all tests
 
 #### Dependencies
 
-The server aspect of the project has no external dependencies! However, the scripts for automated building, testing and running the server assume that the user is working in a unix environment with access to `sh` (the java classpath is specified with colons instead of semicolons, for example, so these might not run in properly on Windows).
+The server component of the project has no external dependencies! (Aside from Java).
+
+However, the scripts for automated building, testing and running the server *assume that the user is working in a unix environment* with access to `sh`, because the server is intended to be run on a unix VM.
+
+> To build, test and run on Windows, support is limited. However, you can give it a go. If you have access to `sh`, replace `build.sh`, `test.sh`, and `run.sh` in the following instructions with `build-win.sh`, `test-win.sh`, and `run-win.sh`, respectively. These scripts are modified to use Windows-Java style classpaths, in which paths are separated by semicolons rather than colons.
 
 #### Build Instructions
 
