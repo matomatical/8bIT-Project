@@ -1,7 +1,7 @@
 ﻿/*
  * Contains all the messages sent by players.
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 
@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class ChatHistory : MonoBehaviour {
+    public class ChatHistory {
         // A record of every single message sent
         private List<ChatMessage> history;
 
@@ -29,7 +29,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Returns the most n recent messages
         // NOTE : Assumes that the list is sorted in ascending order. This may not always be the case
         // when sending messages between devices
-		public List<ChatMessage> MostRecent(int n) {
+        public List<ChatMessage> MostRecent(int n) {
             List<ChatMessage> mostRecent = new List<ChatMessage>();
 
             for (int i = 0; i < history.Count; i++) {

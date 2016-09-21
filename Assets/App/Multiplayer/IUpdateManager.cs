@@ -2,7 +2,7 @@
  * Interface for the updateManger used by the MultiplayerController class
  * It is a central place where updates can be sent out from, and also recieved
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
 */
 
@@ -21,4 +21,3 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void SendTextChat(List<byte> data);
 	}
 }
-

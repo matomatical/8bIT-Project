@@ -2,7 +2,7 @@
  * The interface common to all serializers working for the multiplayer side of the game
  * A compenent should implement this and attatch to a game object
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  * 
 */
@@ -18,4 +18,3 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		T Deserialize (List<byte> data);
 	}
 }
-	

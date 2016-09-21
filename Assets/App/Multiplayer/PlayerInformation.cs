@@ -1,7 +1,7 @@
 ﻿/*
  * This class is used to store information about the player and their current state in the game
  * 
- * Mariam Shaid  < mariams@student.unimelb.edu.au >
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
 */
 
