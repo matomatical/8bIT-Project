@@ -64,14 +64,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         // Takes a string of bytes and converts it to the appropriate string representations
         private string Deserialize(List<byte> message) {
-            return Encoding.ASCII.GetString (message.ToArray ());
+            return Encoding.UTF8.GetString (message.ToArray ());
         }
 
         // Takes a string and converts it to a list of bytes
         public List<byte> Serialize(String message) {
             List<byte> ret = new List<byte> ();
             // Turn the string into an array of bytes and that array into a list
-            ret.AddRange (Encoding.ASCII.GetBytes (message));
+            ret.AddRange (Encoding.UTF8.GetBytes (message));
             return ret;
         }
     }
