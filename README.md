@@ -23,8 +23,10 @@ Once you have those installed, you'll be able to follow these steps to get the p
 * Next, you'll want to open up Unity.
 * Click on the "Open" button, navigate to and choose the folder you downloaded the repository to.
 * Reimport all assets to make sure all plugins are properly initialized. (Right-click `Assets` in the `Project` window and select `Reimport`.)
-* If you haven't already, make sure you've told Unity where the Android SDK is on your computer as well as the JDK. You can do this by going to Edit -> Preferences, then external tools.
-* All done! The project should open up in Unity, no worries!
+* If you haven't already, make sure you've told Unity where the Android SDK is on your computer as well as the JDK. You can do this by going to `Edit > Preferences`, then external tools.
+* From Unity, navigate to `File > Build Settings` (`cmd+shift+B`/`ctrl+shift+B`)
+* If the selected platform (the one with the unity icon in the platform list) is not Android, select Android and press `Select Platform`.
+* All done! The project should open up in Unity, no worries! You should be able to play a scene in Unity's player.
 
 ##### Setting up the Keystore
 
@@ -38,11 +40,12 @@ create a keystore file (or use the android debug key).
 
 If you want to build and install the application directly on your device, follow these steps.
 
-* From Unity, navigate to `File > Build Settings` (`cmd+^+B`/`ctrl+^+B`)
-* If the selected platform (the one with the unity icon in the platform list) is not Android, select Android and press `Select Platform`.
-* Press `Build`, and select a location to save your build.
+* Go to `File > Build Settings > Build` (`cmd+B`/`ctrl+B`), and select a location to save your build.
 * After the build succeeds, connect your Android device and copy the resulting apk file to somewhere on your device.
-* Navigate to the apk file from your device, and press it to begin installing. You may have to alter your security settings to allow installation of third-party apks. (WARNING: Do not install apk files from sources you do not trust.)
+* Navigate to the apk file from your device, and press it to begin installing. You may have to alter your security settings to allow installation of third-party apks. 
+
+> (WARNING: Do not install apk files from sources you do not trust.)
+
 * After the application has been installed, launch it from your device.
 
 ##### Deploying to Android Device Remotely
