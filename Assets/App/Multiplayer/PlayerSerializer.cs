@@ -66,14 +66,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					// Read information about the player currently
 					posx = thisTransform.position.x;
 					posy = thisTransform.position.y;
-					state = (byte)thisAnimator.GetInteger ("State");
+					state = (byte)thisAnimator.GetInteger("State");
 
-					// Get the update to be sent
-					info = new PlayerInformation(posx, posy, (PlayerInformation.PlayerState)state);
-					update = Serialize (info);
-
-					// Ff the update is different to the last one sent
+					// If the update is different to the last one sent
 					if (thisTransform.position.x != lastPosx || thisTransform.position.y != lastPosy) {
+						// Get the update to be sent
+						info = new PlayerInformation(posx, posy, (PlayerInformation.PlayerState)state);
+						update = Serialize(info);
+
 						Debug.Log ("Serializing");
 
 						// Send the update
