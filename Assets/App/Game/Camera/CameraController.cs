@@ -70,12 +70,9 @@ namespace xyz._8bITProject.cooperace {
 			maxy = cornery - (cameray / 2);
 			miny = cornery - levely + (cameray / 2);
 
-
 			// set up deadzone ('focus area')
 
 			focus = new FocusArea(target.BoxCollider().bounds, focusAreaSize);
-
-
 		}
 
 		void LateUpdate(){
