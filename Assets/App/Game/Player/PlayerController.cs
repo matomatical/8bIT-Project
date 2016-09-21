@@ -24,19 +24,24 @@ namespace xyz._8bITProject.cooperace {
 
 		// kinematic state
 
-		Vector2 velocity = Vector2.zero;
+		Vector2 position;
+		Vector2 velocity;
 		CollisionInfo collisions;
 
 		// animation state
 
-		private enum AnimationDirection { LEFT, RIGHT }
-		AnimationDirection animationDirection = AnimationDirection.RIGHT;
+		// boolean value of 'the player's sprite is facing left'
+		bool animationLeft = false;
 
-		private enum AnimationState { STOPPED, WALKING, JUMPING, FALLING }
+		// enum set up to cast to integer, sync'd with animator state machine
+		private enum AnimationState { STOPPED = 0, WALKING = 1, JUMPING = 2 }
 		AnimationState animationState = AnimationState.STOPPED;
 
 		Animator animator;
 		SpriteRenderer renderer;
+
+		// movements slower than this amount will not cause walking animation
+		public const float EPSILON = 0.05f;
 
 		// input management
 
@@ -50,6 +55,9 @@ namespace xyz._8bITProject.cooperace {
 		public const float raySpacing = 0.25f;
 
 		BoxCollider2D box;
+		public BoxCollider2D BoxCollider(){
+			return box;
+		}
 		
 		private struct RaycastOrigins {
 			public Vector2 bottomLeft, bottomRight;
@@ -76,6 +84,9 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		void Start() {
+
+			velocity = Vector2.zero;
+			position = transform.position;
 
 			// perform physics initialising calculations
 
@@ -118,6 +129,10 @@ namespace xyz._8bITProject.cooperace {
 
 			UpdatePosition(velocity * Time.deltaTime);
 
+			// apply this movement to our transform
+
+			transform.position = this.position;
+
 			// finally, update the animation state
 
 			UpdateAnimator();
@@ -145,7 +160,6 @@ namespace xyz._8bITProject.cooperace {
 
 			// apply physics in y direction if there's gravity,
 
-
 			if (!collisions.below) {
 				velocity.y = velocity.y + gravity * Time.deltaTime;
 			}
@@ -163,10 +177,10 @@ namespace xyz._8bITProject.cooperace {
 			}
 
 
-
 			// query inputs
 
 			InputManager.Inputs inputs = inputManager.GetInputs();
+
 
 			// apply input in x direction
 
@@ -215,7 +229,7 @@ namespace xyz._8bITProject.cooperace {
 
 					Vector2 origin = (direction > 0) ?
 						origins.bottomRight : origins.bottomLeft;
-					origin += i * Vector2.up * raySpacingHorizontal;
+					origin.y += i * raySpacingHorizontal;
 
 					// draw ray to see direction
 					Debug.DrawRay(origin,
@@ -248,7 +262,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// handle vertical collisions
 
-			if(movement.y != 0){
+			if(movement.y != 0) {
 
 				// where to cast rays?
 
@@ -260,7 +274,8 @@ namespace xyz._8bITProject.cooperace {
 				for(int i = 0; i < rayCountVertical; i++){
 					Vector2 origin = (direction > 0) ?
 						origins.topLeft : origins.bottomLeft;
-					origin += i * Vector2.right * raySpacingVertical;
+					origin.x += i * raySpacingVertical;
+					origin.x += movement.x; // cast from eventual position
 
 					// draw ray to see direction
 					Debug.DrawRay(origin,
@@ -289,11 +304,25 @@ namespace xyz._8bITProject.cooperace {
 						Vector2.up * direction * magnitude, Color.green);
 				}
 
+			} else { // are we *sure* we're not touching the ground?
+				
+				for(int i = 0; i < rayCountVertical; i++){
+					Vector2 origin = origins.bottomLeft
+						+ Vector2.right*(i * raySpacingVertical + movement.x);
+
+					RaycastHit2D hit = Physics2D.Raycast(origin,
+						-Vector2.up, 2 * skinWidth, collisionMask);
+
+					if(hit) {
+						// a collision has been detected, horizontally
+						collisions.below = true;
+					}
+				}
 			}
 
-			// finally, actually move!
+			// apply this movement to our position
 
-			transform.Translate (movement);
+			position += movement;
 		}
 
 		// update the animation state of the player
@@ -302,35 +331,32 @@ namespace xyz._8bITProject.cooperace {
 			// which way are we facing?
 
 			if (velocity.x < 0) {
-				animationDirection = AnimationDirection.LEFT;
-			} else if (velocity.y > 0) {
-				animationDirection = AnimationDirection.RIGHT;
+				animationLeft = true;
+			} else if (velocity.x > 0) {
+				animationLeft = false;
+			} else {
+				// if we are not moving, we should preserve the existing
+				// value of animationLeft by not doing anything
 			}
 
 			// and how are we moving?
 
 			if(collisions.below){
 				// grounded
-				if(velocity.x != 0){
+				if(Mathf.Abs(velocity.x) > EPSILON){
 					animationState = AnimationState.WALKING;
 				} else {
 					animationState = AnimationState.STOPPED;
 				}
-
 			} else {
 				// airborne
-				if(velocity.y > 0){
-					animationState = AnimationState.JUMPING;
-				} else {
-					animationState = AnimationState.FALLING;
-				}
+				animationState = AnimationState.JUMPING;
 			}
 			
 			// update actual animator:
 
-			// animator.SetInteger("State", A NUMBER REPRESENTING STATE);
-			// also maybe FLIP ANIMATOR.TRANSFORM to reflect DIRECTION
-			// SpriteRenderer sr; // flipX method set to true if facing left!!
+			animator.SetInteger("State", (int) animationState);
+			renderer.flipX = animationLeft;
 		}
 
 		private struct CollisionInfo {
