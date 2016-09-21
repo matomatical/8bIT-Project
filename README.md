@@ -4,7 +4,7 @@ Welcome to team 8-bIT Project's IT Project Project repository.
 
 ## What is this repository for? ##
 
-We're building a cooperative platformer game for Android 4.1, using Unity 5. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
+We're building a cooperative platformer game for Android 4.1, using Unity 5.4. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
 ## How do I get set up? ##
 
@@ -12,18 +12,27 @@ We're building a cooperative platformer game for Android 4.1, using Unity 5. The
 
 Before checking out the project, you'll want to have installed the following software:
 
-* Unity 5
+* Unity 5.4
 * Android 4.1 SDK (available through [Android Studio](https://developer.android.com/studio/index.html)'s SDK Manager)
 
 #### Deployment Instructions
 
 Once you have those installed, you'll be able to follow these steps to get the project from the bitbucket repository and into Unity.
 
-* First you'll want to create a folder for the repository, and then download the repository and put it in that folder.
+* Download the repository, note which folder it is.
 * Next, you'll want to open up Unity.
 * Click on the "Open" button, navigate to and choose the folder you downloaded the repository to.
-* If you haven't already, make sure you've told Unity where the Android SDK is on your computer. You can do this by going to Unity preferences, then external tools.
+* Reimport all assets to make sure all plugins are properly initialized. (Right-click `Assets` in the `Project` window and select `Reimport`.)
+* If you haven't already, make sure you've told Unity where the Android SDK is on your computer as well as the JDK. You can do this by going to Edit -> Preferences, then external tools.
 * All done! The project should open up in Unity, no worries!
+
+##### Setting up the Keystore
+
+Before the a build can be made, it is necessary to setup the keystore to be
+used.
+
+Go to `File > Build Settings > Player Settings > Publishing Settings`. Then
+create a keystore file (or use the android debug key).
 
 ##### Deploying to Android Device Manually
 
