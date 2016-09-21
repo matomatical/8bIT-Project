@@ -24,6 +24,37 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			this.posy = posy;
 			this.state = state;
 		}
+
+		public override bool Equals(Object obj)
+		{
+			// If parameter is null return false.
+			if (obj == null)
+			{
+				return false;
+			}
+
+			// If parameter cannot be cast to Point return false.
+			PlayerInformation info = obj as PlayerInformation;
+			if ((Object)info == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			return (posx == info.posx) && (posy == info.posy);
+		}
+
+		public bool Equals(PlayerInformation info)
+		{
+			// If parameter is null return false:
+			if ((object)info == null)
+			{
+				return false;
+			}
+
+			// Return true if the fields match:
+			return (this.posx == info.posx) && (posy == info.posy);
+		}
 	}
 }
 
