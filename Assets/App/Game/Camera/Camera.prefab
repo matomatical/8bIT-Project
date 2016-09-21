@@ -102,6 +102,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d0fe5325f5e149c9a575041c33018ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  follow: {fileID: 0}
   level: {fileID: 0}
-  smoothing: 4
+  target: {fileID: 0}
+  focusAreaSize: {x: 3, y: 5}
+  lookAheadDistance: 3
+  lookAheadTime: 0.4
+  lookAboveDistance: 1
+  lookAboveTime: 0.2
