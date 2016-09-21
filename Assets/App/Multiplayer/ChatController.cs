@@ -51,19 +51,23 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             }
         }
 
+        // Renders the chat onto the player's screen
         void OnGUI () {
             chatGUI.RenderChatGUI ();
         }
 
+        // Takes a message and adds it to the chat history
         public void GiveMessage(List<byte> message) {
             string strMessage = Deserialize (message);
             chatHistory.AddMessage(strMessage);
         }
 
+        // Takes a string of bytes and converts it to the appropriate string representations
         private string Deserialize(List<byte> message) {
             return Encoding.ASCII.GetString (message.ToArray ());
         }
 
+        // Takes a string and converts it to a list of bytes
         public List<byte> Serialize(String message) {
             List<byte> ret = new List<byte> ();
             // Turn the string into an array of bytes and that array into a list
