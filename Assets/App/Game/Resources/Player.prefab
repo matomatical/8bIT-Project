@@ -27,7 +27,7 @@ GameObject:
   - 114: {fileID: 114000013538040042}
   - 50: {fileID: 50000010468580636}
   - 114: {fileID: 114000013539410424}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   maxJumpHeight: 4
   minJumpHeight: 1
   maxMoveSpeed: 6
