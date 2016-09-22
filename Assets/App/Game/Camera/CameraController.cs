@@ -72,12 +72,12 @@ namespace xyz._8bITProject.cooperace {
 
 			// set up deadzone ('focus area')
 
-			focus = new FocusArea(target.BoxCollider().bounds, focusAreaSize);
+			focus = new FocusArea(target.GetBoxCollider().bounds, focusAreaSize);
 		}
 
 		void LateUpdate(){
 
-			focus.Update(target.BoxCollider().bounds);
+			focus.Update(target.GetBoxCollider().bounds);
 
 			Vector2 goal = focus.bounds.center + Vector3.up * lookAboveDistance;
 
