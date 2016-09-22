@@ -42,7 +42,7 @@ namespace xyz._8bITProject.cooperace {
 			inputManager.jumpButton = gui.GetComponentInChildren<Button> ();
 
 			// camera should have a reference to the player
-			PlayerController player = level.GetComponentInChildren<PlayerController> ();
+			ArcadePhysicsController player = level.GetComponentInChildren<PlayerOneController> ();
 			camera.target = player;
 
 			// background should have a reference to the camera, too!
