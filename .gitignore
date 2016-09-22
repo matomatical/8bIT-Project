@@ -44,3 +44,4 @@ Assets/Plugins/Android/play-services*
 
 # ONLY ON THIS BRANCH
 /Server
+/Assets/Tiled2Unity/Tiled2UnityLite.exe*
