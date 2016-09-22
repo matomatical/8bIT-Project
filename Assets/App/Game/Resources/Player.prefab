@@ -26,6 +26,7 @@ GameObject:
   - 114: {fileID: 114000012953468230}
   - 114: {fileID: 114000013538040042}
   - 50: {fileID: 50000010468580636}
+  - 114: {fileID: 114000013539410424}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -126,18 +127,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013806612336}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6beefd5a1a9354228827a26432a6792c, type: 3}
+  m_Script: {fileID: 11500000, guid: d75788f96f9934bbc84faaf010992757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 256
   maxJumpHeight: 4
   minJumpHeight: 1
-  timeToApex: 0.4
   maxMoveSpeed: 6
   accelTimeAirborne: 0.2
   accelTimeGrounded: 0.1
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 768
+--- !u!114 &114000013539410424
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013806612336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 724fe4f92e1c84b16b01b00c614ef1ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212000013859232158
 SpriteRenderer:
   m_ObjectHideFlags: 1
