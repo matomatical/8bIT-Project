@@ -1747,29 +1747,6 @@ Camera:
   m_PrefabParentObject: {fileID: 20000013805494800, guid: 5ed9808070316bb438e34ecb48a936b6,
     type: 2}
   m_PrefabInternal: {fileID: 1436139761}
---- !u!1 &2011825930 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000010198261168, guid: 0a530b6f1b149420794989cdcee93351,
-    type: 2}
-  m_PrefabInternal: {fileID: 2109773233}
---- !u!114 &2011825934
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2011825930}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aff971b1ec8814a7e832adc984ceda5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 768
-  pushersMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  onePusherMoveSpeed: 3
 --- !u!1 &2103971999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1845,6 +1822,11 @@ Prefab:
     - target: {fileID: 4000012605248710, guid: 0a530b6f1b149420794989cdcee93351, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012552181268, guid: 0a530b6f1b149420794989cdcee93351,
+        type: 2}
+      propertyPath: collisionMask.m_Bits
+      value: 768
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0a530b6f1b149420794989cdcee93351, type: 2}
