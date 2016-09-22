@@ -11,7 +11,7 @@ using System.Collections;
 namespace xyz._8bITProject.cooperace {
 
 	[RequireComponent (typeof (InputManager))]
-	public class PlayerController : ArcadePhysicsController {
+	public class PlayerOneController : ArcadePhysicsController {
 
 		// player-specific jumping constants
 
@@ -56,7 +56,7 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 
-		protected override void NewVelocity(ref Vector2 velocity){
+		protected override void ChangeVelocity(ref Vector2 velocity){
 
 			// query inputs
 

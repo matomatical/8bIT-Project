@@ -13,7 +13,7 @@ namespace xyz._8bITProject.cooperace {
 	[RequireComponent (typeof (Animator))]
 	[RequireComponent (typeof (SpriteRenderer))]
 	
-	[RequireComponent (typeof (PlayerController))]
+	[RequireComponent (typeof (ArcadePhysicsController))]
 	
 	public class SpriteController : MonoBehaviour {
 
@@ -34,13 +34,13 @@ namespace xyz._8bITProject.cooperace {
 		public const float EPSILON = 0.05f;
 
 		// the player object which is being represented by this sprite
-		PlayerController player;
+		ArcadePhysicsController player;
 
 		void Awake () {
 			
 			// link components
 
-			player = GetComponent<PlayerController> ();
+			player = GetComponent<ArcadePhysicsController> ();
 
 			animator = GetComponent<Animator> ();
 			renderer = GetComponent<SpriteRenderer> ();

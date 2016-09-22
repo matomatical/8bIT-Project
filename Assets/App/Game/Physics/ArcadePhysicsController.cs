@@ -91,6 +91,14 @@ namespace xyz._8bITProject.cooperace {
 
 		void Update() {
 
+			// first, get any changes to position from concrete controller
+
+			if (ChangePosition (ref position)) {
+				
+				// if something changes, apply to our transform
+				transform.position = position;
+			}
+
 			// sync raycast origins with current position
 
 			raycaster.UpdateRayOrigins();
@@ -98,6 +106,10 @@ namespace xyz._8bITProject.cooperace {
 			// apply physics and inputs to velocity
 
 			UpdateVelocity();
+
+			// then, get the changes to velocity from concrete controller
+
+			ChangeVelocity(ref velocity);
 
 			// move with this velocity, updating collisions and velocity
 
@@ -109,8 +121,13 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
-		
-		// apply physics and inputs to velocity
+		protected virtual bool ChangePosition(ref Vector2 position){
+			// by default, don't change anything
+			return false;
+		}
+
+
+		// apply physics to velocity
 
 		void UpdateVelocity(){
 
@@ -131,14 +148,11 @@ namespace xyz._8bITProject.cooperace {
 			if (collisions.above) {
 				velocity.y = 0;
 			}
-
-
-			// then, get the changes to velocity specific to this
-
-			NewVelocity(ref velocity);
 		}
 
-		protected abstract void NewVelocity(ref Vector2 velocity);
+		protected virtual void ChangeVelocity(ref Vector2 velocity){
+			// by default, don't change anything
+		}
 
 		/// move the player, updating collisions and velocity
 		void UpdatePosition(Vector2 movement){

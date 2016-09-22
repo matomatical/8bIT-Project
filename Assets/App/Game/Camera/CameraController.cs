@@ -23,7 +23,7 @@ namespace xyz._8bITProject.cooperace {
 
 		// the player to follow
 
-		public PlayerController target;
+		public ArcadePhysicsController target;
 		
 		// deadzone ('focus area')
 
