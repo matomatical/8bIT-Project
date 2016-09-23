@@ -16,11 +16,11 @@ import java.io.IOException;
 public class Peer {
 
 	/** Java socket representing remote host */
-	Socket remote;
+	private Socket remote;
 	/** The socket's output stream */
-	LineWriter o;
+	private LineWriter o;
 	/** The socket's input stream */
-	LineReader i;
+	private LineReader i;
 
 	/** Set up a Peer connection based on a hostname and port
 	 * @param host String domain name or IP address, or null for loopback
@@ -114,6 +114,4 @@ public class Peer {
 	public String recv() throws DisconnectException {
 		return i.readln();
 	}
-
-
 }

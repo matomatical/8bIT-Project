@@ -11,7 +11,7 @@ import java.net.ServerSocket;
  */
 public class Port {
 
-	ServerSocket welcomingSocket;
+	private ServerSocket welcomingSocket;
 
 	/** Open a new Port
 	 * @param port port to bind to
