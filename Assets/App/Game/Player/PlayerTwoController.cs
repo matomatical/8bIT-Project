@@ -1,5 +1,6 @@
 /*
- * 
+ * Player 'two' controller, extending arcade physics to
+ * follow state updates from a network or file
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *

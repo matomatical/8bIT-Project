@@ -1,5 +1,7 @@
 /*
- * 
+ * Push Block Controller, extends arcade physics to
+ * respond to being pushed by any number of 'player'-
+ * layer objects pushing from either side.
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *

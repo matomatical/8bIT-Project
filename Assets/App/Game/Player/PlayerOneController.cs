@@ -1,5 +1,6 @@
 /*
- * 
+ * Player controller, extending arcade physics to respond to
+ * inputs from an inout manager
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *

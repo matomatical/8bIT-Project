@@ -1,5 +1,27 @@
 /*
- * 
+ * ArcadePhysics provides advanced raycasting physics
+ * for moving gameobjects, configurable by layermasks
+ * for standard collisions.
+ * Gameobjects should extend this class if they need to
+ * control their movements in any way, which can be
+ * They can do so by overriding ChangePosition and/or
+ * ChangeVelocity. This class will take care of the rest.
+ *
+ * If a base class needs a start or awake method, it
+ * must override this class' methods, and should call
+ * base.Start() or base.Awake() (as appropriate) at the
+ * beginning of the call.
+ *
+ * ArcadePhysics also makes available a struct containing
+ * collision information (base.collisions), and a
+ * raycaster (base.raycaster) to help extension classes
+ * perform their kinematics calculations.
+ *
+ * Finally, this class provides public access to its
+ * kinematic state through its GetVelocity(),
+ * GetPosition(), GetCollisions() and GetBoxCollider()
+ *
+ * Enjoy!
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *
@@ -12,7 +34,7 @@ namespace xyz._8bITProject.cooperace {
 
 	[RequireComponent (typeof (BoxCollider2D))]
 
-	public abstract class ArcadePhysicsController : MonoBehaviour {
+	public class ArcadePhysicsController : MonoBehaviour {
 
 		// gravity-determining constants
 

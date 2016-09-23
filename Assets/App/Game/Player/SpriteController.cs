@@ -1,5 +1,9 @@
 /*
- * 
+ * Sprite Controller keeps a player's animation state,
+ * making sure it is up to date with the kinematic state
+ * of the object.
+ *
+ * Written for the Player sprite state machine at the moment.
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *

@@ -1,6 +1,6 @@
 /*
- * Raycaster provides 2D raycasting for objects with
- * a box-collider
+ * Raycaster provides easy 2D raycasting helper methods
+ * for objects with a box-collider.
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *
@@ -61,6 +61,8 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
+		/// Update the corners to use for raycasting. Should call always be 
+		/// called when position changes before raycasting at all
 		public void UpdateRayOrigins(){
 
 			Bounds bounds = box.bounds;
@@ -206,7 +208,7 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
-		/// Return all raycast results. always non-decreasing
+		/// Return all raycast results. always non-decreasing.
 		public RaycastHit2D[] RaycastAllHorizontal(float ray,
 			LayerMask layers, float offset = 0) {
 
