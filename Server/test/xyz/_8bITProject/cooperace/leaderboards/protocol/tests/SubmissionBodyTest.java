@@ -69,7 +69,7 @@ public class SubmissionBodyTest {
 	@Test
 	public void validationOfCompleteBodyShouldPass(){
 		try{
-			// create incomplete submission body
+			// create complete submission body
 			SubmissionBody body = new SubmissionBody("test level", new Score(1, "abc", "def"));
 			
 			// attempt to respond
