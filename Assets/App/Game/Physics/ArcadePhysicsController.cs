@@ -221,7 +221,7 @@ namespace xyz._8bITProject.cooperace {
 			} else { // are we *sure* we're not touching the ground?
 				
 				RaycastHit2D[] hits = raycaster.RaycastVertical(
-					- Raycaster.skinWidth, collisionMask);
+					- Raycaster.skinWidth, collisionMask, movement.x);
 				
 				foreach(RaycastHit2D hit in hits) {
 					
