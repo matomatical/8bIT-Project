@@ -92,7 +92,7 @@ You may want to select your own port for the server to listen on for testing pur
 
 You may also want the server to run perpetually. That is, to start itself up again even if it ever closes. To achieve this, you can use the `-f` (forever) flag: `sh run.sh -f`.
 
-> Note: You'll no longer be able to shut down the script with `ctrl`+`C`; this will now close (and restart) the server. You can end the script with `ctrl`+`Z` followed by `kill PID` where `PID` is the process ID of the script, found using the `ps` command.
+> Note: You'll no longer be able to shut down the script with `ctrl`+`C`; this will now close (and restart) the server. You can end the script with `ctrl`+`Z` followed by `kill PID` where `PID` is the process ID of the script (`run.sh`), found using the `ps` command.
 
 If you want to leave the server running while you are away, the simplest way to do this is to background the launch script with `sh run.sh [opts] &`, and then disown it using `disown -h PID` where `PID` is the process ID of the script, found using the `ps` command.
 
@@ -107,7 +107,7 @@ Instructions to come.
 
 #### Unit Testing
 
-Once you have compiled the project (see build instructions) and are in the `Server/` directory, you can run the test suite by calling `sh test.sh`. This will re-build all jUnit test classes involved and then
+Once you have compiled the project (see build instructions) and are in the `Server/` directory, you can run the test suite by calling `sh test.sh`. This will re-build all jUnit test classes involved and then run each of the tests, giving you detailed error messages if any tests fail.
 
 ##### Adding New Tests
 

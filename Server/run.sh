@@ -4,7 +4,7 @@
 port="2693";	# default port
 forever=false;	# default perpetual-ness
 
-while [ "$#" > 0 ]; do
+while [[ "$#" > 0 ]]; do
 	case $1 in
     	-p) port="$2";shift;;
     	-f) forever=true;;

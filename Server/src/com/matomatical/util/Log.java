@@ -29,7 +29,7 @@ public abstract class Log {
 	private static PrintWriter logfile = logfile();
 	private static PrintWriter logfile() {
 		try{
-			PrintWriter logfile = new PrintWriter(new FileWriter(path, !overwrite), true);
+			PrintWriter logfile = new PrintWriter(new FileWriter(path, !overwrite));
 			logfile.println("*** BEGIN LOG ***");
 			return logfile;
 		} catch (IOException e) {
@@ -44,5 +44,6 @@ public abstract class Log {
 		long t = Thread.currentThread().getId();
 		String time = date.format(new Date());
 		logfile.println("("+time+") thread " + t + ": " + msg);
+		logfile.flush();
 	}
 }
