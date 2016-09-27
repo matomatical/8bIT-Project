@@ -61,7 +61,7 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
-		/// Update the corners to use for raycasting. Should call always be 
+		/// Update the corners to use for raycasting. Should always be 
 		/// called when position changes before raycasting at all
 		public void UpdateRayOrigins(){
 
