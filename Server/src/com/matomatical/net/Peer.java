@@ -114,4 +114,11 @@ public class Peer {
 	public String recv() throws DisconnectException {
 		return i.readln();
 	}
+	
+	/** Get the peer's network address
+	 * @return the peer's hostname / IP address
+	 */
+	public String getAddress(){
+		return remote.getInetAddress().toString();
+	}
 }

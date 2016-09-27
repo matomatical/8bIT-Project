@@ -32,7 +32,7 @@ public class Server {
 		
 		while(arrivals.isOpen()){
 			Peer client = arrivals.meet();
-			log("server connected a new client");
+			log("server connected a new client from " + client.getAddress());
 			
 			Servant servant = new Servant(client);
 		    Thread thread = new Thread(servant);
