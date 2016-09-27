@@ -4,9 +4,7 @@ Welcome to team 8-bIT Project's IT Project Project repository.
 
 ## What is this repository for? ##
 
-We're building a cooperative platformer game for Android 4.1, using Unity 5. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
-
-The repository also includes our home-made leaders boards server (under `Server/`). It has its own build and test instructions, included later in this README. The leaderboards server is built in Java.
+We're building a cooperative platformer game for Android 4.1, using Unity 5.4. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
 ## How do I get set up? ##
 
@@ -16,28 +14,40 @@ The repository also includes our home-made leaders boards server (under `Server/
 
 Before checking out the project, you'll want to have installed the following software:
 
-* Unity 5
+* Unity 5.4
 * Android 4.1 SDK (available through [Android Studio](https://developer.android.com/studio/index.html)'s SDK Manager)
 
 #### Deployment Instructions
 
 Once you have those installed, you'll be able to follow these steps to get the project from the Bitbucket repository and into Unity.
 
-* First you'll want to create a folder for the repository, and then download the repository and put it in that folder.
+* Download the repository, note which folder it is.
 * Next, you'll want to open up Unity.
 * Click on the "Open" button, navigate to and choose the folder you downloaded the repository to.
-* If you haven't already, make sure you've told Unity where the Android SDK is on your computer. You can do this by going to Unity preferences, then external tools.
-* All done! The project should open up in Unity, no worries!
+* Reimport all assets to make sure all plugins are properly initialized. (Right-click `Assets` in the `Project` window and select `Reimport`.)
+* If you haven't already, make sure you've told Unity where the Android SDK is on your computer as well as the JDK. You can do this by going to `Edit > Preferences`, then external tools.
+* From Unity, navigate to `File > Build Settings` (`cmd+shift+B`/`ctrl+shift+B`)
+* If the selected platform (the one with the unity icon in the platform list) is not Android, select Android and press `Select Platform`.
+* All done! The project should open up in Unity, no worries! You should be able to play a scene in Unity's player.
+
+##### Setting up the Keystore
+
+Before the a build can be made, it is necessary to setup the keystore to be
+used.
+
+Go to `File > Build Settings > Player Settings > Publishing Settings`. Then
+create a keystore file (or use the android debug key).
 
 ##### Deploying to Android Device Manually
 
 If you want to build and install the application directly on your device, follow these steps.
 
-* From Unity, navigate to `File > Build Settings` (`cmd+^+B`/`ctrl+^+B`)
-* If the selected platform (the one with the unity icon in the platform list) is not Android, select Android and press `Select Platform`.
-* Press `Build`, and select a location to save your build.
+* Go to `File > Build Settings > Build` (`cmd+B`/`ctrl+B`), and select a location to save your build.
 * After the build succeeds, connect your Android device and copy the resulting apk file to somewhere on your device.
-* Navigate to the apk file from your device, and press it to begin installing. You may have to alter your security settings to allow installation of third-party apks. (WARNING: Do not install apk files from sources you do not trust.)
+* Navigate to the apk file from your device, and press it to begin installing. You may have to alter your security settings to allow installation of third-party apks. 
+
+> (WARNING: Do not install apk files from sources you do not trust.)
+
 * After the application has been installed, launch it from your device.
 
 ##### Deploying to Android Device Remotely
@@ -68,8 +78,9 @@ Note: If the remote doesn't begin to show the game on your device, try restartin
 In order to run all tests
 
 1. Open the project in unity.
-1. Go to the "Unity Test Tools > Integration Test Runner".
-1. Click the "Run All" button.
+1. Open the unity scene Assets/App/Tests/GameplayTests.
+1. Go to the `Unity Test Tools > Integration Test Runner`.
+1. Click the `Run All` button.
 
 ### Server ###
 
@@ -164,7 +175,6 @@ Every major feature will be developed outside of the repository's master branch,
 In terms of conventions, we're not fussed about indentation or brace placement. However, code should be properly documented and all names should be descriptive and intuitive, while follow the language's standard conventions for casing.
 
 In general, if you're adding new code, make sure that it conforms with the code around it.
-
 
 ## Who do I talk to? ##
 
