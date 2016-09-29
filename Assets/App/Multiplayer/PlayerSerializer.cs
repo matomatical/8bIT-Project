@@ -116,9 +116,16 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			float posx, posy;
 			byte[] data = update.ToArray ();
 
-			// Get the information from the list of bytes
-			posx = BitConverter.ToSingle (data, 0);
-			posy = BitConverter.ToSingle (data, 4);
+			// Just in case the List isn't long enough
+			try {
+				// Get the information from the list of bytes
+				posx = BitConverter.ToSingle (data, 0);
+				posy = BitConverter.ToSingle (data, 4);
+			}
+			catch (System.ArgumentOutOfRangeException e) {
+				Debug.Log (e.Message);
+				throw e;
+			}
 
 			// Create and return PlayerInformation with the data deserialized
 			return new PlayerInformation(posx, posy);

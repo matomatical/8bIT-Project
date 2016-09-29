@@ -77,6 +77,21 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			Assert.That (info.Equals (expectedInfo));
 		}
 
+		[Test]
+		public void DeserializeEmptyList () {
+			PlayerSerializer serializer = new PlayerSerializer ();
+
+			// try deserialize an empty list
+			try {
+				serializer.Deserialize (new List<byte> ());
+			}
+			catch (System.ArgumentOutOfRangeException e) {
+				// Good! We can't deserialize that!
+				Assert.Pass ();
+			}
+			// Oh no! Deserialize shouldn't be able to deseralize an empty list...
+		}
+
 		private PlayerInformation PlayerInformation1 () {
 			return new PlayerInformation (POSX1, POSY1);
 		}
