@@ -34,22 +34,33 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void HandleUpdate (List<byte> data, string senderID)
 		{
 			Debug.Log ("Update recieved from " + senderID);
-			List<byte> header = StripHeader (data);
-			if (header [0] == PROTOCOL_VERSION) {
-				if (header [1] == PLAYER) {
-					Debug.Log ("Notifying everyone");
-					NotifyAll (data);
-				} else if (header [1] == CHAT && chatController != null) {
-					Debug.Log ("Notifying ChatController");
-					chatController.GiveMessage(data);
-				}// handle other types of updates in this if/else tree
-			} // Handle other protocols in this if/else tree
+			List<byte> header = HeaderManager.StripHeader(data);
+            try {
+                try {
+                    if (header[0] == PROTOCOL_VERSION) {
+                        if (header[1] == PLAYER) {
+                            Debug.Log("Notifying everyone");
+                            NotifyAll(data);
+                        }
+                        else if (header[1] == CHAT && chatController != null) {
+                            Debug.Log("Notifying ChatController");
+                            chatController.GiveMessage(data);
+                        }// handle other types of updates in this if/else tree
+                    }// Handle other protocols in this if/else tree
+                } catch (Exception e) {
+                    Debug.Log("Invalid update identifier");
+                    throw e;
+                }
+            } catch (Exception e) {
+                Debug.Log("Invalid Protocol");
+                throw e;
+            }
 		}
 
 		// Sends an update for an obstacle
 		public void SendObstacleUpdate (List<byte> data)
 		{
-			ApplyHeader (data, OBSTACLE);
+            HeaderManager.ApplyHeader(data, OBSTACLE);
 			MultiplayerController.Instance.SendMyReliable (data);
 			Debug.Log ("Sending obstacle update");
 		}
@@ -57,7 +68,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Sends an update for a player
 		public void SendPlayerUpdate (List<byte> data)
 		{
-			ApplyHeader (data, PLAYER);
+            HeaderManager.ApplyHeader(data, PLAYER);
 			// uncomment/comment the following lines to change between in editor and real testing
 			MultiplayerController.Instance.SendMyUnreliable (data);
 			//HandleUpdate(data, "memes");
@@ -67,41 +78,18 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Sends an update for a chat message
 		public void SendTextChat (List<byte> data)
 		{
-			ApplyHeader (data, CHAT);
+            HeaderManager.ApplyHeader(data, CHAT);
 			MultiplayerController.Instance.SendMyReliable (data);
 			Debug.Log ("Sending chat message");
 		}
 
+        // An object is added to the list of subscribers
 		public void Subscribe (IListener<List<byte>> o)
 		{
 			subscribers.Add (o);
 		}
 
-		// Strips off the header of an update, returns information contained in the header
-		private List<byte> StripHeader(List<byte> data) {
-			// get the protocol
-			byte protocol = data[0];
-			List<byte> headerInfo = new List<byte>();
-
-			// add protocol to header and remove from message
-			headerInfo.Add(protocol);
-			data.RemoveAt (0);
-
-			if (protocol == PROTOCOL_VERSION) {
-				// get the update type
-				headerInfo.Add (data[0]);
-				// remove the update type
-				data.RemoveAt (0);
-			}
-
-			return headerInfo;
-		}
-
-		// Applies a header to an upddate (data), at this point just a protocol version and update type
-		private void ApplyHeader(List<byte> data, byte type) {
-			data.Insert (0, PROTOCOL_VERSION);
-			data.Insert(1, type);
-		}
+		
 
 		// Notifies all subscribers of an update
 		private void NotifyAll (List<byte> data) {

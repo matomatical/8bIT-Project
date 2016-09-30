@@ -40,7 +40,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             List<ChatMessage> recentMessages = chatHistory.MostRecent(TOPN);
 
             for (int i = 0; i< recentMessages.Count; i++) {
-                createRectangle(xpos, ypos += MSG_Y_OFFSET, recentMessages[i].getMessage(), 1, 0, 0);
+                //createRectangle(xpos, ypos += MSG_Y_OFFSET, recentMessages[i].getMessage(), 1, 0, 0);
                 GUI.Label(new Rect(xpos, ypos, Screen.width, Screen.height),
                     recentMessages[i].getMessage(), myStyle);
             }
