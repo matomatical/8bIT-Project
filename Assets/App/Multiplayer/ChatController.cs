@@ -65,8 +65,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Takes a message and adds it to the chat history
         public void GiveMessage(List<byte> message) {
             string strMessage = Deserialize (message);
-            Debug.Log(strMessage);
-            if (chatHistory==null) Debug.Log("fuck");
             chatHistory.AddMessage(strMessage);
         }
 

@@ -22,8 +22,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         // Add a new message to the chat history
         public void AddMessage(string message) {
-            ChatMessage m = new ChatMessage(message);
-            history.Add(m);
+            try {
+                ChatMessage m = new ChatMessage(message);
+                history.Add(m);
+            } catch (System.ArgumentNullException e) {
+                Debug.Log(e);
+                throw e;
+            }
+            
         }
 
         // Returns the most n recent messages
@@ -51,6 +57,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             return false;
         }
 
+        // Set the history
+        public void setHistory(List<ChatMessage> history) {
+            this.history = history;
+        }
+
+        public List<ChatMessage> getHistory() {
+            return this.history;
+        }
 
     }
 }
