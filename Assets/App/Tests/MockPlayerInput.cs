@@ -15,6 +15,7 @@ namespace xyz._8bITProject.cooperace {
 		public InputManager inputManager;
 		public bool inputLeftDown = false;
 		public bool inputRightDown = false;
+		public bool inputJumpDown = false;
 
 		void Update () {
 			if (inputLeftDown) {
@@ -27,6 +28,12 @@ namespace xyz._8bITProject.cooperace {
 				inputManager.VirtualKeyRightDown ();
 			} else {
 				inputManager.VirtualKeyRightUp ();
+			}
+
+			if (inputJumpDown) {
+				inputManager.VirtualKeyUpDown ();
+			} else {
+				inputManager.VirtualKeyUpUp ();
 			}
 		}
 	}

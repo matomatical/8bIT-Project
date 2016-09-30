@@ -162,7 +162,7 @@ namespace xyz._8bITProject.cooperace {
 		private int virtualUpCounter;
 
 		public void VirtualKeyUpDown() {
-			virtualRightCounter++;
+			virtualUpCounter++;
 		}
 
 		public void VirtualKeyUpUp() {
