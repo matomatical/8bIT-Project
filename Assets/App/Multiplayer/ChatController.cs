@@ -63,7 +63,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
         // Takes a string of bytes and converts it to the appropriate string representations
-        private string Deserialize(List<byte> message) {
+        public string Deserialize(List<byte> message) {
             return Encoding.UTF8.GetString (message.ToArray ());
         }
 
@@ -73,6 +73,11 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             // Turn the string into an array of bytes and that array into a list
             ret.AddRange (Encoding.UTF8.GetBytes (message));
             return ret;
+        }
+
+        // Returns the chat history
+        public ChatHistory getChatHistory() {
+            return this.chatHistory;
         }
     }
 }

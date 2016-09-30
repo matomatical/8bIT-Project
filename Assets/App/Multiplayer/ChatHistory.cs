@@ -41,6 +41,16 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             return mostRecent;
         }
 
+        // Checks to see if the chat history contain a message
+        public bool ContainsMessage(String m) {
+            for (int i=0; i<this.history.Count; i++) {
+                if (history[i].getMessage() == m) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
 
     }
 }
