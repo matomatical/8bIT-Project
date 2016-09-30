@@ -9,6 +9,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
     public class ChatControllerTest : MonoBehaviour {
         String message1 = "Hello World!";
 
+
         [Test]
         public void SerializeDeserialize() {
             ChatController serializer = new ChatController();
@@ -80,6 +81,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         [Test]
         public void GiveMessage() {
             ChatController serializer = new ChatController();
+            serializer.Init();
 
             List<Byte> data = data1();
             serializer.GiveMessage(data);

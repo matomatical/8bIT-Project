@@ -26,9 +26,15 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         // Use this for initialization
         void Start() {
-            chatHistory = new ChatHistory();
-            chatGUI = new ChatGUI (chatHistory);
+            Init();
         }
+
+        // Initialize the chat controller object
+        public void Init() {
+            chatHistory = new ChatHistory();
+            chatGUI = new ChatGUI(chatHistory);
+        }
+
 
         // This is called when the chat icon is pressed on screen. It initialises the device's onscreen keyboard.
         public void SendChatMessage() {
@@ -59,6 +65,8 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Takes a message and adds it to the chat history
         public void GiveMessage(List<byte> message) {
             string strMessage = Deserialize (message);
+            Debug.Log(strMessage);
+            if (chatHistory==null) Debug.Log("fuck");
             chatHistory.AddMessage(strMessage);
         }
 
