@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
     [TestFixture]
-    public class ChatHistoryTest : MonoBehaviour {
+    public class ChatHistoryTestr {
         string message = "Hello World!";
         
 
