@@ -396,7 +396,7 @@ MonoBehaviour:
   repeatCheckFrame: 1
   repeatEveryFrame: 1
   hasFailed: 0
-  checkMethods: 3
+  checkMethods: 1
   m_ActionBase: {fileID: 1184554685}
   checksPerformed: 0
 --- !u!114 &1955468770
