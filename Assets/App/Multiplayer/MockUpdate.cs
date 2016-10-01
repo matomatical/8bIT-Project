@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
-	
+
 	public class MockUpdate : MonoBehaviour {
 
-		PlayerSerializer serializer;
+		private PlayerSerializer serializer;
 
 		void Start () {
 			// Find the player and serializer

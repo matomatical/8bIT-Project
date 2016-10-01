@@ -168,10 +168,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 515084994}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5122d2a5e917e4b64b8509a09d55ee4b, type: 3}
+  m_Script: {fileID: 11500000, guid: e56f9d07cf6bc49c49f04d8a096e1183, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializer: {fileID: 0}
 --- !u!1 &623711753
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1911315104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -350,7 +349,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeout: 5
   ignored: 0
-  succeedAfterAllAssertionsAreExecuted: 1
+  succeedAfterAllAssertionsAreExecuted: 0
   expectException: 0
   expectedExceptionList: 
   succeedWhenExceptionIsThrown: 0
@@ -390,7 +389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkAfterTime: 0.5
+  checkAfterTime: 1
   repeatCheckTime: 0
   repeatEveryTime: 1
   checkAfterFrames: 1
