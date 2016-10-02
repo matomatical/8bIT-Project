@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
 
-	public class PlayerTwoController : ArcadePhysicsController {
+	public class RemotePlayerController : ArcadePhysicsController {
 
 		Vector2 externalPosition;
 		Vector2 externalVelocity;

@@ -10,11 +10,11 @@ using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
 
-	public class PlayerTwoTester : MonoBehaviour {
+	public class RemotePlayerTester : MonoBehaviour {
 
-		public PlayerOneController one;
+		public LocalPlayerController one;
 
-		public PlayerTwoController two;
+		public RemotePlayerController two;
 
 		private struct State{
 			public Vector2 position, velocity;

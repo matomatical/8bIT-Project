@@ -135,48 +135,64 @@ namespace xyz._8bITProject.cooperace {
 
 		// virtual keypressing
 
+		/// Tracks how many callers are holding down the
+		/// virtual 'right' key
 		private int virtualRightCounter;
 
+		/// Simulate pressing down the 'right' key
 		public void VirtualKeyRightDown() {
 			virtualRightCounter++;
 		}
 
+		/// Simulate releasing the 'right' key
 		public void VirtualKeyRightUp() {
 			if (virtualRightCounter > 0) {
 				virtualRightCounter--;
 			}
 		}
 
+		/// Tracks how many callers are holding down the
+		/// virtual 'left' key
 		private int virtualLeftCounter;
 
+		/// Simulate pressing down the 'left' key
 		public void VirtualKeyLeftDown() {
 			virtualLeftCounter++;
 		}
 
+		/// Simulate releasing the 'left' key
 		public void VirtualKeyLeftUp() {
 			if (virtualLeftCounter > 0) {
 				virtualLeftCounter--;
 			}
 		}
 
+		/// Tracks how many callers are holding down the
+		/// virtual 'up' key
 		private int virtualUpCounter;
 
+		/// Simulate pressing down the 'up' key
 		public void VirtualKeyUpDown() {
 			virtualUpCounter++;
 		}
 
+		/// Simulate releasing the 'up' key
 		public void VirtualKeyUpUp() {
 			if (virtualUpCounter > 0) {
 				virtualUpCounter--;
 			}
 		}
 
+		/// Tracks how many callers are holding down the
+		/// virtual 'down' key
 		private int virtualDownCounter;
 
+		/// Simulate pressing down the 'down' key
 		public void VirtualKeyDownDown() {
 			virtualDownCounter++;
 		}
 
+		/// Simulate releasing the 'down' key
 		public void VirtualKeyDownUp() {
 			if (virtualDownCounter > 0) {
 				virtualDownCounter--;
