@@ -41,6 +41,31 @@ namespace xyz._8bITProject.cooperace {
 
 			velocity.x = (leftPushers - rightPushers) * onePusherMoveSpeed;
 
+
+			// BUT we don't want to push ourselves INTO any pushers (because
+			// then those pushers would walk through us) so raycast horizntl
+
+			if(velocity.x != 0){
+
+				float movement = velocity.x * Time.deltaTime;
+				bool hitOnce = false;
+
+				RaycastHit2D[] hits = raycaster.RaycastHorizontal(movement,
+					pushersMask);
+
+				foreach(RaycastHit2D hit in hits) {
+
+					// a collision has been detected
+					hitOnce = true;
+
+					// truncate movement to account
+					movement = hit.distance * Mathf.Sign(movement);
+				}
+
+				if (hitOnce) {
+					velocity.x = movement / Time.deltaTime;
+				}
+			}
 		}
 
 		// how many unique pushers in this direction?
