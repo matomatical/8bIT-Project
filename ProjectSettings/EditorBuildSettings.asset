@@ -9,7 +9,7 @@ EditorBuildSettings:
     path: Assets/App/UI/Views/TitleScreen.unity
   - enabled: 1
     path: Assets/App/UI/Views/MainMenu.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/App/UI/Views/PauseGameMenu.unity
   - enabled: 1
     path: Assets/App/UI/Views/PostGameMenu.unity
@@ -23,7 +23,7 @@ EditorBuildSettings:
     path: Assets/App/UI/Views/MatchMakingScreen.unity
   - enabled: 0
     path: Assets/App/UI/MP Empty Level.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/App/MPStuff(temp)/MP Empty Level.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/App/Game/Empty Level.unity
