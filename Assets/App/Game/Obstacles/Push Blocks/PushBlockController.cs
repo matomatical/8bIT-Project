@@ -22,16 +22,19 @@ namespace xyz._8bITProject.cooperace {
 
 		public float onePusherMoveSpeed = 3;
 
+		// enum for raycast directions
+
+		private enum Direction { LEFT = -1, RIGHT = +1 }
 
 		protected override void ChangeVelocity(ref Vector2 velocity){
 
 			// is there anyone pushing from the right?
 
-			int rightPushers = CountPushers (1);
+			int rightPushers = CountPushers (Direction.RIGHT);
 
 			// how about on the left?
 
-			int leftPushers = CountPushers (-1);
+			int leftPushers = CountPushers (Direction.LEFT);
 
 
 			// great! we can move that much
@@ -70,7 +73,7 @@ namespace xyz._8bITProject.cooperace {
 
 		// how many unique pushers in this direction?
 
-		int CountPushers(int direction){
+		int CountPushers(Direction direction){
 
 			// we want to count UNIQUE pushes, so we'll use a hashmap
 
@@ -80,7 +83,7 @@ namespace xyz._8bITProject.cooperace {
 			// get ALL of the rayhits very close by in this direction
 
 			RaycastHit2D[] hits = raycaster.RaycastAllHorizontal (
-				Mathf.Sign(direction) * Raycaster.skinWidth, pushersMask);
+				Mathf.Sign((int) direction) * Raycaster.skinWidth, pushersMask);
 
 			// sift through them counting unique pushers
 
