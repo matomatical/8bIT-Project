@@ -41,3 +41,14 @@ ehthumbs.db
 # ==== #
 *.keystore
 Assets/Plugins/Android/play-services*
+/Assets/Tiled2Unity/Tiled2UnityLite.exe*
+.metadata/
+.recommenders/
+
+# ====== #
+# Server #
+# ====== #
+*.pem
+Server/bin/
+Server/bin/**/*.class
+Server/**/logfile.txt

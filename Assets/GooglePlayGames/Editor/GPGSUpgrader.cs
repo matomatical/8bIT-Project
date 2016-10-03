@@ -191,6 +191,7 @@ namespace GooglePlayGames.Editor
             };
 
             // only delete these if we are not version 0.9.34
+            #pragma warning disable 0162
             if (PluginVersion.VersionKey !=  PluginVersion.VersionKeyJNIStats) {
                 foreach (string file in obsoleteFiles)
                 {
@@ -201,6 +202,7 @@ namespace GooglePlayGames.Editor
                     }
                 }
             }
+            #pragma warning restore 0162
 
             return PluginVersion.VersionKeyNativeCRM;
         }
