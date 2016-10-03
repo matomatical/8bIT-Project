@@ -1839,6 +1839,7 @@ GameObject:
   - 4: {fileID: 1027067751}
   - 114: {fileID: 1027067750}
   - 114: {fileID: 1027067749}
+  - 114: {fileID: 1027067752}
   m_Layer: 0
   m_Name: Wall Collision Test Left
   m_TagString: Untagged
@@ -1904,6 +1905,21 @@ Transform:
   - {fileID: 1031304515}
   m_Father: {fileID: 0}
   m_RootOrder: 14
+--- !u!114 &1027067752
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1027067748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f1d80c111695342a5c5beaea3b0891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputManager: {fileID: 1398203687}
+  inputLeftDown: 1
+  inputRightDown: 0
+  inputJumpDown: 0
 --- !u!1 &1031304514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2437,13 +2453,14 @@ GameObject:
   - 4: {fileID: 1311969030}
   - 114: {fileID: 1311969029}
   - 114: {fileID: 1311969031}
+  - 114: {fileID: 1311969032}
   m_Layer: 0
   m_Name: Wall Collision Test Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1311969029
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2502,6 +2519,21 @@ MonoBehaviour:
   checkMethods: 1
   m_ActionBase: {fileID: 183382663}
   checksPerformed: 0
+--- !u!114 &1311969032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1311969028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88f1d80c111695342a5c5beaea3b0891, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputManager: {fileID: 1989561208}
+  inputLeftDown: 0
+  inputRightDown: 1
+  inputJumpDown: 0
 --- !u!1001 &1334811995
 Prefab:
   m_ObjectHideFlags: 0
@@ -2516,6 +2548,10 @@ Prefab:
     - target: {fileID: 4000013962525040, guid: 7a0710637a4997243a1cd1ed6370020b, type: 2}
       propertyPath: m_LocalPosition.y
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: inputLeftDown
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7a0710637a4997243a1cd1ed6370020b, type: 2}
@@ -2727,6 +2763,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4000012658830160, guid: 2f377094c621bc44ea526652cc3912a7,
     type: 2}
   m_PrefabInternal: {fileID: 1394984152}
+--- !u!114 &1398203687 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000012953468230, guid: 7a0710637a4997243a1cd1ed6370020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 1927352722}
+  m_Script: {fileID: 11500000, guid: 7ca342a55400f4341ab4bf1da3570250, type: 3}
 --- !u!114 &1419520494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3865,21 +3907,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4000013962525040, guid: 7a0710637a4997243a1cd1ed6370020b,
     type: 2}
   m_PrefabInternal: {fileID: 951110414}
---- !u!114 &1989561204
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1989561202}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88f1d80c111695342a5c5beaea3b0891, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputManager: {fileID: 1989561208}
-  inputLeftDown: 0
-  inputRightDown: 1
-  inputJumpDown: 0
 --- !u!114 &1989561208 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000012953468230, guid: 7a0710637a4997243a1cd1ed6370020b,
