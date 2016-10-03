@@ -32,7 +32,7 @@ namespace xyz._8bITProject.cooperace {
 		AnimationState animationState = AnimationState.STOPPED;
 
 		Animator animator;
-		SpriteRenderer renderer;
+		SpriteRenderer spriteRenderer;
 
 		// movements slower than this amount will not cause walking animation
 		public const float EPSILON = 0.05f;
@@ -47,7 +47,7 @@ namespace xyz._8bITProject.cooperace {
 			player = GetComponent<ArcadePhysicsController> ();
 
 			animator = GetComponent<Animator> ();
-			renderer = GetComponent<SpriteRenderer> ();
+			spriteRenderer = GetComponent<SpriteRenderer> ();
 
 		}
 
@@ -92,7 +92,7 @@ namespace xyz._8bITProject.cooperace {
 			// update actual animator:
 
 			animator.SetInteger("State", (int) animationState);
-			renderer.flipX = animationLeft;
+			spriteRenderer.flipX = animationLeft;
 
 		}
 

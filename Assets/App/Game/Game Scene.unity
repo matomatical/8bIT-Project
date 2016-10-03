@@ -528,7 +528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430e9c9e180ceee4dae6983e56f44991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 105699131}
+  cam: {fileID: 105699131}
   background: {fileID: 1920872516}
   gui: {fileID: 386148217}
   level: {fileID: 0}
@@ -1264,6 +1264,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b82337634d7ff4c6ab21ab7d84382dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonOff: {fileID: 0}
+  buttonOn: {fileID: 0}
 --- !u!1001 &1759243651
 Prefab:
   m_ObjectHideFlags: 0

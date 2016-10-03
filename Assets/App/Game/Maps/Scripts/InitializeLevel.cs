@@ -13,7 +13,7 @@ using System.Collections;
 namespace xyz._8bITProject.cooperace {
 	public class InitializeLevel : MonoBehaviour {
 
-		new public CameraController camera;
+		public CameraController cam;
 		public BackgroundScroller background;
 		public GameObject gui;
 		public GameObject level;
@@ -28,7 +28,7 @@ namespace xyz._8bITProject.cooperace {
 			GameObject prefab = Maps.Load(SceneManager.levelToLoad);
 			if (prefab) {
 				level = GameObject.Instantiate<GameObject>(prefab);
-				camera.level = level.GetComponent<TiledMap>();
+				cam.level = level.GetComponent<TiledMap>();
 				background.level = level.GetComponent<TiledMap>();
 			}
 
@@ -43,11 +43,11 @@ namespace xyz._8bITProject.cooperace {
 
 			// camera should have a reference to the player
 			ArcadePhysicsController player = level.GetComponentInChildren<LocalPlayerController> ();
-			camera.target = player;
+			cam.target = player;
 
 			// background should have a reference to the camera, too!
-			Camera actualCamera = camera.GetComponent<Camera>();
-			background.camera = actualCamera;
+			Camera actualCamera = cam.GetComponent<Camera>();
+			background.cam = actualCamera;
 		}
 
 		// Run after Awake()
