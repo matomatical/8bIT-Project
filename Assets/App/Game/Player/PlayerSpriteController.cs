@@ -19,7 +19,7 @@ namespace xyz._8bITProject.cooperace {
 	
 	[RequireComponent (typeof (ArcadePhysicsController))]
 	
-	public class SpriteController : MonoBehaviour {
+	public class PlayerSpriteController : MonoBehaviour {
 
 		// boolean value of 'the player's sprite is facing left'
 
