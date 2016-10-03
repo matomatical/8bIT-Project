@@ -324,7 +324,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   one: {fileID: 1273629867}
   two: {fileID: 694259167}
-  n: 128
+  n: 512
 --- !u!4 &1333277812
 Transform:
   m_ObjectHideFlags: 0
