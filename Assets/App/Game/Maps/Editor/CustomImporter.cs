@@ -13,9 +13,9 @@ namespace xyz._8bITProject.cooperace {
 	[CustomTiledImporter]
 	class CustomImporter : ICustomTiledImporter {
 
-		// collision layer
+		// collision layer is named "Collision"
 
-		private const int COLLISION_LAYER = 8;
+		private const int COLLISION_LAYER = LayerMask.NameToLayer("Collision");
 
 		// offset to adjust tiled object position for unity objects
 		// specifically top-right to center
