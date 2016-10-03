@@ -116,14 +116,11 @@ namespace xyz._8bITProject.cooperace {
 
 			// first, get any changes to position from concrete controller
 
-			if (ChangePosition (ref position)) {
-				
-				// if something changes, apply to our transform
-				transform.position = position;
-			}
+			ChangePosition (ref position);
 
-			// sync raycast origins with current position
+			// sync raycast origins with current position (may have changed)
 
+			transform.position = position;
 			raycaster.UpdateRayOrigins();
 
 			// apply physics and inputs to velocity
@@ -144,9 +141,8 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
-		protected virtual bool ChangePosition(ref Vector2 position){
+		protected virtual void ChangePosition(ref Vector2 position){
 			// by default, don't change anything
-			return false;
 		}
 
 
