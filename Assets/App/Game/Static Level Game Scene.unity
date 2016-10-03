@@ -322,9 +322,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 927e706b0860549809b860f723ab63a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  one: {fileID: 1273629867}
-  two: {fileID: 694259167}
-  n: 512
+  local: {fileID: 1273629867}
+  remote: {fileID: 694259167}
+  n: 256
+  probability: 1
 --- !u!4 &1333277812
 Transform:
   m_ObjectHideFlags: 0
@@ -364,6 +365,16 @@ Prefab:
       propertyPath: target
       value: 
       objectReference: {fileID: 1273629867}
+    - target: {fileID: 114000011606254736, guid: 5ed9808070316bb438e34ecb48a936b6,
+        type: 2}
+      propertyPath: focusAreaSize.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011606254736, guid: 5ed9808070316bb438e34ecb48a936b6,
+        type: 2}
+      propertyPath: secondTarget
+      value: 
+      objectReference: {fileID: 694259167}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5ed9808070316bb438e34ecb48a936b6, type: 2}
   m_IsPrefabParent: 0
