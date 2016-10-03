@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 20/9/2016 1:34:11 PM-->
+<!--Last exported: 30/9/2016 9:43:29 PM-->
 <Tiled2Unity version="1.0.7.8">
   <AssignMaterial mesh="mesh_0001" material="spritesheet_transparent" />
-  <Prefab name="Test_Level_1" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="60" numTilesHigh="20" tileWidth="21" tileHeight="21" exportScale="0.04761905" mapWidthInPixels="1260" mapHeightInPixels="420">
+  <Prefab name="Test_Level_1" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="1" numTilesWide="60" numTilesHigh="20" tileWidth="21" tileHeight="21" exportScale="0.04761905" mapWidthInPixels="1260" mapHeightInPixels="420" resource="true" resourcePath="Maps">
     <GameObject name="Foreground" x="0" y="0" z="0" tag="Ground">
       <GameObject name="spritesheet_transparent" copy="mesh_0001" sortingLayerName="" sortingOrder="0" opacity="1" />
       <GameObject name="Collision">

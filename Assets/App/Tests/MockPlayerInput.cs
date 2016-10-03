@@ -12,23 +12,29 @@ using System.Collections;
 namespace xyz._8bITProject.cooperace {
 	public class MockPlayerInput : MonoBehaviour {
 
-		public PlayerController player;
+		public InputManager inputManager;
 		public bool inputLeftDown = false;
 		public bool inputRightDown = false;
+		public bool inputJumpDown = false;
 
 		void Update () {
 			if (inputLeftDown) {
-				player.SetInputLeft();
+				inputManager.VirtualKeyLeftDown ();
 			} else {
-				player.UnsetInputLeft();
+				inputManager.VirtualKeyLeftUp ();
 			}
 
 			if (inputRightDown) {
-				player.SetInputRight();
+				inputManager.VirtualKeyRightDown ();
 			} else {
-				player.UnsetInputRight();
+				inputManager.VirtualKeyRightUp ();
+			}
+
+			if (inputJumpDown) {
+				inputManager.VirtualKeyUpDown ();
+			} else {
+				inputManager.VirtualKeyUpUp ();
 			}
 		}
-
 	}
 }
