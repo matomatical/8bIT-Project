@@ -15,7 +15,7 @@ namespace xyz._8bITProject.cooperace {
 
 		// collision layer is named "Collision"
 
-		private const int COLLISION_LAYER = LayerMask.NameToLayer("Collision");
+		private int collisionLayer = LayerMask.NameToLayer("Collision");
 
 		// offset to adjust tiled object position for unity objects
 		// specifically top-right to center
@@ -104,7 +104,7 @@ namespace xyz._8bITProject.cooperace {
 
 			foreach (Transform transform in mapPrefab.GetComponentsInChildren<Transform>()) {
 				if (transform.name == "Collision") {
-					transform.gameObject.layer = COLLISION_LAYER;
+					transform.gameObject.layer = collisionLayer;
 				}
 			}
 
