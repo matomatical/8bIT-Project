@@ -3368,7 +3368,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkAfterTime: 1
+  checkAfterTime: 1.5
   repeatCheckTime: 0
   repeatEveryTime: 1
   checkAfterFrames: 1
