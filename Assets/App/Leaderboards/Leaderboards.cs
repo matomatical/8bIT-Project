@@ -74,7 +74,6 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			UILogger.Log("lb submission response:", response);
 
 			// convert back to an object and report to the user
-			return -1;
 			return SubmissionResponse.FromJson(response).position;
 		}
 
