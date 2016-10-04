@@ -17,29 +17,31 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// the update manager which should be told about any updates
 		public IUpdateManager updateManager;
 
-		// Used for getting position and state
-		private Transform thisTransform;
+		// Used for getting position
+		private RemotePlayerController controller;
 
 		// Keeps track of how long until we send an update
 		private int stepsUntilSend;
 		private readonly int MAX_STEPS_BETWEEN_SENDS = 5;
 
 		// Keeps track of the last update to see if anything has changed
-		private float lastPosx;
-		private float lastPosy;
+		private PlayerInformation lastInfo;
 
-		// used to guard serialize and deserialize being run if the transform is not yet found
+		// Used to guard serialize and deserialize being run if the RemotePlayerContoller is not yet found
 		private bool ready = false;
+
+		// Keeps track of whether the player is being serialized or deserialized
+		private bool serializing = false;
+		private bool deserializing = false;
 	 
 		void Start () {
 			// Get compenents
-			thisTransform = GetComponent<Transform> ();
+			controller = GetComponent<RemotePlayerController> ();
 
 			stepsUntilSend = 0;
 
 			// Fill out last positions with dummys
-			lastPosx = 0;
-			lastPosy = 0;
+			lastInfo = new PlayerInformation(new Vector2 (0, 0), new Vector2 (0, 0));
 
 			ready = true;
 		}
@@ -48,27 +50,23 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void FixedUpdate () {
 			// Stores current state
 			List<byte> update;
+
 			// Stores current information about the player
 			PlayerInformation info;
 
-			// Variables to store the players current state in the game
-			float posx;
-			float posy;
-
 			// Only send if there is an update manager to send to and the transform is found
-			if (updateManager != null && ready) {
+			if (updateManager != null && ready && serializing) {
 				
-				// Ff it's time to send another update
+				// If it's time to send another update
 				if (stepsUntilSend < 1) {
+					 
 					// Read information about the player currently
-					posx = thisTransform.position.x;
-					posy = thisTransform.position.y;
+					info = new PlayerInformation (controller.GetPosition (), controller.GetVelocity ());
 
 					// If the update is different to the last one sent
-					if (thisTransform.position.x != lastPosx || thisTransform.position.y != lastPosy) {
+					if (!info.Equals(lastInfo)) {
 						// Get the update to be sent
-						info = new PlayerInformation(posx, posy);
-						update = Serialize(info);
+						update = Serialize (info);
 
 						Debug.Log ("Serializing");
 
@@ -76,8 +74,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						Send (update);
 
 						// reflect changes in the last update
-						lastPosx = thisTransform.position.x;
-						lastPosy = thisTransform.position.y;
+						lastInfo = info;
 						
 					} else {
 						Debug.Log ("Nothing has changed since last update");
@@ -95,8 +92,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Tell this object there is an update from an observable
 		public void Notify (List<byte> message)
 		{
-			PlayerInformation info = Deserialize (message);
-			Apply (info);
+			if (deserializing) {
+				PlayerInformation info = Deserialize (message);
+				Apply (info);
+			}
 		}
 
 		// Let updateManager know there is an update
@@ -107,13 +106,32 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// Applies information in info to the player this serializer is attatched to
 		private void Apply(PlayerInformation info) {
-			thisTransform.position = new Vector3 (info.posx, info.posy, 0);
+			controller.SetState (info.pos, info.vel);
+		}
+
+		// Tells the serializer it is serializing and not deserializing
+		public void SetSerializing () {
+			serializing = true;
+			deserializing = false;
+		}
+
+		// Tells the serializer it is deserializing and not serializing
+		public void SetDeserializing () {
+			serializing = false;
+			deserializing = true;
+		}
+
+		// Tells the serializer it is not doing anything
+		public void SetOff () {
+			serializing = false;
+			deserializing = false;
 		}
 
 		// Takes an update and applies it to this serializer's object
 		public PlayerInformation Deserialize(List<byte> update)
 		{
 			float posx, posy;
+			float velx, vely;
 			byte[] data = update.ToArray ();
 
 			// Just in case the List isn't long enough
@@ -121,6 +139,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				// Get the information from the list of bytes
 				posx = BitConverter.ToSingle (data, 0);
 				posy = BitConverter.ToSingle (data, 4);
+				velx = BitConverter.ToSingle (data, 8);
+				vely = BitConverter.ToSingle (data, 12);
 			}
 			catch (System.ArgumentOutOfRangeException e) {
 				Debug.Log (e.Message);
@@ -128,7 +148,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 			// Create and return PlayerInformation with the data deserialized
-			return new PlayerInformation(posx, posy);
+			return new PlayerInformation(new Vector2 (posx, posy), new Vector2 (velx, vely));
 		}
 
 		// Takes the state of this object and turns it into an update
@@ -138,12 +158,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			List<byte> bytes = new List<byte> ();
 
 			// get the data to Serialize from the PlayerInformation
-			float posx = info.posx;
-			float posy = info.posy;
+			float posx = info.pos.x;
+			float posy = info.pos.y;
+			float velx = info.vel.x;
+			float vely = info.vel.y;
 
 			// Add the byte representation of the above values into the list
 			bytes.AddRange (BitConverter.GetBytes (posx));
 			bytes.AddRange (BitConverter.GetBytes (posy));
+			bytes.AddRange (BitConverter.GetBytes (velx));
+			bytes.AddRange (BitConverter.GetBytes (vely));
+
 			return bytes;
 		}
 	}

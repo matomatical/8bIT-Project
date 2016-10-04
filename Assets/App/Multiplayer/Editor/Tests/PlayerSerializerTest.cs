@@ -10,8 +10,13 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 	{
 		private readonly float POSX1 = 34.351f;
 		private readonly float POSY1 = 91.984f;
+		private readonly float VELX1 = 0.415f;
+		private readonly float VELY1 = 0.13f;
+
 		private readonly float POSX2 = 74285.13f;
 		private readonly float POSY2 = -143570108.57f;
+		private readonly float VELX2 = 14958.848f;
+		private readonly float VELY2 = 24058.4209f;
 
 		[Test]
 		public void SerializeDeserialize () {
@@ -93,11 +98,11 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		private PlayerInformation PlayerInformation1 () {
-			return new PlayerInformation (POSX1, POSY1);
+			return new PlayerInformation (new Vector2 (POSX1, POSY1), new Vector2 (VELX1, VELY1));
 		}
 
 		private PlayerInformation PlayerInformation2 () {
-			return new PlayerInformation (POSX2, POSY2);
+			return new PlayerInformation (new Vector2 (POSX2, POSY2), new Vector2 (VELX2, VELY2));
 		}
 
 		private List<byte> data1 () {
@@ -107,10 +112,22 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			data.Add(FloatGetByte(POSX1, 1));
 			data.Add(FloatGetByte(POSX1, 2));
 			data.Add(FloatGetByte(POSX1, 3));
+
 			data.Add(FloatGetByte(POSY1, 0));
 			data.Add(FloatGetByte(POSY1, 1));
 			data.Add(FloatGetByte(POSY1, 2));
 			data.Add(FloatGetByte(POSY1, 3));
+
+			data.Add(FloatGetByte(VELX1, 0));
+			data.Add(FloatGetByte(VELX1, 1));
+			data.Add(FloatGetByte(VELX1, 2));
+			data.Add(FloatGetByte(VELX1, 3));
+
+			data.Add(FloatGetByte(VELY1, 0));
+			data.Add(FloatGetByte(VELY1, 1));
+			data.Add(FloatGetByte(VELY1, 2));
+			data.Add(FloatGetByte(VELY1, 3));
+
 			return data;
 		}
 
@@ -121,10 +138,22 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			data.Add(FloatGetByte(POSX2, 1));
 			data.Add(FloatGetByte(POSX2, 2));
 			data.Add(FloatGetByte(POSX2, 3));
+
 			data.Add(FloatGetByte(POSY2, 0));
 			data.Add(FloatGetByte(POSY2, 1));
 			data.Add(FloatGetByte(POSY2, 2));
 			data.Add(FloatGetByte(POSY2, 3));
+
+			data.Add(FloatGetByte(VELX2, 0));
+			data.Add(FloatGetByte(VELX2, 1));
+			data.Add(FloatGetByte(VELX2, 2));
+			data.Add(FloatGetByte(VELX2, 3));
+
+			data.Add(FloatGetByte(VELY2, 0));
+			data.Add(FloatGetByte(VELY2, 1));
+			data.Add(FloatGetByte(VELY2, 2));
+			data.Add(FloatGetByte(VELY2, 3));
+
 			return data;
 		}
 

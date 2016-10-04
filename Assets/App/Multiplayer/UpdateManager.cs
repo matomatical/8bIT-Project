@@ -70,8 +70,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
             HeaderManager.ApplyHeader(data, PLAYER);
 			// uncomment/comment the following lines to change between in editor and real testing
-			MultiplayerController.Instance.SendMyUnreliable (data);
-			//HandleUpdate(data, "memes");
+			// MultiplayerController.Instance.SendMyUnreliable (data);
+			HandleUpdate(data, "memes");
 			Debug.Log ("Sending player update");
 		}
 

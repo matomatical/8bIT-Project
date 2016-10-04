@@ -6,21 +6,22 @@
 */
 
 using System;
+using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class PlayerInformation
 	{
-		public readonly float posx;
-		public readonly float posy;
+		public readonly Vector2 pos;
+		public readonly Vector2 vel;
 
-		public PlayerInformation (float posx, float posy)
+		public PlayerInformation (Vector2 pos, Vector2 vel)
 		{
-			this.posx = posx;
-			this.posy = posy;
+			this.pos = pos;
+			this.vel = vel;
 		}
 
-		public override bool Equals(Object obj)
+		public override bool Equals(System.Object obj)
 		{
 			// If parameter is null return false.
 			if (obj == null)
@@ -30,13 +31,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// If parameter cannot be cast to Point return false.
 			PlayerInformation info = obj as PlayerInformation;
-			if ((Object)info == null)
+			if ((System.Object)info == null)
 			{
 				return false;
 			}
 
 			// Return true if the fields match:
-			return (posx == info.posx) && (posy == info.posy);
+			return (pos.x == info.pos.x) && (pos.y == info.pos.y && vel.x == info.vel.x && vel.y == info.vel.y);
 		}
 
 		public bool Equals(PlayerInformation info)
@@ -48,7 +49,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 			// Return true if the fields match:
-			return (this.posx == info.posx) && (posy == info.posy);
+			return (pos.x == info.pos.x) && (pos.y == info.pos.y) && (vel.x == info.vel.x) && (vel.y == info.vel.y);
 		}
 	}
 }
