@@ -41,3 +41,13 @@ ehthumbs.db
 # ==== #
 *.keystore
 Assets/Plugins/Android/play-services*
+.metadata/
+.recommenders/
+
+# ====== #
+# Server #
+# ====== #
+*.pem
+Server/bin/
+Server/bin/**/*.class
+Server/**/logfile.txt
