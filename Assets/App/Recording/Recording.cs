@@ -64,12 +64,12 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// record those changes
 
-			this.statics = new BooleanDeltaState[changed];
+			this.statics = new BooleanDeltaState[numChanged];
 
 			for (int i = 0, j = 0; i < statics.Length; i++) {
 				if (statics[i].StateHasChanged()) {
 					this.statics[j++] =
-						new BooleanDeltaState(i, statics[i].GetState();
+						new BooleanDeltaState(i, statics[i].GetState());
 				}
 			}
 		}

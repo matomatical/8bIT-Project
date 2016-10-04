@@ -1,8 +1,9 @@
 using UnityEngine;
+using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	public class ArcadePhysicsRecorder : MonoBehaviour, DynamicRecorder {
+	class ArcadePhysicsRecorder : MonoBehaviour, DynamicRecorder {
 
 		private ArcadePhysicsController physics;
 
