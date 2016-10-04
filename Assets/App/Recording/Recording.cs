@@ -6,12 +6,12 @@ namespace xyz._8bITProject.cooperace.recording {
 	[System.Serializable]
 	public class Recording {
 
-		private static int version = 1;
+		public static int version = 1;
 		
-		private int fps;
-		private string level;
+		[SerializeField] private int fps;
+		[SerializeField] private string level;
 
-		private List<Frame> frames;
+		[SerializeField] private List<Frame> frames;
 
 		public Recording (string level, int fps) {
 
@@ -38,7 +38,10 @@ namespace xyz._8bITProject.cooperace.recording {
 		public Frame (TimeRecorder timer, DynamicRecorder[] dynamics,
 				StaticRecorder[] statics){
 			
+			// record time this frame
+
 			this.time = timer.GetTime();
+
 
 			// record dynamic states
 

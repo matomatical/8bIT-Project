@@ -2,8 +2,8 @@ using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	public interface TimeRecorder {
+	public abstract class TimeRecorder : MonoBehaviour {
 
-		float GetTime();
+		public abstract float GetTime();
 	}
 }

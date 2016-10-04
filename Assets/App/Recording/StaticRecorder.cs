@@ -2,10 +2,10 @@ using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	public interface StaticRecorder {
+	public abstract class StaticRecorder : MonoBehaviour {
 
-		void CheckForChanges();
-		bool GetState();
-		bool StateHasChanged();
+		public abstract void CheckForChanges();
+		public abstract bool GetState();
+		public abstract bool StateHasChanged();
 	}
 }

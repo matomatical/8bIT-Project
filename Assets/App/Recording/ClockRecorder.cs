@@ -3,7 +3,7 @@ using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	public class ClockRecorder : MonoBehaviour, TimeRecorder {
+	public class ClockRecorder : TimeRecorder {
 		
 		private ClockController clock;
 
@@ -11,7 +11,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			clock = GetComponent<ClockController>();
 		}
 
-		public float GetTime(){
+		public override float GetTime(){
 			return clock.GetTime();
 		}
 	}

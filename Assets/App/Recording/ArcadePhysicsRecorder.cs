@@ -3,7 +3,7 @@ using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	public class ArcadePhysicsRecorder : MonoBehaviour, DynamicRecorder {
+	public class ArcadePhysicsRecorder : DynamicRecorder {
 
 		private ArcadePhysicsController physics;
 
@@ -11,7 +11,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			physics = GetComponent<ArcadePhysicsController> ();
 		}
 
-		public DynamicState GetState(){
+		public override DynamicState GetState(){
 			return new DynamicState(
 				physics.GetPosition(), physics.GetVelocity());
 		}

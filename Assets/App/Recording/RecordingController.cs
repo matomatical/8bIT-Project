@@ -18,14 +18,13 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// get all recordables in this level
 
-			dynamics = FindObjectsOfType(typeof(DynamicRecorder))
-				as  DynamicRecorder[];
+			dynamics = FindObjectsOfType<DynamicRecorder> ();
 			
-			statics = FindObjectsOfType(typeof(StaticRecorder))
-				as  StaticRecorder[];
+			statics = FindObjectsOfType<StaticRecorder> ();
 			
-			timer = FindObjectOfType(typeof(TimeRecorder))
-				as TimeRecorder;
+			timer = FindObjectOfType<TimeRecorder> ();
+
+			StartRecording ();
 		}
 
 		public void StartRecording(){
@@ -48,6 +47,8 @@ namespace xyz._8bITProject.cooperace.recording {
 		public void EndRecording(){
 
 			isRecording = false;
+
+			Debug.Log (JsonUtility.ToJson (recording));
 		}
 
 		void FixedUpdate(){

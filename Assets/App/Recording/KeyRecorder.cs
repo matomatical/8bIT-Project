@@ -3,7 +3,7 @@ using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	public class KeyRecorder : MonoBehaviour, StaticRecorder {
+	public class KeyRecorder : StaticRecorder {
 
 		private Key key;
 		
@@ -15,7 +15,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		bool theFirstTime = true;
 
-		public void CheckForChanges(){
+		public override void CheckForChanges(){
 			
 			// always report changes first time
 
@@ -44,14 +44,14 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		/// undefined behaviour if you call this before calling
 		/// check for changes at least once
-		public bool StateHasChanged() {
+		public override bool StateHasChanged() {
 			return hasChanged;
 		}
 
 		/// undefined behaviour if you call this before calling
 		/// check for changes at least once
 		/// // (is that bad?)
-		public bool GetState(){
+		public override bool GetState(){
 			return wasTaken;
 		}
 	}

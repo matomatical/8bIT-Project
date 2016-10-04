@@ -2,9 +2,9 @@ using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	public interface DynamicRecorder {
+	public abstract class DynamicRecorder : MonoBehaviour {
 
-		DynamicState GetState();
+		public abstract DynamicState GetState();
 	}
 
 	public struct DynamicState{
