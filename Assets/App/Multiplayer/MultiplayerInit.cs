@@ -42,9 +42,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				partner = participants [1];
 
 				// Disable the controller for the partner
-				player2.GetComponent<PlayerController> ().enabled = false;
+				player2.GetComponent<LocalPlayerController> ().enabled = false;
+                player2.GetComponent<RemotePlayerController>().enabled = true;
+
 				// And make sure the controller is enabled for the player
-				player1.GetComponent<PlayerController> ().enabled = true;
+				player1.GetComponent<LocalPlayerController> ().enabled = true;
+                player1.GetComponent<RemotePlayerController>().enabled = false;
+
+                UILogger.Log("I am your father");
 
 				// Tell update manager about the serialiser for player 2 so updates get recieved
 				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
@@ -56,12 +61,15 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				partner = participants [0];
 
 				// Disable the controller for the partner
-				player1.GetComponent<PlayerController> ().enabled = false;
-				// And make sure the controller is enabled for the player
-				player2.GetComponent<PlayerController> ().enabled = true;
+				player1.GetComponent<LocalPlayerController> ().enabled = false;
+                player1.GetComponent<RemotePlayerController>().enabled = true;
 
-				// Tell update manager about the serialiser for player 1 so updates get recieved
-				updateManager.Subscribe(player1.GetComponent<PlayerSerializer> ());
+                // And make sure the controller is enabled for the player
+                player2.GetComponent<LocalPlayerController> ().enabled = true;
+                player2.GetComponent<RemotePlayerController>().enabled = false;
+
+                // Tell update manager about the serialiser for player 1 so updates get recieved
+                updateManager.Subscribe(player1.GetComponent<PlayerSerializer> ());
 
 				// Tell player 2 to send updates to the update manager
 				player2.GetComponent<PlayerSerializer> ().updateManager = updateManager;

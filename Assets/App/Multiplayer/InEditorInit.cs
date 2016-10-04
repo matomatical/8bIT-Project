@@ -15,14 +15,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
 			// Disable the controller for the partner
 			if (player2) {
-				player2.GetComponent<PlayerController> ().enabled = false;
+				player2.GetComponent<LocalPlayerController> ().enabled = false;
 
 				// Tell update manager about the serialiser for player 2 so updates get recieved
 				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
 			}
 			if (player1) {
 				// And make sure the controller is enabled for the player
-				player1.GetComponent<PlayerController> ().enabled = true;
+				player1.GetComponent<RemotePlayerController> ().enabled = true;
 
 				// Tell player 1 to send updates to the update manager
 				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;

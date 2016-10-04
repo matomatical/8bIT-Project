@@ -164,7 +164,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 8bit.keystore
+  AndroidKeystoreName: F:/program/itp/8bit.keystore
   AndroidKeyaliasName: 8bit
   AndroidTVCompatibility: 1
   AndroidIsGame: 1

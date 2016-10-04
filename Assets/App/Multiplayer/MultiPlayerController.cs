@@ -32,7 +32,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		private uint gameVariation = 0;
 
 		// The unity scene to go to when starting the game
-		private String levelName = "Multiplayer Test Level";
+		private String levelName = "MPTest";
 
 		// initialises the Multiplayer controller instance
 		private MultiplayerController()
