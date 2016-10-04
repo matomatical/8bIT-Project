@@ -24,7 +24,11 @@ namespace xyz._8bITProject.cooperace.recording {
 		public void AddFrame (TimeRecorder timer,
 			DynamicRecorder[] dynamics, StaticRecorder[] statics) {
 
-			frames.Add(new Frame(timer, dynamics, statics));
+			Frame frame = new Frame(timer, dynamics, statics);
+
+			Debug.Log(JsonUtility.ToJson(frame));
+
+			frames.Add(frame);
 		}
 	}
 
@@ -48,12 +52,11 @@ namespace xyz._8bITProject.cooperace.recording {
 			this.dynamics = new PositionVelocityState[dynamics.Length];
 
 			for (int i = 0; i < dynamics.Length; i++) {
+				
+				DynamicState state = dynamics[i].GetState();
 				this.dynamics[i] =
-					new PositionVelocityState(
-						dynamics[i].GetState().position,
-						dynamics[i].GetState().velocity);
+					new PositionVelocityState(state.position, state.velocity);
 			}
-
 
 			// record static object states using delta compression
 
@@ -62,6 +65,9 @@ namespace xyz._8bITProject.cooperace.recording {
 			int numChanged = 0;
 
 			for (int i = 0; i < statics.Length; i++) {
+
+				statics[i].CheckForChanges();
+
 				if (statics[i].StateHasChanged()) {
 					numChanged++;
 				}
@@ -75,6 +81,7 @@ namespace xyz._8bITProject.cooperace.recording {
 				if (statics[i].StateHasChanged()) {
 					this.statics[j++] =
 						new BooleanDeltaState(i, statics[i].GetState());
+					Debug.Log("SOMETHING CHANGED!");
 				}
 			}
 		}

@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace {
 			// the timer is stopped when the player touches the finish line
 			if (other.gameObject.CompareTag("Player")) {
 				clock.StopTiming();
-				FindObjectOfType<RecordingController> ().EndRecording();
+				// FindObjectOfType<RecordingController>().EndRecording();
 			}
 		}
 
