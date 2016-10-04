@@ -41,6 +41,18 @@ namespace xyz._8bITProject.cooperace {
 			return isColliding > 0;
 		}
 
+		public void SimulatePress() {
+			OnTriggerEnter2D();
+		}
+
+		public void SimulateRelease() {
+			OnTriggerExit2D();
+			
+			if(isColliding < 0){
+				isColliding = 0;
+			}
+		}
+
 		public string GetAddress() {
 			return address;
 		}

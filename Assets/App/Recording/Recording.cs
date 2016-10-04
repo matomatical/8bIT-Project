@@ -6,8 +6,11 @@ namespace xyz._8bITProject.cooperace.recording {
 	[System.Serializable]
 	public class Recording {
 
-		public static int version = 1;
-		
+
+		public static string json; // for temporary passing of a json tring between levels
+
+		[SerializeField] public static int version = 1;
+
 		[SerializeField] private int fps;
 		[SerializeField] private string level;
 
@@ -29,6 +32,48 @@ namespace xyz._8bITProject.cooperace.recording {
 			Debug.Log(JsonUtility.ToJson(frame));
 
 			frames.Add(frame);
+		}
+
+		public void ApplyFrame(int n, TimeReplayer timer,
+			DynamicReplayer[] dynamics, StaticReplayer[] statics) {
+
+			// is this a valid frame number?
+
+			if(n >= frames.Count || n < 0){
+				return;
+			}
+
+			// good. now, we can get the frame in question
+
+			Frame frame = frames[n];
+
+
+			// apply time from this frame
+
+			timer.SetTime(frame.time);
+
+			
+			// apply dynamic states from this frame
+			
+			for (int i = 0; i < dynamics.Length; i++) {
+				
+				PositionVelocityState state = frame.dynamics[i];
+				
+				dynamics[i].SetState(new DynamicState(
+						new Vector2(state.positionX, state.positionY),
+						new Vector2(state.velocityX, state.velocityY)
+					));
+			}
+
+
+			// apply static states from this frame
+
+			for (int i = 0; i < frame.statics.Length; i++) {
+				
+				BooleanDeltaState state = frame.statics[i];
+				
+				statics[state.index].SetState(state.state);
+			}
 		}
 	}
 
@@ -81,7 +126,6 @@ namespace xyz._8bITProject.cooperace.recording {
 				if (statics[i].StateHasChanged()) {
 					this.statics[j++] =
 						new BooleanDeltaState(i, statics[i].GetState());
-					Debug.Log("SOMETHING CHANGED!");
 				}
 			}
 		}
@@ -113,7 +157,6 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 	}
 }
-
 
 /* JSON spec 
 

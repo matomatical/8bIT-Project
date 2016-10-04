@@ -47,8 +47,6 @@ namespace xyz._8bITProject.cooperace.recording {
 		public void EndRecording(){
 
 			isRecording = false;
-
-			Debug.Log (JsonUtility.ToJson (recording));
 		}
 
 		void FixedUpdate(){
@@ -62,9 +60,9 @@ namespace xyz._8bITProject.cooperace.recording {
 			}
 		}
 
-		public Recording GetRecording () {
+		public string GetRecording () {
 
-			return recording;
+			return JsonUtility.ToJson (recording);
 		}
 	}
 }

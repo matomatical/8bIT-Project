@@ -51,5 +51,9 @@ namespace xyz._8bITProject.cooperace {
 		public float GetTime(){
 			return time;
 		}
+
+		public void SetTime(float time){
+			this.time = time;
+		}
 	}
 }

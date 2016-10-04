@@ -28,5 +28,13 @@ namespace xyz._8bITProject.cooperace {
 			return !gameObject.activeSelf;
 		}
 
+		public void SimulateTake(){
+			gameObject.SetActive(false);
+		}
+
+		public void SimulateRestore(){
+			gameObject.SetActive(true);
+		}
+
 	}
 }

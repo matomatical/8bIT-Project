@@ -17,8 +17,18 @@ namespace xyz._8bITProject.cooperace {
 		void OnTriggerEnter2D (Collider2D other) {
 			// the timer is stopped when the player touches the finish line
 			if (other.gameObject.CompareTag("Player")) {
+
 				clock.StopTiming();
-				// FindObjectOfType<RecordingController>().EndRecording();
+
+				RecordingController controller = FindObjectOfType<RecordingController>();
+				if (controller != null) {
+					controller.EndRecording ();
+					Recording.json = controller.GetRecording ();
+				}
+
+				// TODO: pass properly, not with global variable!
+
+				SceneManager.Load("Replay Level Game Scene");
 			}
 		}
 
