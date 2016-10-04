@@ -15,7 +15,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         public void AddMessage() {
             ChatHistory history = new ChatHistory();
 
-            history.AddMessage(message);
+            history.AddMessage(message,true);
             Assert.That(history.ContainsMessage(message));
         }
 
@@ -25,10 +25,10 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         public void MostRecent() {
             ChatHistory history = new ChatHistory();
 
-            history.AddMessage("0"); // first
-            history.AddMessage("1"); // second
-            history.AddMessage("2"); // third
-            history.AddMessage("3"); // fourth
+            history.AddMessage("0", true); // first
+            history.AddMessage("1", true); // second
+            history.AddMessage("2", true); // third
+            history.AddMessage("3", true); // fourth
 
             List<ChatMessage> recentMessages = history.MostRecent(3);
 
@@ -67,7 +67,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
             ChatHistory history = new ChatHistory();
 
             try {
-                history.AddMessage("");
+                history.AddMessage("", true);
             }
             catch (System.ArgumentNullException e) {
                 Assert.Pass();
@@ -82,7 +82,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             for (int i=0; i< num; i++) {
                 int len = random.Next(1, 140);
-                ChatMessage m = new ChatMessage(RandomString(len));
+                ChatMessage m = new ChatMessage(RandomString(len), true);
                 messages.Add(m);
             }
 

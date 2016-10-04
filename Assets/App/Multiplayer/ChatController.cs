@@ -44,15 +44,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Update is called once per frame
         void Update() {
             List<byte> messageList;
-
             // If the user is done typing a message, add it to the chat history and send
             if (keyboard != null && keyboard.done) {
                 string currMessage = keyboard.text;
-                chatHistory.AddMessage(currMessage);
-            if (updateManager != null) {
-                messageList = Serialize (currMessage);
-                updateManager.SendTextChat (messageList);
-            }
+                chatHistory.AddMessage(currMessage, true);
+                if (updateManager != null) {
+                    messageList = Serialize (currMessage);
+                    updateManager.SendTextChat (messageList);
+                }
                 keyboard = null;
             }
         }
@@ -65,7 +64,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Takes a message and adds it to the chat history
         public void GiveMessage(List<byte> message) {
             string strMessage = Deserialize (message);
-            chatHistory.AddMessage(strMessage);
+            chatHistory.AddMessage(strMessage, false);
         }
 
         // Takes a string of bytes and converts it to the appropriate string representations

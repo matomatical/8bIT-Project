@@ -21,9 +21,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
         // Add a new message to the chat history
-        public void AddMessage(string message) {
+        public void AddMessage(string message, bool localPlayer) {
             try {
-                ChatMessage m = new ChatMessage(message);
+                ChatMessage m = new ChatMessage(message, localPlayer);
                 history.Add(m);
             } catch (System.ArgumentNullException e) {
                 Debug.Log(e);
@@ -62,6 +62,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             this.history = history;
         }
 
+        // get the chat history
         public List<ChatMessage> getHistory() {
             return this.history;
         }

@@ -15,14 +15,30 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Text to be sent
         String message;
 
+        // did I send this message?
+        bool localPlayerMsg;
+
         // Use this for initialization
-        public ChatMessage(string message) {
+        public ChatMessage(string message, bool localPlayerMsg) {
             this.message = message;
+            this.localPlayerMsg = localPlayerMsg;
         }
 
         // return the message
         public string getMessage() {
             return this.message;
         }
+
+        // See if this message was sent by local player
+        public bool getLocalMsg() {
+            return this.localPlayerMsg;
+        }
+
+
+        // Mark this message as having been sent by the local player
+        public void setLocalPlayerMsg(bool localPlayerMsg) {
+            this.localPlayerMsg = localPlayerMsg;
+        }
+
     }
 }

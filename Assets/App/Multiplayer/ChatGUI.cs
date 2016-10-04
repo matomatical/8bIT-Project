@@ -12,12 +12,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
     public class ChatGUI {
 
         // font size for the chat messages for when they show up on screen.
-        private int FONT_SIZE = 20;
+        private int FONT_SIZE = 35;
 
         // Details of where to render chat
         private readonly float MSG_X = 0.3f;
         private readonly float MSG_Y = 0.03f;
-        private readonly int MSG_Y_OFFSET = 20;
+        private readonly int MSG_Y_OFFSET = 35;
+        private readonly int MSG_X_OFFSET = 70;
 
         // Display the n most recent messages 
         public readonly int TOPN = 3;
@@ -35,14 +36,23 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             
             // The x and y positions at which to display the messages
             float ypos = (Screen.width * MSG_Y)-MSG_Y_OFFSET;
-            float xpos = Screen.height * MSG_X;
+            float xposLocal = Screen.height * MSG_X + MSG_X_OFFSET;
+            float xposRemote = Screen.height * MSG_X;
 
             List<ChatMessage> recentMessages = chatHistory.MostRecent(TOPN);
 
             for (int i = 0; i< recentMessages.Count; i++) {
                 //createRectangle(xpos, ypos += MSG_Y_OFFSET, recentMessages[i].getMessage(), 1, 0, 0);
-                GUI.Label(new Rect(xpos, ypos, Screen.width, Screen.height),
-                    recentMessages[i].getMessage(), myStyle);
+                ChatMessage m = recentMessages[i];
+                float xpos = xposRemote;
+
+                // If the message was sent by the local player, indent it appropriately
+                if (m.getLocalMsg()) {
+                    xpos = xposLocal;
+                }
+
+                GUI.Label(new Rect(xpos, ypos+= MSG_Y_OFFSET, Screen.width, Screen.height),
+                    m.getMessage(), myStyle);
             }
 
             
