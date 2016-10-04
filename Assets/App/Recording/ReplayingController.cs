@@ -50,7 +50,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		public void SetRecording(string recording){
 			this.recording =
 				JsonUtility.FromJson<Recording>(recording);
-			this.fps = recording.fps;
+			this.fps = this.recording.fps;
 			// this.level = recording.level;
 		}
 
@@ -81,7 +81,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		public void EndReplaying(){
 			if(hasStarted){
 				isReplaying = false;
-				hsStarted = false;	
+				hasStarted = false;	
 			}
 		}
 

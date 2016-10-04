@@ -36,7 +36,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// has the state actually changed?
 
-			if(wasTrue == _GetState(){
+			if(wasTrue == _GetState()){
 				hasChanged = false;
 			} else {
 				hasChanged = true;
@@ -45,7 +45,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			// either way, update change info for
 			// next time
 
-			wasTrue = IsTrue();
+			wasTrue = _GetState();
 		}
 
 		/// has the state actually changed since last frame?

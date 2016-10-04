@@ -30,9 +30,9 @@ namespace xyz._8bITProject.cooperace.recording {
 		[SerializeField] public static int version = 1;
 
 		/// The recording's target framerate
-		[SerializeField] private int fps;
+		[SerializeField] public int fps;
 		/// The recording's level's name
-		[SerializeField] private string level;
+		[SerializeField] public string level;
 
 		/// The recording: a sequence of frames
 		[SerializeField] private List<Frame> frames;
@@ -144,14 +144,14 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// apply time from this frame
 
-			timer.SetTime(frame.time);
+			timer.SetTime(this.time);
 
 			
 			// apply dynamic states from this frame
 			
 			for (int i = 0; i < dynamics.Length; i++) {
 				
-				PositionVelocityState state = frame.dynamics[i];
+				PositionVelocityState state = this.dynamics[i];
 				
 				dynamics[i].SetState(new DynamicState(
 						new Vector2(state.positionX, state.positionY),
@@ -162,9 +162,9 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// apply static states from this frame
 
-			for (int i = 0; i < frame.statics.Length; i++) {
+			for (int i = 0; i < this.statics.Length; i++) {
 				
-				BooleanDeltaState state = frame.statics[i];
+				BooleanDeltaState state = this.statics[i];
 				
 				statics[state.index].SetState(state.state);
 			}
