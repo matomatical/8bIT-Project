@@ -91,7 +91,7 @@ namespace GooglePlayServices
                 {
                     if (s.EndsWith(".cs") || s.EndsWith(".js"))
                     {
-                        Debug.Log(s + " imported, resolving play-services");
+                        //Debug.Log(s + " imported, resolving play-services");
                         return true;
                     }
                 }
