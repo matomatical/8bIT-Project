@@ -17,7 +17,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			if (player2) {
 				player2.GetComponent<LocalPlayerController> ().enabled = false;
 				player2.GetComponent<RemotePlayerController> ().enabled = true;
-				player2.GetComponent<PlayerSerializer> ().SetDeserializing ();
 
 				// Tell update manager about the serialiser for player 2 so updates get recieved
 				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
@@ -27,7 +26,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			if (player1) {
 				player1.GetComponent<RemotePlayerController> ().enabled = false;
 				player1.GetComponent<LocalPlayerController> ().enabled = true;
-				player1.GetComponent<PlayerSerializer> ().SetSerializing ();
 
 				// Tell player 1 to send updates to the update manager
 				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;

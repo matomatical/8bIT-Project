@@ -18,7 +18,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public IUpdateManager updateManager;
 
 		// Used for getting position
-		private RemotePlayerController controller;
+		private RemotePlayerController remoteController;
+		private LocalPlayerController localController;
 
 		// Keeps track of how long until we send an update
 		private int stepsUntilSend;
@@ -29,19 +30,16 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// Used to guard serialize and deserialize being run if the RemotePlayerContoller is not yet found
 		private bool ready = false;
-
-		// Keeps track of whether the player is being serialized or deserialized
-		private bool serializing = false;
-		private bool deserializing = false;
 	 
 		void Start () {
 			// Get compenents
-			controller = GetComponent<RemotePlayerController> ();
+			remoteController = GetComponent<RemotePlayerController> ();
+			localController = GetComponent<LocalPlayerController> ();
 
 			stepsUntilSend = 0;
 
 			// Fill out last positions with dummys
-			lastInfo = new PlayerInformation(new Vector2 (0, 0), new Vector2 (0, 0));
+			lastInfo = null;
 
 			ready = true;
 		}
@@ -55,13 +53,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			PlayerInformation info;
 
 			// Only send if there is an update manager to send to and the transform is found
-			if (updateManager != null && ready && serializing) {
+			if (updateManager != null && ready) {
 				
 				// If it's time to send another update
 				if (stepsUntilSend < 1) {
 					 
 					// Read information about the player currently
-					info = new PlayerInformation (controller.GetPosition (), controller.GetVelocity ());
+					info = new PlayerInformation (localController.GetPosition (), localController.GetVelocity ());
 
 					// If the update is different to the last one sent
 					if (!info.Equals(lastInfo)) {
@@ -77,7 +75,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						lastInfo = info;
 						
 					} else {
-						Debug.Log ("Nothing has changed since last update");
+						Debug.Log ("Local player has not changed since last update");
 					}
 
 				} else {
@@ -92,10 +90,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Tell this object there is an update from an observable
 		public void Notify (List<byte> message)
 		{
-			if (deserializing) {
-				PlayerInformation info = Deserialize (message);
-				Apply (info);
-			}
+			PlayerInformation info = Deserialize (message);
+			Apply (info);
 		}
 
 		// Let updateManager know there is an update
@@ -106,25 +102,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// Applies information in info to the player this serializer is attatched to
 		private void Apply(PlayerInformation info) {
-			controller.SetState (info.pos, info.vel);
-		}
-
-		// Tells the serializer it is serializing and not deserializing
-		public void SetSerializing () {
-			serializing = true;
-			deserializing = false;
-		}
-
-		// Tells the serializer it is deserializing and not serializing
-		public void SetDeserializing () {
-			serializing = false;
-			deserializing = true;
-		}
-
-		// Tells the serializer it is not doing anything
-		public void SetOff () {
-			serializing = false;
-			deserializing = false;
+			remoteController.SetState (info.pos, info.vel);
 		}
 
 		// Takes an update and applies it to this serializer's object
