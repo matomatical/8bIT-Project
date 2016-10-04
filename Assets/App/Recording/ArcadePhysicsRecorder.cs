@@ -3,7 +3,7 @@ using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	class ArcadePhysicsRecorder : MonoBehaviour, DynamicRecorder {
+	public class ArcadePhysicsRecorder : MonoBehaviour, DynamicRecorder {
 
 		private ArcadePhysicsController physics;
 

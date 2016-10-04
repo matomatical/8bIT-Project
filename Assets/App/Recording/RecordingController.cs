@@ -56,7 +56,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			if(isRecording){
 
-				Recording.AddFrame(timer, dynamics, statics);
+				recording.AddFrame(timer, dynamics, statics);
 	
 			}
 		}

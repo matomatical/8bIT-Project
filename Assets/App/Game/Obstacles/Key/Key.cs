@@ -10,6 +10,7 @@ using UnityEngine;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
+
 	public class Key : MonoBehaviour {
 
 		void OnTriggerEnter2D(Collider2D other) {
@@ -21,6 +22,10 @@ namespace xyz._8bITProject.cooperace {
 				holder.pickupKey();
 				gameObject.SetActive(false);
 			}
+		}
+
+		public bool IsTaken(){
+			return !gameObject.activeSelf;
 		}
 
 	}

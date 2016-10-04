@@ -1,16 +1,19 @@
 using UnityEngine;
+using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
 	public class KeyRecorder : MonoBehaviour, StaticRecorder {
 
-		private KeyController key;
+		private Key key;
 		
 		private bool wasTaken, hasChanged;
 
 		void Start(){
-			key = GetComponent<KeyController>();
+			key = GetComponent<Key>();
 		}
+
+		bool theFirstTime = true;
 
 		public void CheckForChanges(){
 			
@@ -18,7 +21,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			if(theFirstTime){
 				theFirstTime = false;
-				changed = true;
+				hasChanged = true;
 				wasTaken = key.IsTaken();
 				return;
 			}

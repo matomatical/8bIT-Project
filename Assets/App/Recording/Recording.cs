@@ -1,5 +1,5 @@
 using UnityEngine;
-using System.Collection.Generic;
+using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.recording {
 
@@ -9,11 +9,11 @@ namespace xyz._8bITProject.cooperace.recording {
 		private static int version = 1;
 		
 		private int fps;
-		private string levelName;
+		private string level;
 
 		private List<Frame> frames;
 
-		Recording (string level, int fps) {
+		public Recording (string level, int fps) {
 
 			this.level = level;
 			this.fps = fps;
@@ -21,8 +21,8 @@ namespace xyz._8bITProject.cooperace.recording {
 			frames = new List<Frame>();
 		}
 
-		void AddFrame (TimeRecorder timer, DynamicRecorder[] dynamics,
-			StaticRecorder[] statics) {
+		public void AddFrame (TimeRecorder timer,
+			DynamicRecorder[] dynamics, StaticRecorder[] statics) {
 
 			frames.Add(new Frame(timer, dynamics, statics));
 		}
@@ -32,7 +32,7 @@ namespace xyz._8bITProject.cooperace.recording {
 	class Frame {
 
 		public float time;
-		public DynamicState[] dynamics;
+		public PositionVelocityState[] dynamics;
 		public BooleanDeltaState[] statics;
 
 		public Frame (TimeRecorder timer, DynamicRecorder[] dynamics,
@@ -40,13 +40,15 @@ namespace xyz._8bITProject.cooperace.recording {
 			
 			this.time = timer.GetTime();
 
-
 			// record dynamic states
 
-			this.dynamics = new DynamicState[dynamics.Length];
+			this.dynamics = new PositionVelocityState[dynamics.Length];
 
 			for (int i = 0; i < dynamics.Length; i++) {
-				this.dynamics[i] = dynamics[i].GetState();
+				this.dynamics[i] =
+					new PositionVelocityState(
+						dynamics[i].GetState().position,
+						dynamics[i].GetState().velocity);
 			}
 
 
@@ -76,12 +78,12 @@ namespace xyz._8bITProject.cooperace.recording {
 	}
 
 	[System.Serializable]
-	struct DynamicState {
+	struct PositionVelocityState {
 
 		public float positionX, positionY;
 		public float velocityX, velocityY;
 		
-		public DynamicState(Vector2 position, Vector2 velocity){
+		public PositionVelocityState (Vector2 position, Vector2 velocity) {
 			positionX = position.x;
 			positionY = position.y;
 			velocityX = velocity.x;
@@ -95,7 +97,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		public int index; // id for delta decompression
 		public bool state;
 		
-		public BooleanDeltaState(int id, bool state){
+		public BooleanDeltaState(int index, bool state){
 			this.index = index;
 			this.state = state;
 		}

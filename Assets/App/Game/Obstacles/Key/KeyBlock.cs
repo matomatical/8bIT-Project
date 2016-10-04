@@ -9,6 +9,7 @@ using UnityEngine;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
+
 	public class KeyBlock : MonoBehaviour {
 
 		void OnTriggerEnter2D(Collider2D other) {
@@ -21,6 +22,10 @@ namespace xyz._8bITProject.cooperace {
 				holder.dropKey();
 				gameObject.SetActive(false);
 			}
+		}
+
+		public bool IsOpen(){
+			return ! gameObject.activeSelf;
 		}
 
 	}

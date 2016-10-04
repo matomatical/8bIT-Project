@@ -10,6 +10,7 @@ using UnityEngine.UI;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
+
 	public class ClockController : MonoBehaviour {
 
 		float time = 0;
@@ -45,6 +46,10 @@ namespace xyz._8bITProject.cooperace {
 
 		public void StartTiming() {
 			isTiming = true;
+		}
+
+		public float GetTime(){
+			return time;
 		}
 	}
 }

@@ -1,16 +1,19 @@
 using UnityEngine;
+using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
 	public class KeyBlockRecorder : MonoBehaviour, StaticRecorder {
 
-		private KeyBlockController block;
+		private KeyBlock block;
 		
 		private bool wasOpen, hasChanged;
 
 		void Start(){
-			block = GetComponent<KeyBlockController>();
+			block = GetComponent<KeyBlock>();
 		}
+
+		bool theFirstTime = true;
 
 		public void CheckForChanges(){
 			
@@ -18,7 +21,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			if(theFirstTime){
 				theFirstTime = false;
-				changed = true;
+				hasChanged = true;
 				wasOpen = block.IsOpen();
 				return;
 			}

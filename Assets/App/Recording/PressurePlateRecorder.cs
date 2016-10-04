@@ -1,16 +1,19 @@
 using UnityEngine;
+using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
 	public class PressurePlateRecorder : MonoBehaviour, StaticRecorder {
 
-		private PressurePlateController plate;
+		private PressurePlate plate;
 		
-		private bool wasActive, hasChanged;
+		private bool wasPressed, hasChanged;
 
 		void Start(){
-			plate = GetComponent<PressurePlateController>();
+			plate = GetComponent<PressurePlate>();
 		}
+
+		bool theFirstTime = true;
 
 		public void CheckForChanges(){
 			
@@ -18,8 +21,8 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			if(theFirstTime){
 				theFirstTime = false;
-				changed = true;
-				wasActive = playe.IsActive();
+				hasChanged = true;
+				wasPressed = plate.IsPressed();
 				return;
 			}
 
@@ -27,7 +30,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// has the plate's activation changed?
 
-			if(wasActive == plate.IsActive()){
+			if(wasPressed == plate.IsPressed()){
 				hasChanged = false;
 			} else {
 				hasChanged = true;
@@ -35,7 +38,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// either way, update wasActive
 
-			wasActive = plate.IsActive();
+			wasPressed = plate.IsPressed();
 		}
 
 
@@ -49,7 +52,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		/// check for changes at least once
 		/// // (is that bad?)
 		public bool GetState(){
-			return wasTaken;
+			return wasPressed;
 		}
 	}
 }
