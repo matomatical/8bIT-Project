@@ -27,7 +27,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			if (player1) {
 				player1.GetComponent<RemotePlayerController> ().enabled = false;
 				player1.GetComponent<LocalPlayerController> ().enabled = true;
-				player2.GetComponent<PlayerSerializer> ().SetSerializing ();
+				player1.GetComponent<PlayerSerializer> ().SetSerializing ();
 
 				// Tell player 1 to send updates to the update manager
 				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;
