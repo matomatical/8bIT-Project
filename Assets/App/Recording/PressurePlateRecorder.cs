@@ -1,58 +1,32 @@
+/*
+ * A concrete recorder object for collecting the state of a pressure plate
+ * each frame to build a recording
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
 using UnityEngine;
 using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
+	[RequireComponent (typeof (PressurePlate))]
 	public class PressurePlateRecorder : StaticRecorder {
 
+		/// the pressure plate to track
 		private PressurePlate plate;
-		
-		private bool wasPressed, hasChanged;
 
 		void Start(){
+
+			// link components
+
 			plate = GetComponent<PressurePlate>();
 		}
 
-		bool theFirstTime = true;
-
-		public override void CheckForChanges(){
-			
-			// always report changes first time
-
-			if(theFirstTime){
-				theFirstTime = false;
-				hasChanged = true;
-				wasPressed = plate.IsPressed();
-				return;
-			}
-
-			// in all other cases,
-
-			// has the plate's activation changed?
-
-			if(wasPressed == plate.IsPressed()){
-				hasChanged = false;
-			} else {
-				hasChanged = true;
-			}
-
-			// either way, update wasActive
-
-			wasPressed = plate.IsPressed();
-		}
-
-
-		/// undefined behaviour if you call this before calling
-		/// check for changes at least once
-		public override bool StateHasChanged() {
-			return hasChanged;
-		}
-
-		/// undefined behaviour if you call this before calling
-		/// check for changes at least once
-		/// // (is that bad?)
-		public override bool GetState(){
-			return wasPressed;
+		/// get the actual state of the pressure plate being tracked this frame
+		protected override bool _GetState(){
+			return plate.IsPressed();
 		}
 	}
 }

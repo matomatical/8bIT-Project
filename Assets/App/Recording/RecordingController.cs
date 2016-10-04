@@ -1,3 +1,12 @@
+/*
+ * Global controller object for managing the recording process.
+ * Builds a recording object by collecting states from recording 
+ * objects each frame
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
 using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.recording {
@@ -12,7 +21,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		TimeRecorder timer;
 
 		Recording recording;
-		bool isRecording = true;
+		bool isRecording = false, hasStarted = false;
 
 		void Start(){
 
@@ -24,29 +33,39 @@ namespace xyz._8bITProject.cooperace.recording {
 			
 			timer = FindObjectOfType<TimeRecorder> ();
 
+			// TODO: someone else should start recording!?
+			// then they can also pause it etc
+
 			StartRecording ();
 		}
 
+		/// start recording if we haven't already
 		public void StartRecording(){
 
-			recording = new Recording(level, fps);
-
-			isRecording = true;
+			if(!hasStarted){
+				recording = new Recording(level, fps);
+				hasStarted = true;
+				isRecording = true;
+			}
 		}
 
 		public void PauseRecording(){
-
-			isRecording = false;
+			if(hasStarted){
+				isRecording = false;
+			}
 		}
 
 		public void ContinueRecording(){
-
-			isRecording = true;
+			if(hasStarted){
+				isRecording = true;
+			}
 		}
 
 		public void EndRecording(){
-
-			isRecording = false;
+			if(hasStarted){
+				isRecording = false;
+				hasStarted = false;
+			}
 		}
 
 		void FixedUpdate(){
@@ -56,7 +75,6 @@ namespace xyz._8bITProject.cooperace.recording {
 			if(isRecording){
 
 				recording.AddFrame(timer, dynamics, statics);
-	
 			}
 		}
 

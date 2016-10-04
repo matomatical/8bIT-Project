@@ -1,58 +1,32 @@
+/*
+ * A concrete recorder object for collecting the state of a key block
+ * each frame to build a recording
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
 using UnityEngine;
 using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
+	[RequireComponent (typeof (KeyBlock))]
 	public class KeyBlockRecorder : StaticRecorder {
 
+		/// the key block to track
 		private KeyBlock block;
-		
-		private bool wasOpen, hasChanged;
 
 		void Start(){
+
+			// link components
+
 			block = GetComponent<KeyBlock>();
 		}
 
-		bool theFirstTime = true;
-
-		public override void CheckForChanges(){
-			
-			// always report changes first time
-
-			if(theFirstTime){
-				theFirstTime = false;
-				hasChanged = true;
-				wasOpen = block.IsOpen();
-				return;
-			}
-
-			// in all other cases,
-
-			// has the block's open-ness changed?
-
-			if(wasOpen == block.IsOpen()){
-				hasChanged = false;
-			} else {
-				hasChanged = true;
-			}
-
-			// either way, update wasOpen
-
-			wasOpen = block.IsOpen();
-		}
-
-
-		/// undefined behaviour if you call this before calling
-		/// check for changes at least once
-		public override bool StateHasChanged() {
-			return hasChanged;
-		}
-
-		/// undefined behaviour if you call this before calling
-		/// check for changes at least once
-		/// // (is that bad?)
-		public override bool GetState(){
-			return wasOpen;
+		/// get the actual state of the key block being tracked this frame
+		protected override bool _GetState(){
+			return block.IsOpen();
 		}
 	}
 }
