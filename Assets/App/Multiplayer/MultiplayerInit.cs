@@ -49,8 +49,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				player1.GetComponent<LocalPlayerController> ().enabled = true;
                 player1.GetComponent<RemotePlayerController>().enabled = false;
 
-                UILogger.Log("I am your father");
-
 				// Tell update manager about the serialiser for player 2 so updates get recieved
 				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
 

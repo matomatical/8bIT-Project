@@ -34,6 +34,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             return this.localPlayerMsg;
         }
 
+        // set the message
+        public void setMessage(string message) {
+            this.message = message;
+        }
 
         // Mark this message as having been sent by the local player
         public void setLocalPlayerMsg(bool localPlayerMsg) {
