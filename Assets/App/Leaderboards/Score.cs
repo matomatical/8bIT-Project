@@ -2,19 +2,20 @@
  * Struct to hold a single score's data
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
  *
  */
 
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace.leaderboard {
-	public struct Score {							// TODO: use a struct?
+	[System.Serializable]
+	public struct Score {
 
 		public int time;
 		public string player1, player2;
 
 		public Score(int time, string player1, string player2) {
-
 			// make sure it's all valid
 
 			this.time = time;
