@@ -714,6 +714,12 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 768
+--- !u!114 &294723378 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000013538040042, guid: 7a0710637a4997243a1cd1ed6370020b,
+    type: 2}
+  m_PrefabInternal: {fileID: 294723372}
+  m_Script: {fileID: 11500000, guid: 42e99f13c406844018542069d910df3b, type: 3}
 --- !u!1 &361178247
 GameObject:
   m_ObjectHideFlags: 0
@@ -1148,12 +1154,6 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 768
---- !u!114 &1113955558 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000013538040042, guid: 7a0710637a4997243a1cd1ed6370020b,
-    type: 2}
-  m_PrefabInternal: {fileID: 1113955550}
-  m_Script: {fileID: 11500000, guid: 42e99f13c406844018542069d910df3b, type: 3}
 --- !u!1 &1253774132
 GameObject:
   m_ObjectHideFlags: 0
@@ -1732,7 +1732,7 @@ Prefab:
         type: 2}
       propertyPath: target
       value: 
-      objectReference: {fileID: 1113955558}
+      objectReference: {fileID: 294723378}
     - target: {fileID: 114000011606254736, guid: 5ed9808070316bb438e34ecb48a936b6,
         type: 2}
       propertyPath: focusAreaSize.y
