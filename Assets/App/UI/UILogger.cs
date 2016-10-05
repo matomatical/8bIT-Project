@@ -6,11 +6,7 @@ namespace xyz._8bITProject.cooperace {
 	public class UILogger : MonoBehaviour {
 
 		public int maxMessages = 10;
-<<<<<<< HEAD
-		public int fontSize = 20;
-=======
 		public int fontSize = 40;
->>>>>>> 2ecae8a7ff19c88baa03ef3254c91366c3051d58
 
 		LinkedList<string> messages;
 
