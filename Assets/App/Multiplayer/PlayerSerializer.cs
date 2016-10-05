@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public IUpdateManager updateManager;
 
 		// Used for getting position
-		private RemotePlayerController remoteController;
+		private RemotePhysicsController remoteController;
 		private LocalPlayerController localController;
 
 		// Keeps track of how long until we send an update
