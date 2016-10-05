@@ -73,15 +73,16 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 						// reflect changes in the last update
 						lastInfo = info;
+
+						// reset the steps since an update was sent
+						stepsUntilSend = MAX_STEPS_BETWEEN_SENDS;
 						
 					} else {
 						Debug.Log ("Local player has not changed since last update");
 					}
 
-				} else {
-					// reset the steps since an update was sent
-					stepsUntilSend = MAX_STEPS_BETWEEN_SENDS;
 				}
+
 				// show a step has been taken regardless of what happens
 				stepsUntilSend -= 1;
 			}

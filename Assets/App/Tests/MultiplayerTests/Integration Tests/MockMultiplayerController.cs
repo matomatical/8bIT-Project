@@ -57,7 +57,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		// Not needed for testing
 		public override List<Participant> GetAllPlayers()
 		{
-			return new List<byte> ();
+			return new List<Participant> ();
 		}
 
 		// Not needed for testing
