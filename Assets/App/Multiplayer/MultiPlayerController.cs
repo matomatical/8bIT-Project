@@ -109,7 +109,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void OnParticipantLeft(Participant participant)
 		{
 			ShowMPStatus("Player " + participant.DisplayName + " has left.");
-		}
+            UILogger.Log("OnParticipantLeft - player just left");
+        }
 
 		// What to do when a player has joined the room
 		public void OnPeersConnected(string[] participantIds)
@@ -126,7 +127,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			foreach (string participantID in participantIds)
 			{
 				ShowMPStatus("Player " + participantID + " has left.");
-			}
+                UILogger.Log("OnPeersDisconnected - player just left");
+            }
 		}
 
 		/* Called when an update is recieved from a peer
