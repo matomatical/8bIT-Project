@@ -6,7 +6,11 @@ namespace xyz._8bITProject.cooperace {
 	public class UILogger : MonoBehaviour {
 
 		public int maxMessages = 10;
+<<<<<<< HEAD
 		public int fontSize = 20;
+=======
+		public int fontSize = 40;
+>>>>>>> 2ecae8a7ff19c88baa03ef3254c91366c3051d58
 
 		LinkedList<string> messages;
 
@@ -46,10 +50,21 @@ namespace xyz._8bITProject.cooperace {
 			return instance;
 		}
 
-		public static void Log(params object[] objs) {
-			string msg = string.Join(" ", Array.ConvertAll(objs, o => o.ToString()));
+		private static string[] ConvertToStringArray(object[] objs) {
+			return Array.ConvertAll(objs, o => o == null ? "null" : o.ToString());
+		}
+
+		private static void LogMsg(string msg) {
 			Debug.Log(msg);
 			getInstance().AddMsg(msg);
+		}
+
+		public static void Log(params object[] objs) {
+			LogMsg(string.Join(" ", ConvertToStringArray(objs)));
+		}
+
+		public static void Logf(string format, params object[] objs) {
+			LogMsg(string.Format(format, ConvertToStringArray(objs)));
 		}
 
 	}

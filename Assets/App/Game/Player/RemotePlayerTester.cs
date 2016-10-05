@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace {
 		public LocalPlayerController local;
 
 		/// The remote player to lead
-		public RemotePlayerController remote;
+		public RemotePhysicsController remote;
 
 		// for storing position/velocity data inside
 		// an array
