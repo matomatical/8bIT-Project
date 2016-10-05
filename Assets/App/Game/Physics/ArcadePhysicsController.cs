@@ -112,7 +112,7 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 
-		void Update() {
+		void FixedUpdate() {
 
 			// first, get any changes to position from concrete controller
 
