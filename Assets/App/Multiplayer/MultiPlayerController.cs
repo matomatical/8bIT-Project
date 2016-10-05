@@ -35,7 +35,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		private String levelName = "MPTest";
 
 		// initialises the Multiplayer controller instance
-		private MultiplayerController()
+		protected MultiplayerController()
 		{
 			PlayGamesPlatform.DebugLogEnabled = true;
 			PlayGamesPlatform.Activate();
@@ -55,7 +55,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 		// Start a new Multiplayer game by looking for someone to play with
-		public void StartMPGame()
+		public virtual void StartMPGame()
 		{
 			StartMatchMaking();
 		}
@@ -77,13 +77,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 		// How's progress with setting up the room?
-		public void OnRoomSetupProgress(float percent)
+		public virtual void OnRoomSetupProgress(float percent)
 		{
 			ShowMPStatus("We are " + percent + "% done with setup");
 		}
 
 		// After connection is established go to the level specified, otherwise print an error message
-		public void OnRoomConnected(bool success)
+		public virtual void OnRoomConnected(bool success)
 		{
 			if (success)
 			{
@@ -100,20 +100,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// What to do if the player leaves the room.
 		// NOTE : Have still to handle this properly
-		public void OnLeftRoom()
+		public virtual void OnLeftRoom()
 		{
 			ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
 		}
 
 		// What to do when a particular player leaves the room
-		public void OnParticipantLeft(Participant participant)
+		public virtual void OnParticipantLeft(Participant participant)
 		{
 			ShowMPStatus("Player " + participant.DisplayName + " has left.");
             UILogger.Log("OnParticipantLeft - player just left");
         }
 
 		// What to do when a player has joined the room
-		public void OnPeersConnected(string[] participantIds)
+		public virtual void OnPeersConnected(string[] participantIds)
 		{
 			foreach (string participantID in participantIds)
 			{
@@ -122,7 +122,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 		// What to do when players leave the room
-		public void OnPeersDisconnected(string[] participantIds)
+		public virtual void OnPeersDisconnected(string[] participantIds)
 		{
 			foreach (string participantID in participantIds)
 			{
@@ -137,7 +137,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		 * senderID		- The ParticipantID of the sender
 		 * data			- The message recieved
 		 */
-		public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data)
+		public virtual void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data)
 		{
 			// turn the data into a List instead of an array
 			List<byte> listData = new List<byte> ();
@@ -151,25 +151,25 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 		// Get a list of all Participants in the room
-		public List<Participant> GetAllPlayers()
+		public virtual List<Participant> GetAllPlayers()
 		{
 			return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
 		}
 
 		// Returns the ParticipantID of the device
-		public string GetMyParticipantId()
+		public virtual string GetMyParticipantId()
 		{
 			return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
 		}
 
 		// Sends an update to all participants in the room using the reliable protocol
-		public void SendMyReliable(List<byte> data)
+		public virtual void SendMyReliable(List<byte> data)
 		{
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, data.ToArray ());
 		}
 
 		// Sends an update to all participants in the room using the unreliable protocol
-		public void SendMyUnreliable(List<byte> data)
+		public virtual void SendMyUnreliable(List<byte> data)
 		{
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
 		}
