@@ -44,11 +44,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 				// Disable the controller for the partner
 				player2.GetComponent<LocalPlayerController> ().enabled = false;
-                player2.GetComponent<RemotePlayerController>().enabled = true;
+                player2.GetComponent<RemotePhysicsController>().enabled = true;
 
 				// And make sure the controller is enabled for the player
 				player1.GetComponent<LocalPlayerController> ().enabled = true;
-                player1.GetComponent<RemotePlayerController>().enabled = false;
+                player1.GetComponent<RemotePhysicsController>().enabled = false;
 
 				camera.GetComponent<CameraController>().target = player1.GetComponent<ArcadePhysicsController>();
 				 
@@ -59,7 +59,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;
 
                 player1.GetComponent<PlayerSpriteController>().SetPlayerController(player1.GetComponent<LocalPlayerController>());
-                player2.GetComponent<PlayerSpriteController>().SetPlayerController(player2.GetComponent<RemotePlayerController>());
+                player2.GetComponent<PlayerSpriteController>().SetPlayerController(player2.GetComponent<RemotePhysicsController>());
 
 			} else {
 				// Partner is player 1
@@ -67,11 +67,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 				// Disable the controller for the partner
 				player1.GetComponent<LocalPlayerController> ().enabled = false;
-                player1.GetComponent<RemotePlayerController>().enabled = true;
+                player1.GetComponent<RemotePhysicsController>().enabled = true;
 
                 // And make sure the controller is enabled for the player
                 player2.GetComponent<LocalPlayerController> ().enabled = true;
-                player2.GetComponent<RemotePlayerController>().enabled = false;
+                player2.GetComponent<RemotePhysicsController>().enabled = false;
 
 				camera.GetComponent<CameraController>().target = player2.GetComponent<ArcadePhysicsController>();
                 // Tell update manager about the serialiser for player 1 so updates get recieved
@@ -80,7 +80,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				// Tell player 2 to send updates to the update manager
 				player2.GetComponent<PlayerSerializer> ().updateManager = updateManager;
 
-                player1.GetComponent<PlayerSpriteController>().SetPlayerController(player1.GetComponent<RemotePlayerController>());
+                player1.GetComponent<PlayerSpriteController>().SetPlayerController(player1.GetComponent<RemotePhysicsController>());
                 player2.GetComponent<PlayerSpriteController>().SetPlayerController(player2.GetComponent<LocalPlayerController>());
             }
 		}

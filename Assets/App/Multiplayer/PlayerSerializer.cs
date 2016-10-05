@@ -33,7 +33,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	 
 		void Start () {
 			// Get compenents
-			remoteController = GetComponent<RemotePlayerController> ();
+			remoteController = GetComponent<RemotePhysicsController> ();
 			localController = GetComponent<LocalPlayerController> ();
 
 			stepsUntilSend = 0;
