@@ -59,7 +59,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Take a string and check which player sent it and assign a tag accordingly
         private string assignTag(string m, bool isLocalPlayer) {
             if (isLocalPlayer) {
-                m = "me      : " + m;
+                m = "      me: " + m;
             } else {
                 m = "partner: " + m;
             }

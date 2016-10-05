@@ -54,6 +54,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 				// Tell player 1 to send updates to the update manager
 				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;
+
+                player1.GetComponent<PlayerSpriteController>().SetPlayerController(player1.GetComponent<LocalPlayerController>());
+                player2.GetComponent<PlayerSpriteController>().SetPlayerController(player2.GetComponent<RemotePlayerController>());
+
 			} else {
 				// Partner is player 1
 				partner = participants [0];
@@ -71,7 +75,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 				// Tell player 2 to send updates to the update manager
 				player2.GetComponent<PlayerSerializer> ().updateManager = updateManager;
-			}
+
+                player1.GetComponent<PlayerSpriteController>().SetPlayerController(player1.GetComponent<RemotePlayerController>());
+                player2.GetComponent<PlayerSpriteController>().SetPlayerController(player2.GetComponent<LocalPlayerController>());
+            }
 		}
 	}
 }

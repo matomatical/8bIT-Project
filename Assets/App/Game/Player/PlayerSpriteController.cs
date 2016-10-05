@@ -44,7 +44,7 @@ namespace xyz._8bITProject.cooperace {
 			
 			// link components
 
-			player = GetComponent<ArcadePhysicsController> ();
+			
 
 			animator = GetComponent<Animator> ();
 			spriteRenderer = GetComponent<SpriteRenderer> ();
@@ -95,6 +95,10 @@ namespace xyz._8bITProject.cooperace {
 			spriteRenderer.flipX = animationLeft;
 
 		}
+
+        public void SetPlayerController(ArcadePhysicsController player) {
+            this.player = player;
+        }
 
 	}
 }
