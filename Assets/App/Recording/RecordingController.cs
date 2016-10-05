@@ -13,7 +13,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 	public class RecordingController : MonoBehaviour {
 
-		public int fps = 25; // for now, let's ignore this
+		public const int fps = 25;
 		public string level = "test";
 
 		DynamicRecorder[] dynamics;

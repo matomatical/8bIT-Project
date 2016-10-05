@@ -4,8 +4,8 @@
  * Recording - stores a sequence of frames and some header information
  * Frame - stored object states in a specified order for each level
  * PositionVelocityState - the storage format of a dynamic object's two-vector 
- * state, stored in a fixed array (no need to store index along with state,
- * as long as order is fixed)
+ * state, stored with delta compression (only stored if state is different
+ * from previous recorded state)
  * BooleanDeltaState - the storage format of a static object's boolean state,
  * stored with delta compression (only storing changes)
  *
@@ -66,6 +66,8 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// is this a valid frame number?
 
+			// TODO: THIS IS WHERE THE TIME KEEPING WILL OCCUR
+
 			if(n >= frames.Count || n < 0){
 				return;
 			}
@@ -84,7 +86,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		public float time;
 
 		/// all of the dynamic objects' states
-		public PositionVelocityState[] dynamics;
+		public DynamicDeltaState[] dynamics;
 
 		/// those of the static objects' states which changed this frame
 		public BooleanDeltaState[] statics;
@@ -97,19 +99,55 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			this.time = timer.GetTime();
 
+			// record dynamic states using delta compression
 
-			// record dynamic states
-
-			this.dynamics = new PositionVelocityState[dynamics.Length];
-
-			for (int i = 0; i < dynamics.Length; i++) {
-				
-				DynamicState state = dynamics[i].GetState();
-				this.dynamics[i] =
-					new PositionVelocityState(state.position, state.velocity);
-			}
+			this.dynamics = RecordDynamicStates(dynamics);
 
 			// record static object states using delta compression
+
+			this.statics = RecordStaticStates(statics);
+
+		}
+
+		/// formulate array of changed dynamic recorder object states
+		/// for storage with delta compression
+		private DynamicDeltaState[] RecordDynamicStates(
+				DynamicRecorder[] dynamics){
+
+			// how many states have changed?
+
+			int numChanged = 0;
+
+			for (int i = 0; i < dynamics.Length; i++) {
+
+				dynamics[i].CheckForChanges();
+
+				if (dynamics[i].StateHasChanged()) {
+					numChanged++;
+				}
+			}
+
+			// record those changes
+
+			DynamicDeltaState[] deltas = new DynamicDeltaState[numChanged];
+
+			for (int i = 0, j = 0; i < dynamics.Length; i++) {
+				
+				if(dynamics[i].StateHasChanged()){
+					DynamicState state = dynamics[i].GetState();
+					deltas[j++] = 
+						new DynamicDeltaState(i, state.position, state.velocity);
+
+				}
+			}
+
+			return deltas;
+		}
+
+		/// formulate array of changed static (boolean) recorder object
+		/// states for storage with delta compression
+		private BooleanDeltaState[] RecordStaticStates(
+				StaticRecorder[] statics){
 
 			// how many states have changed?
 
@@ -126,16 +164,17 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// record those changes
 
-			this.statics = new BooleanDeltaState[numChanged];
+			BooleanDeltaState[] deltas = new BooleanDeltaState[numChanged];
 
 			for (int i = 0, j = 0; i < statics.Length; i++) {
 				if (statics[i].StateHasChanged()) {
-					this.statics[j++] =
+					deltas[j++] =
 						new BooleanDeltaState(i, statics[i].GetState());
 				}
 			}
-		}
 
+			return deltas;
+		}
 
 		/// Apply this frame's information to these replayer objects
 		/// so that they match the frame
@@ -149,16 +188,15 @@ namespace xyz._8bITProject.cooperace.recording {
 			
 			// apply dynamic states from this frame
 			
-			for (int i = 0; i < dynamics.Length; i++) {
+			for (int i = 0; i < this.dynamics.Length; i++) {
 				
-				PositionVelocityState state = this.dynamics[i];
+				DynamicDeltaState state = this.dynamics[i];
 				
-				dynamics[i].SetState(new DynamicState(
+				dynamics[state.index].SetState(new DynamicState(
 						new Vector2(state.positionX, state.positionY),
 						new Vector2(state.velocityX, state.velocityY)
 					));
 			}
-
 
 			// apply static states from this frame
 
@@ -171,11 +209,13 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 	}
 
-
-	/// the storage format of a dynamic object's two-vector state, stored in a 
-	/// fixed array (no need to store index along with state, as order is fixed)
+	/// the storage format of a dynamic object's two-vector state,
+	/// stored with delta compression (only storing changes)
 	[System.Serializable]
-	struct PositionVelocityState {
+	struct DynamicDeltaState {
+
+		/// index into replayer array for delta DEcompression
+		public int index;
 
 		/// position components
 		public float positionX, positionY;
@@ -183,8 +223,12 @@ namespace xyz._8bITProject.cooperace.recording {
 		/// velocity components
 		public float velocityX, velocityY;
 		
-		/// create a position velocity state from two vectors
-		public PositionVelocityState (Vector2 position, Vector2 velocity) {
+		/// create a position velocity state from two vectors for a given index
+		public DynamicDeltaState (int index,
+				Vector2 position, Vector2 velocity) {
+
+			this.index = index;
+			
 			positionX = position.x;
 			positionY = position.y;
 			velocityX = velocity.x;
@@ -197,7 +241,7 @@ namespace xyz._8bITProject.cooperace.recording {
 	[System.Serializable]
 	struct BooleanDeltaState {
 
-		/// index into replayer arracy for delta DEcompression
+		/// index into replayer array for delta DEcompression
 		public int index;
 
 		/// the state resulting from the change
@@ -221,19 +265,20 @@ recording : {
 
 frame : {
 	time : float,
-	dynamics : [dynamicState], // objects for which full state is recorded
-	statics  :  [staticState] // objects that use delta compression
+	dynamics : [dynamicDeltaState],	// two-vector states
+	statics  : [booleanDeltaState]	// boolean states
 }
 
-dynamicState : { // we're storing all in order, so theres no need to store index
+dynamicDeltaState : {
+	index : int,
 	positionX : float,
 	positionY : float,
 	velocityX : float,
 	velocityY : float
 }
 
-staticState : {
-	index : int, // we're only storing states with changes, so we need an index
+booleanDeltaState : {
+	index : int,
 	state : bool
 }
 
