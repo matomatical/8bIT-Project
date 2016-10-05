@@ -36,7 +36,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			client = new TcpClient();
 		}
 
-		public void Connect() {
+		private void Connect() {
 			// open the connection
 			client.Connect(host, port);
 
@@ -45,25 +45,21 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			writer = new StreamWriter(networkStream);
 		}
 
-		public void Disconnect(){
-			if (client.Connected) {
-				// close the connection
-				reader.Close();
-				writer.Close();
-				networkStream.Close();
-				client.Close();
+		private void Disconnect(){
+			// close the connection
+			reader.Close();
+			writer.Close();
+			networkStream.Close();
+			client.Close();
 
-				client = new TcpClient(); // to allow reconnecting
-			}
+			client = new TcpClient(); // to allow reconnecting
 		}
 		public int SubmitScore(string level, Score score) {
-			if (!client.Connected) {
-				// raise exception!	
-			}
+			Connect();
 
 			// form a submission message
 			string request = SubmissionRequest.ToJson(level, score);
-			UILogger.Log("lb submission request:", request);
+			//UILogger.Log("lb submission request:", request);
 
 			// send it to the server
 			writer.WriteLine(request);
@@ -71,20 +67,20 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			
 			// get a response
 			string response = reader.ReadLine();
-			UILogger.Log("lb submission response:", response);
+			//UILogger.Log("lb submission response:", response);
+
+			Disconnect();
 
 			// convert back to an object and report to the user
 			return SubmissionResponse.FromJson(response).position;
 		}
 
 		public Score[] RequestScores(string level) {
-			if (!client.Connected) {
-				// raise exception!	
-			}
+			Connect();
 
 			// form a request message
 			string request = ScoresRequest.ToJson(level);
-			UILogger.Log("lb request request:", request);
+			//UILogger.Log("lb request request:", request);
 
 			// send it to the server
 			writer.WriteLine(request);
@@ -92,7 +88,9 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 
 			// get a response
 			string response = reader.ReadLine();
-			UILogger.Log("lb request response:", response);
+			//UILogger.Log("lb request response:", response);
+
+			Disconnect();
 
 			// convert back to an object and report to the user
 			return ScoresResponse.FromJson(response).leaders;

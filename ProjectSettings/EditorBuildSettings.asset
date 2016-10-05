@@ -21,3 +21,5 @@ EditorBuildSettings:
     path: Assets/App/UI/Views/StartGameMenu.unity
   - enabled: 1
     path: Assets/App/UI/Views/MatchMakingScreen.unity
+  - enabled: 1
+    path: Assets/App/UI/Views/LeaderboardsMenu.unity
