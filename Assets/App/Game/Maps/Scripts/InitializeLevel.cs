@@ -43,7 +43,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// camera should have a reference to the player
 			ArcadePhysicsController player = level.GetComponentInChildren<LocalPlayerController> ();
-			cam.target = player;
+			//cam.target = player;
 
 			// background should have a reference to the camera, too!
 			Camera actualCamera = cam.GetComponent<Camera>();

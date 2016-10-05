@@ -20,8 +20,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			Participant partner;
 
 			// Get player1 and player2 game objects
-			GameObject player1 = GameObject.Find("Player1");
-			GameObject player2 = GameObject.Find("Player2");
+			GameObject player1 = GameObject.Find ("Player1");
+			GameObject player2 = GameObject.Find ("Player2");
+			GameObject camera = GameObject.Find ("Camera");
 
 			// Get the chat game object and chatConrtoller
 			GameObject chat = GameObject.Find("ChatController");
@@ -49,6 +50,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				player1.GetComponent<LocalPlayerController> ().enabled = true;
                 player1.GetComponent<RemotePlayerController>().enabled = false;
 
+				camera.GetComponent<CameraController>().target = player1.GetComponent<ArcadePhysicsController>();
+				 
 				// Tell update manager about the serialiser for player 2 so updates get recieved
 				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
 
@@ -66,6 +69,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
                 player2.GetComponent<LocalPlayerController> ().enabled = true;
                 player2.GetComponent<RemotePlayerController>().enabled = false;
 
+				camera.GetComponent<CameraController>().target = player2.GetComponent<ArcadePhysicsController>();
                 // Tell update manager about the serialiser for player 1 so updates get recieved
                 updateManager.Subscribe(player1.GetComponent<PlayerSerializer> ());
 
