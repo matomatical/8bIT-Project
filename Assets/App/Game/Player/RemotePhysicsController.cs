@@ -17,6 +17,7 @@ namespace xyz._8bITProject.cooperace {
 		Vector2 externalVelocity;
 
 		bool positionSet = false;
+		bool velocitySet = false;
 
 		protected override void Start(){
 
@@ -31,9 +32,10 @@ namespace xyz._8bITProject.cooperace {
 		public void SetState(Vector2 position, Vector2 velocity){
 
 			externalPosition = position;
-			this.positionSet = false;
+			positionSet = false;
 
 			externalVelocity = velocity;
+			velocitySet = false;
 		}
 
 		protected override void ChangePosition(ref Vector2 position){
@@ -46,9 +48,12 @@ namespace xyz._8bITProject.cooperace {
 
 		protected override void ChangeVelocity(ref Vector2 velocity){
 
-			// TODO: experiment with continual velocity updating vs. gradual
+			if(!velocitySet){
+				velocity = externalVelocity;
+				velocitySet = true;
+			}
 
-			velocity.x = externalVelocity.x;
+			// velocity = externalVelocity;
 		}
 	}
 }
