@@ -45,5 +45,16 @@ namespace xyz._8bITProject.cooperace.persistence {
 			r.Close ();
 			return data;
 		}
+
+		/// Delete a file with a perticular filename, if it exists
+		public static void Delete(string filename){
+
+			FileInfo f = new FileInfo (
+				Application.persistentDataPath + "//" + filename);
+
+			if (f.Exists) {
+				f.Delete ();
+			}
+		}
 	}
 }
