@@ -14,6 +14,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 	public class LeaderboardsMenu : MonoBehaviour {
 
 		// ui elements
+		public Text levelNameText;
 		public GameObject scoresList;
 		public GameObject messageText;
 		LeaderboardItem[] items;
@@ -23,7 +24,23 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		Score[] scoresToDisplay;
 		string messageToDisplay;
 
-		int currentLevelIndex = 0;
+		int currentLevelIndex_ = 0;
+		int currentLevelIndex {
+			get {
+				return currentLevelIndex_;
+			}
+			set {
+				if (value >= Maps.maps.Length) {
+					value = 0;
+				}
+				if (value < 0) {
+					value = Maps.maps.Length - 1;
+				}
+				currentLevelIndex_ = value;
+
+				levelNameText.text = currentLevelName;
+			}
+		}
 		string currentLevelName {
 			get {
 				return Maps.maps[currentLevelIndex];
@@ -94,16 +111,10 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		// wraps around the list of maps
 		public void SwitchToNextLevel() {
 			currentLevelIndex += 1;
-			if (currentLevelIndex >= Maps.maps.Length) {
-				currentLevelIndex = 0;
-			}
 			LoadLevelStats();
 		}
 		public void SwitchToPrevLevel() {
 			currentLevelIndex -= 1;
-			if (currentLevelIndex < 0) {
-				currentLevelIndex = Maps.maps.Length - 1;
-			}
 			LoadLevelStats();
 		}
 
