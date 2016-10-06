@@ -8,19 +8,17 @@
  */
 
 using UnityEngine;
+using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
 	public class ReplayingController : MonoBehaviour {
 
-		int fps;
-
 		DynamicReplayer[] dynamics;
 		StaticReplayer[] statics;
-		TimeReplayer timer;
+		ClockController timer;
 
 		Recording recording;
-		int i = 0; // the frame in the recording that we are up to
 
 		bool isReplaying = false, hasStarted = false;
 
@@ -32,7 +30,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			
 			statics = FindObjectsOfType<StaticReplayer> ();
 			
-			timer = FindObjectOfType<TimeReplayer> ();
+			timer = FindObjectOfType<ClockController> ();
 
 			// ATM, have to TRUST that they are in the same structure as 
 			// for the recorder
@@ -50,8 +48,6 @@ namespace xyz._8bITProject.cooperace.recording {
 		public void SetRecording(string recording){
 			this.recording =
 				JsonUtility.FromJson<Recording>(recording);
-			this.fps = this.recording.fps;
-			// this.level = recording.level;
 		}
 
 		/// start replaying if we haven't already
@@ -60,7 +56,6 @@ namespace xyz._8bITProject.cooperace.recording {
 			if(!hasStarted){
 				if(recording != null){ // recording has been set
 					isReplaying = true;
-					i = 0;
 					hasStarted = true;
 				}
 			}
@@ -87,16 +82,9 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		void FixedUpdate(){
 
-			// TODO: deal with FPS and pausing and stuff
-			// i think we'll end up indexing by time instead of
-			// frame number! then recording can have an index/head
-			// like a real video tape would
-
 			if(isReplaying){
 
-				recording.ApplyFrame(i, timer, dynamics, statics);
-
-				i++;
+				recording.ApplyFrame(timer, dynamics, statics);
 			}
 		}
 	}

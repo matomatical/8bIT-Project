@@ -8,6 +8,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using xyz._8bITProject.cooperace.recording;
 
 namespace xyz._8bITProject.cooperace {
 
@@ -50,10 +51,6 @@ namespace xyz._8bITProject.cooperace {
 
 		public float GetTime(){
 			return time;
-		}
-
-		public void SetTime(float time){
-			this.time = time;
 		}
 	}
 }

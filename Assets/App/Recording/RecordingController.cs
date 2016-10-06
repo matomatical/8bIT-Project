@@ -8,22 +8,29 @@
  */
 
 using UnityEngine;
+using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
 	public class RecordingController : MonoBehaviour {
 
-		public const int fps = 25;
-		public string level = "test";
-
 		DynamicRecorder[] dynamics;
 		StaticRecorder[] statics;
-		TimeRecorder timer;
+		ClockController timer;
 
 		Recording recording;
 		bool isRecording = false, hasStarted = false;
 
+		public const int fixedUpdatesPerFrame = 2; // gives FPS of 25 by default
+		private int fixedUpdatesSinceLastFrame = 0;
+		private int fps;
+
 		void Start(){
+
+			// calculate fps
+
+			fps = (int)(1 / (fixedUpdatesPerFrame*Time.fixedDeltaTime));
+
 
 			// get all recordables in this level
 
@@ -31,21 +38,27 @@ namespace xyz._8bITProject.cooperace.recording {
 			
 			statics = FindObjectsOfType<StaticRecorder> ();
 			
-			timer = FindObjectOfType<TimeRecorder> ();
+			timer = FindObjectOfType<ClockController>();
+
 
 			// TODO: someone else should start recording!?
 			// then they can also pause it etc
 
-			StartRecording ();
+ 			// todo: use actual level nae
+
+			StartRecording (Recording.global_level);
 		}
 
 		/// start recording if we haven't already
-		public void StartRecording(){
+		public void StartRecording(string level){
 
 			if(!hasStarted){
-				recording = new Recording(level, fps);
+				recording = new Recording(level, this.fps);
 				hasStarted = true;
 				isRecording = true;
+
+				// make sure we'll record the first frame!
+				fixedUpdatesSinceLastFrame = fixedUpdatesPerFrame - 1;
 			}
 		}
 
@@ -70,11 +83,26 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		void FixedUpdate(){
 
-			// TODO: deal with FPS and pausing and stuff
-
+			// record a frame if we're recording at the moment
 			if(isRecording){
 
-				recording.AddFrame(timer, dynamics, statics);
+				// count another frame
+
+				fixedUpdatesSinceLastFrame = fixedUpdatesSinceLastFrame + 1;
+
+				// we're going to 
+
+				if(fixedUpdatesSinceLastFrame == fixedUpdatesPerFrame){
+
+					// THIS is one of the updates where we add a frame
+					// to the recording :)
+
+					recording.AddFrame(timer, dynamics, statics);	
+
+					fixedUpdatesSinceLastFrame = 0;
+				}
+
+				
 			}
 		}
 
@@ -82,5 +110,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			return JsonUtility.ToJson (recording);
 		}
+
+
 	}
 }

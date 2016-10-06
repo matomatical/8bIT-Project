@@ -15,6 +15,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
@@ -25,6 +26,9 @@ namespace xyz._8bITProject.cooperace.recording {
  		// TODO: remove
  		// for temporary passing of a json string between levels
 		public static string json;
+		// TODO: use level name from elsewhere
+		public const string global_level = "test";
+
 
 		/// The recording file format's version number
 		[SerializeField] public static int version = 1;
@@ -48,33 +52,52 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		/// Add the information from these recordable objects to
 		/// a new frame
-		public void AddFrame (TimeRecorder timer,
+		public void AddFrame (ClockController timer,
 			DynamicRecorder[] dynamics, StaticRecorder[] statics) {
 
-			Frame frame = new Frame(timer, dynamics, statics);
+			// create and store a new frame
+
+			Frame frame = new Frame(timer.GetTime(), dynamics, statics);
+			
+			frames.Add(frame);
 
 			// optional: print the frame's json to the console
-			// Debug.Log(JsonUtility.ToJson(frame));
 
-			frames.Add(frame);
+			// Debug.Log(JsonUtility.ToJson(frame));
 		}
+
+
+		/// which frame are we up to in a replay?
+		private int head = 0, prev = -1;
 
 		/// Apply frame n's information to these replayer objects
 		/// so that they match the frame
-		public void ApplyFrame(int n, TimeReplayer timer,
+		public void ApplyFrame(ClockController timer,
 			DynamicReplayer[] dynamics, StaticReplayer[] statics) {
 
-			// is this a valid frame number?
+			// spin up to the frame right before the current time
 
-			// TODO: THIS IS WHERE THE TIME KEEPING WILL OCCUR
+			float currentTime = timer.GetTime();
 
-			if(n >= frames.Count || n < 0){
-				return;
+			while(frames[head].time <= currentTime){
+				head++;
+				if(head >= frames.Count){
+					// we've reached the end of the recording, and should
+					// return the last frame
+					head--;
+					break;
+				}
 			}
 
-			// good. now, we can get the frame in question
+			// that makes frames[head] the first frame before (or at) the 
+			// current time
 
-			frames[n].Apply(timer, dynamics, statics);
+			// if this frame hasn't need rendered yet, we should play it
+
+			if(head > prev){
+				frames[head].Apply(dynamics, statics);
+				prev = head;
+			}
 		}
 	}
 
@@ -92,12 +115,12 @@ namespace xyz._8bITProject.cooperace.recording {
 		public BooleanDeltaState[] statics;
 
 		/// create a new frame for a bunch of recordables
-		public Frame (TimeRecorder timer, DynamicRecorder[] dynamics,
+		public Frame (float time, DynamicRecorder[] dynamics,
 				StaticRecorder[] statics){
 			
 			// record time this frame
 
-			this.time = timer.GetTime();
+			this.time = time;
 
 			// record dynamic states using delta compression
 
@@ -178,13 +201,8 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		/// Apply this frame's information to these replayer objects
 		/// so that they match the frame
-		public void Apply(TimeReplayer timer,
+		public void Apply(
 			DynamicReplayer[] dynamics, StaticReplayer[] statics) {
-
-			// apply time from this frame
-
-			timer.SetTime(this.time);
-
 			
 			// apply dynamic states from this frame
 			
