@@ -116,64 +116,102 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			client.EndConnect(ar);
 		}
 
-		public int SubmitScore(string level, Score score) {
+		public SubmissionResponse SubmitScore(string level, Score score) {
 			Connect();
 
 			// form a submission message
 			string request = SubmissionRequest.ToJson(level, score);
-			//UILogger.Log("lb submission request:", request);
 
 			// send it to the server
 			WriteLine(request);
 			
 			// get a response
 			string response = ReadLine();
-			//UILogger.Log("lb submission response:", response);
 
 			Disconnect();
 
 			// convert back to an object and report to the user
-			return SubmissionResponse.FromJson(response).position;
+			return SubmissionResponse.FromJson(response);
+		}
+		
+		public void SubmitScoreAsync(string level, Score score, Action<SubmissionResponse, ServerException> callback) {
+			SubmitScoreState state = new SubmitScoreState(level, score, callback);
+			ConnectAsync(new AsyncCallback(SubmitScoreOnConnectCallback), state);
+		}
+		void SubmitScoreOnConnectCallback(IAsyncResult ar) {
+			SubmitScoreState state = (SubmitScoreState) ar.AsyncState;
+
+			SubmissionResponse position = new SubmissionResponse();
+			ServerException error = null;
+
+			// handle being unable to connect
+			if (!client.Connected) {
+				error = new ServerException("Unable to connect");
+			} else {
+				try {
+					// send submission to the server
+					string request = SubmissionRequest.ToJson(state.level, state.score);
+					WriteLine(request);
+					
+					// get a response
+					string response = ReadLine();
+
+					// convert back to an object
+					position = SubmissionResponse.FromJson(response);
+				} catch (ServerException e) {
+					error = e;
+				}
+			}
+
+			// report back to user
+			if (state.callback != null) {
+				state.callback.Invoke(position, error);
+			}
+			
+			// note: even if connection failed, clean up still happens
+			DisconnectAsync(ar);
+		}
+		
+		// callback and argument container for SubmitScoreAsync
+		struct SubmitScoreState {
+			public string level;
+			public Score score;
+			public Action<SubmissionResponse, ServerException> callback;
+			public SubmitScoreState(string level, Score score, Action<SubmissionResponse, ServerException> callback) {
+				this.level = level;
+				this.score = score;
+				this.callback = callback;
+			}
 		}
 
-		public Score[] RequestScores(string level) {
+		public ScoresResponse RequestScores(string level) {
 			Connect();
 
 			// form a request message
 			string request = ScoresRequest.ToJson(level);
-			//UILogger.Log("lb request request:", request);
 
 			// send it to the server
 			WriteLine(request);
 
 			// get a response
 			string response = ReadLine();
-			//UILogger.Log("lb request response:", response);
 
 			Disconnect();
 
 			// convert back to an object and report to the user
-			return ScoresResponse.FromJson(response).leaders;
+			return ScoresResponse.FromJson(response, level);
 		}
 		
-		struct RequestScoresState {
-			public string level;
-			public Action<Score[], ServerException> callback;
-			public RequestScoresState(string level, Action<Score[], ServerException> callback) {
-				this.level = level;
-				this.callback = callback;
-			}
-		}
-		
-		public void RequestScoresAsync(string level, Action<Score[], ServerException> callback) {
+		public void RequestScoresAsync(string level, Action<ScoresResponse, ServerException> callback) {
 			RequestScoresState state = new RequestScoresState(level, callback);
 			ConnectAsync(new AsyncCallback(RequestScoresOnConnectCallback), state);
 		}
 
 		void RequestScoresOnConnectCallback(IAsyncResult ar) {
-			Score[] scores = null;
-			ServerException error = null;
 			RequestScoresState state = (RequestScoresState) ar.AsyncState;
+
+			ServerException error = null;
+			ScoresResponse scores = new ScoresResponse(state.level);
 
 			// handle being unable to connect
 			if (!client.Connected) {
@@ -188,17 +226,29 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 					string response = ReadLine();
 
 					// convert back to an object
-					scores = ScoresResponse.FromJson(response).leaders;
+					scores = ScoresResponse.FromJson(response, state.level);
 				} catch (ServerException e) {
 					error = e;
 				}
 			}
 
 			// report back to user
-			state.callback.Invoke(scores, error);
+			if (state.callback != null) {
+				state.callback.Invoke(scores, error);
+			}
 			
 			// note: even if connection failed, clean up still happens
 			DisconnectAsync(ar);
+		}
+		
+		// callback and argument container for RequestScoresAsync
+		struct RequestScoresState {
+			public string level;
+			public Action<ScoresResponse, ServerException> callback;
+			public RequestScoresState(string level, Action<ScoresResponse, ServerException> callback) {
+				this.level = level;
+				this.callback = callback;
+			}
 		}
 
 	}

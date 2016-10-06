@@ -15,9 +15,17 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 	public struct ScoresResponse {
 
 		public Score[] leaders;
+		public string level;
+		
+		public ScoresResponse(string level) {
+			leaders = null;
+			this.level = level;
+		}
 
-		public static ScoresResponse FromJson(string json) {
-			return JsonUtility.FromJson<ScoresResponse>(json);
+		public static ScoresResponse FromJson(string json, string level) {
+			ScoresResponse sr = JsonUtility.FromJson<ScoresResponse>(json);
+			sr.level = level;
+			return sr;
 		}
 		
 	}

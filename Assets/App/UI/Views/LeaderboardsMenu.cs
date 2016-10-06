@@ -19,14 +19,20 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		LeaderboardItem[] items;
 
 		Leaderboards lb = new Leaderboards();
-		int currentLevel = 0;
 		
 		Score[] scoresToDisplay;
 		string messageToDisplay;
+
+		int currentLevelIndex = 0;
+		string currentLevelName {
+			get {
+				return Maps.maps[currentLevelIndex];
+			}
+		}
 		
 		void Start() {
 			items = scoresList.GetComponentsInChildren<LeaderboardItem>();
-			currentLevel = 0;
+			currentLevelIndex = 0;
 			LoadLevelStats();
         }
 		
@@ -51,20 +57,27 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 				scoresList.SetActive(false);
 				messageText.SetActive(true);
 			}
+			
+			if (Input.GetKeyDown(KeyCode.U)) {
+				Debug.Log("submitting");
+				lb.SubmitScoreAsync(currentLevelName, new Score(10, "abc", "def"), null);
+			}
 		}
 
 		// fetches the actual leaderboard scores
 		void LoadLevelStats() {
-			string mapName = Maps.maps[currentLevel];
-			DisplayMessage("Loading scores for " + mapName);
-			lb.RequestScoresAsync(mapName,
-				new Action<Score[], ServerException>(OnServerResponse));
+			DisplayMessage("Loading scores for " + currentLevelName);
+			lb.RequestScoresAsync(currentLevelName,
+				new Action<ScoresResponse, ServerException>(OnServerResponse));
 		}
-		void OnServerResponse(Score[] scores, ServerException error) {
-			if (error != null) {
-				DisplayMessage("Unable to contact server, please check your connection.");
-			} else {
-				DisplayNames(scores);
+		void OnServerResponse(ScoresResponse scores, ServerException error) {
+			// make sure this response isn't out of date
+			if (scores.level == currentLevelName) { 
+				if (error != null) {
+					DisplayMessage("Unable to contact server, please check your connection.");
+				} else if (scores.leaders != null) {
+					DisplayNames(scores.leaders);
+				}
 			}
 		}
 		
@@ -80,16 +93,16 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		// public methods to switch the currently displayed score
 		// wraps around the list of maps
 		public void SwitchToNextLevel() {
-			currentLevel += 1;
-			if (currentLevel >= Maps.maps.Length) {
-				currentLevel = 0;
+			currentLevelIndex += 1;
+			if (currentLevelIndex >= Maps.maps.Length) {
+				currentLevelIndex = 0;
 			}
 			LoadLevelStats();
 		}
 		public void SwitchToPrevLevel() {
-			currentLevel -= 1;
-			if (currentLevel < 0) {
-				currentLevel = Maps.maps.Length - 1;
+			currentLevelIndex -= 1;
+			if (currentLevelIndex < 0) {
+				currentLevelIndex = Maps.maps.Length - 1;
 			}
 			LoadLevelStats();
 		}
