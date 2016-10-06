@@ -103,7 +103,7 @@ GameObject:
   - 224: {fileID: 224000014200408930}
   - 222: {fileID: 222000012147335584}
   - 114: {fileID: 114000011979061896}
-  - 114: {fileID: 114000010661515540}
+  - 114: {fileID: 114000012937267556}
   m_Layer: 5
   m_Name: txtClock
   m_TagString: Untagged
@@ -445,17 +445,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a85b042eb5266424a9051e8251b3adaa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114000010661515540
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011470981890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 508b42c536b974c72a9f88061fdbf2e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114000010748754922
@@ -944,6 +933,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonOff: {fileID: 21300000, guid: fbec8f1a7094d4b4e8942c57d94ba698, type: 3}
   buttonOn: {fileID: 21300000, guid: 9e5c63306b37a4871adda2d53fc3290d, type: 3}
+--- !u!114 &114000012937267556
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011470981890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7801f22a7a58e4c979dc7575bd4aa0f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013201808434
 MonoBehaviour:
   m_ObjectHideFlags: 1

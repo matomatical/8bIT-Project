@@ -17,7 +17,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		DynamicRecorder[] dynamics;
 		StaticRecorder[] statics;
-		public ClockController timer;
+		ClockController timer;
 
 		Recording recording;
 		bool isRecording = false, hasStarted = false;
@@ -27,6 +27,10 @@ namespace xyz._8bITProject.cooperace.recording {
 		private int fps;
 
 		void Start(){
+
+			// find the game's clock
+
+			timer = FindObjectOfType<ClockController>();
 
 			// calculate fps
 

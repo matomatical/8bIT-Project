@@ -17,13 +17,17 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		DynamicReplayer[] dynamics;
 		StaticReplayer[] statics;
-		public ClockController timer;
+		ClockController timer;
 
 		Recording recording;
 
 		bool isReplaying = false, hasStarted = false;
 
 		void Start(){
+
+			// find the game's clock
+
+			timer = FindObjectOfType<ClockController>();
 
 			// get all replayables in this level,
 			// sorted by name (using System.Linq)

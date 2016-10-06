@@ -12,7 +12,11 @@ using xyz._8bITProject.cooperace.recording;
 namespace xyz._8bITProject.cooperace {
 	public class FinishLine : MonoBehaviour {
 
-		public ClockController clock;
+		ClockController clock;
+
+		void Start () {
+			clock = FindObjectOfType<ClockController> ();
+		}
 
 		void OnTriggerEnter2D (Collider2D other) {
 			// the timer is stopped when the player touches the finish line

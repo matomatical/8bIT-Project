@@ -32,10 +32,6 @@ namespace xyz._8bITProject.cooperace {
 				background.level = level.GetComponent<TiledMap>();
 			}
 
-			// finish line should have a reference to the clock
-			FinishLine finishLine = level.GetComponentInChildren<FinishLine>();
-			finishLine.clock = gui.GetComponentInChildren<ClockController>();
-
 			// player should have a reference to the joystick
 			InputManager inputManager = level.GetComponentInChildren<InputManager> ();
 			inputManager.joystick = gui.GetComponentInChildren<Joystick> ();
