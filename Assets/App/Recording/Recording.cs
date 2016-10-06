@@ -209,7 +209,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			for (int i = 0; i < this.dynamics.Length; i++) {
 				
 				DynamicDeltaState state = this.dynamics[i];
-				
+
 				dynamics[state.index].SetState(new DynamicState(
 						new Vector2(state.positionX, state.positionY),
 						new Vector2(state.velocityX, state.velocityY)

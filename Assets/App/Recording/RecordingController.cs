@@ -7,6 +7,7 @@
  *
  */
 
+using System.Linq;
 using UnityEngine;
 using xyz._8bITProject.cooperace;
 
@@ -16,7 +17,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		DynamicRecorder[] dynamics;
 		StaticRecorder[] statics;
-		ClockController timer;
+		public ClockController timer;
 
 		Recording recording;
 		bool isRecording = false, hasStarted = false;
@@ -32,14 +33,16 @@ namespace xyz._8bITProject.cooperace.recording {
 			fps = (int)(1 / (fixedUpdatesPerFrame*Time.fixedDeltaTime));
 
 
-			// get all recordables in this level
+			// get all recordables in this level,
+			// sorted by name (using System.Linq)
 
 			dynamics = FindObjectsOfType<DynamicRecorder> ();
-			
-			statics = FindObjectsOfType<StaticRecorder> ();
-			
-			timer = FindObjectOfType<ClockController>();
+			dynamics = dynamics.OrderBy(
+				gameObject => gameObject.name ).ToArray();
 
+			statics = FindObjectsOfType<StaticRecorder> ();
+			statics = statics.OrderBy(
+				gameObject => gameObject.name ).ToArray();
 
 			// TODO: someone else should start recording!?
 			// then they can also pause it etc

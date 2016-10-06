@@ -7,6 +7,7 @@
  *
  */
 
+using System.Linq;
 using UnityEngine;
 using xyz._8bITProject.cooperace;
 
@@ -16,7 +17,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		DynamicReplayer[] dynamics;
 		StaticReplayer[] statics;
-		ClockController timer;
+		public ClockController timer;
 
 		Recording recording;
 
@@ -24,18 +25,17 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		void Start(){
 
-			// get all replayables in this level
+			// get all replayables in this level,
+			// sorted by name (using System.Linq)
 
 			dynamics = FindObjectsOfType<DynamicReplayer> ();
-			
+			dynamics = dynamics.OrderBy(
+				gameObject => gameObject.name ).ToArray();
+
 			statics = FindObjectsOfType<StaticReplayer> ();
+			statics = statics.OrderBy(
+				gameObject => gameObject.name ).ToArray();
 			
-			timer = FindObjectOfType<ClockController> ();
-
-			// ATM, have to TRUST that they are in the same structure as 
-			// for the recorder
-			// TODO: guarantee this by dynamically setting up replay objects
-
 
 			// TODO: someone else should be setting up this recording
 			// then they can also pause it etc

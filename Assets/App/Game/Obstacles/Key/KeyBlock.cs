@@ -2,6 +2,7 @@
  * Key block logic.
  *
  * Athir Saleem <isaleem@student.unimelb.edu.au>
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *
  */
 
@@ -12,29 +13,24 @@ namespace xyz._8bITProject.cooperace {
 
 	public class KeyBlock : MonoBehaviour {
 
-		void OnTriggerEnter2D(Collider2D other) {
-			// if the block collides with another game object that has a
-			// KeyHolder component that is holding a key object,
-			KeyHolder holder = other.gameObject.GetComponent<KeyHolder>();
-			if (holder != null && holder.isHoldingKey()) {
-				// open (deactivate self) and mark the object as no longer
-				// holding a key
-				holder.dropKey();
-				gameObject.SetActive(false);
-			}
-		}
+		/// are we unlocked right now?
+		private bool open = false;
 
-		public bool IsOpen(){
-			return ! gameObject.activeSelf;
-		}
-
+		/// unlock this door
 		public void Open(){
+			open = true;
 			gameObject.SetActive(false);
 		}
 
+		/// close this door again
 		public void Close(){
+			open = false;
 			gameObject.SetActive(true);
 		}
 
+		/// are we open?
+		public bool IsOpen(){
+			return open;
+		}
 	}
 }

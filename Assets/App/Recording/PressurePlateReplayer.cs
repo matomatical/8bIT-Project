@@ -27,9 +27,9 @@ namespace xyz._8bITProject.cooperace.recording {
 		public override void SetState(bool state){
 
 			if(state){
-				plate.SimulatePress();
+				plate.Press();
 			} else {
-				plate.SimulateRelease();
+				plate.Release();
 			}
 		}
 	}

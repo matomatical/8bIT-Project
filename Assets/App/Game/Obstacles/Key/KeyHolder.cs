@@ -1,6 +1,6 @@
 ﻿/*
- * KeyHolder class.
- * Any entity with this class can pickup and use keys.
+ * KeyHolder component.
+ * Any entity with this component can pickup and use keys.
  *
  * Athir Saleem <isaleem@student.unimelb.edu.au>
  *
@@ -12,23 +12,27 @@ using System.Collections;
 namespace xyz._8bITProject.cooperace {
 	public class KeyHolder : MonoBehaviour {
 
+		/// are we olding a key right now?
 		bool holdingKey = false;
 
-		public bool isHoldingKey() {
+		/// can we use a key right now?
+		public bool IsHoldingKey() {
 			return holdingKey;
 		}
 
-		public bool canPickupKey() {
+		/// do we have space for a key?
+		public bool CanPickupKey() {
 			return !holdingKey;
 		}
 
-		public void pickupKey() {
+		/// take a key
+		public void PickupKey() {
 			holdingKey = true;
 		}
 
-		public void dropKey() {
+		/// use a key
+		public void DropKey() {
 			holdingKey = false;
 		}
-
 	}
 }

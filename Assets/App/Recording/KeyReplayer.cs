@@ -27,9 +27,9 @@ namespace xyz._8bITProject.cooperace.recording {
 		public override void SetState(bool state){
 
 			if(state){
-				key.SimulateTake();
+				key.Pickup();
 			} else {
-				key.SimulateRestore();
+				key.Restore();
 			}
 		}
 		
