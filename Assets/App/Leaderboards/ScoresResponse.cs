@@ -1,8 +1,11 @@
-﻿/**
+﻿/*
  * A leaderboard scores response object.
+ * Supports deserializing from a json string.
  *
- * Matt Farrugia <farrugiam@student.unimelb.edu.au>
- * Athir Saleem <isaleem@student.unimelb.edu.au> 
+ * Note: ScoresResponse.level is the name of the level, it is not part of
+ *       server spec and is set client-side.
+ *
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
  *
  */
 
@@ -16,7 +19,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 
 		public Score[] leaders;
 		public string level;
-		
+
 		public ScoresResponse(string level) {
 			leaders = null;
 			this.level = level;
@@ -27,7 +30,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			sr.level = level;
 			return sr;
 		}
-		
+
 	}
 
 }

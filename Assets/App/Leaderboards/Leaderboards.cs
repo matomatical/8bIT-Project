@@ -1,5 +1,21 @@
 ﻿/*
- * Provides an API for accessing the leaderboards server.
+ * API for accessing the leaderboards server.
+ * Both synchronous (blocking) and asynchronous (non-blocking) methods are present.
+ *
+ * The API itself handles connecting and disconnecting, to keep things simple.
+ *
+ * The asynchronous methods take an Action object which will be invoked with the
+ * server response.
+ *
+ * synchronous:
+ *     SubmissionResponse SubmitScore(string level, Score score);
+ *     ScoresResponse RequestScores(string level);
+ *
+ * asynchronous:
+ *     void SubmitScoreAsync(string level, Score score,
+ *              Action<SubmissionResponse, ServerException> callback);
+ *     void RequestScoresAsync(string level,
+ *              Action<ScoresResponse, ServerException> callback)
  *
  * Athir Saleem <isaleem@student.unimelb.edu.au>
  *
@@ -14,13 +30,16 @@ using System.IO;
 namespace xyz._8bITProject.cooperace.leaderboard {
 	public class Leaderboards {
 
+		// default host and port
 		#if UNITY_EDITOR
-		string host = "localhost";
+		string host = "localhost"; // localhost in editor
 		#else
-		string host = "lb.cooperace.8bITProject.xyz";
+		string host = "lb.cooperace.8bITProject.xyz"; // live server on build
 		#endif
 		short port = 2693;
 
+		// networkStream, reader and writer all use lazy initialization to keep
+		// connection code simple
 		TcpClient client;
 		NetworkStream networkStream_;
 		NetworkStream networkStream {
@@ -49,7 +68,8 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 				return writer_;
 			}
 		}
-		
+
+		// helper methods to operate on streams
 		void WriteLine(string value) {
 			try {
 				writer.WriteLine(value);
@@ -58,7 +78,6 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 				throw new ServerException(e);
 			}
 		}
-		
 		string ReadLine() {
 			try {
 				return reader.ReadLine();
@@ -67,15 +86,17 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
+		// constructor can optionally override the default host and port
 		public Leaderboards(string host=null, short? port=null) {
 			if (host != null) {
 				this.host = host;
-			}	
+			}
 			if (port.HasValue) {
 				this.port = port.Value;
 			}
 		}
 
+		// synchronous connect
 		void Connect() {
 			try {
 				client = new TcpClient();
@@ -84,7 +105,9 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 				throw new ServerException(e);
 			}
 		}
-		
+
+		// asynchronous connect
+		// state is an object used to pass information to the AsyncCallback
 		void ConnectAsync(AsyncCallback callback, object state) {
 			try {
 				client = new TcpClient();
@@ -94,8 +117,9 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
+		// synchronous disconnect
+		// also responsible for closing all streams
 		void Disconnect() {
-			// close the connection
 			if (reader != null) {
 				reader.Close();
 				reader_ = null;
@@ -111,36 +135,47 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			client.Close();
 			client = null;
 		}
+
+		// asynchronous disconnect
+		// same as the synchronous version, but also ends the callback
 		void DisconnectAsync(IAsyncResult ar) {
 			Disconnect();
 			client.EndConnect(ar);
 		}
 
+		// synchronous submission api method
 		public SubmissionResponse SubmitScore(string level, Score score) {
 			Connect();
 
-			// form a submission message
+			// form a submission message and send it to the server
 			string request = SubmissionRequest.ToJson(level, score);
-
-			// send it to the server
 			WriteLine(request);
-			
-			// get a response
+
+			// get the response and convert back to an object
 			string response = ReadLine();
+			SubmissionResponse position = SubmissionResponse.FromJson(response);
 
 			Disconnect();
 
-			// convert back to an object and report to the user
-			return SubmissionResponse.FromJson(response);
+			// report back to user
+			return position;
 		}
-		
+
+		// asynchronous submission api method
+		// most work is pushed off to an OnConnect callback
 		public void SubmitScoreAsync(string level, Score score, Action<SubmissionResponse, ServerException> callback) {
+			// external callback and argument container
 			SubmitScoreState state = new SubmitScoreState(level, score, callback);
+
+			// make the async connection with the onconnect callback
 			ConnectAsync(new AsyncCallback(SubmitScoreOnConnectCallback), state);
 		}
+
+		// OnConnect callback, the bulk of the work is handled here
 		void SubmitScoreOnConnectCallback(IAsyncResult ar) {
 			SubmitScoreState state = (SubmitScoreState) ar.AsyncState;
 
+			// the arguments for the external callback
 			SubmissionResponse position = new SubmissionResponse();
 			ServerException error = null;
 
@@ -149,14 +184,12 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 				error = new ServerException("Unable to connect");
 			} else {
 				try {
-					// send submission to the server
+					// form a submission message and send it to the server
 					string request = SubmissionRequest.ToJson(state.level, state.score);
 					WriteLine(request);
-					
-					// get a response
-					string response = ReadLine();
 
-					// convert back to an object
+					// get a response from server and convert back to an object
+					string response = ReadLine();
 					position = SubmissionResponse.FromJson(response);
 				} catch (ServerException e) {
 					error = e;
@@ -167,12 +200,12 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			if (state.callback != null) {
 				state.callback.Invoke(position, error);
 			}
-			
-			// note: even if connection failed, clean up still happens
+
+			// note: even if connection failed, clean up is still necessary
 			DisconnectAsync(ar);
 		}
-		
-		// callback and argument container for SubmitScoreAsync
+
+		// external callback and argument container for SubmitScoreAsync
 		struct SubmitScoreState {
 			public string level;
 			public Score score;
@@ -184,32 +217,39 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
+		// synchronous score request api method
 		public ScoresResponse RequestScores(string level) {
 			Connect();
 
-			// form a request message
+			// form a request message and send it to the server
 			string request = ScoresRequest.ToJson(level);
-
-			// send it to the server
 			WriteLine(request);
 
-			// get a response
+			// get a response from server and convert back to an object
 			string response = ReadLine();
+			ScoresResponse scores = ScoresResponse.FromJson(response, level);
 
 			Disconnect();
 
-			// convert back to an object and report to the user
-			return ScoresResponse.FromJson(response, level);
+			// report back to user
+			return scores;
 		}
-		
+
+		// asynchronous score request api method
+		// most work is pushed off to an OnConnect callback
 		public void RequestScoresAsync(string level, Action<ScoresResponse, ServerException> callback) {
+			// external callback and argument container
 			RequestScoresState state = new RequestScoresState(level, callback);
+
+			// make the async connection with the onconnect callback
 			ConnectAsync(new AsyncCallback(RequestScoresOnConnectCallback), state);
 		}
 
+		// OnConnect callback, the bulk of the work is handled here
 		void RequestScoresOnConnectCallback(IAsyncResult ar) {
 			RequestScoresState state = (RequestScoresState) ar.AsyncState;
 
+			// the arguments for the external callback
 			ServerException error = null;
 			ScoresResponse scores = new ScoresResponse(state.level);
 
@@ -218,14 +258,12 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 				error = new ServerException("Unable to connect");
 			} else {
 				try {
-					// send request to the server
+					// form a request message and send it to the server
 					string request = ScoresRequest.ToJson(state.level);
 					WriteLine(request);
 
-					// get a response from server
+					// get a response from server and convert back to an object
 					string response = ReadLine();
-
-					// convert back to an object
 					scores = ScoresResponse.FromJson(response, state.level);
 				} catch (ServerException e) {
 					error = e;
@@ -236,12 +274,12 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			if (state.callback != null) {
 				state.callback.Invoke(scores, error);
 			}
-			
-			// note: even if connection failed, clean up still happens
+
+			// note: even if connection failed, clean up is still necessary
 			DisconnectAsync(ar);
 		}
-		
-		// callback and argument container for RequestScoresAsync
+
+		// external callback and argument container for RequestScoresAsync
 		struct RequestScoresState {
 			public string level;
 			public Action<ScoresResponse, ServerException> callback;

@@ -1,38 +1,49 @@
-﻿using UnityEngine;
+﻿/*
+ * Very simple class representing one leaderboard ui item.
+ *
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class LeaderboardItem : MonoBehaviour {
+namespace xyz._8bITProject.cooperace.leaderboard {
 
-	public Text player1Text;
-	public Text player2Text;
-	public Text scoreText;
+	public class LeaderboardItem : MonoBehaviour {
 
-	public string player1 {
-		get {
-			return player1Text.text;
-		}
-		set {
-			player1Text.text = value;
-		}
-	}
+		public Text player1Text;
+		public Text player2Text;
+		public Text scoreText;
 
-	public string player2 {
-		get {
-			return player2Text.text;
+		public string player1 {
+			get {
+				return player1Text.text;
+			}
+			set {
+				player1Text.text = value;
+			}
 		}
-		set {
-			player2Text.text = value;
-		}
-	}
 
-	public string score {
-		get {
-			return scoreText.text;
+		public string player2 {
+			get {
+				return player2Text.text;
+			}
+			set {
+				player2Text.text = value;
+			}
 		}
-		set {
-			scoreText.text = value;
+
+		public string score {
+			get {
+				return scoreText.text;
+			}
+			set {
+				scoreText.text = Score.TimeToString(int.Parse(value));
+			}
 		}
+
 	}
 
 }

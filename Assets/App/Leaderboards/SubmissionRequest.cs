@@ -1,8 +1,8 @@
-﻿/**
+﻿/*
  * A submission request object.
+ * Supports serialization to a json string.
  *
- * Matt Farrugia <farrugiam@student.unimelb.edu.au>
- * Athir Saleem <isaleem@student.unimelb.edu.au> 
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
  *
  */
 
@@ -36,7 +36,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			SubmissionRequest s = new SubmissionRequest(level, score);
 			return JsonUtility.ToJson(s, false);
 		}
-		
+
 	}
 
 }

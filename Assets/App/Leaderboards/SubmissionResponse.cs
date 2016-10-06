@@ -1,8 +1,8 @@
-﻿/**
+﻿/*
  * A submission response object.
+ * Supports deserializing from a json string.
  *
- * Matt Farrugia <farrugiam@student.unimelb.edu.au>
- * Athir Saleem <isaleem@student.unimelb.edu.au> 
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
  *
  */
 
@@ -19,7 +19,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		public static SubmissionResponse FromJson(string json) {
 			return JsonUtility.FromJson<SubmissionResponse>(json);
 		}
-		
+
 	}
 
 }

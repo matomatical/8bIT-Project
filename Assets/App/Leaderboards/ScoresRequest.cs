@@ -1,8 +1,8 @@
-﻿/**
+﻿/*
  * A leaderboard scores request object.
+ * Supports serializing to a json string.
  *
- * Matt Farrugia <farrugiam@student.unimelb.edu.au>
- * Athir Saleem <isaleem@student.unimelb.edu.au> 
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
  *
  */
 
@@ -34,7 +34,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			ScoresRequest r = new ScoresRequest(level);
 			return JsonUtility.ToJson(r, false);
 		}
-		
+
 	}
 
 }

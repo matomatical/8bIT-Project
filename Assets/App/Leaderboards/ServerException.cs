@@ -7,8 +7,9 @@
  */
 
 namespace xyz._8bITProject.cooperace.leaderboard {
+
 	public class ServerException : System.Exception {
-		
+
 		public ServerException(string message) : base(message) {}
 		public ServerException(System.Exception e) : base(e.Message) {}
 
