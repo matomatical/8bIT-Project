@@ -8,7 +8,7 @@
  */
 
 using UnityEngine;
-using System.Collections;
+using xyz._8bITProject.cooperace.recording;
 
 namespace xyz._8bITProject.cooperace {
 
@@ -28,7 +28,7 @@ namespace xyz._8bITProject.cooperace {
 
 		/// the number of frames to store at once
 		/// (follower will be n/2 frames behind)
-		public int n = 128;
+		public int n = 256;
 
 		// circular buffer of state data
 		State[] buffer;
@@ -44,6 +44,8 @@ namespace xyz._8bITProject.cooperace {
 
 			// initialise state buffer
 			buffer = new State[n];
+
+			FindObjectOfType<RecordingController> ().StartRecording ("test level");
 		}
 
 		void Update(){

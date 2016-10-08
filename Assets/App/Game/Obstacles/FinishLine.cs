@@ -25,14 +25,13 @@ namespace xyz._8bITProject.cooperace {
 				clock.StopTiming();
 
 				RecordingController controller = FindObjectOfType<RecordingController>();
-				if (controller != null) {
-					controller.EndRecording ();
-					Recording.json = controller.GetRecording ();
-				}
+
+				controller.EndRecording ();
+				Recording.json = controller.GetRecording ();
 
 				// TODO: pass properly, not with global variable!
 
-				SceneManager.Load("Replay Level Game Scene");
+				SceneManager.Load("Static Replay Level Game Scene");
 			}
 		}
 

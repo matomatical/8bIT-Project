@@ -168,17 +168,25 @@ namespace xyz._8bITProject.cooperace {
 					= rep.GetComponent<RemotePhysicsController> ();
 				rpc.enabled = true;
 
-				// enable replating
+				// enable replaying
 
 				rep.enabled = true;
 			}
 
-			// enable static replayers
+			// enable static replayers, and disable box collider
+			// triggering to prevent triggering on collisions
 
 			foreach (StaticReplayer rep in
 					level.GetComponentsInChildren<StaticReplayer>()) {
 
+				// enable replaying
+
 				rep.enabled = true;
+
+				// disable collision triggering
+
+				BoxCollider2D box = rep.GetComponent<BoxCollider2D> ();
+				box.isTrigger = false;
 			}
 
 			// enable the replayer and start the replaying

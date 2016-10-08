@@ -62,15 +62,14 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		/// start replaying if we haven't already
 		public void StartReplaying(string recording){
+			
+			if(!hasStarted) {
 
-			this.recording =
-				JsonUtility.FromJson<Recording>(recording);
-
-			if(!hasStarted){
-				if(recording != null){ // recording has been set
-					isReplaying = true;
-					hasStarted = true;
-				}
+				this.recording =
+					JsonUtility.FromJson<Recording>(recording);
+				
+				isReplaying = true;
+				hasStarted = true;
 			}
 		}
 
