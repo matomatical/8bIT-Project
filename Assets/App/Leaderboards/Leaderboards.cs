@@ -102,6 +102,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 				client = new TcpClient();
 				client.Connect(host, port);
 			} catch (Exception e) {
+				client = null;
 				throw new ServerException(e);
 			}
 		}
@@ -110,9 +111,16 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		// state is an object used to pass information to the AsyncCallback
 		void ConnectAsync(AsyncCallback callback, object state) {
 			try {
+				// TcpClient.BeginConnect doesn't throw an exception if the port
+				// is invalid, so do it ourselves
+				if (port < 0) {
+					throw new ArgumentOutOfRangeException("Invalid port");
+				}
+
 				client = new TcpClient();
 				client.BeginConnect(host, port, callback, state);
 			} catch (Exception e) {
+				client = null;
 				throw new ServerException(e);
 			}
 		}
@@ -145,6 +153,12 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 
 		// synchronous submission api method
 		public SubmissionResponse SubmitScore(string level, Score score) {
+			// Ensure arguments are valid
+			if (level == null) {
+				throw new ArgumentNullException();
+			}
+			score.Validate();
+
 			Connect();
 
 			// form a submission message and send it to the server
@@ -164,6 +178,12 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		// asynchronous submission api method
 		// most work is pushed off to an OnConnect callback
 		public void SubmitScoreAsync(string level, Score score, Action<SubmissionResponse, ServerException> callback) {
+			// Ensure arguments are valid
+			if (level == null) {
+				throw new ArgumentNullException();
+			}
+			score.Validate();
+
 			// external callback and argument container
 			SubmitScoreState state = new SubmitScoreState(level, score, callback);
 
@@ -219,6 +239,11 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 
 		// synchronous score request api method
 		public ScoresResponse RequestScores(string level) {
+			// Ensure arguments are valid
+			if (level == null) {
+				throw new ArgumentNullException();
+			}
+
 			Connect();
 
 			// form a request message and send it to the server
@@ -238,6 +263,11 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		// asynchronous score request api method
 		// most work is pushed off to an OnConnect callback
 		public void RequestScoresAsync(string level, Action<ScoresResponse, ServerException> callback) {
+			// Ensure arguments are valid
+			if (level == null) {
+				throw new ArgumentNullException();
+			}
+
 			// external callback and argument container
 			RequestScoresState state = new RequestScoresState(level, callback);
 
