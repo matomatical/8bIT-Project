@@ -9,15 +9,20 @@
 
 using System.Linq;
 using UnityEngine;
+using Tiled2Unity;
 using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
 	public class ReplayingController : MonoBehaviour {
 
+		public TiledMap level;
+		public ClockController timer;
+
 		DynamicReplayer[] dynamics;
 		StaticReplayer[] statics;
-		ClockController timer;
+
+
 
 		Recording recording;
 
@@ -25,37 +30,41 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		void Start(){
 
-			// find the game's clock
+			// find the clock and level if not assigned
+			if (timer == null) {
+				timer = FindObjectOfType<ClockController> ();
+			}
+			if (level == null) {
+				level = FindObjectOfType<TiledMap> ();
+			}
 
-			timer = FindObjectOfType<ClockController>();
+			// get all replayables in this level, filtered by
+			// enabled-ness, and sorted by name (using System.Linq)
 
-			// get all replayables in this level,
-			// sorted by name (using System.Linq)
-
-			dynamics = FindObjectsOfType<DynamicReplayer> ();
+			dynamics = level.GetComponentsInChildren<DynamicReplayer> ();
+			dynamics = dynamics.Where (
+				gameObject => gameObject.enabled).ToArray ();
 			dynamics = dynamics.OrderBy(
 				gameObject => gameObject.name ).ToArray();
 
-			statics = FindObjectsOfType<StaticReplayer> ();
+			statics = level.GetComponentsInChildren<StaticReplayer> ();
+			statics = statics.Where (
+				gameObject => gameObject.enabled).ToArray ();
 			statics = statics.OrderBy(
 				gameObject => gameObject.name ).ToArray();
 			
 
 			// TODO: someone else should be setting up this recording
 			// then they can also pause it etc
-
-			SetRecording(Recording.json);
-
-			StartReplaying ();
-		}
-
-		public void SetRecording(string recording){
-			this.recording =
-				JsonUtility.FromJson<Recording>(recording);
+			
+			StartReplaying (Recording.json);
 		}
 
 		/// start replaying if we haven't already
-		public void StartReplaying(){
+		public void StartReplaying(string recording){
+
+			this.recording =
+				JsonUtility.FromJson<Recording>(recording);
 
 			if(!hasStarted){
 				if(recording != null){ // recording has been set

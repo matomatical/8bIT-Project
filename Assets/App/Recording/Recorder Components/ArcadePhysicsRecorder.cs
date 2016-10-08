@@ -21,7 +21,16 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// link components
 
-			physics = GetComponent<ArcadePhysicsController> ();
+			// find the first active APC (there may be more than one)
+
+			foreach(ArcadePhysicsController physics in
+					GetComponents<ArcadePhysicsController> ()){
+
+				if (physics.enabled) {
+					this.physics = physics;
+					break;
+				}
+			}
 		}
 
 

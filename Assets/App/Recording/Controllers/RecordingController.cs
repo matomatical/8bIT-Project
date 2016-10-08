@@ -9,15 +9,18 @@
 
 using System.Linq;
 using UnityEngine;
+using Tiled2Unity;
 using xyz._8bITProject.cooperace;
 
 namespace xyz._8bITProject.cooperace.recording {
 
 	public class RecordingController : MonoBehaviour {
 
+		public TiledMap level;
+		public ClockController timer;
+
 		DynamicRecorder[] dynamics;
 		StaticRecorder[] statics;
-		ClockController timer;
 
 		Recording recording;
 		bool isRecording = false, hasStarted = false;
@@ -28,32 +31,34 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		void Start(){
 
-			// find the game's clock
-
-			timer = FindObjectOfType<ClockController>();
+			// find the clock and level if not assigned
+			if (timer == null) {
+				timer = FindObjectOfType<ClockController> ();
+			}
+			if (level == null) {
+				level = FindObjectOfType<TiledMap> ();
+			}
 
 			// calculate fps
 
 			fps = (int)(1 / (fixedUpdatesPerFrame*Time.fixedDeltaTime));
 
 
-			// get all recordables in this level,
-			// sorted by name (using System.Linq)
+			// get all recordables in this level, filtered by
+			// enabled-ness, and sorted by name (using System.Linq)
 
-			dynamics = FindObjectsOfType<DynamicRecorder> ();
+			dynamics = level.GetComponentsInChildren<DynamicRecorder> ();
+			dynamics = dynamics.Where (
+				gameObject => gameObject.enabled).ToArray ();
 			dynamics = dynamics.OrderBy(
-				gameObject => gameObject.name ).ToArray();
-
-			statics = FindObjectsOfType<StaticRecorder> ();
+				gameObject => gameObject.name ).ToArray ();
+			
+			statics = level.GetComponentsInChildren<StaticRecorder> ();
+			statics = statics.Where (
+				gameObject => gameObject.enabled).ToArray ();
 			statics = statics.OrderBy(
-				gameObject => gameObject.name ).ToArray();
-
-			// TODO: someone else should start recording!?
-			// then they can also pause it etc
-
- 			// todo: use actual level nae
-
-			StartRecording (Recording.global_level);
+				gameObject => gameObject.name ).ToArray ();
+			
 		}
 
 		/// start recording if we haven't already

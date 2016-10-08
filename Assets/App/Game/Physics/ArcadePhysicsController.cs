@@ -53,7 +53,7 @@ namespace xyz._8bITProject.cooperace {
 
 		// collisions
 
-		public LayerMask collisionMask;
+		public LayerMask collisionMask = 768;
 
 		public struct CollisionInfo {
 			public bool above, below, left, right;

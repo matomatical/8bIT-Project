@@ -40,16 +40,33 @@ namespace xyz._8bITProject.cooperace {
 		// the player object which is being represented by this sprite
 		ArcadePhysicsController player;
 
-		void Awake () {
+
+
+
+
+		void Start () {
 			
 			// link components
 
-			player = GetComponent<ArcadePhysicsController> ();
+			// get first active APC (there may be multiple)
+
+			foreach(ArcadePhysicsController player in
+					GetComponents<ArcadePhysicsController> ()){
+				if (player.enabled) {
+					this.player = player;
+					break;
+				}
+			}
+
+			// but there's only one animator/spriterenderer so we're good
 
 			animator = GetComponent<Animator> ();
 			spriteRenderer = GetComponent<SpriteRenderer> ();
 
 		}
+
+
+
 
 
 		void Update() {
@@ -89,7 +106,7 @@ namespace xyz._8bITProject.cooperace {
 			}
 			
 			
-			// update actual animator:
+			// update actual animator and sprite:
 
 			animator.SetInteger("State", (int) animationState);
 			spriteRenderer.flipX = animationLeft;
