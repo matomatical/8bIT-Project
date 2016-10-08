@@ -15,7 +15,7 @@ namespace xyz._8bITProject.cooperace {
 	public class ClockController : MonoBehaviour {
 
 		float time = 0;
-		bool isTiming = true;
+		bool isTiming = false;
 
 		void Update () {
 			if (isTiming) {
@@ -24,12 +24,12 @@ namespace xyz._8bITProject.cooperace {
 			}
 		}
 
-		public void StopTiming() {
-			isTiming = false;
-		}
-
 		public void StartTiming() {
 			isTiming = true;
+		}
+
+		public void StopTiming() {
+			isTiming = false;
 		}
 
 		public float GetTime(){

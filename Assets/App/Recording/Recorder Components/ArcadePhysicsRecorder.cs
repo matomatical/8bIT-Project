@@ -33,7 +33,6 @@ namespace xyz._8bITProject.cooperace.recording {
 			}
 		}
 
-
 		/// get the object's dynamic state this frame
 		public override DynamicState _GetState(){
 			return new DynamicState(

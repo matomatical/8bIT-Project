@@ -48,7 +48,6 @@
   <object id="8" name="Finish Line" x="84" y="42" width="21" height="21">
    <properties>
     <property name="FinishLine" value=""/>
-    <property name="PushBlock" value=""/>
    </properties>
   </object>
   <object id="9" name="Key" x="0" y="42" width="21" height="21">
@@ -66,15 +65,15 @@
     <property name="PressurePlate" value="default address"/>
    </properties>
   </object>
-  <object id="12" name="Pressure Plate Block (closed)" x="42.25" y="83.5" width="21" height="21">
+  <object id="12" name="Pressure Plate Block (closed)" x="42" y="84" width="21" height="21">
    <properties>
-    <property name="Open" type="bool" value="false"/>
+    <property name="DefaultState" value="closed"/>
     <property name="PressurePlateBlock" value="default address"/>
    </properties>
   </object>
   <object id="13" name="Pressure Plate Block (open)" x="84" y="84" width="21" height="21">
    <properties>
-    <property name="Open" type="bool" value="true"/>
+    <property name="DefaultState" value="open"/>
     <property name="PressurePlateBlock" value="default address"/>
    </properties>
   </object>

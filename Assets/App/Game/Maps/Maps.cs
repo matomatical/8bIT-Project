@@ -12,9 +12,10 @@ namespace xyz._8bITProject.cooperace {
 
 		// list of all levels
 		public static string[] maps = new string[] {
-			"Test_Level_1",
-			"Test_Level_2",
-			"Test_Level_3"
+//			"Test_Level_1",
+//			"Test_Level_2",
+//			"Test_Level_3"
+			"Tutorious"
 		};
 
 		// Loads and returns a tiled map prefab object,

@@ -35,21 +35,54 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 
+		// sprites to show
+
+		private SpriteRenderer renderer;
+		public Sprite spriteOff, spriteOn;
+
+		void Start(){
+
+
+			renderer = GetComponent<SpriteRenderer> ();
+
+			renderer.sprite = spriteOff;
+		}
+
 
 		// greater than zero if anything is colliding with the pressure plate
 		int isColliding = 0;
 
 		public void Press() {
+
 			++isColliding;
-			NotifyStatusChangeToBlocks();
+
+			if (isColliding == 1) {
+				// first presser!
+
+				NotifyStatusChangeToBlocks();
+
+				renderer.sprite = spriteOn;
+
+			}
+
+			NotifyStatusChangeToBlocks ();
 		}
 
 		public void Release() {
+
 			--isColliding;
-			NotifyStatusChangeToBlocks();
 			
 			if(isColliding < 0){
 				isColliding = 0;
+			}
+
+			if (isColliding == 0) {
+
+				// last releaser!
+
+				NotifyStatusChangeToBlocks ();
+
+				renderer.sprite = spriteOff;
 			}
 		}
 

@@ -107,6 +107,16 @@ namespace xyz._8bITProject.cooperace {
 			LocalPlayerController lpc = level.GetComponentInChildren<LocalPlayerController> ();
 			lpc.enabled = true;
 
+			// All other players can get orphaned remote physics controllers
+			// just so they obey physics / can be recorded
+
+			foreach (LocalPlayerController lpc2 in
+				level.GetComponentsInChildren<LocalPlayerController>()){
+
+				if(!lpc2.enabled){
+					lpc2.gameObject.GetComponent<RemotePhysicsController>().enabled = true;
+				}
+			}
 
 			// push blocks should also respond to collisions rather than
 			// remote updates

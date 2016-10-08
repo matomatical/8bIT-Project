@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   period: 2
-  amplitude: 0.2
+  amplitude: 0.15
 --- !u!114 &114000011976892800
 MonoBehaviour:
   m_ObjectHideFlags: 1

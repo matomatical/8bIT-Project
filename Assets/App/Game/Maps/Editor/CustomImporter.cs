@@ -13,22 +13,25 @@ namespace xyz._8bITProject.cooperace {
 	[CustomTiledImporter]
 	class CustomImporter : ICustomTiledImporter {
 
+
 		// collision layer is named "Collision"
 
 		private int collisionLayer = LayerMask.NameToLayer("Collision");
+
 
 		// offset to adjust tiled object position for unity objects
 		// specifically top-right to center
 		Vector3 offset = new Vector3(0.5f, -0.5f, 0);
 
-		// prefabs for initializing game objects
 
+		// prefabs for initializing game objects
 
 		GameObject keyPrefab = (GameObject)Resources.Load("Key");
 		GameObject exitPrefab = (GameObject)Resources.Load("Exit");
 		GameObject playerPrefab = (GameObject)Resources.Load("Player");
 		GameObject keyBlockPrefab = (GameObject)Resources.Load("KeyBlock");
 		GameObject pushBlockPrefab = (GameObject)Resources.Load("PushBlock");
+		GameObject startLinePrefab = (GameObject)Resources.Load("StartLine");
 		GameObject finishLinePrefab = (GameObject)Resources.Load("FinishLine");
 		GameObject pressurePlatePrefab = (GameObject)Resources.Load("PressurePlate");
 		GameObject pressurePlateBlockPrefab = (GameObject)Resources.Load("PressurePlateBlock");
@@ -85,13 +88,19 @@ namespace xyz._8bITProject.cooperace {
 
 			} else if (props.ContainsKey("PressurePlateBlock")) {
 				GameObject block = replaceMarker(marker, pressurePlateBlockPrefab);
-				block.GetComponent<PressurePlateBlock>().SetAddress(props["PressurePlateBlock"]);
+				PressurePlateBlock ppBlock = 
+					block.GetComponent<PressurePlateBlock> ();
+				ppBlock.SetAddress(props["PressurePlateBlock"]);
+				ppBlock.inverse = (props["DefaultState"].Equals("open"));
 
 			} else if (props.ContainsKey("PushBlock")) {
 				replaceMarker(marker, pushBlockPrefab);
 				
 			} else if (props.ContainsKey("FinishLine")) {
 				replaceMarker(marker, finishLinePrefab);
+
+			} else if (props.ContainsKey("StartLine")) {
+				replaceMarker(marker, startLinePrefab);
 			}
 		}
 

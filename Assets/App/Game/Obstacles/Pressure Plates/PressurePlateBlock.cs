@@ -14,7 +14,12 @@ namespace xyz._8bITProject.cooperace {
 		// a list of all plates that are linked to this block
 		public List<PressurePlate> linkedPlates;
 
+		/// string address, identifying linked pressure plates
 		string address;
+
+		/// is this block open when no pressure plates are active?
+		/// then it's an 'inverse' block. default: no, false
+		public bool inverse = false;
 
 		// Called by the PressurePlate class whenever its state may have
 		// changed.
@@ -23,13 +28,25 @@ namespace xyz._8bITProject.cooperace {
 		public void UpdateStatus() {
 			bool anyPressed = false; // true if any pressure plate is pressed
 			foreach (PressurePlate plate in linkedPlates) {
-				if (plate.IsPressed()) {
+				if (plate.IsPressed ()) {
 					anyPressed = true;
 					break;
 				}
 			}
 
-			gameObject.SetActive(!anyPressed);
+			if(!inverse){
+				gameObject.SetActive (!anyPressed);
+			} else {
+				gameObject.SetActive (anyPressed);
+			}
+		}
+
+		void Start(){
+			if(!inverse){
+				gameObject.SetActive (true);
+			} else {
+				gameObject.SetActive (false);
+			}
 		}
 
 		public string GetAddress() {
