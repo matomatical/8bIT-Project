@@ -112,8 +112,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public virtual void OnParticipantLeft(Participant participant)
 		{
 			ShowMPStatus("Player " + participant.DisplayName + " has left.");
-			UILogger.Log("OnParticipantLeft - player just left");
-		}
+            //UILogger.Log("OnParticipantLeft - player just left");
+            LeaveGame();
+
+        }
 
 		// What to do when a player has joined the room
 		public virtual void OnPeersConnected(string[] participantIds)
@@ -130,10 +132,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			foreach (string participantID in participantIds)
 			{
 				ShowMPStatus("Player " + participantID + " has left.");
-				UILogger.Log("OnPeersDisconnected - player just left");
-				//GameObject menu = GameObject.Find("PlayerDisconnectedMenu");
-				//menu.SetActive(true);
-			}
+				//UILogger.Log("OnPeersDisconnected - player just left");
+                LeaveGame();
+                //GameObject menu = GameObject.Find("PlayerDisconnectedMenu");
+                //menu.SetActive(true);
+            }
 		}
 
 		/* Called when an update is recieved from a peer
@@ -181,8 +184,31 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
         // Causes the player to leave the game
 		public void LeaveGame() {
-			PlayGamesPlatform.Instance.RealTime.LeaveRoom();
-		}
-	}
+            //Debug.Log("Leave game was called");
+            GameObject gui = GameObject.Find("In-Game GUI");
+            //this.transform.FindChild("KillZone").gameObject;
+            /*
+            if (gui) {
+                UILogger.Log("gui found");
+            }
+            else {
+                UILogger.Log("gui not found");
+            }*/
 
+
+            //GameObject menu = GameObject.Find("In-Game GUI/PlayerDisconnectedMenu");
+
+            GameObject menu = gui.transform.FindChild("PlayerDisconnectedMenu").gameObject;
+            /*
+            if (menu) {
+                UILogger.Log("menu was found");
+            }
+            else {
+                UILogger.Log("menu was not found....fuck");
+            }*/
+            menu.SetActive(true);
+            //UILogger.Log("menu should now be active");
+
+        }
+    }
 }
