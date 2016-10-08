@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="11" height="5" tilewidth="21" tileheight="21" nextobjectid="14">
+ <properties>
+  <property name="DeleteTiles" type="bool" value="false"/>
+ </properties>
+ <tileset firstgid="1" name="Cooperace Simple" tilewidth="21" tileheight="21" tilecount="18" columns="6">
+  <image source="../tilesets/simple.png" width="126" height="63"/>
+  <tile id="4">
+   <properties>
+    <property name="Player" value=""/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="regions_input" width="11" height="5">
+  <data encoding="csv">
+11,0,0,11,0,0,0,11,0,0,11,
+11,11,0,11,11,0,11,11,0,11,11,
+0,0,0,0,0,0,0,0,0,0,0,
+11,0,0,11,0,0,0,11,0,0,11,
+11,11,0,11,11,0,11,11,0,11,11
+</data>
+ </layer>
+ <layer name="input_Foreground" width="11" height="5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+14,14,0,14,0,0,0,14,0,14,14,
+0,0,0,0,0,0,0,0,0,0,0,
+14,0,0,14,0,0,0,14,0,0,14,
+14,14,0,14,0,0,0,14,0,14,14
+</data>
+ </layer>
+ <layer name="inputnot_Foreground" width="11" height="5" visible="0">
+  <data encoding="csv">
+14,0,0,14,0,0,0,14,0,0,14,
+0,0,0,0,14,0,14,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,14,0,14,0,0,0,0
+</data>
+ </layer>
+ <layer name="regions_output" width="11" height="5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+10,0,0,10,0,0,0,10,0,0,10,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+10,0,0,10,0,0,0,10,0,0,10
+</data>
+ </layer>
+ <layer name="output_Trim" width="11" height="5">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,
+8,0,0,9,0,0,0,7,0,0,8,
+0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,
+14,0,0,15,0,0,0,13,0,0,14
+</data>
+ </layer>
+</map>
