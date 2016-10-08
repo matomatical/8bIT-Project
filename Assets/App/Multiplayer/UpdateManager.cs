@@ -61,7 +61,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendObstacleUpdate (List<byte> data)
 		{
             HeaderManager.ApplyHeader(data, OBSTACLE);
-			MultiplayerController.Instance.SendMyReliable (data);
+			MultiPlayerController.Instance.SendMyReliable (data);
 			Debug.Log ("Sending obstacle update");
 		}
 
@@ -70,7 +70,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
             HeaderManager.ApplyHeader(data, PLAYER);
 			// uncomment/comment the following lines to change between in editor and real testing
-			MultiplayerController.Instance.SendMyUnreliable (data);
+			MultiPlayerController.Instance.SendMyUnreliable (data);
 			//HandleUpdate(data, "memes");
 			Debug.Log ("Sending player update");
 		}
@@ -79,7 +79,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendTextChat (List<byte> data)
 		{
             HeaderManager.ApplyHeader(data, CHAT);
-			MultiplayerController.Instance.SendMyReliable (data);
+			MultiPlayerController.Instance.SendMyReliable (data);
 			Debug.Log ("Sending chat message");
 		}
 

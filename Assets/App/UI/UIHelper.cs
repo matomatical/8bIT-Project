@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
+using xyz._8bITProject.cooperace;
 
 public class UIHelper : MonoBehaviour {
 
@@ -18,9 +19,15 @@ public class UIHelper : MonoBehaviour {
     	PlayGamesPlatform.Instance.SignOut();
 	}
 
-	// instance versions for use as button on click handlers (static methods don't work)
+    public static void LeaveRoom() {
+        UILogger.Log("LeavingRoom");
+        PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+    }
 
-	public void iGoTo (string sceneName) {
+
+    // instance versions for use as button on click handlers (static methods don't work)
+
+    public void iGoTo (string sceneName) {
 		UIHelper.GoTo(sceneName);
 	}
 
@@ -28,8 +35,14 @@ public class UIHelper : MonoBehaviour {
 		UIHelper.Logout();
 	}
 
-	public void ToggleVisiblity(GameObject go) {
+    public void iLeaveRoom() {
+        UIHelper.LeaveRoom();
+    }
+
+    public void ToggleVisiblity(GameObject go) {
 		go.SetActive(!go.activeSelf);
 	}
+
+
 
 }

@@ -15,8 +15,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void Start () {
 
 			// variables for deciding which player is which
-			string myID = MultiplayerController.Instance.GetMyParticipantId ();
-			List<Participant> participants = MultiplayerController.Instance.GetAllPlayers ();
+			string myID = MultiPlayerController.Instance.GetMyParticipantId ();
+			List<Participant> participants = MultiPlayerController.Instance.GetAllPlayers ();
 			Participant partner;
 
 			// Get player1 and player2 game objects
@@ -30,7 +30,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// Get the update manager ready
 			UpdateManager updateManager = new UpdateManager();
-			MultiplayerController.Instance.updateManager = updateManager;
+			MultiPlayerController.Instance.updateManager = updateManager;
 
 			// Tell updateManager and chatController about each other
 			updateManager.chatController = chatController;

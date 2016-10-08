@@ -5,7 +5,7 @@ using GooglePlayGames.BasicApi.Multiplayer;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests
 {
-	public class MockMultiplayerController : MultiplayerController
+	public class MockMultiPlayerController : MultiPlayerController
 	{
 		// not needed for testing
 		public override void StartMPGame()

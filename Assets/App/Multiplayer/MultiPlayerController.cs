@@ -16,13 +16,13 @@ using System.Collections.Generic;
 namespace xyz._8bITProject.cooperace.multiplayer
 {
 	// Making this controller the listener as well to keep all the MultiPlayer logic in one class
-	public class MultiplayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener
+	public class MultiPlayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener
 	{
 		public IRoomListener roomListener;
 		public IUpdateManager updateManager;
 
 		// Making this a singleton as it'll be used in both the main menu and the game
-		private static MultiplayerController _instance = null;
+		private static MultiPlayerController _instance = null;
 
 		// Sticking to a 2 player game
 		private uint minimumPartners = 1;
@@ -35,20 +35,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		private String levelName = "MPTest";
 
 		// initialises the Multiplayer controller instance
-		protected MultiplayerController()
+		protected MultiPlayerController()
 		{
 			PlayGamesPlatform.DebugLogEnabled = true;
 			PlayGamesPlatform.Activate();
 		}
 
 		// makes multiplayer controller a singleton
-		public static MultiplayerController Instance
+		public static MultiPlayerController Instance
 		{
 			get
 			{
 				if (_instance == null)
 				{
-					_instance = new MultiplayerController();
+					_instance = new MultiPlayerController();
 				}
 				return _instance;
 			}
@@ -103,14 +103,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public virtual void OnLeftRoom()
 		{
 			ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
-		}
+            UILogger.Log("On left room");
+            //LeaveGame();
+
+        }
 
 		// What to do when a particular player leaves the room
 		public virtual void OnParticipantLeft(Participant participant)
 		{
 			ShowMPStatus("Player " + participant.DisplayName + " has left.");
-            UILogger.Log("OnParticipantLeft - player just left");
-        }
+			UILogger.Log("OnParticipantLeft - player just left");
+		}
 
 		// What to do when a player has joined the room
 		public virtual void OnPeersConnected(string[] participantIds)
@@ -127,8 +130,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			foreach (string participantID in participantIds)
 			{
 				ShowMPStatus("Player " + participantID + " has left.");
-                UILogger.Log("OnPeersDisconnected - player just left");
-            }
+				UILogger.Log("OnPeersDisconnected - player just left");
+				//GameObject menu = GameObject.Find("PlayerDisconnectedMenu");
+				//menu.SetActive(true);
+			}
 		}
 
 		/* Called when an update is recieved from a peer
@@ -173,5 +178,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
 		}
+
+        // Causes the player to leave the game
+		public void LeaveGame() {
+			PlayGamesPlatform.Instance.RealTime.LeaveRoom();
+		}
 	}
+
 }
