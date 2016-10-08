@@ -12,7 +12,7 @@ namespace xyz._8bITProject.cooperace {
 	public class BackgroundScroller : MonoBehaviour {
 
 		public TiledMap level;
-		public Camera camera;
+		public Camera cam;
 
 		private Vector2 center; // position of the level's center
 
@@ -24,8 +24,8 @@ namespace xyz._8bITProject.cooperace {
 			float bgx = background.bounds.size.x;
 			float bgy = background.bounds.size.y;
 
-			float camerax = camera.orthographicSize * Screen.width / Screen.height * 2;
-			float cameray = camera.orthographicSize * 2;
+			float camerax = cam.orthographicSize * Screen.width / Screen.height * 2;
+			float cameray = cam.orthographicSize * 2;
 
 			float levelx = level.GetMapWidthInPixelsScaled ();
 			float levely = level.GetMapHeightInPixelsScaled ();
@@ -41,8 +41,8 @@ namespace xyz._8bITProject.cooperace {
 
 		void LateUpdate () {
 			transform.position = new Vector3 (
-					center.x + (camera.transform.position.x - center.x) * scalex,
-					center.y + (camera.transform.position.y - center.y) * scaley,
+					center.x + (cam.transform.position.x - center.x) * scalex,
+					center.y + (cam.transform.position.y - center.y) * scaley,
 					transform.position.z
 				);
 		}

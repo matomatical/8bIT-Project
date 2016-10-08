@@ -37,15 +37,15 @@ namespace xyz._8bITProject.cooperace {
 
 		// sprites to show
 
-		private SpriteRenderer renderer;
+		private SpriteRenderer spriteRenderer;
 		public Sprite spriteOff, spriteOn;
 
 		void Start(){
 
 
-			renderer = GetComponent<SpriteRenderer> ();
+			spriteRenderer = GetComponent<SpriteRenderer> ();
 
-			renderer.sprite = spriteOff;
+			spriteRenderer.sprite = spriteOff;
 		}
 
 
@@ -61,7 +61,7 @@ namespace xyz._8bITProject.cooperace {
 
 				NotifyStatusChangeToBlocks();
 
-				renderer.sprite = spriteOn;
+				spriteRenderer.sprite = spriteOn;
 
 			}
 
@@ -82,7 +82,7 @@ namespace xyz._8bITProject.cooperace {
 
 				NotifyStatusChangeToBlocks ();
 
-				renderer.sprite = spriteOff;
+				spriteRenderer.sprite = spriteOff;
 			}
 		}
 

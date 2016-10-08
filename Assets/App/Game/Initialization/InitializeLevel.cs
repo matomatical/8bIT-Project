@@ -20,7 +20,7 @@ namespace xyz._8bITProject.cooperace {
 	
 	public class InitializeLevel : MonoBehaviour {
 
-		public CameraController camera;
+		public CameraController cam;
 		public BackgroundScroller background;
 		public GameObject gui;
 
@@ -41,7 +41,7 @@ namespace xyz._8bITProject.cooperace {
 
 			if (prefab) {
 				level = GameObject.Instantiate<GameObject> (prefab).GetComponent<TiledMap> ();
-				camera.level = level;
+				cam.level = level;
 				background.level = level;
 			}
 
@@ -152,7 +152,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// camera should have a reference to the player to-be-followed
 
-			camera.target = (ArcadePhysicsController)lpc;
+			cam.target = (ArcadePhysicsController)lpc;
 
 		}
 

@@ -44,8 +44,6 @@ namespace xyz._8bITProject.cooperace {
 
 			// initialise state buffer
 			buffer = new State[n];
-
-			FindObjectOfType<RecordingController> ().StartRecording ("test level");
 		}
 
 		void Update(){

@@ -21,9 +21,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		DynamicReplayer[] dynamics;
 		StaticReplayer[] statics;
-
-
-
+		
 		Recording recording;
 
 		bool isReplaying = false, hasStarted = false;
@@ -52,11 +50,12 @@ namespace xyz._8bITProject.cooperace.recording {
 				gameObject => gameObject.enabled).ToArray ();
 			statics = statics.OrderBy(
 				gameObject => gameObject.name ).ToArray();
-			
 
 			// TODO: someone else should be setting up this recording
 			// then they can also pause it etc
-			
+
+			timer.StartTiming ();
+
 			StartReplaying (Recording.json);
 		}
 

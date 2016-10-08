@@ -23,15 +23,6 @@ namespace xyz._8bITProject.cooperace {
 			if (other.gameObject.CompareTag("Player")) {
 
 				clock.StopTiming();
-
-				RecordingController controller = FindObjectOfType<RecordingController>();
-
-				controller.EndRecording ();
-				Recording.json = controller.GetRecording ();
-
-				// TODO: pass properly, not with global variable!
-
-				SceneManager.Load("Static Replay Level Game Scene");
 			}
 		}
 
