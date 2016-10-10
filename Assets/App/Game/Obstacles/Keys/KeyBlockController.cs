@@ -23,6 +23,9 @@ namespace xyz._8bITProject.cooperace {
 			// link components together
 
 			block = GetComponent<KeyBlock>();
+			if (!block) {
+				Debug.Log ("keybock null!");
+			}
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {

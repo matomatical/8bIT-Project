@@ -20,7 +20,7 @@
 11,11,11,0,11,11,11,0,11,11,11
 </data>
  </layer>
- <layer name="input_Foreground" width="11" height="5">
+ <layer name="input_Level Design" width="11" height="5">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,
 0,14,14,0,14,14,14,0,14,14,0,
@@ -29,7 +29,7 @@
 0,14,14,0,14,14,14,0,14,14,0
 </data>
  </layer>
- <layer name="inputnot_Foreground" width="11" height="5">
+ <layer name="inputnot_Level Design" width="11" height="5">
   <data encoding="csv">
 0,14,0,0,0,14,0,0,0,14,0,
 14,0,0,0,0,0,0,0,0,0,14,
