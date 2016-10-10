@@ -36,7 +36,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		#else
 		string host = "lb.cooperace.8bITProject.xyz"; // live server on build
 		#endif
-		short port = 2693;
+		int port = 2693;
 
 		// networkStream, reader and writer all use lazy initialization to keep
 		// connection code simple
@@ -87,7 +87,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		}
 
 		// constructor can optionally override the default host and port
-		public Leaderboards(string host=null, short? port=null) {
+		public Leaderboards(string host=null, int? port=null) {
 			if (host != null) {
 				this.host = host;
 			}
@@ -113,7 +113,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			try {
 				// TcpClient.BeginConnect doesn't throw an exception if the port
 				// is invalid, so do it ourselves
-				if (port < 0) {
+				if (port < 0 || port > 65535) {
 					throw new ArgumentOutOfRangeException("Invalid port");
 				}
 
