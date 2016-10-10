@@ -6,8 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/App/Game/Static Level Game Scene.unity
-  - enabled: 1
     path: Assets/App/UI/Views/TitleScreen.unity
   - enabled: 1
     path: Assets/App/UI/Views/MainMenu.unity
@@ -21,3 +19,9 @@ EditorBuildSettings:
     path: Assets/App/UI/Views/StartGameMenu.unity
   - enabled: 1
     path: Assets/App/UI/Views/MatchMakingScreen.unity
+  - enabled: 1
+    path: Assets/App/Game/Scenes/Static Record Level Game Scene.unity
+  - enabled: 1
+    path: Assets/App/Game/Scenes/Static Replay Level Game Scene.unity
+  - enabled: 1
+    path: Assets/App/Game/Scenes/Game Scene.unity
