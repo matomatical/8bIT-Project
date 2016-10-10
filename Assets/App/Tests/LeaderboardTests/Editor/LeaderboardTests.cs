@@ -325,6 +325,14 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		}
 
 		[Test]
+		[ExpectedException(typeof(ServerException))]
+		public void AsyncInvalidServerPort2() {
+			// Test that if the server port is invalid, an exception is thrown
+			lb = new Leaderboards("localhost", (int)Math.Pow(2, 16));
+			lb.RequestScoresAsync(uniqueLevelName, null);
+		}
+
+		[Test]
 		[ExpectedException(typeof(ArgumentNullException))]
 		public void AsyncNullLevelNameRequest() {
 			// Test that passing a null level name to RequestScores,
