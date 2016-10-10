@@ -25,7 +25,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 
 		/// get the actual state of the pressure plate being tracked this frame
-		protected override bool _GetState(){
+		protected override bool GetState(){
 			return plate.IsPressed();
 		}
 	}

@@ -24,8 +24,8 @@ namespace xyz._8bITProject.cooperace {
 		/// Keep track of when we are in the cycle
 		private float t = 0;
 
-		/// the sprite to bob up and down
-		SpriteRenderer sprite;
+		/// the object to bob up and down
+		Transform target;
 		/// where does this sprite's transform begin?
 		Vector3 origin;
 
@@ -33,11 +33,11 @@ namespace xyz._8bITProject.cooperace {
 
 			// link up components
 
-			sprite = GetComponentInChildren<SpriteRenderer> ();
+			target = gameObject.transform;
 
 			// store the initial position
 
-			origin = sprite.transform.position;
+			origin = target.position;
 		}
 
 		void Update() {
@@ -53,7 +53,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// apply that offset
 
-			sprite.transform.position = origin + Vector3.up * offset;
+			target.position = origin + Vector3.up * offset;
 		}
 
 	}

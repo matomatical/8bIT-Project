@@ -25,9 +25,19 @@ namespace xyz._8bITProject.cooperace.recording {
 		Recording recording;
 		bool isRecording = false, hasStarted = false;
 
-		public const int fixedUpdatesPerFrame = 2; // gives FPS of 25 by default
+		/// How many fixed updates should pass between each frame
+		/// that is recorded? Setting this indirectly controls the
+		/// fps of the recording producted
+		public const int fixedUpdatesPerFrame = 2;
 		private int fixedUpdatesSinceLastFrame = 0;
+
+		/// determined by fixed updates per frame
+		/// fps = (int)(1 / (fixedUpdatesPerFrame*Time.fixedDeltaTime));
+		/// (unfortunately this can't be statically evaluated)
+		/// for example, if you want 25 fps, use 2 fixed updates per
+		/// frame (unity's default fixed update rate is 50fps)
 		private int fps;
+
 
 		void Start(){
 

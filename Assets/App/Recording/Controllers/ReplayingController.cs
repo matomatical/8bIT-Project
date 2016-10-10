@@ -56,7 +56,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			timer.StartTiming ();
 
-			StartReplaying (Recording.json);
+			StartReplaying (Recording.jsonRecordingString);
 		}
 
 		/// start replaying if we haven't already

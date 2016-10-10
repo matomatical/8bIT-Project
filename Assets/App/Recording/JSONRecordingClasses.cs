@@ -25,7 +25,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
  		// TODO: remove
  		// for temporary passing of a json string between levels
-		public static string json;
+		public static string jsonRecordingString;
 		// TODO: use level name from elsewhere
 		public const string global_level = "test";
 
@@ -157,7 +157,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			for (int i = 0, j = 0; i < dynamics.Length; i++) {
 				
 				if(dynamics[i].StateHasChanged()){
-					DynamicState state = dynamics[i].GetState();
+					DynamicState state = dynamics[i].LastState();
 					deltas[j++] = 
 						new DynamicDeltaState(i, state.position, state.velocity);
 
@@ -192,7 +192,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			for (int i = 0, j = 0; i < statics.Length; i++) {
 				if (statics[i].StateHasChanged()) {
 					deltas[j++] =
-						new BooleanDeltaState(i, statics[i].GetState());
+						new BooleanDeltaState(i, statics[i].LastState());
 				}
 			}
 

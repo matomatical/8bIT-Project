@@ -64,8 +64,6 @@ namespace xyz._8bITProject.cooperace {
 				spriteRenderer.sprite = spriteOn;
 
 			}
-
-			NotifyStatusChangeToBlocks ();
 		}
 
 		public void Release() {

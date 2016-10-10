@@ -1,5 +1,6 @@
 ﻿/*
- * Controller for the time text ui object.
+ * Controller for the clock object which keeps time
+ * in a level!
  *
  * Matt Farrugiam <farrugiam@student.unimelb.edu.au>
  *

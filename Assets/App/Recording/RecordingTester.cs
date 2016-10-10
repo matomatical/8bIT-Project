@@ -14,9 +14,9 @@ namespace xyz._8bITProject.cooperace.recording{
 				RecordingController controller = FindObjectOfType<RecordingController> ();
 
 				controller.EndRecording ();
-				Recording.json = controller.GetRecording ();
+				Recording.jsonRecordingString = controller.GetRecording ();
 
-				Debug.Log (Recording.json);
+//				Debug.Log (Recording.jsonRecordingString);
 
 				SceneManager.Load ("Static Replay Level Game Scene");
 			}

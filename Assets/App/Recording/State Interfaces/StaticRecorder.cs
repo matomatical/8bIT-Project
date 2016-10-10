@@ -28,7 +28,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			if(theFirstTime){
 				theFirstTime = false;
 				hasChanged = true;
-				wasTrue = _GetState();
+				wasTrue = GetState();
 				return;
 			}
 
@@ -36,7 +36,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// has the state actually changed?
 
-			if(wasTrue == _GetState()){
+			if(wasTrue == GetState()){
 				hasChanged = false;
 			} else {
 				hasChanged = true;
@@ -45,7 +45,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			// either way, update change info for
 			// next time
 
-			wasTrue = _GetState();
+			wasTrue = GetState();
 		}
 
 		/// has the state actually changed since last frame?
@@ -55,12 +55,12 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 
 		/// what is the state that should go into the recording?
-		public bool GetState(){
+		public bool LastState(){
 			return wasTrue;
 		}
 
 		/// Helper method to actually get the state that should be
 		/// compared for changes and eventually recorded. override this one!
-		protected abstract bool _GetState();
+		protected abstract bool GetState();
 	}
 }

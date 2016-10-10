@@ -30,7 +30,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			if(theFirstTime){
 				theFirstTime = false;
 				hasChanged = true;
-				state = _GetState();
+				state = GetState();
 				return;
 			}
 
@@ -38,12 +38,12 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// has the state actually changed?
 
-			hasChanged = HasChanged (state, _GetState());
+			hasChanged = HasChanged (state, GetState());
 			
 			// if so, update change info for next time
 
 			if(hasChanged){
-				state = _GetState();	
+				state = GetState();	
 			}
 		}
 
@@ -66,13 +66,13 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 
 		/// what is the state that should go into the recording?
-		public DynamicState GetState(){
+		public DynamicState LastState(){
 			return state;
 		}
 
 		/// Helper method to actually get the dynamic state that should be
 		/// recorded for this object, to see if it has changed
-		public abstract DynamicState _GetState();
+		public abstract DynamicState GetState();
 	}
 }
 

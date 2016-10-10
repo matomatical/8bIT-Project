@@ -25,7 +25,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 
 		/// get the actual state of the key block being tracked this frame
-		protected override bool _GetState(){
+		protected override bool GetState(){
 			return block.IsOpen();
 		}
 	}
