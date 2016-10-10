@@ -55,6 +55,40 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			CameraController camera = FindObjectOfType<CameraController> ();
 			camera.target = player1.GetComponent<ArcadePhysicsController>();
 
+
+
+			// push blocks should also respond to collisions rather than
+			// remote updates
+
+			foreach (PushBlockController pbc in
+				level.GetComponentsInChildren<PushBlockController>()){
+
+				pbc.enabled = true;
+			}
+
+
+			// keys, key blocks and pressure plates should respond to
+			// collisions, not remote updates!
+
+			foreach (KeyController key in
+				level.GetComponentsInChildren<KeyController>()) {
+
+				key.enabled = true;
+			}
+
+			foreach (PressurePlateController plate in
+				level.GetComponentsInChildren<PressurePlateController>()) {
+
+				plate.enabled = true;
+			}
+
+			foreach (KeyBlockController block in
+				level.GetComponentsInChildren<KeyBlockController>()) {
+
+				block.enabled = true;
+			}
+
+
 		}
 
 		// Use this for initialization
@@ -105,6 +139,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				// Tell player 1 to send updates to the update manager
 				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;
 
+
+
 			} else {
 				// Partner is player 1
 				partner = participants [0];
@@ -126,6 +162,38 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				player2.GetComponent<PlayerSerializer> ().updateManager = updateManager;
                 
             }
+
+
+			// push blocks should also respond to collisions rather than
+			// remote updates
+
+			foreach (PushBlockController pbc in
+				level.GetComponentsInChildren<PushBlockController>()){
+
+				pbc.enabled = true;
+			}
+
+
+			// keys, key blocks and pressure plates should respond to
+			// collisions, not remote updates!
+
+			foreach (KeyController key in
+				level.GetComponentsInChildren<KeyController>()) {
+
+				key.enabled = true;
+			}
+
+			foreach (PressurePlateController plate in
+				level.GetComponentsInChildren<PressurePlateController>()) {
+
+				plate.enabled = true;
+			}
+
+			foreach (KeyBlockController block in
+				level.GetComponentsInChildren<KeyBlockController>()) {
+
+				block.enabled = true;
+			}
 		}
 	}
 }
