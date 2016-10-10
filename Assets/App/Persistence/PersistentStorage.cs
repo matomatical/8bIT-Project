@@ -8,6 +8,7 @@
  *
  */
 
+using System;
 using System.IO;
 using UnityEngine;
 
@@ -31,11 +32,21 @@ namespace xyz._8bITProject.cooperace.persistence {
 		public static void Write(string relPath, string text) {
 			string absPath = GetAbsolute(relPath);
 			
-			// Make sure that the necessary directories exist
-			Directory.CreateDirectory(Path.GetDirectoryName(absPath));
-			
-			// Write to the actual file
-			File.WriteAllText(absPath, text);
+			try {
+				// Make sure that the necessary directories exist
+				Directory.CreateDirectory(Path.GetDirectoryName(absPath));
+				
+				// Write to the actual file
+				File.WriteAllText(absPath, text);
+			} catch (IOException e) {
+				throw new PersistentStorageException(e);	
+			} catch (UnauthorizedAccessException e) {
+				throw new PersistentStorageException(e);	
+			} catch (NotSupportedException e) {
+				throw new PersistentStorageException(e);	
+			} catch (System.Security.SecurityException e) {
+				throw new PersistentStorageException(e);	
+			}
 		}
 
 		/// Read text string from a file named filename, stored earlier with
@@ -43,14 +54,32 @@ namespace xyz._8bITProject.cooperace.persistence {
 		/// If the file does not exist, or some other error occurs, an exception
 		/// is thrown
 		public static string Read(string relPath) {
-			return File.ReadAllText(GetAbsolute(relPath));
+			try {
+				return File.ReadAllText(GetAbsolute(relPath));
+			} catch (IOException e) {
+				throw new PersistentStorageException(e);	
+			} catch (UnauthorizedAccessException e) {
+				throw new PersistentStorageException(e);	
+			} catch (NotSupportedException e) {
+				throw new PersistentStorageException(e);	
+			} catch (System.Security.SecurityException e) {
+				throw new PersistentStorageException(e);	
+			}
 		}
 
 		/// Delete the given file.
 		///
 		/// Nothing happens if the file doesn't exist.
 		public static void Delete(string relPath) {
-			File.Delete(GetAbsolute(relPath));
+			try {
+				File.Delete(GetAbsolute(relPath));
+			} catch (IOException e) {
+				throw new PersistentStorageException(e);	
+			} catch (NotSupportedException e) {
+				throw new PersistentStorageException(e);	
+			} catch (UnauthorizedAccessException e) {
+				throw new PersistentStorageException(e);	
+			}
 		}
 		
 		/// Returns a list of all files inside the given folder.
@@ -70,6 +99,12 @@ namespace xyz._8bITProject.cooperace.persistence {
 					recursive ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly);
 			} catch (DirectoryNotFoundException) {
 				return new string[0];
+			} catch (IOException e) {
+				throw new PersistentStorageException(e);	
+			} catch (UnauthorizedAccessException e) {
+				throw new PersistentStorageException(e);	
+			} catch (ArgumentException e) {
+				throw new PersistentStorageException(e);	
 			}
 			
 			// Convert back to relative paths

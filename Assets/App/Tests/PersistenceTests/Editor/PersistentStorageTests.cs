@@ -218,6 +218,28 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 		}
 
 		[Test]
+		[ExpectedException(typeof(PersistentStorageException))]
+		public void ReadFromNonExistentFile() {
+
+			//Arrange
+
+			string testFilename =
+				Unique("ReadFromNonExistentFile.txt");
+
+
+			//Act
+
+
+			PersistentStorage.Read(testFilename);
+			
+
+			//Assert
+			
+			// execution shouldn't reach this point
+
+		}
+
+		[Test]
 		public void MixedPathSeparatorsAreHandled() {
 
 			//Arrange
