@@ -2,6 +2,7 @@
  * Pressure plate logic.
  *
  * Athir Saleem <isaleem@student.unimelb.edu.au>
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *
  */
 
@@ -11,35 +12,8 @@ using System.Collections.Generic;
 namespace xyz._8bITProject.cooperace {
 	public class PressurePlate : MonoBehaviour, IAddressLinkedObject {
 
-		// a list of all blocks that are linked to this plate
-		public List<PressurePlateBlock> linkedBlocks;
-
+		/// address for linking to blocks
 		string address;
-
-		// notify all linked blocks that pressure plate status may have changed.
-		void NotifyStatusChangeToBlocks() {
-			foreach (PressurePlateBlock block in linkedBlocks) {
-				block.UpdateStatus();
-			}
-		}
-
-		// greater than zero if anything is colliding with the pressure plate
-		int isColliding;
-
-		void OnTriggerEnter2D() {
-			++isColliding;
-			NotifyStatusChangeToBlocks();
-		}
-
-		void OnTriggerExit2D() {
-			--isColliding;
-			NotifyStatusChangeToBlocks();
-		}
-
-		public bool IsPressed() {
-			// true if any object is colliding with the plate.
-			return isColliding > 0;
-		}
 
 		public string GetAddress() {
 			return address;
@@ -49,5 +23,70 @@ namespace xyz._8bITProject.cooperace {
 			this.address = address;
 		}
 
+
+		// a list of all blocks that are linked to this plate
+		public List<PressurePlateBlock> linkedBlocks;
+
+		// notify all linked blocks that pressure plate status may have changed.
+		void NotifyStatusChangeToBlocks() {
+			foreach (PressurePlateBlock block in linkedBlocks) {
+				block.UpdateStatus();
+			}
+		}
+
+
+		// sprites to show
+
+		private SpriteRenderer spriteRenderer;
+		public Sprite spriteOff, spriteOn;
+
+		void Start(){
+
+
+			spriteRenderer = GetComponent<SpriteRenderer> ();
+
+			spriteRenderer.sprite = spriteOff;
+		}
+
+
+		// greater than zero if anything is colliding with the pressure plate
+		int isColliding = 0;
+
+		public void Press() {
+
+			++isColliding;
+
+			if (isColliding == 1) {
+				// first presser!
+
+				NotifyStatusChangeToBlocks();
+
+				spriteRenderer.sprite = spriteOn;
+
+			}
+		}
+
+		public void Release() {
+
+			--isColliding;
+			
+			if(isColliding < 0){
+				isColliding = 0;
+			}
+
+			if (isColliding == 0) {
+
+				// last releaser!
+
+				NotifyStatusChangeToBlocks ();
+
+				spriteRenderer.sprite = spriteOff;
+			}
+		}
+
+		public bool IsPressed() {
+			// true if any object is colliding with the plate.
+			return isColliding > 0;
+		}
 	}
 }

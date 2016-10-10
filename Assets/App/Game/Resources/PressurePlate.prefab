@@ -22,6 +22,9 @@ GameObject:
   - 212: {fileID: 212000011572822892}
   - 61: {fileID: 61000011187167936}
   - 114: {fileID: 114000014208573898}
+  - 114: {fileID: 114000012728124236}
+  - 114: {fileID: 114000011268191850}
+  - 114: {fileID: 114000011922527324}
   m_Layer: 0
   m_Name: PressurePlate
   m_TagString: Untagged
@@ -36,7 +39,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011615428072}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.68916, y: 0.7052508, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -53,9 +56,42 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.375}
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.75}
+  m_Size: {x: 1, y: 0.25}
+--- !u!114 &114000011268191850
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011615428072}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b09e392d818ff43728fa996a569056cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000011922527324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011615428072}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be73da7bb71094434be2dd218af6f6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000012728124236
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011615428072}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ca6931d3dffe409492aa4dd4f1488e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000014208573898
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,8 +103,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e9d0c5bfd8f9240b658ffda46bb3aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  address: 
-  linked: []
+  linkedBlocks: []
+  spriteOff: {fileID: 21300000, guid: a09504c59960af84e99534b3ea149e97, type: 3}
+  spriteOn: {fileID: 21300002, guid: a09504c59960af84e99534b3ea149e97, type: 3}
 --- !u!212 &212000011572822892
 SpriteRenderer:
   m_ObjectHideFlags: 1

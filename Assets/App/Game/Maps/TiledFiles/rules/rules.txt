@@ -1,0 +1,3 @@
+ObjectRules.tmx
+EdgeTrimRules.tmx
+TrimRules.tmx

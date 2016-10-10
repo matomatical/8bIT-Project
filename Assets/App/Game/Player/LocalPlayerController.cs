@@ -10,8 +10,7 @@ using UnityEngine;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
-
-	[RequireComponent (typeof (InputManager))]
+	
 	public class LocalPlayerController : ArcadePhysicsController {
 
 		// player-specific jumping constants
@@ -43,7 +42,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// link components
 
-			inputManager = GetComponent<InputManager> ();
+			inputManager = FindObjectOfType<InputManager> ();
 
 		}
 

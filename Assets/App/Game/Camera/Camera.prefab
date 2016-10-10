@@ -104,8 +104,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 0}
   target: {fileID: 0}
-  focusAreaSize: {x: 3, y: 5}
+  focusAreaSize: {x: 3, y: 6}
   lookAheadDistance: 3
   lookAheadTime: 0.4
-  lookAboveDistance: 1
+  lookAboveDistance: -0.4
   lookAboveTime: 0.2
