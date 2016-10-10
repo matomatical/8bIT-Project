@@ -17,7 +17,7 @@ using xyz._8bITProject.cooperace.persistence;
 namespace xyz._8bITProject.cooperace.persistence.tests {
 
 	[TestFixture]
-	public class PersistentFileTests {
+	public class PersistentStorageTests {
 		
 		// The root folder for the current test
 		string uniqueRoot;
@@ -79,11 +79,11 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// try to write this string to filename
 
-			PersistentFile.Write (testFilename, testText);
+			PersistentStorage.Write (testFilename, testText);
 
 			// try to read it back from the same file
 
-			string actualText = PersistentFile.Read (testFilename);
+			string actualText = PersistentStorage.Read (testFilename);
 
 
 			//Assert
@@ -110,15 +110,15 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// try to write first string to filename
 
-			PersistentFile.Write (testFilename, testText1);
+			PersistentStorage.Write (testFilename, testText1);
 
 			// then overrite it with second string to same filename
 
-			PersistentFile.Write (testFilename, testText2);
+			PersistentStorage.Write (testFilename, testText2);
 
 			// try to read it back from the same file
 
-			string actualText = PersistentFile.Read (testFilename);
+			string actualText = PersistentStorage.Read (testFilename);
 
 
 			//Assert
@@ -144,11 +144,11 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// try and write the multi-line string to file
 
-			PersistentFile.Write (testFilename, testText);
+			PersistentStorage.Write (testFilename, testText);
 
 			// try to read it back from the same file
 
-			string actualText = PersistentFile.Read (testFilename);
+			string actualText = PersistentStorage.Read (testFilename);
 
 
 			//Assert
@@ -170,7 +170,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// create the file
 
-			PersistentFile.Write (testFilename, testText);
+			PersistentStorage.Write (testFilename, testText);
 
 
 			//Act
@@ -199,7 +199,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// create the file
 
-			PersistentFile.Write (testFilename, testText);
+			PersistentStorage.Write (testFilename, testText);
 
 
 			//Act
@@ -228,7 +228,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// create the file
 
-			PersistentFile.Write (testFilename, testText);
+			PersistentStorage.Write (testFilename, testText);
 
 
 			//Act
@@ -257,7 +257,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// create the file
 
-			PersistentFile.Write (testFilename, testText);
+			PersistentStorage.Write (testFilename, testText);
 
 
 			//Act
@@ -267,7 +267,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// delete the file
 
-			PersistentFile.Delete (testFilename);
+			PersistentStorage.Delete (testFilename);
 
 			// does the file exist?
 			bool actualExistence = FileExists(testFilename);
@@ -296,16 +296,16 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			// create the file
 
-			PersistentFile.Write (testFilename, testText);
+			PersistentStorage.Write (testFilename, testText);
 
 
 			//Act
 
 			// delete the file multiple times
 
-			PersistentFile.Delete (testFilename);
-			PersistentFile.Delete (testFilename);
-			PersistentFile.Delete (testFilename);
+			PersistentStorage.Delete (testFilename);
+			PersistentStorage.Delete (testFilename);
+			PersistentStorage.Delete (testFilename);
 
 
 			//Assert
@@ -321,15 +321,15 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Arrange
 			
-			PersistentFile.Write (Unique("A"), "");
-			PersistentFile.Write (Unique("B"), "");
-			PersistentFile.Write (Unique("C"), "");
-			PersistentFile.Write (Unique("subfolder/D"), "");
+			PersistentStorage.Write (Unique("A"), "");
+			PersistentStorage.Write (Unique("B"), "");
+			PersistentStorage.Write (Unique("C"), "");
+			PersistentStorage.Write (Unique("subfolder/D"), "");
 
 
 			//Act
 
-			string[] results = PersistentFile.List(Unique(""));
+			string[] results = PersistentStorage.List(Unique(""));
 
 
 			//Assert
@@ -346,14 +346,14 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Arrange
 
-			PersistentFile.Write (Unique("A"), "");
-			PersistentFile.Write (Unique("sub/B"), "");
-			PersistentFile.Write (Unique("sub/sub/C"), "");
+			PersistentStorage.Write (Unique("A"), "");
+			PersistentStorage.Write (Unique("sub/B"), "");
+			PersistentStorage.Write (Unique("sub/sub/C"), "");
 
 
 			//Act
 
-			string[] results = PersistentFile.List(Unique(""), true);
+			string[] results = PersistentStorage.List(Unique(""), true);
 
 
 			//Assert
@@ -372,17 +372,17 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Arrange
 
-			PersistentFile.Write (Unique("A.ignore"), "");
-			PersistentFile.Write (Unique("A.return"), "");
-			PersistentFile.Write (Unique("sub/B.ignore"), "");
-			PersistentFile.Write (Unique("sub/B.return"), "");
-			PersistentFile.Write (Unique("sub/sub/C.ignore"), "");
-			PersistentFile.Write (Unique("sub/sub/C.return"), "");
+			PersistentStorage.Write (Unique("A.ignore"), "");
+			PersistentStorage.Write (Unique("A.return"), "");
+			PersistentStorage.Write (Unique("sub/B.ignore"), "");
+			PersistentStorage.Write (Unique("sub/B.return"), "");
+			PersistentStorage.Write (Unique("sub/sub/C.ignore"), "");
+			PersistentStorage.Write (Unique("sub/sub/C.return"), "");
 
 
 			//Act
 
-			string[] results = PersistentFile.List(Unique(""), true, "*.return");
+			string[] results = PersistentStorage.List(Unique(""), true, "*.return");
 
 
 			//Assert

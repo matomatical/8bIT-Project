@@ -13,7 +13,7 @@ using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.persistence {
 
-	public class PersistentFile {
+	public class PersistentStorage {
 
 		/// Helper method to get the absolute filepath given a relative one.
 		/// Also makes sure that the proper path separator character is used.
