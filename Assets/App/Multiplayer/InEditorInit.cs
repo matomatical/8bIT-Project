@@ -5,7 +5,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public class InEditorInit : MonoBehaviour {
 
 		// Use this for initialization
-		void Start () {
+		void Awake () {
 
 			// Get player1 and player2 game objects
 			LocalPlayerController[] players = FindObjectsOfType<LocalPlayerController>();
