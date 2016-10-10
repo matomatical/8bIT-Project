@@ -410,7 +410,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 430e9c9e180ceee4dae6983e56f44991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 105699131}
+  cam: {fileID: 105699131}
   background: {fileID: 1920872516}
   gui: {fileID: 318328256}
 --- !u!4 &757908545

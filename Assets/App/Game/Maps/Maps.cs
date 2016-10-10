@@ -15,7 +15,8 @@ namespace xyz._8bITProject.cooperace {
 //			"Test_Level_1",
 //			"Test_Level_2",
 //			"Test_Level_3"
-			"Tutorious"
+			"Tutorious",
+			"Twoality"
 		};
 
 		// Loads and returns a tiled map prefab object,
