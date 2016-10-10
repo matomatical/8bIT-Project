@@ -84,13 +84,13 @@ namespace xyz._8bITProject.cooperace {
 
 			} else if (props.ContainsKey("PressurePlate")) {
 				GameObject plate = replaceMarker(marker, pressurePlatePrefab);
-				plate.GetComponent<PressurePlate>().SetAddress(props["PressurePlate"]);
+				plate.GetComponent<PressurePlate>().SetAddress(props["Address"]);
 
 			} else if (props.ContainsKey("PressurePlateBlock")) {
 				GameObject block = replaceMarker(marker, pressurePlateBlockPrefab);
 				PressurePlateBlock ppBlock = 
 					block.GetComponent<PressurePlateBlock> ();
-				ppBlock.SetAddress(props["PressurePlateBlock"]);
+				ppBlock.SetAddress(props["Address"]);
 				ppBlock.inverse = (props["DefaultState"].Equals("open"));
 
 			} else if (props.ContainsKey("PushBlock")) {

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <!--Tiled2Unity generated xml data-->
 <!--Do not modify by hand-->
-<!--Last exported: 8/10/2016 8:09:53 PM-->
+<!--Last exported: 10/10/2016 8:09:32 PM-->
 <Tiled2Unity version="1.0.7.8">
   <AssignMaterial mesh="mesh_0003" material="simple" />
   <Prefab name="Tutorious" orientation="Orthogonal" staggerAxis="Y" staggerIndex="Odd" hexSideLength="0" numLayers="2" numTilesWide="40" numTilesHigh="20" tileWidth="21" tileHeight="21" exportScale="0.04761905" mapWidthInPixels="840" mapHeightInPixels="420" resource="true" resourcePath="Maps">
@@ -131,31 +131,37 @@
         <BoxCollider2D width="1" height="1" />
       </GameObject>
       <GameObject name="Pressure Plate" x="36" y="-10" rotation="0" layer="">
-        <Property name="PressurePlate" value="default address" />
+        <Property name="Address" value="default" />
+        <Property name="PressurePlate" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
       <GameObject name="Pressure Plate" x="33" y="-16" rotation="0" layer="">
-        <Property name="PressurePlate" value="default address" />
+        <Property name="Address" value="default" />
+        <Property name="PressurePlate" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
       <GameObject name="Pressure Plate Block (closed)" x="32" y="-12" rotation="0" layer="">
+        <Property name="Address" value="default" />
         <Property name="DefaultState" value="closed" />
-        <Property name="PressurePlateBlock" value="default address" />
+        <Property name="PressurePlateBlock" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
       <GameObject name="Pressure Plate Block (closed)" x="33" y="-12" rotation="0" layer="">
+        <Property name="Address" value="default" />
         <Property name="DefaultState" value="closed" />
-        <Property name="PressurePlateBlock" value="default address" />
+        <Property name="PressurePlateBlock" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
       <GameObject name="Pressure Plate Block (closed)" x="34" y="-12" rotation="0" layer="">
+        <Property name="Address" value="default" />
         <Property name="DefaultState" value="closed" />
-        <Property name="PressurePlateBlock" value="default address" />
+        <Property name="PressurePlateBlock" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
       <GameObject name="Pressure Plate Block (open)" x="15" y="-14" rotation="0" layer="">
+        <Property name="Address" value="default" />
         <Property name="DefaultState" value="open" />
-        <Property name="PressurePlateBlock" value="default address" />
+        <Property name="PressurePlateBlock" value="" />
         <BoxCollider2D width="1" height="1" />
       </GameObject>
     </GameObject>

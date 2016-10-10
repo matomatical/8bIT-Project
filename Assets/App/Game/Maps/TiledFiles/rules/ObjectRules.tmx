@@ -62,19 +62,22 @@
   </object>
   <object id="11" name="Pressure Plate" x="0" y="84" width="21" height="21">
    <properties>
-    <property name="PressurePlate" value="default address"/>
+    <property name="Address" value="default"/>
+    <property name="PressurePlate" value=""/>
    </properties>
   </object>
   <object id="12" name="Pressure Plate Block (closed)" x="42" y="84" width="21" height="21">
    <properties>
+    <property name="Address" value="default"/>
     <property name="DefaultState" value="closed"/>
-    <property name="PressurePlateBlock" value="default address"/>
+    <property name="PressurePlateBlock" value=""/>
    </properties>
   </object>
   <object id="13" name="Pressure Plate Block (open)" x="84" y="84" width="21" height="21">
    <properties>
+    <property name="Address" value="default"/>
     <property name="DefaultState" value="open"/>
-    <property name="PressurePlateBlock" value="default address"/>
+    <property name="PressurePlateBlock" value=""/>
    </properties>
   </object>
  </objectgroup>
