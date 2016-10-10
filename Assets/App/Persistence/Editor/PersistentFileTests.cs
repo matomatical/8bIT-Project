@@ -3,9 +3,11 @@
  *
  * Li Cheng <lcheng3@student.unimelb.edu.au>
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ * Athir Saleem <isaleem@student.unimelb.edu.au> 
  *
  */
 
+using System;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
@@ -16,6 +18,51 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 	[TestFixture]
 	public class PersistentFileTests {
+		
+		// The root folder for the current test
+		string uniqueRoot;
+		
+		// cross-platform helper to combine paths
+		// takes any number of path segments and joins them with the platform
+		// specific path separator character
+		string PathJoin(params string[] pathSegments) {
+			string result = pathSegments[0];
+			for (int i = 1; i < pathSegments.Length; i++) {
+				result = Path.Combine(result, pathSegments[i]);
+			}
+			return result;
+		}
+		
+		// helper to check file existence
+		// takes a path (including the unique prefix) and returns whether it exists or not
+		bool FileExists(string relPath) {
+			return File.Exists(Path.Combine(Application.persistentDataPath, relPath));
+		}
+		
+		[SetUp]
+		public void SetUp() {
+			// create a unique folder for each test
+			uniqueRoot = TestContext.CurrentContext.Test.Name + Guid.NewGuid();
+			Directory.CreateDirectory(Path.Combine(
+				Application.persistentDataPath, uniqueRoot));
+		}
+		
+		[TearDown]
+		public void TearDown() {
+			// delete the unique folder after the test
+			Directory.Delete(Path.Combine(
+				Application.persistentDataPath, uniqueRoot), true);
+		}
+		
+		// All tests should use this method to create paths instead of using
+		// their own paths to make sure clashes don't happen.
+		// While at the same time leaving any other items in
+		// `Application.persistentDataPath` untouched.
+		//
+		// As a bonus, tests no longer have to handle clean up.
+		private string Unique(params string[] pathSegments) {
+			return Path.Combine(uniqueRoot, PathJoin(pathSegments));
+		}
 
 		[Test]
 		public void WriteThenReadBackShouldGiveSameString() {
@@ -25,7 +72,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 			string testText =
 				"Write Then Read Back Should Give Same String Text";
 			string testFilename =
-				"WriteThenReadBackShouldGiveSameStringFilename.txt";
+				Unique("WriteThenReadBackShouldGiveSameStringFilename.txt");
 
 
 			//Act
@@ -45,10 +92,6 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			Assert.AreEqual(testText, actualText);
 
-
-			// clean up
-
-			PersistentFile.Delete (testFilename);
 		}
 
 		[Test]
@@ -60,7 +103,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 				"Write Then Read Back Should Give Same String Text 1";
 			string testText2 = "Not the same as the first text";
 			string testFilename =
-				"WriteToExistingFilenameShouldOverwrite.txt";
+				Unique("WriteToExistingFilenameShouldOverwrite.txt");
 
 
 			//Act
@@ -84,10 +127,6 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			Assert.AreEqual(testText2, actualText);
 
-
-			// clean up
-
-			PersistentFile.Delete (testFilename);
 		}
 
 		[Test]
@@ -98,7 +137,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 			string testText =
 				"This \n Text\n  Contains\n Newlines!\n";
 			string testFilename =
-				"WriteIncludingNewlinesShouldAllReadInOneGo.txt";
+				Unique("WriteIncludingNewlinesShouldAllReadInOneGo.txt");
 
 
 			//Act
@@ -118,10 +157,6 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			Assert.AreEqual(testText, actualText);
 
-
-			// clean up
-
-			PersistentFile.Delete (testFilename);
 		}
 
 		[Test]
@@ -131,7 +166,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			string testText = "hello, world!\n";
 			string testFilename =
-				"WriteCreatesMissingFile.txt";
+				Unique("WriteCreatesMissingFile.txt");
 
 			// create the file
 
@@ -140,24 +175,75 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Act
 
-			// does the file exist? use System.IO to find out
+			// does the file exist?
 
-			FileInfo f = new FileInfo (
-				Application.persistentDataPath + "//" + testFilename);
-
-			bool actualExistence = f.Exists;
+			bool actualExistence = FileExists(testFilename);
 
 
 			//Assert
 
 			// the file should have existed
 
-			Assert.AreEqual(true, actualExistence);
+			Assert.IsTrue(actualExistence);
+			
+		}
+
+		[Test]
+		public void WriteCreatesMissingParentFolders() {
+
+			//Arrange
+
+			string testText = "hello, world!\n";
+			string testFilename =
+				Unique("Write/Creates/Missing/Parent/Folders.txt");
+
+			// create the file
+
+			PersistentFile.Write (testFilename, testText);
 
 
-			// clean up
+			//Act
 
-			PersistentFile.Delete (testFilename);
+			// does the file exist?
+
+			bool actualExistence = FileExists(testFilename);
+
+
+			//Assert
+
+			// the file should have existed
+
+			Assert.IsTrue(actualExistence);
+
+		}
+
+		[Test]
+		public void MixedPathSeparatorsAreHandled() {
+
+			//Arrange
+
+			string testText = "hello, world!\n";
+			string testFilename =
+				Unique("Mixed\\Path/Separators\\Are/Handled.txt");
+
+			// create the file
+
+			PersistentFile.Write (testFilename, testText);
+
+
+			//Act
+
+			// does the file exist?
+
+			bool actualExistence = FileExists(testFilename);
+
+
+			//Assert
+
+			// the file should have existed
+
+			Assert.IsTrue(actualExistence);
+			
 		}
 
 		[Test]
@@ -167,7 +253,46 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			string testText = "hello, world!\n";
 			string testFilename =
-				"DeleteActuallyDeletesAFile.txt";
+				Unique("DeleteActuallyDeletesAFile.txt");
+
+			// create the file
+
+			PersistentFile.Write (testFilename, testText);
+
+
+			//Act
+			
+			// save the existance status before deletion
+			bool initialExistence = FileExists(testFilename);
+
+			// delete the file
+
+			PersistentFile.Delete (testFilename);
+
+			// does the file exist?
+			bool actualExistence = FileExists(testFilename);
+
+
+			//Assert
+			
+			// the file should have existed initially
+
+			Assert.IsTrue(initialExistence);
+
+			// the file should no longer exist
+
+			Assert.IsFalse(actualExistence);
+			
+		}
+
+		[Test]
+		public void DeletingANonExistingFileDoesntCauseAnError() {
+
+			//Arrange
+
+			string testText = "hello, world!\n";
+			string testFilename =
+				Unique("DeletingANonExistingFileDoesntCauseAnError.txt");
 
 			// create the file
 
@@ -176,28 +301,99 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Act
 
-			// delete the file
+			// delete the file multiple times
 
 			PersistentFile.Delete (testFilename);
+			PersistentFile.Delete (testFilename);
+			PersistentFile.Delete (testFilename);
 
-			// does the file exist? use System.IO to find out
 
-			FileInfo f = new FileInfo (
-				Application.persistentDataPath + "//" + testFilename);
+			//Assert
+			
+			// If execution reaches this point, no error occured.
 
-			bool actualExistence = f.Exists;
+			Assert.Pass();
+			
+		}
+
+		[Test]
+		public void ListingShouldReturnAllFilesAndIgnoreFolders() {
+
+			//Arrange
+			
+			PersistentFile.Write (Unique("A"), "");
+			PersistentFile.Write (Unique("B"), "");
+			PersistentFile.Write (Unique("C"), "");
+			PersistentFile.Write (Unique("subfolder/D"), "");
+
+
+			//Act
+
+			string[] results = PersistentFile.List(Unique(""));
 
 
 			//Assert
 
-			// the file should not have existed
+			// the files A, B and C should be returned
 
-			Assert.AreEqual(false, actualExistence);
+			CollectionAssert.AreEquivalent(
+				new string[] {"A", "B", "C"}, results);
+
+		}
+
+		[Test]
+		public void RecursiveListingReturnsRelativePaths() {
+
+			//Arrange
+
+			PersistentFile.Write (Unique("A"), "");
+			PersistentFile.Write (Unique("sub/B"), "");
+			PersistentFile.Write (Unique("sub/sub/C"), "");
 
 
-			// clean up
+			//Act
 
-			PersistentFile.Delete (testFilename);
+			string[] results = PersistentFile.List(Unique(""), true);
+
+
+			//Assert
+
+			CollectionAssert.AreEquivalent(
+				new string[] {
+					"A",
+					PathJoin("sub", "B"),
+					PathJoin("sub", "sub", "C")
+				}, results);
+
+		}
+	
+		[Test]
+		public void ListingWithPatternsWorks() {
+
+			//Arrange
+
+			PersistentFile.Write (Unique("A.ignore"), "");
+			PersistentFile.Write (Unique("A.return"), "");
+			PersistentFile.Write (Unique("sub/B.ignore"), "");
+			PersistentFile.Write (Unique("sub/B.return"), "");
+			PersistentFile.Write (Unique("sub/sub/C.ignore"), "");
+			PersistentFile.Write (Unique("sub/sub/C.return"), "");
+
+
+			//Act
+
+			string[] results = PersistentFile.List(Unique(""), true, "*.return");
+
+
+			//Assert
+
+			CollectionAssert.AreEquivalent(
+				new string[] {
+					"A.return",
+					PathJoin("sub", "B.return"),
+					PathJoin("sub", "sub", "C.return")
+				}, results);
+
 		}
 	}
 }
