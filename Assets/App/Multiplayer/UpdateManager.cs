@@ -78,6 +78,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			int numChannels = Enum.GetNames(typeof(Channel)).Length;
 			subscribers = new List<IListener<List<byte>>>[numChannels];
 
+			for (int i = 0; i < numChannels; i++) {
+				subscribers [i] = new List<IListener<List<byte>>> ();
+			}
 		}
 
 
