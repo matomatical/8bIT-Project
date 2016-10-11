@@ -44,21 +44,33 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void HandleUpdate (List<byte> data, string senderID)
 		{
 			Debug.Log ("Update recieved from " + senderID);
+
+			// Strip the header off the update
 			List<byte> header = HeaderManager.StripHeader(data);
+
             try {
                 try {
+					
                     if (header[0] == PROTOCOL_VERSION) {
+						
                         if (header[1] == PLAYER) {
                             Debug.Log("Notifying everyone");
                             if (uiLogger) UILogger.Log("recieved player udpate");
+
+							// Notify everyone of player updates (this should change to just be players)
                             NotifyAll(data);
                         }
+				
                         else if (header[1] == CHAT && chatController != null) {
                             Debug.Log("Notifying ChatController");
                             if (uiLogger) UILogger.Log("recieved chat udpate");
+
+							// Give chat controller the message
                             chatController.GiveMessage(data);
-                        }// handle other types of updates in this if/else tree
-                    }// Handle other protocols in this if/else tree
+
+                        } // Handle other types of updates in this if/else tree
+                    } // Handle other protocols in this if/else tree
+
                 } catch (Exception e) {
                     Debug.Log("Invalid update identifier");
                     throw e;
