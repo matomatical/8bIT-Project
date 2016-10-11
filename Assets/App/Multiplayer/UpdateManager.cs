@@ -63,7 +63,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// Notifies all subscribers of an update
 		private void NotifyAll (List<byte> data, Channel c) {
-			foreach (IListener<List<byte>> sub in subscribers[c]) {
+			foreach (IListener<List<byte>> sub in subscribers[(int)c]) {
 				sub.Notify (data);
 			}
 		}
