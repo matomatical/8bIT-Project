@@ -25,11 +25,15 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		void OnTriggerEnter2D() {
-			plate.Press();
+			if (enabled) { // only trigger if this component is on
+				plate.Press ();
+			}
 		}
 
 		void OnTriggerExit2D() {
-			plate.Release();
+			if (enabled) { // only trigger if this component is on
+				plate.Release ();
+			}
 		}
 	}
 }

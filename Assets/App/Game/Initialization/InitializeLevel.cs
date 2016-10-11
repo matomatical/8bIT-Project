@@ -193,10 +193,6 @@ namespace xyz._8bITProject.cooperace {
 
 				rep.enabled = true;
 
-				// disable collision triggering
-
-				BoxCollider2D box = rep.GetComponent<BoxCollider2D> ();
-				box.isTrigger = false;
 			}
 
 			// enable the replayer and start the replaying
@@ -230,6 +226,7 @@ namespace xyz._8bITProject.cooperace {
 			rc.enabled = true;
 			rc.level = level;
 			rc.StartRecording (SceneManager.levelToLoad);
+
 		}
 
 	}

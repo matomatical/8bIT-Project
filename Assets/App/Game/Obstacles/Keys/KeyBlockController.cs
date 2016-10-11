@@ -23,20 +23,19 @@ namespace xyz._8bITProject.cooperace {
 			// link components together
 
 			block = GetComponent<KeyBlock>();
-			if (!block) {
-				Debug.Log ("keybock null!");
-			}
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {
-			// if the block collides with another game object that has a
-			// KeyHolder component that is holding a key object,
-			KeyHolder holder = other.gameObject.GetComponent<KeyHolder>();
-			if (holder != null && holder.IsHoldingKey()) {
-				// open (deactivate self) and mark the object as no longer
-				// holding a key
-				holder.DropKey();
-				block.Open();
+			if (enabled) { // only trigger if this component is on
+				// if the block collides with another game object that has a
+				// KeyHolder component that is holding a key object,
+				KeyHolder holder = other.gameObject.GetComponent<KeyHolder> ();
+				if (holder != null && holder.IsHoldingKey ()) {
+					// open (deactivate self) and mark the object as no longer
+					// holding a key
+					holder.DropKey ();
+					block.Open ();
+				}
 			}
 		}
 	}

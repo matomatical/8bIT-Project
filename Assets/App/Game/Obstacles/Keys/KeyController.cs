@@ -23,13 +23,16 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {
-			// if the key collides with another game object that has a
-			// KeyHolder component that isn't already holding a key object,
-			KeyHolder holder = other.gameObject.GetComponent<KeyHolder>();
-			if (holder != null && holder.CanPickupKey()) {
-				// then mark that object as holding a key and deactivate self
-				holder.PickupKey();
-				key.Pickup();
+			if (enabled) { // only trigger if this component is on
+				
+				// if the key collides with another game object that has a
+				// KeyHolder component that isn't already holding a key object,
+				KeyHolder holder = other.gameObject.GetComponent<KeyHolder> ();
+				if (holder != null && holder.CanPickupKey ()) {
+					// then mark that object as holding a key and deactivate self
+					holder.PickupKey ();
+					key.Pickup ();
+				}
 			}
 		}
 	}
