@@ -161,7 +161,7 @@ namespace xyz._8bITProject.cooperace {
 
 	
 		void MultiPlayerAwake(TiledMap level) {
-			MultiplayerInit.Init (level);
+			MultiplayerInit.Init (level.gameObject);
 		}
 
 		void RewatchRecordingAwake (TiledMap level) {
