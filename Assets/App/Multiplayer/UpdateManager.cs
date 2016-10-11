@@ -57,13 +57,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		private List<IListener<List<byte>>>[] subscribers;
 
-		// An object is added to the list of subscribers
+		// An object is added to the list of subscribers for this channel
 		public void Subscribe (IListener<List<byte>> o, Channel c)
 		{
 			subscribers[(int)c].Add (o);
+
+			string msg = c.ToString() + " subscribers: [";
+			foreach(IListener<List<byte>> l in subscribers[(int)c]){
+				msg += l.ToString () + " ";
+			}
+
+			Debug.Log (msg + "]");
 		}
 
-		// Notifies all subscribers of an update
+		/// Notifies all subscribers of an update to this channel
 		private void NotifyAll (List<byte> data, Channel c) {
 			foreach (IListener<List<byte>> sub in subscribers[(int)c]) {
 				sub.Notify (data);
@@ -109,7 +116,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 						else if (header[1] == OBSTACLE) {
 							Debug.Log("Notifying everyone on the obstacle channel");
-							if (uiLogger) UILogger.Log("recieved player update");
+							if (uiLogger) UILogger.Log("recieved obstacle update");
 
 							// Notify all obstacle subscribers of an obstacle update
 							NotifyAll(data, Channel.OBSTACLE);
@@ -117,7 +124,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 						else if (header[1] == PUSHBLOCK) {
 							Debug.Log("Notifying everyone on the pushblock channel");
-							if (uiLogger) UILogger.Log("recieved player update");
+							if (uiLogger) UILogger.Log("recieved pushblock update");
 
 							// Notify all obstacle subscribers of an obstacle update
 							NotifyAll(data, Channel.PUSHBLOCK);
@@ -175,7 +182,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendTextChat (List<byte> data)
 		{
             HeaderManager.ApplyHeader(data, CHAT);
-			MultiPlayerController.Instance.SendMyReliable (data);
+			if (editor) {
+				HandleUpdate(data, "myself");
+			} else {
+				MultiPlayerController.Instance.SendMyReliable (data);	
+			}
 			Debug.Log ("Sending chat message");
             if (uiLogger) UILogger.Log("Sending chat message");
         }

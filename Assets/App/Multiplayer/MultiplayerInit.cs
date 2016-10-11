@@ -39,9 +39,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		static void InEditorInit (GameObject level){
 
 			// Get player1 and player2 game objects
-			LocalPlayerController[] players = level.GetComponentsInChildren<LocalPlayerController>();
-			GameObject player1 = players[0].gameObject;
-			GameObject player2 = players[1].gameObject;
+			PlayerSerializer[] players = level.GetComponentsInChildren<PlayerSerializer>();
+			PlayerSerializer player1 = players[0];
+			PlayerSerializer player2 = players[1];
 
 			UpdateManager updateManager = new UpdateManager();
 
@@ -49,15 +49,26 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			player2.GetComponent<RemotePhysicsController> ().enabled = true;
 
 			// Tell update manager about the serialiser for player 2 so updates get recieved
-			player2.GetComponent<PlayerSerializer> ().enabled = true;
-			updateManager.Subscribe(player2.GetComponent<PlayerSerializer> (), UpdateManager.Channel.PLAYER);
+			player2.enabled = true;
+			updateManager.Subscribe(player2, UpdateManager.Channel.PLAYER);
+
 
 			// Make sure one player is local
 			player1.GetComponent<LocalPlayerController> ().enabled = true;
 
 			// Tell player 1 to send updates to the update manager
-			player1.GetComponent<PlayerSerializer> ().enabled = true;
-			player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;
+			player1.enabled = true;
+			player1.updateManager = updateManager;
+
+
+			// link chat with updateManager
+
+			ChatController chat = FindObjectOfType<ChatController>();
+
+			updateManager.chatController = chat;
+			chat.updateManager = updateManager;
+
+
 
 
 			// camera should have a reference to the player to-be-followed
@@ -75,6 +86,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 				pbc.enabled = true;
 			}
+
 
 
 			// keys, key blocks and pressure plates should respond to
@@ -99,6 +111,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 
+
 			// all of these obstacles need to be set up to notify the 
 			// update manager when something changes!
 
@@ -107,8 +120,22 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				obstacle.enabled = true;
 
 				obstacle.updateManager = updateManager;
+
+				// for now, ALSO subscribe them all
+				updateManager.Subscribe(obstacle, UpdateManager.Channel.OBSTACLE);
 			}
 
+			// assign serialiser IDs to obstacles
+
+			byte id = 0;
+
+			foreach(BoolObstacleSerializer obstacle in
+				level.GetComponentsInChildren<BoolObstacleSerializer> ()
+				.OrderBy(gameObject => gameObject.name )){
+
+				obstacle.SetID (id);
+				id++;
+			}
 
 		}
 
@@ -186,7 +213,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 
-			// assign deserialiser IDs to obstacles
+			// assign serialiser IDs to obstacles
 
 			byte id = 0;
 
