@@ -15,8 +15,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class UpdateManager : IUpdateManager, IObservable<List<byte>>
 	{
-		// The protcol being used to attatch the header
-		public static readonly byte PROTOCOL_VERSION = 0;
+        #if UNITY_EDITOR
+        static bool editor = true;
+        #else
+		static bool editor = false;
+        #endif
+
+        // The protcol being used to attatch the header
+        public static readonly byte PROTOCOL_VERSION = 0;
 		// Obstacle update identifier
 		public static readonly byte OBSTACLE = BitConverter.GetBytes ('o')[0];
 		// Player update identifier
@@ -69,9 +75,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendPlayerUpdate (List<byte> data)
 		{
             HeaderManager.ApplyHeader(data, PLAYER);
-			// uncomment/comment the following lines to change between in editor and real testing
-			MultiPlayerController.Instance.SendMyUnreliable (data);
-			//HandleUpdate(data, "memes");
+            // uncomment/comment the following lines to change between in editor and real testing
+            if (editor) {
+                HandleUpdate(data, "memes");
+            } else {
+                MultiPlayerController.Instance.SendMyUnreliable(data);
+            }
+            
 			Debug.Log ("Sending player update");
 		}
 
