@@ -12,7 +12,7 @@ using xyz._8bITProject.cooperace.recording;
 namespace xyz._8bITProject.cooperace {
 	public class FinishLine : MonoBehaviour {
 
-		/// The Clock to start when we cross the line
+		/// The Clock to stop when we cross the line
 		ClockController clock;
 
 		/// Collider for detecting collisions

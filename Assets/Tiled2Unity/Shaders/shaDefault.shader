@@ -47,7 +47,6 @@
 
 
             fixed4 _Color;
-            fixed4 _Darker;
 
             v2f vert(appdata_t IN)
             {
