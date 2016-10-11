@@ -25,6 +25,7 @@ GameObject:
   - 114: {fileID: 114000013808789578}
   - 114: {fileID: 114000011265845996}
   - 114: {fileID: 114000013935209006}
+  - 114: {fileID: 114000013825162126}
   m_Layer: 9
   m_Name: KeyBlock
   m_TagString: Untagged
@@ -90,6 +91,17 @@ MonoBehaviour:
   m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 17f5ac7dc0a4d4b03bba032c3bce59bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013825162126
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010297552836}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a53aba30819453fa027bd98bfe7492, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &114000013935209006
