@@ -99,6 +99,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 
+			// all of these obstacles need to be set up to notify the 
+			// update manager when something changes!
+
+			foreach (BoolObstacleSerializer obstacle in level.GetComponentsInChildren<BoolObstacleSerializer>()) {
+
+				obstacle.enabled = true;
+
+				obstacle.updateManager = updateManager;
+			}
+
+
 		}
 
 		/// Set up a level and its child objects and their components to

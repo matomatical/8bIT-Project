@@ -20,12 +20,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		private bool firstRun = true;			// Used to detect if HasChanged has been run before
 		private readonly byte BITS_IN_BYTE = 8;	// The number of bits in a byte minus 1
 
+		/// Assign this serialiser a unique id,
+		/// synched between devices, so that it
+		/// knows which updates are relevant
 		public void SetID(byte id){
 			if (IDSet == false) {
 				this.ID = id;
 				IDSet = true;
-			} else {
-				// cannot reset id
 			}
 		}
 

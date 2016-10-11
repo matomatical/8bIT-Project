@@ -147,7 +147,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendObstacleUpdate (List<byte> data)
 		{
             HeaderManager.ApplyHeader(data, OBSTACLE);
-			MultiPlayerController.Instance.SendMyReliable (data);
+
+			if (editor) {
+				HandleUpdate (data, "myself");
+			} else {
+				MultiPlayerController.Instance.SendMyReliable (data);
+			}
+
 			Debug.Log ("Sending obstacle update");
 		}
 
