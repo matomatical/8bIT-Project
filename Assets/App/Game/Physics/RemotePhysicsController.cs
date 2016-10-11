@@ -23,7 +23,7 @@ namespace xyz._8bITProject.cooperace {
 
 			base.Start();
 
-			externalPosition = transform.position;
+			externalPosition = transform.localPosition;
 
 			externalVelocity = Vector2.zero;
 

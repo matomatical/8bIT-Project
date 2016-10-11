@@ -281,6 +281,10 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1961636743}
+    - target: {fileID: 1000012942434134, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000010661515540, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0, type: 2}
@@ -366,7 +370,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000013554428632, guid: 00462364bb0bb4cda88189d1aeafe1e2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 11.43
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 4000013554428632, guid: 00462364bb0bb4cda88189d1aeafe1e2, type: 2}
       propertyPath: m_LocalPosition.z

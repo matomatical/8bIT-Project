@@ -27,7 +27,9 @@ namespace xyz._8bITProject.cooperace.recording {
 		/// set the object's state to match this state
 		/// TODO: interpolate between multiple previous states!!
 		public override void SetState(DynamicState state){
-			remote.SetState(state.position, state.velocity);
+			Vector2 position = state.position;
+			Vector2 velocity = state.velocity;
+			remote.SetState(position, velocity);
 		}
 	}
 }
