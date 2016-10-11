@@ -21,10 +21,10 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 
 		[Test]
 		public void EqualsCopy () {
-			PlayerInformation test = new PlayerInformation (new Vector2 (), new Vector2 ());
+			PlayerInformation test0 = new PlayerInformation (new Vector2 (), new Vector2 ());
 			PlayerInformation test1 = new PlayerInformation (new Vector2 (), new Vector2 ());
 
-			Assert.That (test.Equals (test1));
+			Assert.That (test0.Equals (test1));
 		}
 
 		[Test]
@@ -32,7 +32,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			PlayerInformation test0 = new PlayerInformation (new Vector2 (0, 0), new Vector2 (0, 0));
 			PlayerInformation test1 = new PlayerInformation (new Vector2 (1, 1), new Vector2 (1, 1));
 
-			Assert.That (test0 != test1);
+			Assert.That (!test0.Equals (test1));
 		}
 	}
 }
