@@ -81,7 +81,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendPlayerUpdate (List<byte> data)
 		{
             HeaderManager.ApplyHeader(data, PLAYER);
-            // uncomment/comment the following lines to change between in editor and real testing
             if (editor) {
                 HandleUpdate(data, "memes");
             } else {
