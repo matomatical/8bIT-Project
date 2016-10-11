@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		static bool editor = false;
 		#endif
 
-		public static void Init(TiledMap level){
+		public static void Init(GameObject level){
 			if(editor){
 				InEditorInit (level);
 			} else {
@@ -26,7 +26,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		static void InEditorInit (TiledMap level){
+		static void InEditorInit (GameObject level){
 
 			// Get player1 and player2 game objects
 			LocalPlayerController[] players = level.GetComponentsInChildren<LocalPlayerController>();
@@ -91,117 +91,181 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		}
 
-		// Use this for initialization
-		static void OnAndroidInit (TiledMap level) {
+		/// 
+		/// 
+		void OnAndroidInit(GameObject level){
 
-			// variables for deciding which player is which
+
+			// decide which player is the host by participant ID
+
 			string myID = MultiPlayerController.Instance.GetMyParticipantId ();
 			List<Participant> participants = MultiPlayerController.Instance.GetAllPlayers ();
-			Participant partner;
 
-			// Get player1 and player2 game objects
+			// the host is the participant with the first ID in the list
+
+			bool host = (participants [0].ParticipantId.Equals (myID));
+
+			UILogger.Log("I am the " + (host ? "host" : "client"));
+
+			// Get localPlayer and remotePlayer gameObjects sorted
+
 			LocalPlayerController[] players = level.GetComponentsInChildren<LocalPlayerController>();
-			GameObject player1 = players[0].gameObject;
-			GameObject player2 = players[1].gameObject;
+			GameObject localPlayer;
+			GameObject remotePlayer;
+		
+			if (host) {
+				localPlayer  = players [0].gameObject;
+				remotePlayer = players [1].gameObject;
 
-			CameraController camera = FindObjectOfType<CameraController> ();
+			} else {
+				localPlayer  = players [1].gameObject;
+				remotePlayer = players [0].gameObject;
+
+			}
 
 
-			// Get the Chat Controller
-			ChatController chat = FindObjectOfType<ChatController>();
 
-			// Get the update manager ready
+			// Enter update manager, stage left!
+
 			UpdateManager updateManager = new UpdateManager();
 			MultiPlayerController.Instance.updateManager = updateManager;
 
-			// Tell updateManager and chatController about each other
+
+
+			// link chat with updateManager
+
+			ChatController chat = FindObjectOfType<ChatController>();
+
 			updateManager.chatController = chat;
 			chat.updateManager = updateManager;
-            // Tell player 1 to send updates to the update manager
-            player1.GetComponent<PlayerSerializer>().enabled = true;
-            player2.GetComponent<PlayerSerializer>().enabled = true;
 
 
-            // Decide if the local user is player 1 or player 2
-            // Activate appropriate components
-            if (participants [0].ParticipantId.Equals (myID)) {
-                UILogger.Log("I am player 1");
-                // Partner is player 2
-                partner = participants [1];
 
-				// Disable the controller for the partner
-                player2.GetComponent<RemotePhysicsController>().enabled = true;
+			// camera should track local player
 
-				// And make sure the controller is enabled for the player
-				player1.GetComponent<LocalPlayerController> ().enabled = true;
+			CameraController camera = FindObjectOfType<CameraController> ();
 
-                
+			camera.target = localPlayer.GetComponent<ArcadePhysicsController>();
 
 
-                // follow the first player
-                camera.target = player1.GetComponent<ArcadePhysicsController>();
 
-				// Tell update manager about the serialiser for player 2 so updates get recieved
-				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
+			// set up objects and their components!
 
-				// Tell player 1 to send updates to the update manager
-				player1.GetComponent<PlayerSerializer> ().updateManager = updateManager;
+			InitializePlayers (localPlayer, remotePlayer);
 
 
+			if (host) {
+				InitializeObstaclesHost (level, updateManager);
 
 			} else {
-                UILogger.Log("I am player 2");
-                // Partner is player 1
-                partner = participants [0];
+				InitializeObstaclesClient (level, updateManager);
 
-				// Disable the controller for the partner
+			}
 
-                player1.GetComponent<RemotePhysicsController>().enabled = true;
+		}
 
-                // And make sure the controller is enabled for the player
-                player2.GetComponent<LocalPlayerController> ().enabled = true;
-                
-				// follow this player
-				camera.target = player2.GetComponent<ArcadePhysicsController>();
+		void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){
 
-                // Tell update manager about the serialiser for player 1 so updates get recieved
-                updateManager.Subscribe(player1.GetComponent<PlayerSerializer> ());
+			// enable the controller components
 
-				// Tell player 2 to send updates to the update manager
-				player2.GetComponent<PlayerSerializer> ().updateManager = updateManager;
-                
-            }
+			localPlayer.GetComponent<LocalPlayerController> ().enabled = true;
+			remotePlayer.GetComponent<RemotePhysicsController> ().enabled = true;
 
 
-			// push blocks should also respond to collisions rather than
-			// remote updates
+			// enable the serialisers! and link them to update manager
+
+			PlayerSerializer localSerializer = localPlayer.GetComponent<PlayerSerializer> ();
+
+			localSerializer.enabled = true;
+			localSerializer.updateManager = updateManager;
+
+
+			PlayerSerializer remoteSerializer = remotePlayer.GetComponent<PlayerSerializer> ();
+
+			remoteSerializer.enabled = true;
+			updateManager.Subscribe(remoteSerializer, UpdateManager.Channel.PLAYER);
+
+		}
+
+		void InitializeObstaclesHost(GameObject level, UpdateManager updateManager){
+
+			// on the host side, keys, key blocks and pressure playes should
+			// all respond to collisions, not remote updates!
+
+			foreach (KeyController key in level.GetComponentsInChildren<KeyController>()) {
+
+				key.enabled = true;
+			}
+
+
+			foreach (PressurePlateController plate in level.GetComponentsInChildren<PressurePlateController>()) {
+
+				plate.enabled = true;
+			}
+
+
+			foreach (KeyBlockController block in level.GetComponentsInChildren<KeyBlockController>()) {
+
+				block.enabled = true;
+			}
+
+
+			// all of these obstacles need to be set up to notify the 
+			// update manager when something changes!
+
+			foreach (BoolObstacleSerializer obstacle in level.GetComponentsInChildren<BoolObstacleSerializer>()) {
+
+				obstacle.enabled = true;
+				
+				obstacle.updateManager = updateManager;
+			}
+
+
+
+			// as for push blocks, we'll need to enable their
+			// normal controllers to, so that they can be pushed around
+			// and we'll also set them up to 
 
 			foreach (PushBlockController pbc in
 				level.GetComponentsInChildren<PushBlockController>()){
 
 				pbc.enabled = true;
+
+				PushBlockSerializer pbs = pbc.GetComponent<PushBlockSerializer> ();
+				pbs.enabled = true;
+				pbs.updateManager = updateManager;
+
+			}
+
+		}
+
+		void InitializeObstaclesClient(GameObject level, UpdateManager updateManager){
+
+			// on the client side, there's no need to control keys and stuff via
+			// collisions! they should just respond to network updates through their
+			// serializer
+
+			foreach (BoolObstacleSerializer obstacle in level.GetComponentsInChildren<BoolObstacleSerializer>()) {
+
+				obstacle.enabled = true;
+
+				updateManager.Subscribe(obstacle, UpdateManager.Channel.OBSTACLE);
 			}
 
 
-			// keys, key blocks and pressure plates should respond to
-			// collisions, not remote updates!
+			// push blocks are also meant to subscribe to notifications from the
+			// network, and should be remote controllable
 
-			foreach (KeyController key in
-				level.GetComponentsInChildren<KeyController>()) {
+			foreach (PushBlockController pbc in level.GetComponentsInChildren<PushBlockController>()){
 
-				key.enabled = true;
-			}
+				RemotePhysicsController rpc = pbc.GetComponent<RemotePhysicsController> ();
+				rpc.enabled = true;
 
-			foreach (PressurePlateController plate in
-				level.GetComponentsInChildren<PressurePlateController>()) {
+				PushBlockSerializer pbs = pbc.GetComponent<PushBlockSerializer> ();
+				pbs.enabled = true;
 
-				plate.enabled = true;
-			}
+				updateManager.Subscribe(pbs, UpdateManager.Channel.PUSHBLOCK);
 
-			foreach (KeyBlockController block in
-				level.GetComponentsInChildren<KeyBlockController>()) {
-
-				block.enabled = true;
 			}
 		}
 	}
