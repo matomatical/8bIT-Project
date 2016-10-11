@@ -1,4 +1,12 @@
-﻿using System;
+﻿/*
+ * The multiplayer serializer for Key game objects
+ * Used for representation of the state of the object as a list of bytes and updating the state of from a list of bytes.
+ *
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+*/
+
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 
