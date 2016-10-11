@@ -5,6 +5,7 @@
 
 using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 using GooglePlayGames.BasicApi.Multiplayer;
 
 namespace xyz._8bITProject.cooperace.multiplayer
@@ -167,6 +168,29 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			} else {
 				InitializeObstaclesClient (level, updateManager);
 
+			}
+
+
+			// assign deserialiser IDs to obstacles
+
+			byte id = 0;
+
+			foreach(BoolObstacleSerializer obstacle in
+					level.GetComponentsInChildren<BoolObstacleSerializer> ()
+					.OrderBy(gameObject => gameObject.name )){
+
+				obstacle.SetID (id);
+				id++;
+			}
+
+			foreach(PushBlockSerializer obstacle in
+				level.GetComponentsInChildren<PushBlockSerializer> ()
+				.OrderBy(gameObject => gameObject.name )){
+
+				// TODO: implement ID's with push block serialisers
+
+				// obstacle.SetID (id);
+				id++;
 			}
 
 		}
