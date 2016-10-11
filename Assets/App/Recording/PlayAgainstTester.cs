@@ -16,6 +16,11 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			ArcadePhysics.layering = true;
 
+			// shade mesh renderer
+
+			MeshRenderer renderer = GetComponentInChildren<MeshRenderer> ();
+			renderer.material.color = new Color (0.75f, 0.75f, 0.75f);
+
 		}
 	
 	}
