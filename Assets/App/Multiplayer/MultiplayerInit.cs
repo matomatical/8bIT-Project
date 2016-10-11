@@ -117,12 +117,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// Tell updateManager and chatController about each other
 			updateManager.chatController = chat;
 			chat.updateManager = updateManager;
+            // Tell player 1 to send updates to the update manager
+            player1.GetComponent<PlayerSerializer>().enabled = true;
+            player2.GetComponent<PlayerSerializer>().enabled = true;
 
-			// Decide if the local user is player 1 or player 2
-			// Activate appropriate components
-			if (participants [0].ParticipantId.Equals (myID)) {
-				// Partner is player 2
-				partner = participants [1];
+
+            // Decide if the local user is player 1 or player 2
+            // Activate appropriate components
+            if (participants [0].ParticipantId.Equals (myID)) {
+                UILogger.Log("I am player 1");
+                // Partner is player 2
+                partner = participants [1];
 
 				// Disable the controller for the partner
                 player2.GetComponent<RemotePhysicsController>().enabled = true;
@@ -130,8 +135,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				// And make sure the controller is enabled for the player
 				player1.GetComponent<LocalPlayerController> ().enabled = true;
 
-				// follow the first player
-				camera.target = player1.GetComponent<ArcadePhysicsController>();
+                
+
+
+                // follow the first player
+                camera.target = player1.GetComponent<ArcadePhysicsController>();
 
 				// Tell update manager about the serialiser for player 2 so updates get recieved
 				updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
@@ -142,8 +150,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 
 			} else {
-				// Partner is player 1
-				partner = participants [0];
+                UILogger.Log("I am player 2");
+                // Partner is player 1
+                partner = participants [0];
 
 				// Disable the controller for the partner
 

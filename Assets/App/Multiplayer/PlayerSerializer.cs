@@ -27,9 +27,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// Keeps track of the last update to see if anything has changed
 		private PlayerInformation lastInfo;
-
-		// Used to guard serialize and deserialize being run if the RemotePlayerContoller is not yet found
-		private bool ready = false;
 	 
 		void Start () {
 			// Get compenents
@@ -40,33 +37,34 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// Fill out last positions with dummys
 			lastInfo = null;
-
-			ready = true;
+            
 		}
 
 		// Called at set intervals, used to let update manager know there is an update
 		void FixedUpdate () {
 			// Stores current state
 			List<byte> update;
-
+            //UILogger.Log("in fixed update");
 			// Stores current information about the player
 			PlayerInformation info;
 
 			// Only send if there is an update manager to send to and the transform is found
-			if (updateManager != null && ready) {
-				
-				// If it's time to send another update
-				if (stepsUntilSend < 1) {
+			if (updateManager != null) {
+                //UILogger.Log("counting down");
+                // If it's time to send another update
+                if (stepsUntilSend < 1) {
 					 
 					// Read information about the player currently
 					info = new PlayerInformation (localController.GetPosition (), localController.GetVelocity ());
 
 					// If the update is different to the last one sent
 					if (!info.Equals(lastInfo)) {
-						// Get the update to be sent
-						update = Serialize (info);
+                        //UILogger.Log("Serializing");
+                        // Get the update to be sent
+                        update = Serialize (info);
 
 						Debug.Log ("Serializing");
+                        
 
 						// Send the update
 						Send (update);
@@ -109,7 +107,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Takes an update and applies it to this serializer's object
 		public PlayerInformation Deserialize(List<byte> update)
 		{
-			float posx, posy;
+            //UILogger.Log("Deserializing");
+
+            float posx, posy;
 			float velx, vely;
 			byte[] data = update.ToArray ();
 

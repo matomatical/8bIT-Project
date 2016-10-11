@@ -17,9 +17,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	{
         #if UNITY_EDITOR
         static bool editor = true;
+        static bool uiLogger = false;
         #else
 		static bool editor = false;
+        static bool uiLogger = true;
         #endif
+
+
 
         // The protcol being used to attatch the header
         public static readonly byte PROTOCOL_VERSION = 0;
@@ -46,10 +50,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
                     if (header[0] == PROTOCOL_VERSION) {
                         if (header[1] == PLAYER) {
                             Debug.Log("Notifying everyone");
+                            if (uiLogger) UILogger.Log("recieved player udpate");
                             NotifyAll(data);
                         }
                         else if (header[1] == CHAT && chatController != null) {
                             Debug.Log("Notifying ChatController");
+                            if (uiLogger) UILogger.Log("recieved chat udpate");
                             chatController.GiveMessage(data);
                         }// handle other types of updates in this if/else tree
                     }// Handle other protocols in this if/else tree
@@ -83,7 +89,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
             }
             
 			Debug.Log ("Sending player update");
-		}
+            if (uiLogger) UILogger.Log("sending player udpate");
+        }
 
 		// Sends an update for a chat message
 		public void SendTextChat (List<byte> data)
@@ -91,15 +98,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
             HeaderManager.ApplyHeader(data, CHAT);
 			MultiPlayerController.Instance.SendMyReliable (data);
 			Debug.Log ("Sending chat message");
-		}
+            if (uiLogger) UILogger.Log("Sending chat message");
+        }
 
         // An object is added to the list of subscribers
 		public void Subscribe (IListener<List<byte>> o)
 		{
 			subscribers.Add (o);
 		}
-
-		
 
 		// Notifies all subscribers of an update
 		private void NotifyAll (List<byte> data) {

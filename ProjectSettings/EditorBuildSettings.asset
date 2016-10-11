@@ -4,4 +4,24 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/App/UI/Views/TitleScreen.unity
+  - enabled: 1
+    path: Assets/App/UI/Views/MatchMakingScreen.unity
+  - enabled: 1
+    path: Assets/App/UI/Views/PostGameMenu.unity
+  - enabled: 1
+    path: Assets/App/UI/Views/RecordedGamesMenu.unity
+  - enabled: 1
+    path: Assets/App/UI/Views/SettingsMenu.unity
+  - enabled: 1
+    path: Assets/App/UI/Views/StartGameMenu.unity
+  - enabled: 1
+    path: Assets/App/Game/Scenes/Game Scene.unity
+  - enabled: 1
+    path: Assets/App/Game/Scenes/Static Record Level Game Scene.unity
+  - enabled: 1
+    path: Assets/App/Game/Scenes/Static Replay Level Game Scene.unity
+  - enabled: 1
+    path: Assets/App/UI/Views/MainMenu.unity
