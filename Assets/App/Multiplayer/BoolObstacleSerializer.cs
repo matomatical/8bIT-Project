@@ -14,9 +14,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public abstract class BoolObstacleSerializer : MonoBehaviour, ISerializer<BoolObstacleInformation> {
 
 		public IUpdateManager updateManager;	// IUpdateManager to send updates to
+		public readonly byte ID;				// The unique ID of the obstacle
 		private bool lastState;					// The last known state of this obstacle
 		private bool firstRun = true;			// Used to detect if HasChanged has been run before
-		private readonly int BYTE_TAKE_BIT = 7;	// The number of bits in a byte minus 1
+		private readonly int BITS_IN_BYTE = 8;	// The number of bits in a byte minus 1
 
 		void FixedUpdate () {
 			if (HasChanged ()) {
@@ -63,7 +64,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			List<byte> data = new List<byte> ();	// The list to store the update
 
 			// Add information about the state to the data
-			data.Add(information.state ? information.ID + 2^BYTE_TAKE_BIT : information.ID);
+			data.Add(information.state ? (byte)(information.ID + 2^(BITS_IN_BYTE-1)) : (byte)information.ID);
 
 			return data;
 		}
@@ -75,8 +76,8 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			bool state;				// State of the obstacle in the data
 
 			// Deserialize
-			if (info > 127) {
-				ID = info - 128;
+			if (info > (2^(BITS_IN_BYTE-1)-1)) {
+				ID = (byte)(info - 2^(BITS_IN_BYTE-1));
 				state = true;
 			} else {
 				ID = info;

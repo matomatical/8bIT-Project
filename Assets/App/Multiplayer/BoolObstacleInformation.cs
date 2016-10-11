@@ -22,7 +22,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 			// If parameter cannot be cast to Point return false.
-			BoolObstacleInformation info = obj as PlayerInformation;
+			BoolObstacleInformation info = obj as BoolObstacleInformation;
 			if ((System.Object)info == null)
 			{
 				return false;
