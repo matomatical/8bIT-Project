@@ -14,7 +14,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public interface ISerializer<T> : IListener<List<byte>>
 	{
+		/// Serialise information, so that it is appropriately formatted to be sent
+		/// across the network
 		List<byte> Serialize (T information);
+
+		/// Take raw data and convert it into meaningful information
 		T Deserialize (List<byte> data);
 	}
 }

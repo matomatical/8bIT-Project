@@ -15,12 +15,12 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // A record of every single message sent
         private List<ChatMessage> history;
 
-        // Use this for initialization
+        /// Use this for initialization
         public ChatHistory() {
             this.history = new List<ChatMessage>();
         }
 
-        // Add a new message to the chat history
+        /// Add a new message to the chat history
         public void AddMessage(string message, bool localPlayer) {
             try {
                 ChatMessage m = new ChatMessage(message, localPlayer);
@@ -32,9 +32,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             
         }
 
-        // Returns the most n recent messages
-        // NOTE : Assumes that the list is sorted in ascending order. This may not always be the case
-        // when sending messages between devices
+        /// Returns the most n recent messages
         public List<ChatMessage> MostRecent(int n) {
             List<ChatMessage> mostRecent = new List<ChatMessage>();
 
@@ -47,7 +45,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             return mostRecent;
         }
 
-        // Checks to see if the chat history contain a message
+        // These methods below are used for testing purposes
+
+        /// Checks to see if the chat history contains a particular message
         public bool ContainsMessage(String m) {
             for (int i=0; i<this.history.Count; i++) {
                 if (history[i].getMessage() == m) {
@@ -57,13 +57,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             return false;
         }
 
-        // Set the history
-        public void setHistory(List<ChatMessage> history) {
+        /// Set the history
+        public void SetHistory(List<ChatMessage> history) {
             this.history = history;
         }
 
-        // get the chat history
-        public List<ChatMessage> getHistory() {
+        /// get the chat history
+        public List<ChatMessage> GetHistory() {
             return this.history;
         }
 

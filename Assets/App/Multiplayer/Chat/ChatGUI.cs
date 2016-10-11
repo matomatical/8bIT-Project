@@ -1,5 +1,5 @@
 ﻿/*
- * ChatGUI is responsible for displaying the history of chat messages
+ * ChatGUI is responsible for displaying the most recent chat messages
  * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
@@ -17,38 +17,37 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Details of where to render chat
         private readonly float MSG_X = 0.3f;
         private readonly float MSG_Y = 0.03f;
-        //private readonly int MSG_X_OFFSET = 70;
 
         // Display the n most recent messages 
         public readonly int TOPN = 3;
 
+        // A record of all the messages sent
         private ChatHistory chatHistory;
 
         public ChatGUI (ChatHistory chatHistory) {
             this.chatHistory = chatHistory;
         }
 
-        // displays the n most recent messages on screen
+        /// displays the n most recent messages on screen
         public void RenderChatGUI() {
             GUIStyle myStyle = new GUIStyle();
             myStyle.fontSize = FONT_SIZE;
             
             // The x and y positions at which to display the messages
             float ypos = (Screen.width * MSG_Y)-FONT_SIZE;
-            //float xposLocal = Screen.height * MSG_X + MSG_X_OFFSET;
-            //float xposRemote = Screen.height * MSG_X;
 
+            // get the most recent messages
             List<ChatMessage> recentMessages = chatHistory.MostRecent(TOPN);
 
             for (int i = 0; i< recentMessages.Count; i++) {
-                //createRectangle(xpos, ypos += MSG_Y_OFFSET, recentMessages[i].getMessage(), 1, 0, 0);
                 ChatMessage m = recentMessages[i];
+
                 float xpos = Screen.height * MSG_X;
+
+                // generate a message with the tag (which player sent it) appended to it
                 string taggedMsg = assignTag(m.getMessage(), m.getLocalMsg());
-
-                // If the message was sent by the local player, tag it appropriately
                 
-
+                // display it on screen
                 GUI.Label(new Rect(xpos, ypos+= FONT_SIZE, Screen.width, Screen.height),
                     taggedMsg, myStyle);
             }
@@ -56,7 +55,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             
         }
 
-        // Take a string and check which player sent it and assign a tag accordingly
+        /// Take a string, check which player sent it and assign a tag accordingly
         private string assignTag(string m, bool isLocalPlayer) {
             if (isLocalPlayer) {
                 m = "      me: " + m;
@@ -64,23 +63,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 m = "partner: " + m;
             }
             return m;
-        }
-        private void createRectangle(float x, float y, string m, int r, int g, int b) {
-            int w = 15 * FONT_SIZE;
-            int h = FONT_SIZE + 5;
-
-            Texture2D rgb_texture = new Texture2D(w, h);
-            Color rgb_color = new Color(r, g, b);
-            int i, j;
-            for (i = 0; i < w; i++) {
-                for (j = 0; j < h; j++) {
-                    rgb_texture.SetPixel(i, j, rgb_color);
-                }
-            }
-            rgb_texture.Apply();
-            GUIStyle generic_style = new GUIStyle();
-            GUI.skin.box = generic_style;
-            GUI.Box(new Rect(x, y, w, h), rgb_texture);
         }
     }
 }

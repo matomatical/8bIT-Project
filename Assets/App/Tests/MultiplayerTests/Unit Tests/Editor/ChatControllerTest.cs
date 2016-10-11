@@ -93,7 +93,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
             List<Byte> data = data1();
             serializer.GiveMessage(data);
 
-            ChatHistory history = serializer.getChatHistory();
+            ChatHistory history = serializer.GetChatHistory();
 
             // Make sure that the byte stream that is converted and added to the chatHistory is the 
             // same as the original message
