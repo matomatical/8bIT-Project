@@ -1,4 +1,11 @@
-﻿using System.Collections.Generic;
+﻿/*
+ * Tests for BoolObstacleInformation. Tests the Equals method.
+ *
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+*/
+
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests {

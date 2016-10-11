@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Tests for UpdateManager
+ *
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+*/
+
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using NUnit.Framework;

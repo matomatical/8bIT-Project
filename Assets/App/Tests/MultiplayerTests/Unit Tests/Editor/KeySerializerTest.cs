@@ -1,4 +1,11 @@
-﻿using UnityEngine;
+﻿/*
+ * Tests for KeySerializer
+ *
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+*/
+
+using UnityEngine;
 using System.Collections.Generic;
 using NUnit.Framework;
 

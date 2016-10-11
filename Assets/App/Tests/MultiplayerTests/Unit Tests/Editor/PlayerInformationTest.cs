@@ -1,4 +1,11 @@
-﻿using System;
+﻿/*
+ * Tests for PlayerInformation. Tests the Equals method.
+ *
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+*/
+
+using System;
 using NUnit.Framework;
 using UnityEngine;
 
