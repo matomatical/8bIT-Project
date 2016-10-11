@@ -14,7 +14,7 @@ namespace xyz._8bITProject.cooperace {
 		public TiledMap level;
 		public Camera cam;
 
-		public float shift = 2;
+		public float shift = 0;
 
 		private Vector2 center; // position of the target level's center
 		private Vector2 offset; // position of this level's center
