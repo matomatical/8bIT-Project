@@ -17,7 +17,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		// Test data
 		private BoolObstacleInformation BoolObstacleInformation1 = new BoolObstacleInformation (94, false);
 		private BoolObstacleInformation BoolObstacleInformation2 = new BoolObstacleInformation (111, true);
-		private BoolObstacleInformation BoolObstacleInformation3 = new BoolObstacleInformation (128, true);
+		//private BoolObstacleInformation BoolObstacleInformation3 = new BoolObstacleInformation (128, true);
 
 		private List<byte> data1 () {
 			List<byte> data = new List<byte> ();
@@ -110,7 +110,8 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 				serializer.Deserialize (new List<byte> ());
 			}
 			catch (System.ArgumentOutOfRangeException e) {
-				// Good! We can't deserialize that!
+                // Good! We can't deserialize that!
+                Debug.Log(e);
 				Assert.Pass ();
 			}
 			// Oh no! Deserialize shouldn't be able to deseralize an empty list...

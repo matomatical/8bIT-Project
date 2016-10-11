@@ -98,6 +98,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 				serializer.Deserialize (new List<byte> ());
 			}
 			catch (System.ArgumentOutOfRangeException e) {
+                Debug.Log(e);
 				// Good! We can't deserialize that!
 				Assert.Pass ();
 			}

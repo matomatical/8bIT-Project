@@ -22,6 +22,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
                 HeaderManager.StripHeader(emptyHeader);
             }
             catch (System.ArgumentOutOfRangeException e) {
+                Debug.Log(e);
                 Assert.Pass();
             }
         }
@@ -34,6 +35,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
                 HeaderManager.StripHeader(nullHeader);
             }
             catch (System.NullReferenceException e) {
+                Debug.Log(e);
                 Assert.Pass();
             }
         }
@@ -49,6 +51,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
                 HeaderManager.StripHeader(header);
             }
             catch (System.IndexOutOfRangeException e) {
+                Debug.Log(e);
                 Assert.Pass();
             }
 

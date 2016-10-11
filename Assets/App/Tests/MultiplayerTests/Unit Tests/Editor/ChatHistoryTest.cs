@@ -77,6 +77,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
                 history.AddMessage("", true);
             }
             catch (System.ArgumentNullException e) {
+                Debug.Log(e);
                 Assert.Pass();
             }
 

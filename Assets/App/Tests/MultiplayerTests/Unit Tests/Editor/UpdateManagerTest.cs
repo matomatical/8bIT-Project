@@ -23,6 +23,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
             try {
                 um.HandleUpdate(update, "mariam");
             } catch(Exception e) {
+                Debug.Log(e);
                 Assert.Pass();
             }
 
@@ -46,6 +47,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
                 um.HandleUpdate(update2, "mariam");
             }
             catch (Exception e) {
+                Debug.Log(e);
                 Assert.Pass();
             }
         }
