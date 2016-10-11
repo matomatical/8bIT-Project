@@ -7,7 +7,7 @@
  * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
- * Matt Farrugia     < sbeyer@student.unimelb.edu.au >
+ * Matt Farrugia < sbeyer@student.unimelb.edu.au >
  */
 
 using System;

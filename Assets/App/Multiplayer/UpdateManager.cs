@@ -3,10 +3,12 @@
  * It attatches and detatches a header to the update telling the game about what will be in the update
  * It is also responsible for deciding whether 
  * 
+ * TODO: finish header comment
+ * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
- * 
-*/
+ * Matt Farrugia < farrugiam@student.unimelb.edu.au >
+ */
 using System;
 using UnityEngine;
 using System.Collections.Generic;
