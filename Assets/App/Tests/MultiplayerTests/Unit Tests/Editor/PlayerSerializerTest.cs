@@ -55,7 +55,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 
 			// Check to see the new data is the same as the original
 			for (int i=0; i<data.Count; i++) {
-				Assert.That(resultingData [i] == data [i]);
+				Assert.AreEqual(resultingData [i], data [i]);
 			}
 		}
 
@@ -68,7 +68,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			List<byte> expectedData = data2 ();
 
 			for (int i=0; i<data.Count; i++) {
-				Assert.That(data [i] == expectedData [i]);
+				Assert.AreEqual(data [i], expectedData [i]);
 			}
 		}
 
