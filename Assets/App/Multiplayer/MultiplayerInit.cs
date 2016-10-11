@@ -25,6 +25,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
+		/// According to monodevelop's intelligent documentation generator, this method
+		/// 'Ins the editor init'. Well, I think that just about says it all!
+		/// 
+		/// (Actually, this method initialises the components and objects inside a
+		///  level, specifically in a way to play a multiplayer game inside the unity
+		///  editor, rather than on a device)
 		static void InEditorInit (GameObject level){
 
 			// Get player1 and player2 game objects
@@ -39,7 +45,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// Tell update manager about the serialiser for player 2 so updates get recieved
 			player2.GetComponent<PlayerSerializer> ().enabled = true;
-			updateManager.Subscribe(player2.GetComponent<PlayerSerializer> ());
+			updateManager.Subscribe(player2.GetComponent<PlayerSerializer> (), UpdateManager.Channel.PLAYER);
 
 			// Make sure one player is local
 			player1.GetComponent<LocalPlayerController> ().enabled = true;
@@ -90,9 +96,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		}
 
+		/// Set up a level and its child objects and their components to
+		/// play a multi-player game, deciding who is the host and enabling
+		/// all of the necessary components
 		/// 
-		/// 
-		void OnAndroidInit(GameObject level){
+		static void OnAndroidInit(GameObject level){
 
 
 			// decide which player is the host by participant ID
@@ -150,7 +158,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// set up objects and their components!
 
-			InitializePlayers (localPlayer, remotePlayer);
+			InitializePlayers (localPlayer, remotePlayer, updateManager);
 
 
 			if (host) {
@@ -163,7 +171,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		}
 
-		void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){
+		static void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){
 
 			// enable the controller components
 
@@ -186,7 +194,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		}
 
-		void InitializeObstaclesHost(GameObject level, UpdateManager updateManager){
+		static void InitializeObstaclesHost(GameObject level, UpdateManager updateManager){
 
 			// on the host side, keys, key blocks and pressure playes should
 			// all respond to collisions, not remote updates!
@@ -238,7 +246,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		}
 
-		void InitializeObstaclesClient(GameObject level, UpdateManager updateManager){
+		static void InitializeObstaclesClient(GameObject level, UpdateManager updateManager){
 
 			// on the client side, there's no need to control keys and stuff via
 			// collisions! they should just respond to network updates through their
