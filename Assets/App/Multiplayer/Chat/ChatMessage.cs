@@ -18,28 +18,28 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // did I send this message?
         bool localPlayerMsg;
 
-        // Use this for initialization
+        /// Use this for initialization
         public ChatMessage(string message, bool localPlayerMsg) {
             this.message = message;
             this.localPlayerMsg = localPlayerMsg;
         }
 
-        // return the message
+        /// return the message
         public string getMessage() {
             return this.message;
         }
 
-        // See if this message was sent by local player
+        /// See if this message was sent by local player
         public bool getLocalMsg() {
             return this.localPlayerMsg;
         }
 
-        // set the message
+        /// set the message
         public void setMessage(string message) {
             this.message = message;
         }
 
-        // Mark this message as having been sent by the local player
+        /// Mark this message as having been sent by the local player
         public void setLocalPlayerMsg(bool localPlayerMsg) {
             this.localPlayerMsg = localPlayerMsg;
         }

@@ -37,34 +37,31 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// Fill out last positions with dummys
 			lastInfo = null;
-            
+			
 		}
 
-		// Called at set intervals, used to let update manager know there is an update
+		/// Called at set intervals, used to let update manager know there is an update
 		void FixedUpdate () {
 			// Stores current state
 			List<byte> update;
-            //UILogger.Log("in fixed update");
 			// Stores current information about the player
 			PlayerInformation info;
 
 			// Only send if there is an update manager to send to and the transform is found
 			if (updateManager != null) {
-                //UILogger.Log("counting down");
-                // If it's time to send another update
-                if (stepsUntilSend < 1) {
+
+				// If it's time to send another update
+				if (stepsUntilSend < 1) {
 					 
 					// Read information about the player currently
 					info = new PlayerInformation (localController.GetPosition (), localController.GetVelocity ());
 
 					// If the update is different to the last one sent
 					if (!info.Equals(lastInfo)) {
-                        //UILogger.Log("Serializing");
-                        // Get the update to be sent
-                        update = Serialize (info);
+						// Get the update to be sent
+						update = Serialize (info);
 
 						Debug.Log ("Serializing");
-                        
 
 						// Send the update
 						Send (update);
@@ -86,30 +83,28 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		// Tell this object there is an update from an observable
+		/// Tell this object there is an update from an observable
 		public void Notify (List<byte> message)
 		{
 			PlayerInformation info = Deserialize (message);
 			Apply (info);
 		}
 
-		// Let updateManager know there is an update
+		/// Let updateManager know there is an update
 		private void Send (List<byte> message)
 		{
 			updateManager.SendPlayerUpdate (message);
 		}
 
-		// Applies information in info to the player this serializer is attatched to
+		/// Applies information in info to the player this serializer is attatched to
 		private void Apply(PlayerInformation info) {
 			remoteController.SetState (info.pos, info.vel);
 		}
 
-		// Takes an update and applies it to this serializer's object
+		/// Takes an update and applies it to this serializer's object
 		public PlayerInformation Deserialize(List<byte> update)
 		{
-            //UILogger.Log("Deserializing");
-
-            float posx, posy;
+			float posx, posy;
 			float velx, vely;
 			byte[] data = update.ToArray ();
 
@@ -130,7 +125,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			return new PlayerInformation(new Vector2 (posx, posy), new Vector2 (velx, vely));
 		}
 
-		// Takes the state of this object and turns it into an update
+		/// Takes the state of this object and turns it into an update
 		public List<byte> Serialize(PlayerInformation info)
 		{
 			// initialize list to return

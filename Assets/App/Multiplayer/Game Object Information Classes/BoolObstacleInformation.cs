@@ -1,5 +1,13 @@
 ﻿using System;
 
+/*
+ * This class is used to store information about  static obstacles 
+ * and their current state in the game.
+ * 
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+*/
+
 namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class BoolObstacleInformation
@@ -7,12 +15,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public readonly byte ID;		// ID to uniquley identify the obstacle
 		public readonly bool state;		// State of the obstacle
 
+		/// Use this for initialisation
 		public BoolObstacleInformation (byte ID, bool state)
 		{
 			this.ID = ID;
 			this.state = state;
 		}
 
+		/// Check if two objects are equal
 		public override bool Equals(System.Object obj)
 		{
 			// If parameter is null return false.
@@ -32,6 +42,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			return (info.ID == ID && info.state == state);
 		}
 
+		/// Check if two objects of type BoolObstacleInformation are equal
 		public bool Equals(BoolObstacleInformation info)
 		{
 			// If parameter is null return false:

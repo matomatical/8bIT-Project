@@ -22,9 +22,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		static bool editor = false;
         static bool uiLogger = true;
         #endif
-
-
-
+        
         // The protcol being used to attatch the header
         public static readonly byte PROTOCOL_VERSION = 0;
 		// Obstacle update identifier

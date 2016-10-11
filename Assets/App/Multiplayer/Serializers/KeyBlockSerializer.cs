@@ -30,7 +30,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			return block.IsOpen();
 		}
 
-		// When notified, update the key this script is associated with
+		/// When notified, update the key this script is associated with
 		public override void Notify (List<byte> message) {
 
 			// Deserialize the message

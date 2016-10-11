@@ -1,6 +1,6 @@
 ﻿/*
  * The multiplayer serializer for Pressure Plate game objects
- * Used for representation of the state of the object as a list of bytes and updating the state of from a list of bytes.
+ * Used for representation of the state of the object as a list of bytes and updating the state from a list of bytes.
  *
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >

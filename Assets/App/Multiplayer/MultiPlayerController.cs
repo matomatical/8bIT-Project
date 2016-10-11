@@ -1,5 +1,5 @@
 ﻿/*
- * Acts a controller for the multiplayer side of the game
+ * Acts as a controller for the multiplayer side of the game
  * Works as an interface between the game and Google Play
  * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
@@ -21,7 +21,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public IRoomListener roomListener;
 		public IUpdateManager updateManager;
 
-		// Making this a singleton as it'll be used in both the main menu and the game
+		// Making this a singleton
 		private static MultiPlayerController _instance = null;
 
 		// Sticking to a 2 player game
@@ -36,14 +36,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 
 
-		// initialises the Multiplayer controller instance
+		/// initialises the Multiplayer controller instance
 		protected MultiPlayerController()
 		{
 			PlayGamesPlatform.DebugLogEnabled = true;
 			PlayGamesPlatform.Activate();
 		}
 
-		// makes multiplayer controller a singleton
+		/// makes multiplayer controller a singleton
 		public static MultiPlayerController Instance
 		{
 			get
@@ -56,19 +56,19 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		// Start a new Multiplayer game by looking for someone to play with
+		/// Start a new Multiplayer game by looking for someone to play with
 		public virtual void StartMPGame()
 		{
 			StartMatchMaking();
 		}
 
-		// Look for a suitable partner to play the game with
+		/// Look for a suitable partner to play the game with
 		private void StartMatchMaking()
 		{
 			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 		}
 
-		// Let's the player know how the matchmaking process is going
+		/// Let's the player know how the matchmaking process is going
 		private void ShowMPStatus(string message)
 		{
 			Debug.Log(message);
@@ -78,13 +78,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		// How's progress with setting up the room?
+		/// How's progress with setting up the room?
 		public virtual void OnRoomSetupProgress(float percent)
 		{
 			ShowMPStatus("We are " + percent + "% done with setup");
 		}
 
-		// After connection is established go to the level specified, otherwise print an error message
+		/// After connection is established go to the level specified, otherwise print an error message
 		public virtual void OnRoomConnected(bool success)
 		{
 			if (success)
@@ -100,25 +100,23 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		// What to do if the player leaves the room.
-		// NOTE : Have still to handle this properly
+		/// What to do if the player leaves the room.
 		public virtual void OnLeftRoom()
 		{
 			ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
-            UILogger.Log("On left room");
-            UIHelper.LeftGameMenu();
+			UIHelper.LeftGameMenu();
 
-        }
+		}
 
-		// What to do when a particular player leaves the room
+		/// What to do when a particular player leaves the room
 		public virtual void OnParticipantLeft(Participant participant)
 		{
 			ShowMPStatus("Player " + participant.DisplayName + " has left.");
-            UIHelper.LeftGameMenu();
+			UIHelper.LeftGameMenu();
 
-        }
+		}
 
-		// What to do when a player has joined the room
+		/// What to do when a player has joined the room
 		public virtual void OnPeersConnected(string[] participantIds)
 		{
 			foreach (string participantID in participantIds)
@@ -127,14 +125,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		// What to do when players leave the room
+		/// What to do when players leave the room
 		public virtual void OnPeersDisconnected(string[] participantIds)
 		{
 			foreach (string participantID in participantIds)
 			{
 				ShowMPStatus("Player " + participantID + " has left.");
-                UIHelper.LeftGameMenu();
-            }
+				UIHelper.LeftGameMenu();
+			}
 		}
 
 		/* Called when an update is recieved from a peer
@@ -156,30 +154,30 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		// Get a list of all Participants in the room
+		/// Get a list of all Participants in the room
 		public virtual List<Participant> GetAllPlayers()
 		{
 			return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
 		}
 
-		// Returns the ParticipantID of the device
+		/// Returns the ParticipantID of the device
 		public virtual string GetMyParticipantId()
 		{
 			return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
 		}
 
-		// Sends an update to all participants in the room using the reliable protocol
+		/// Sends an update to all participants in the room using the reliable protocol
 		public virtual void SendMyReliable(List<byte> data)
 		{
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, data.ToArray ());
 		}
 
-		// Sends an update to all participants in the room using the unreliable protocol
+		/// Sends an update to all participants in the room using the unreliable protocol
 		public virtual void SendMyUnreliable(List<byte> data)
 		{
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
 		}
 
-        
-    }
+		
+	}
 }

@@ -24,64 +24,72 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // The OS keyboard
         private TouchScreenKeyboard keyboard;
 
-        // Use this for initialization
+        /// Use this for initialization
         void Start() {
             Init();
         }
 
-        // Initialize the chat controller object
+        /// Initialize the chat controller object
         public void Init() {
             chatHistory = new ChatHistory();
             chatGUI = new ChatGUI(chatHistory);
         }
 
 
-        // This is called when the chat icon is pressed on screen. It initialises the device's onscreen keyboard.
+        /// This is called when the chat icon is pressed on screen. 
+        /// It initialises the device's onscreen keyboard.
         public void SendChatMessage() {
             keyboard = TouchScreenKeyboard.Open("Enter message here");
         }
 
-        // Update is called once per frame
+        /// Update is called once per frame
         void Update() {
             List<byte> messageList;
             // If the user is done typing a message, add it to the chat history and send
             if (keyboard != null && keyboard.done) {
+
                 string currMessage = keyboard.text;
                 chatHistory.AddMessage(currMessage, true);
+
                 if (updateManager != null) {
                     messageList = Serialize (currMessage);
                     updateManager.SendTextChat (messageList);
                 }
+
                 keyboard = null;
             }
         }
 
-        // Renders the chat onto the player's screen
+        /// Renders the chat onto the player's screen
         void OnGUI () {
             chatGUI.RenderChatGUI ();
         }
 
-        // Takes a message and adds it to the chat history
+        /// Takes a message and adds it to the chat history
         public void GiveMessage(List<byte> message) {
+
             string strMessage = Deserialize (message);
             chatHistory.AddMessage(strMessage, false);
         }
 
-        // Takes a string of bytes and converts it to the appropriate string representations
+        /// Takes a string of bytes and converts it to the appropriate string representations
         public string Deserialize(List<byte> message) {
             return Encoding.UTF8.GetString (message.ToArray ());
         }
 
-        // Takes a string and converts it to a list of bytes
+        /// Takes a string and converts it to a list of bytes
         public List<byte> Serialize(String message) {
+
             List<byte> ret = new List<byte> ();
+            
             // Turn the string into an array of bytes and that array into a list
             ret.AddRange (Encoding.UTF8.GetBytes (message));
+
             return ret;
         }
 
-        // Returns the chat history
-        public ChatHistory getChatHistory() {
+        /// Returns the chat history
+        public ChatHistory GetChatHistory() {
             return this.chatHistory;
         }
     }

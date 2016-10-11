@@ -47,7 +47,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
             // Since we're only asking for the first 3 messages, make sure that the forst isn't added
 
             ChatHistory topN = new ChatHistory();
-            topN.setHistory(history.MostRecent(3));
+            topN.SetHistory(history.MostRecent(3));
             Assert.That(!topN.ContainsMessage("0"));
         }
 
@@ -60,7 +60,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             // generate 10 random messages
             List<ChatMessage> messages = generateRandomMessages(numMessages);
-            history.setHistory(messages);
+            history.SetHistory(messages);
 
             for (int i=0; i< numMessages; i++) {
                 string message = messages[i].getMessage();
