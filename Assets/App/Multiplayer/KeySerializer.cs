@@ -23,7 +23,18 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// When notified, update the key this script is associated with
 		public override void Notify (List<byte> message) {
-			key.Pickup ();
+
+			// Deserialize the message
+			BoolObstacleInformation info = Deserialize (message);
+
+			// Act on the message
+			if (info.ID == this.ID) {
+				if (info.state) {
+					key.Pickup ();
+				} else {
+					key.Restore ();
+				}
+			}
 		}
 	}
 }

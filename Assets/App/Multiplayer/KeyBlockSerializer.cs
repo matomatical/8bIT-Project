@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.multiplayer
@@ -16,11 +17,26 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			block = GetComponent<KeyBlock>();
 		}
 
-		/// get the actual state of the key block being tracked this frame
+		/// get the actual state of the key block being tracked this serilizer
 		public override bool GetState(){
 			return block.IsOpen();
 		}
 
+		// When notified, update the key this script is associated with
+		public override void Notify (List<byte> message) {
+
+			// Deserialize the message
+			BoolObstacleInformation info = Deserialize (message);
+
+			// Act on the message
+			if (info.ID == this.ID) {
+				if (info.state) {
+					block.Open ();
+				} else {
+					block.Close ();
+				}
+			}
+		}
 	}
 }
 
