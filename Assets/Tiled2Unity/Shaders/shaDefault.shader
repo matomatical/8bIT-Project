@@ -4,7 +4,9 @@
     {
         [PerRendererData] _MainTex ("Tiled Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
+//        _Darker ("Darker", Color) = (0.75,0.75,0.75,1)
         [MaterialToggle] PixelSnap ("Pixel snap", Float) = 1
+//        [MaterialToggle] Darken ("Darken", Float) = 1
     }
 
     SubShader
@@ -29,6 +31,7 @@
             #pragma vertex vert
             #pragma fragment frag
             #pragma multi_compile DUMMY PIXELSNAP_ON
+//            #pragma multi_compile DUMMY DARKEN_ON
             #include "UnityCG.cginc"
 
             struct appdata_t
@@ -47,13 +50,18 @@
 
 
             fixed4 _Color;
+            fixed4 _Darker;
 
             v2f vert(appdata_t IN)
             {
                 v2f OUT;
                 OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
                 OUT.texcoord = IN.texcoord;
+//                #ifdef DARKEN_ON
+//                OUT.color = OUT.color * _Color * _Darker;
+//                #else
                 OUT.color = IN.color * _Color;
+//                #endif
                 #ifdef PIXELSNAP_ON
                 OUT.vertex = UnityPixelSnap (OUT.vertex);
                 #endif

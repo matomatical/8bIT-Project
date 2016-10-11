@@ -40,8 +40,10 @@ namespace xyz._8bITProject.cooperace {
 			UpdateRayOrigins ();
 			
 			CalculateRaySpacing ();
-
+		
 		}
+
+
 
 		void CalculateRaySpacing() {
 
@@ -116,9 +118,33 @@ namespace xyz._8bITProject.cooperace {
 				// cast the actual ray!
 
 				RaycastHit2D hit = Physics2D.Raycast(origin,
-						Vector2.right * direction, magnitude, layers);
+					Vector2.right * direction, magnitude, layers);
 
-				if(hit) {
+				// if there's something and we're layering, we'd better check
+				// all hits to make sure we're in the right layer
+
+				if(hit && ArcadePhysics.layering){
+				
+					if (!ArcadePhysics.SameLayer (hit.collider, this.box)) {
+						// check ALL hits
+
+						RaycastHit2D[] all = Physics2D.RaycastAll(origin,
+							Vector2.right * direction, magnitude, layers);
+
+						// find the closest hit in our physics layer
+						bool first = true;
+						foreach (RaycastHit2D r in all) {
+							if(first || r.distance < hit.distance){
+								if(ArcadePhysics.SameLayer(r.collider, this.box)){
+									hit = r;
+									first = false;
+								}
+							}
+						}
+					}
+				}
+
+				if(hit && (!ArcadePhysics.layering || ArcadePhysics.SameLayer(hit.collider, this.box))) {
 					// if we're decreasing,
 					// update magnitude for remaining raycasts
 					if(decreasing){
@@ -178,12 +204,38 @@ namespace xyz._8bITProject.cooperace {
 				Debug.DrawRay(origin, Vector2.up * direction * magnitude,
 					Color.red);
 
-				RaycastHit2D hit = Physics2D.Raycast(origin,
-					Vector2.up * direction, magnitude, layers);
+
 
 				// cast an actual ray!
 
-				if(hit) {
+				RaycastHit2D hit = Physics2D.Raycast (origin,
+					Vector2.up * direction, magnitude, layers);
+
+				// if there's something and we're layering, we'd better check
+				// all hits to make sure we're in the right layer
+
+				if(hit && ArcadePhysics.layering){
+
+					if (!ArcadePhysics.SameLayer (hit.collider, this.box)) {
+						// check ALL hits
+
+						RaycastHit2D[] all = Physics2D.RaycastAll (origin,
+							Vector2.up * direction, magnitude, layers);
+
+						// find the closest hit in our physics layer
+						bool first = true;
+						foreach (RaycastHit2D r in all) {
+							if(first || r.distance < hit.distance){
+								if(ArcadePhysics.SameLayer(r.collider, this.box)){
+									hit = r;
+									first = false;
+								}
+							}
+						}
+					}
+				}
+
+				if(hit && (!ArcadePhysics.layering || ArcadePhysics.SameLayer(hit.collider, this.box))) {
 					// if we're decreasing,
 					// update magnitude for remaining raycasts
 					if(decreasing){
@@ -245,7 +297,7 @@ namespace xyz._8bITProject.cooperace {
 
 				for(int j = 0; j < hit.Length; j++) {
 
-					if(hit[j]) {
+					if(hit[j] && (!ArcadePhysics.layering || ArcadePhysics.SameLayer(hit[j].collider, this.box))) {
 
 						// remove the skinWidth from the hit's distance
 						hit[j].distance -= skinWidth;
@@ -301,7 +353,7 @@ namespace xyz._8bITProject.cooperace {
 
 				for(int j = 0; j < hit.Length; j++) {
 
-					if(hit[j]) {
+					if(hit[j] && (!ArcadePhysics.layering || ArcadePhysics.SameLayer(hit[j].collider, this.box))) {
 
 						// remove the skinWidth from the hit's distance
 						hit[j].distance -= skinWidth;

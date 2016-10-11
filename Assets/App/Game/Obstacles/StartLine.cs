@@ -12,9 +12,18 @@ using xyz._8bITProject.cooperace.recording;
 namespace xyz._8bITProject.cooperace {
 	public class StartLine : MonoBehaviour {
 
+		/// The Clock to start when we cross the line
 		ClockController clock;
 
-		void Start () {
+		/// Collider for detecting collisions
+		BoxCollider2D box;
+
+		void Start(){
+
+			// link components together
+
+			box = GetComponent<BoxCollider2D> ();
+
 			clock = FindObjectOfType<ClockController> ();
 		}
 
@@ -23,10 +32,16 @@ namespace xyz._8bITProject.cooperace {
 			if (enabled) { // only trigger if this component is on
 
 				// start the clock the first time a player comes through!
-
 				if (other.gameObject.CompareTag ("Player")) {
 
-					clock.StartTiming ();
+					// making sure we're talking about the same level
+					if (ArcadePhysics.SameLayer (other, box)) {
+
+						clock.StartTiming ();
+
+					}
+
+
 				}
 			}
 		}

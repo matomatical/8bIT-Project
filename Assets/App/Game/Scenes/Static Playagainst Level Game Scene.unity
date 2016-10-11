@@ -412,10 +412,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9bbb3b94a9efcc445a3b3067c39f3a40, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &357884850
@@ -534,7 +534,7 @@ GameObject:
   - 114: {fileID: 468406559}
   - 114: {fileID: 468406558}
   - 114: {fileID: 468406557}
-  m_Layer: 17
+  m_Layer: 9
   m_Name: KeyBlock(Clone)__11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -646,10 +646,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3d1b9c024473fda4d8f957c3cb714f22, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &598577671
@@ -664,7 +664,7 @@ GameObject:
   - 212: {fileID: 598577675}
   - 61: {fileID: 598577674}
   - 114: {fileID: 598577673}
-  m_Layer: 17
+  m_Layer: 9
   m_Name: PressurePlateBlock(Clone)__20
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -744,10 +744,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1b669e2b557db6746adc1c6ecda4a88e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1001 &615207389
@@ -1002,10 +1002,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a09504c59960af84e99534b3ea149e97, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!4 &734229128
@@ -1354,7 +1354,7 @@ GameObject:
   - 60: {fileID: 1088424495}
   - 60: {fileID: 1088424494}
   - 60: {fileID: 1088424493}
-  m_Layer: 16
+  m_Layer: 8
   m_Name: Collision
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1887,10 +1887,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9bbb3b94a9efcc445a3b3067c39f3a40, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1333277810
@@ -2109,10 +2109,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a09504c59960af84e99534b3ea149e97, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!4 &1375853996
@@ -2291,7 +2291,7 @@ GameObject:
   - 212: {fileID: 1486020316}
   - 61: {fileID: 1486020315}
   - 114: {fileID: 1486020314}
-  m_Layer: 17
+  m_Layer: 9
   m_Name: PressurePlateBlock(Clone)__18
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2357,10 +2357,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1b669e2b557db6746adc1c6ecda4a88e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!4 &1486020317
@@ -2474,7 +2474,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9dffc2e3f552642109ca08641fe996a4, type: 2}
+  - {fileID: 2100000, guid: ba64b3cd2b60647eba8b779ce5ba39f7, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -2488,8 +2488,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -1867631319
+  m_SortingOrder: 0
 --- !u!33 &1509305789
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -2513,7 +2513,7 @@ GameObject:
   - 114: {fileID: 1521001901}
   - 114: {fileID: 1521001900}
   - 114: {fileID: 1521001899}
-  m_Layer: 17
+  m_Layer: 9
   m_Name: KeyBlock(Clone)__10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2625,10 +2625,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3d1b9c024473fda4d8f957c3cb714f22, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1533303175
@@ -2726,6 +2726,7 @@ GameObject:
   - 4: {fileID: 1612728867}
   - 114: {fileID: 1502640087}
   - 114: {fileID: 1612728868}
+  - 114: {fileID: 1612728869}
   m_Layer: 0
   m_Name: Tutorious (1)
   m_TagString: Untagged
@@ -2741,7 +2742,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1612728866}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.8, y: 7.7, z: 0}
+  m_LocalPosition: {x: -21.2, y: 10.3, z: 0}
   m_LocalScale: {x: 0.8, y: 0.8, z: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -2763,6 +2764,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   level: {fileID: 940935333}
   cam: {fileID: 1961636743}
+  shift: 1
+--- !u!114 &1612728869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612728866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d16d5b44b875c4b0081d74c11f2b5c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1622647434 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000012803512108, guid: 00462364bb0bb4cda88189d1aeafe1e2,
@@ -2781,7 +2794,7 @@ GameObject:
   - 212: {fileID: 1680992685}
   - 61: {fileID: 1680992684}
   - 114: {fileID: 1680992683}
-  m_Layer: 17
+  m_Layer: 9
   m_Name: PressurePlateBlock(Clone)__17
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2847,10 +2860,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1b669e2b557db6746adc1c6ecda4a88e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!4 &1680992686
@@ -2886,7 +2899,7 @@ GameObject:
   - 114: {fileID: 1840672551}
   - 114: {fileID: 1840672550}
   - 114: {fileID: 1840672549}
-  m_Layer: 18
+  m_Layer: 10
   m_Name: Player(Clone)__1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2960,7 +2973,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 196608
+    m_Bits: 768
   maxJumpHeight: 4
   minJumpHeight: 1
   maxMoveSpeed: 6
@@ -3069,10 +3082,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 107545657
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: eabd4417526cf4cac92d940aa06ba4d9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1906760897
@@ -3094,7 +3107,7 @@ GameObject:
   - 114: {fileID: 1906760901}
   - 114: {fileID: 1906760900}
   - 114: {fileID: 1906760899}
-  m_Layer: 18
+  m_Layer: 10
   m_Name: Player(Clone)__0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3168,7 +3181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collisionMask:
     serializedVersion: 2
-    m_Bits: 196608
+    m_Bits: 768
   maxJumpHeight: 4
   minJumpHeight: 1
   maxMoveSpeed: 6
@@ -3277,10 +3290,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 107545657
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: eabd4417526cf4cac92d940aa06ba4d9, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!1 &1945517443
@@ -3299,7 +3312,7 @@ GameObject:
   - 114: {fileID: 1945517447}
   - 114: {fileID: 1945517446}
   - 114: {fileID: 1945517445}
-  m_Layer: 17
+  m_Layer: 9
   m_Name: PushBlock(Clone)__2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3439,10 +3452,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3737a0111b1bdef43b0402a1115a0152, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!20 &1961636743 stripped
@@ -3462,7 +3475,7 @@ GameObject:
   - 212: {fileID: 1995565408}
   - 61: {fileID: 1995565407}
   - 114: {fileID: 1995565406}
-  m_Layer: 17
+  m_Layer: 9
   m_Name: PressurePlateBlock(Clone)__19
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3528,10 +3541,10 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1867631319
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1b669e2b557db6746adc1c6ecda4a88e, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
   m_FlipX: 0
   m_FlipY: 0
 --- !u!4 &1995565409

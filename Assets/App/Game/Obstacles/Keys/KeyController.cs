@@ -16,14 +16,24 @@ namespace xyz._8bITProject.cooperace {
 	[RequireComponent (typeof(Key))]
 	public class KeyController : MonoBehaviour {
 
+		/// The key object we're controlling
 		Key key;
 
+		/// Collider for detecting collisions
+		BoxCollider2D box;
+
 		void Start(){
-			key = GetComponent<Key>();
+
+			// link components
+
+			key = GetComponent<Key> ();
+			box = GetComponent<BoxCollider2D> ();
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {
-			if (enabled) { // only trigger if this component is on
+			// only trigger if this component is on and
+			// inside the same physics layer
+			if (enabled && ArcadePhysics.SameLayer(other, box)) {
 				
 				// if the key collides with another game object that has a
 				// KeyHolder component that isn't already holding a key object,

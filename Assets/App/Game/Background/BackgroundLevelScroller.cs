@@ -14,8 +14,10 @@ namespace xyz._8bITProject.cooperace {
 		public TiledMap level;
 		public Camera cam;
 
-		private Vector2 levelCenter; // position of the target level's center
-		private Vector2 scrollCenter; // position of this level's center
+		public float shift = 2;
+
+		private Vector2 center; // position of the target level's center
+		private Vector2 offset; // position of this level's center
 
 		float scalex, scaley;
 
@@ -33,21 +35,19 @@ namespace xyz._8bITProject.cooperace {
 
 			Vector2 corner = level.transform.position;
 
-			levelCenter = new Vector2(corner.x + levelx/2, corner.y - levely/2);
-
-			Vector2 scrollingCorner = scrollingLevel.transform.position;
-			scrollCenter = new Vector2(scrollingCorner.x + scrollx/2, scrollingCorner.y - scrolly/2);
+			center = new Vector2(corner.x + levelx/2, corner.y - levely/2);
 
 			scalex = (float)((levelx - scrollx) / (levelx - camerax));
 
 			scaley = (float)((levely - scrolly) / (levely - cameray));
+
+			offset = new Vector2(- scrollx/2, scrolly/2);
 		}
 
 		void LateUpdate () {
-			transform.position = (Vector3)scrollCenter +
-				new Vector3 (
-					levelCenter.x + (cam.transform.position.x - levelCenter.x) * scalex,
-					levelCenter.y + (cam.transform.position.y - levelCenter.y) * scaley,
+			transform.position = new Vector3 (
+					center.x + (cam.transform.position.x - center.x) * scalex + offset.x,
+					center.y + (cam.transform.position.y - center.y) * scaley + offset.y + shift,
 					transform.position.z
 				);
 		}
