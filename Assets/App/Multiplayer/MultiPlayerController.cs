@@ -106,7 +106,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
 			ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
             UILogger.Log("On left room");
-            //LeaveGame();
+            UIHelper.LeftGameMenu();
 
         }
 
@@ -114,8 +114,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public virtual void OnParticipantLeft(Participant participant)
 		{
 			ShowMPStatus("Player " + participant.DisplayName + " has left.");
-            //UILogger.Log("OnParticipantLeft - player just left");
-            LeaveGame();
+            UIHelper.LeftGameMenu();
 
         }
 
@@ -134,10 +133,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			foreach (string participantID in participantIds)
 			{
 				ShowMPStatus("Player " + participantID + " has left.");
-				//UILogger.Log("OnPeersDisconnected - player just left");
-                LeaveGame();
-                //GameObject menu = GameObject.Find("PlayerDisconnectedMenu");
-                //menu.SetActive(true);
+                UIHelper.LeftGameMenu();
             }
 		}
 
@@ -184,33 +180,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
 		}
 
-        // Causes the player to leave the game
-		public void LeaveGame() {
-            //Debug.Log("Leave game was called");
-            GameObject gui = GameObject.Find("In-Game GUI");
-            //this.transform.FindChild("KillZone").gameObject;
-            /*
-            if (gui) {
-                UILogger.Log("gui found");
-            }
-            else {
-                UILogger.Log("gui not found");
-            }*/
-
-
-            //GameObject menu = GameObject.Find("In-Game GUI/PlayerDisconnectedMenu");
-
-            GameObject menu = gui.transform.FindChild("PlayerDisconnectedMenu").gameObject;
-            /*
-            if (menu) {
-                UILogger.Log("menu was found");
-            }
-            else {
-                UILogger.Log("menu was not found....fuck");
-            }*/
-            menu.SetActive(true);
-            //UILogger.Log("menu should now be active");
-
-        }
+        
     }
 }

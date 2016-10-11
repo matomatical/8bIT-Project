@@ -43,6 +43,15 @@ public class UIHelper : MonoBehaviour {
 		go.SetActive(!go.activeSelf);
 	}
 
+    // If your partner leaves the game, it brings up the left game menu
+    public static void LeftGameMenu() {
+        GameObject gui = GameObject.Find("In-Game GUI");
+
+        GameObject menu = gui.transform.FindChild("PlayerDisconnectedMenu").gameObject;
+        GameObject controlls = gui.transform.FindChild("OnScreenControlls").gameObject;
+        menu.SetActive(true);
+        controlls.SetActive(false);
+    }
 
 
 }
