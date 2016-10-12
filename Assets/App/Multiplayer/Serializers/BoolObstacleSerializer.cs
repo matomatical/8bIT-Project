@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		private bool IDSet = false;				// A unique ID has been assigned
 		private bool lastState;					// The last known state of this obstacle
 		private bool firstRun = true;			// Used to detect if HasChanged has been run before
-		private readonly byte BITS_IN_BYTE = 8;	// The number of bits in a byte minus 1
+		private readonly byte BITS_IN_BYTE = 8;	// The number of bits in a byte
 
 		/// Assign this serialiser a unique id,
 		/// synched between devices, so that it
@@ -32,6 +32,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
 		void FixedUpdate () {
 			if (HasChanged ()) {
+				UILogger.Log (string.Format ("ObjectID: {0}, sending", ID));
 				updateManager.SendObstacleUpdate (Serialize (new BoolObstacleInformation(ID, GetState ())));
 			}
 		}

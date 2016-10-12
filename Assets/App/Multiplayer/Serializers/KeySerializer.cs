@@ -43,6 +43,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					key.Restore ();
 				}
 			}
+
+			UILogger.Log (string.Format ("ObjectID: {0}, recieved (key)", info.ID));
 		}
 	}
 }

@@ -44,6 +44,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					block.Close ();
 				}
 			}
+
+			UILogger.Log (string.Format ("ObjectID: {0}, recieved (key block)", info.ID));
+
 		}
 	}
 }

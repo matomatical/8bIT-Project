@@ -108,7 +108,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						
                         if (header[1] == PLAYER) {
                             Debug.Log("Notifying everyone on the player channel");
-                            if (uiLogger) UILogger.Log("recieved player update");
+                            // if (uiLogger) UILogger.Log("recieved player update");
 
 							// Notify player subscribers of player updates
                             NotifyAll(data, Channel.PLAYER);
@@ -175,7 +175,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
             }
             
 			Debug.Log ("Sending player update");
-            if (uiLogger) UILogger.Log("sending player udpate");
+            // if (uiLogger) UILogger.Log("sending player udpate");
         }
 
 		// Sends an update for a chat message
