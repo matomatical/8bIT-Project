@@ -13,7 +13,7 @@ using System;
 */
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class PushBlockSerializer : DynamicObstacleSerializer {
+    public class PushBlockSerializer : DynamicObjectSerializer {
         // The push block controller that is used to send the updates
         private PushBlockController localPushBlockController;
 
@@ -83,7 +83,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         /// Let updateManager know there is an update
 		protected override void Send(List<byte> message) {
-            updateManager.SendPlayerUpdate(message);
+            updateManager.SendPushBlockUpdate(message);
         }
     }
 }

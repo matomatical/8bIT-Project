@@ -178,8 +178,23 @@ namespace xyz._8bITProject.cooperace.multiplayer
             // if (uiLogger) UILogger.Log("sending player udpate");
         }
 
-		// Sends an update for a chat message
-		public void SendTextChat (List<byte> data)
+        // Sends an update for a pushblock
+        public void SendPushBlockUpdate(List<byte> data) {
+            HeaderManager.ApplyHeader(data, PUSHBLOCK);
+            if (editor) {
+                HandleUpdate(data, "memes");
+            }
+            else {
+                MultiPlayerController.Instance.SendMyReliable(data);
+            }
+
+            Debug.Log("Sending push block update");
+            // if (uiLogger) UILogger.Log("sending player udpate");
+        }
+
+
+        // Sends an update for a chat message
+        public void SendTextChat (List<byte> data)
 		{
             HeaderManager.ApplyHeader(data, CHAT);
 			if (editor) {
@@ -188,7 +203,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				MultiPlayerController.Instance.SendMyReliable (data);	
 			}
 			Debug.Log ("Sending chat message");
-            if (uiLogger) UILogger.Log("Sending chat message");
+            //if (uiLogger) UILogger.Log("Sending chat message");
         }
 
 	}

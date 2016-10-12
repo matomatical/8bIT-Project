@@ -261,11 +261,11 @@ namespace xyz._8bITProject.cooperace {
 				id++;
 			}
 
-			DynamicObstacleSerializer[] dynamics = mapPrefab
-				.GetComponentsInChildren<DynamicObstacleSerializer> ()
+			DynamicObjectSerializer[] dynamics = mapPrefab
+				.GetComponentsInChildren<DynamicObjectSerializer> ()
 				.OrderBy(gameObject => gameObject.name ).ToArray();
 
-			foreach(DynamicObstacleSerializer d in dynamics){
+			foreach(DynamicObjectSerializer d in dynamics){
 
 				d.SetID(id++);
 			}

@@ -20,5 +20,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void SendObstacleUpdate (List<byte> data);
 		void SendPlayerUpdate (List<byte> data);
 		void SendTextChat(List<byte> data);
+        void SendPushBlockUpdate(List<byte> data);
 	}
 }

@@ -15,7 +15,7 @@ using System;
 
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class DynamicObstacleSerializer : MonoBehaviour,  ISerializer<DynamicObjectInformation> {
+    public class DynamicObjectSerializer : MonoBehaviour,  ISerializer<DynamicObjectInformation> {
         
 		[SerializeField]
         protected byte ID;                     // The unique ID of the obstacle.

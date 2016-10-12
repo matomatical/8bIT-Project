@@ -12,7 +12,7 @@ using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
-	public class PlayerSerializer : DynamicObstacleSerializer
+	public class PlayerSerializer : DynamicObjectSerializer
 	{
 		private LocalPlayerController localController;
 
