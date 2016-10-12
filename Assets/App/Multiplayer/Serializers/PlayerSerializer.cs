@@ -36,7 +36,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void FixedUpdate () {
 			// Stores current state
 			List<byte> update;
-			// Stores current information about the player
+			
+            // Stores current information about the player
 			DynamicObjectInformation info;
 
 			// Only send if there is an update manager to send to and the transform is found
@@ -53,7 +54,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						// Get the update to be sent
 						update = Serialize (info);
 
-						Debug.Log ("Serializing");
+						Debug.Log ("Serializing new update posx = " + info.pos.x + " pos y = " + info.pos.y);
 
 						// Send the update
 						Send (update);

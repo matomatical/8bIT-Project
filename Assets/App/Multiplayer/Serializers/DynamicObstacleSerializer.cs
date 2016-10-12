@@ -77,6 +77,8 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             Apply(info);
         }
         protected void Apply(DynamicObjectInformation information) {
+            Debug.Log("apply the update");
+            Debug.Log("pos x = " + information.pos.x + " pos y = " + information.pos.y);
             remoteController.SetState(information.pos, information.vel);
         }
 

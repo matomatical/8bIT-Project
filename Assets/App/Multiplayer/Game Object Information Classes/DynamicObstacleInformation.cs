@@ -21,7 +21,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         /// Use this for initialisation
         public DynamicObjectInformation(Vector2 pos, Vector2 vel) {
             this.pos = pos;
-            this.pos = vel;
+            this.vel = vel;
         }
 
         /// Check if two objects are equal
