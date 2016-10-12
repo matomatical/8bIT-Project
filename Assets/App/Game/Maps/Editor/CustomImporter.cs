@@ -8,6 +8,8 @@
 using UnityEngine;
 using Tiled2Unity;
 using System.Collections.Generic;
+using System.Linq;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace {
 	[CustomTiledImporter]
@@ -131,6 +133,10 @@ namespace xyz._8bITProject.cooperace {
 			// setup links between pressure plates and blocks
 
 			LinkObstacles (mapPrefab);
+
+			// Set up ids for boolean object serialisers
+
+			SetIDs (mapPrefab);
 		}
 
 		// Helper method to create exits colliders around a level
@@ -178,7 +184,7 @@ namespace xyz._8bITProject.cooperace {
 			exit.transform.localScale = new Vector3(scaleX, scaleY, 0);
 		}
 
-		// helper method to 
+		// helper method to link together all pressure plates and blocks
 		void LinkObstacles(GameObject mapPrefab){
 			
 			// first group all plates and blocks by address
@@ -234,5 +240,33 @@ namespace xyz._8bITProject.cooperace {
 			
 			return groups;
 		}
+
+		// helper method to link together all pressure plates and blocks
+		void SetIDs(GameObject mapPrefab){
+
+			// assign serialiser IDs to obstacles
+
+			byte id = 0;
+
+			BoolObstacleSerializer[] bools = mapPrefab
+				.GetComponentsInChildren<BoolObstacleSerializer> ()
+				.OrderBy(gameObject => gameObject.name ).ToArray ();
+
+			foreach(BoolObstacleSerializer b in bools){
+
+				b.SetID(id++);
+			}
+
+			DynamicObstacleSerializer[] dynamics = mapPrefab
+				.GetComponentsInChildren<DynamicObstacleSerializer> ()
+				.OrderBy(gameObject => gameObject.name ).ToArray();
+
+			foreach(DynamicObstacleSerializer d in dynamics){
+
+				d.SetID(id++);
+			}
+
+		}
+
 	}
 }

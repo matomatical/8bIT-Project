@@ -125,17 +125,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				updateManager.Subscribe(obstacle, UpdateManager.Channel.OBSTACLE);
 			}
 
-			// assign serialiser IDs to obstacles
-
-			byte id = 0;
-
-			foreach(BoolObstacleSerializer obstacle in
-				level.GetComponentsInChildren<BoolObstacleSerializer> ()
-				.OrderBy(gameObject => gameObject.name )){
-
-				obstacle.SetID (id);
-				id++;
-			}
 
 		}
 
@@ -213,30 +202,30 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 
-			// assign serialiser IDs to obstacles
-
-			byte id = 0;
-
-			foreach(BoolObstacleSerializer obstacle in
-					level.GetComponentsInChildren<BoolObstacleSerializer> ()
-					.OrderBy(gameObject => gameObject.name )){
-
-				if (!editor)
-					UILogger.Log (string.Format("Obstacle given ID {0}", id));
-				
-				obstacle.SetID (id);
-				id++;
-			}
-
-			foreach(PushBlockSerializer obstacle in
-				level.GetComponentsInChildren<PushBlockSerializer> ()
-				.OrderBy(gameObject => gameObject.name )){
-
-				// TODO: implement ID's with push block serialisers
-
-				// obstacle.SetID (id);
-				id++;
-			}
+//			// assign serialiser IDs to obstacles
+//
+//			byte id = 0;
+//
+//			foreach(BoolObstacleSerializer obstacle in
+//					level.GetComponentsInChildren<BoolObstacleSerializer> ()
+//					.OrderBy(gameObject => gameObject.name )){
+//
+//				if (!editor)
+//					UILogger.Log (string.Format("Obstacle given ID {0}", id));
+//				
+////				obstacle.SetID (id);
+//				id++;
+//			}
+//
+//			foreach(PushBlockSerializer obstacle in
+//				level.GetComponentsInChildren<PushBlockSerializer> ()
+//				.OrderBy(gameObject => gameObject.name )){
+//
+//				// TODO: implement ID's with push block serialisers
+//
+//				// obstacle.SetID (id);
+//				id++;
+//			}
 
 		}
 
