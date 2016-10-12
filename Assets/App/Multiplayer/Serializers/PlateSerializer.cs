@@ -43,6 +43,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 					plate.Release();
 				}
 			}
+
+			UILogger.Log (string.Format ("ObjectID: {0}, recieved (plate)", info.ID));
+
 		}
 	}
 }

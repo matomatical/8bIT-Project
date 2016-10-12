@@ -221,6 +221,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					level.GetComponentsInChildren<BoolObstacleSerializer> ()
 					.OrderBy(gameObject => gameObject.name )){
 
+				if (!editor)
+					UILogger.Log (string.Format("Obstacle given ID {0}", id));
+				
 				obstacle.SetID (id);
 				id++;
 			}
