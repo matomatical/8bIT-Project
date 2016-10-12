@@ -10,15 +10,20 @@ namespace xyz._8bITProject.cooperace.recording{
 		}
 
 		void OnTriggerEnter2D(Collider2D other){
-			if (other.gameObject.CompareTag ("Player")) {
-				RecordingController controller = FindObjectOfType<RecordingController> ();
 
-				controller.EndRecording ();
-				Recording.jsonRecordingString = controller.GetRecording ();
+			if (enabled) { // only trigger if this component is on
+				
+				if (other.gameObject.CompareTag ("Player")) {
 
-//				Debug.Log (Recording.jsonRecordingString);
+					RecordingController controller = FindObjectOfType<RecordingController> ();
 
-				SceneManager.Load ("Static Replay Level Game Scene");
+					controller.EndRecording ();
+					Recording.jsonRecordingString = controller.GetRecording ();
+
+					// Debug.Log (Recording.jsonRecordingString);
+
+					SceneManager.Load ("Static Replay Level Game Scene");
+				}
 			}
 		}
 	}
