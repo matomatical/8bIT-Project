@@ -9,17 +9,17 @@ using System.Collections;
 */
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class DynamicObstacleInformation : MonoBehaviour {
+    public class DynamicObjectInformation : MonoBehaviour {
 
         // The position of the obstacle
         public readonly Vector2 pos;
         public readonly Vector2 vel;
 
         // Keeps track of the last update to see if anything has changed
-        private DynamicObstacleInformation lastInfo;
+        private DynamicObjectInformation lastInfo;
 
         /// Use this for initialisation
-        public DynamicObstacleInformation(Vector2 pos, Vector2 vel) {
+        public DynamicObjectInformation(Vector2 pos, Vector2 vel) {
             this.pos = pos;
             this.pos = vel;
         }
@@ -32,7 +32,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             }
 
             // If parameter cannot be cast to Point return false.
-            DynamicObstacleInformation info = obj as DynamicObstacleInformation;
+            DynamicObjectInformation info = obj as DynamicObjectInformation;
             if ((System.Object)info == null) {
                 return false;
             }
@@ -42,7 +42,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
         /// Check if two objects of type BoolObstacleInformation are equal
-        public bool Equals(DynamicObstacleInformation info) {
+        public bool Equals(DynamicObjectInformation info) {
             // If parameter is null return false:
             if ((object)info == null) {
                 return false;

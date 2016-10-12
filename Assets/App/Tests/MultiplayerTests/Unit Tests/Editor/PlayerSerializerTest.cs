@@ -30,14 +30,14 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			PlayerSerializer serializer = new PlayerSerializer ();
 
 			// Serialize some information
-			PlayerInformation info = PlayerInformation1 ();
+			DynamicObjectInformation info = PlayerInformation1 ();
 			List<byte> data = serializer.Serialize (info);
 
 			// Make sure the serializer isn't just spitting out the same thing
 			Assert.That(!info.Equals(data));
 
 			// Deserialize the result
-			PlayerInformation resultingInfo = serializer.Deserialize (data);
+			DynamicObjectInformation resultingInfo = serializer.Deserialize (data);
 
 			// Check the information is the same as the original
 			Assert.That(resultingInfo.Equals(info));
@@ -47,7 +47,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		public void DeserializeSerialize () {
 			PlayerSerializer serializer = new PlayerSerializer ();
 
-			PlayerInformation info;
+			DynamicObjectInformation info;
 			List<byte> data = data2 ();
 			List<byte> resultingData;
 
@@ -70,7 +70,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		public void Serialize () {
 			PlayerSerializer serializer = new PlayerSerializer ();
 
-			PlayerInformation info = PlayerInformation2 ();
+			DynamicObjectInformation info = PlayerInformation2 ();
 			List<byte> data = serializer.Serialize (info);
 			List<byte> expectedData = data2 ();
 
@@ -84,8 +84,8 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			PlayerSerializer serializer = new PlayerSerializer ();
 
 			List<byte> data = data1 ();
-			PlayerInformation info = serializer.Deserialize (data);
-			PlayerInformation expectedInfo = PlayerInformation1 ();
+			DynamicObjectInformation info = serializer.Deserialize (data);
+			DynamicObjectInformation expectedInfo = PlayerInformation1 ();
 			Assert.That (info.Equals (expectedInfo));
 		}
 
@@ -105,12 +105,12 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			// Oh no! Deserialize shouldn't be able to deseralize an empty list...
 		}
 
-		private PlayerInformation PlayerInformation1 () {
-			return new PlayerInformation (new Vector2 (POSX1, POSY1), new Vector2 (VELX1, VELY1));
+		private DynamicObjectInformation PlayerInformation1 () {
+			return new DynamicObjectInformation (new Vector2 (POSX1, POSY1), new Vector2 (VELX1, VELY1));
 		}
 
-		private PlayerInformation PlayerInformation2 () {
-			return new PlayerInformation (new Vector2 (POSX2, POSY2), new Vector2 (VELX2, VELY2));
+		private DynamicObjectInformation PlayerInformation2 () {
+			return new DynamicObjectInformation (new Vector2 (POSX2, POSY2), new Vector2 (VELX2, VELY2));
 		}
 
 		private List<byte> data1 () {

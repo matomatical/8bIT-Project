@@ -20,10 +20,14 @@ namespace xyz._8bITProject.cooperace {
 
 		void OnTriggerEnter2D (Collider2D other) {
 
+			if (enabled) { // only trigger if this component is on
 
-			if (other.gameObject.CompareTag("Player")) {
-				
-				clock.StartTiming ();
+				// start the clock the first time a player comes through!
+
+				if (other.gameObject.CompareTag ("Player")) {
+
+					clock.StartTiming ();
+				}
 			}
 		}
 

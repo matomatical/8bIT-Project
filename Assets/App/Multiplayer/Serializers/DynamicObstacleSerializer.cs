@@ -15,7 +15,7 @@ using System;
 
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class DynamicObstacleSerializer : MonoBehaviour,  ISerializer<DynamicObstacleInformation> {
+    public class DynamicObstacleSerializer : MonoBehaviour,  ISerializer<DynamicObjectInformation> {
         
 		[SerializeField]
         protected byte ID;                     // The unique ID of the obstacle.
@@ -28,10 +28,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         public IUpdateManager updateManager;
 
         // Keeps track of the last update to see if anything has changed
-        protected DynamicObstacleInformation lastInfo;
+        protected DynamicObjectInformation lastInfo;
 
 
-        public List<byte> Serialize(DynamicObstacleInformation information) {
+        public List<byte> Serialize(DynamicObjectInformation information) {
             // initialize list to return
             List<byte> bytes = new List<byte>();
 
@@ -50,7 +50,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             return bytes;
         }
 
-        public DynamicObstacleInformation Deserialize(List<byte> update) {
+        public DynamicObjectInformation Deserialize(List<byte> update) {
             float posx, posy;
             float velx, vely;
             byte[] data = update.ToArray();
@@ -69,14 +69,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             }
 
             // Create and return DynamicObstaceleInformation with the data deserialized
-            return new DynamicObstacleInformation(new Vector2(posx, posy), new Vector2(velx, vely));
+            return new DynamicObjectInformation(new Vector2(posx, posy), new Vector2(velx, vely));
         }
 
         public void Notify(List<byte> message) {
-            DynamicObstacleInformation info = Deserialize(message);
+            DynamicObjectInformation info = Deserialize(message);
             Apply(info);
         }
-        protected void Apply(DynamicObstacleInformation information) {
+        protected void Apply(DynamicObjectInformation information) {
             remoteController.SetState(information.pos, information.vel);
         }
 

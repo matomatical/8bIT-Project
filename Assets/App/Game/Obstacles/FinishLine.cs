@@ -19,10 +19,12 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		void OnTriggerEnter2D (Collider2D other) {
-			// the timer is stopped when the player touches the finish line
-			if (other.gameObject.CompareTag("Player")) {
+			if (enabled) { // only trigger if this component is on
+				// the timer is stopped when the player touches the finish line
+				if (other.gameObject.CompareTag ("Player")) {
 
-				clock.StopTiming();
+					clock.StopTiming ();
+				}
 			}
 		}
 

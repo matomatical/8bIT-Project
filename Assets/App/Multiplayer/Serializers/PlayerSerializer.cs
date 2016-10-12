@@ -37,7 +37,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// Stores current state
 			List<byte> update;
 			// Stores current information about the player
-			DynamicObstacleInformation info;
+			DynamicObjectInformation info;
 
 			// Only send if there is an update manager to send to and the transform is found
 			if (updateManager != null) {
@@ -46,7 +46,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				if (stepsUntilSend < 1) {
 					 
 					// Read information about the player currently
-					info = new DynamicObstacleInformation (localController.GetPosition (), localController.GetVelocity ());
+					info = new DynamicObjectInformation (localController.GetPosition (), localController.GetVelocity ());
 
 					// If the update is different to the last one sent
 					if (!info.Equals(lastInfo)) {

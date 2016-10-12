@@ -40,7 +40,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             List<byte> update;
 
             // Stores current information about the push block
-            DynamicObstacleInformation info;
+            DynamicObjectInformation info;
 
             // Only send if there is an update manager to send to and the transform is found
             if (updateManager != null) {
@@ -49,7 +49,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 if (stepsUntilSend < 1) {
 
                     // Read information about the push block currently
-                    info = new DynamicObstacleInformation(localPushBlockController.GetPosition(), 
+                    info = new DynamicObjectInformation(localPushBlockController.GetPosition(), 
                                                                 localPushBlockController.GetVelocity());
 
                     // If the update is different to the last one sent

@@ -15,7 +15,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 		// Every frame, send an update to the player they should be at 0,0
 		void Update () {
-			serializer.Notify (serializer.Serialize(new PlayerInformation(new Vector2 (0, 0), new Vector2 (0, 0))));
+			serializer.Notify (serializer.Serialize(new DynamicObjectInformation(new Vector2 (0, 0), new Vector2 (0, 0))));
 		}
 	}
 }
