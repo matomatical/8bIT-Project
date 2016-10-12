@@ -351,7 +351,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Act
 
-			string[] results = PersistentStorage.List(Unique(""));
+			string[] results = PersistentStorage.ListFiles(Unique(""));
 
 
 			//Assert
@@ -375,7 +375,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Act
 
-			string[] results = PersistentStorage.List(Unique(""), true);
+			string[] results = PersistentStorage.ListFiles(Unique(""), true);
 
 
 			//Assert
@@ -404,7 +404,7 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 
 			//Act
 
-			string[] results = PersistentStorage.List(Unique(""), true, "*.return");
+			string[] results = PersistentStorage.ListFiles(Unique(""), true, "*.return");
 
 
 			//Assert

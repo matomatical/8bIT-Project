@@ -90,7 +90,7 @@ namespace xyz._8bITProject.cooperace.persistence {
 		/// (In which case all results will be relative paths.)
 		///
 		/// Returns an empty array if the folder doesn't exist.
-		public static string[] List(string relPath, bool recursive=false, string pattern=null) {
+		public static string[] ListFiles(string relPath, bool recursive=false, string pattern=null) {
 			string absPath = GetAbsolute(relPath);
 			string [] results;
 			try {
