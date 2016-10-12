@@ -29,23 +29,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			return plate.IsPressed();
 		}
 
-		/// When notified, update the pressure plate this script is associated with
-		public override void Notify (List<byte> message) {
-
-			// Deserialize the message
-			BoolObstacleInformation info = Deserialize (message);
-
-			// Act on the message
-			if (info.ID == this.ID) {
-				if(info.state){
-					plate.Press();
-				} else {
-					plate.Release();
-				}
+		protected override void SetState(bool state) {
+			
+			if (state) {
+				plate.Press ();
+			} else {
+				plate.Release ();
 			}
-
-			UILogger.Log (string.Format ("ObjectID: {0}, recieved (plate)", info.ID));
-
 		}
 	}
 }

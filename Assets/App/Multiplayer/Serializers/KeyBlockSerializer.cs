@@ -31,22 +31,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 		/// When notified, update the key this script is associated with
-		public override void Notify (List<byte> message) {
+		protected override void SetState (bool state) {
 
-			// Deserialize the message
-			BoolObstacleInformation info = Deserialize (message);
-
-			// Act on the message
-			if (info.ID == this.ID) {
-				if (info.state) {
-					block.Open ();
-				} else {
-					block.Close ();
-				}
+			if (state) {
+				block.Open ();
+			} else {
+				block.Close ();
 			}
-
-			UILogger.Log (string.Format ("ObjectID: {0}, recieved (key block)", info.ID));
-
 		}
 	}
 }

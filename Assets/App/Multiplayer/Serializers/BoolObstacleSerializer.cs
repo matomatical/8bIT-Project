@@ -45,7 +45,25 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// <returns>The state of the obstacle being serialized.</returns>
 		public abstract bool GetState ();
 
-		public abstract void Notify (List<byte> message);
+		/// <summary>
+		/// Sets the state of the gameobject this is attatched to
+		/// </summary>
+		/// <param name="state">The state to be set</param>
+		protected abstract void SetState (bool state);
+
+
+		public void Notify (List<byte> message) {
+			
+			// Deserialize the message
+			BoolObstacleInformation info = Deserialize (message);
+
+			if (info.ID == this.ID) {
+				SetState (info.state);
+			}
+
+			UILogger.Log (string.Format ("ObjectID: {0}, recieved", info.ID));
+
+		}
 
 		/// <summary>
 		/// Determines whether the obstacle has changed since last being called.
