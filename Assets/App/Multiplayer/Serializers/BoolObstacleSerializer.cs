@@ -14,23 +14,21 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public abstract class BoolObstacleSerializer : MonoBehaviour, ISerializer<BoolObstacleInformation> {
 
 		public IUpdateManager updateManager;	// IUpdateManager to send updates to
-		public readonly byte ID;				// The unique ID of the obstacle.
-		private bool IDSet = false;				// A unique ID has been assigned
+		public byte ID;				// The unique ID of the obstacle.
+		private bool IDSet = false;		// A unique ID has been assigned
 		private bool lastState;					// The last known state of this obstacle
 		private bool firstRun = true;			// Used to detect if HasChanged has been run before
 		private readonly byte BITS_IN_BYTE = 8;	// The number of bits in a byte
 
-		// /// Assign this serialiser a unique id,
-		// /// synched between devices, so that it
-		// /// knows which updates are relevant
-		// public void SetID(byte id){
-		// 	UILogger.Log (string.Format ("Trying to set obstacle ID to {0}", id));
-		// 	if (IDSet == false) {
-		// 		UILogger.Log (string.Format ("Setting obstacle ID to {0}", id));
-		// 		this.ID = id;
-		// 		IDSet = true;
-		// 	}
-		// }
+		/// Assign this serialiser a unique id,
+		/// synched between devices, so that it
+		/// knows which updates are relevant
+		public void SetID(byte id){
+			if (IDSet == false) {
+				this.ID = id;
+				IDSet = true;
+			}
+		}
 
 		void FixedUpdate () {
 			if (HasChanged ()) {

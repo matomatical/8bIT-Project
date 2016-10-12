@@ -17,7 +17,18 @@ using System;
 namespace xyz._8bITProject.cooperace.multiplayer {
     public class DynamicObstacleSerializer : MonoBehaviour,  ISerializer<DynamicObstacleInformation> {
         
-        public readonly byte ID;
+        protected byte ID;                     // The unique ID of the obstacle.
+        private bool IDSet = false;            // A unique ID has been assigned
+        
+        /// Assign this serialiser a unique id,
+        /// synched between devices, so that it
+        /// knows which updates are relevant
+        public void SetID(byte id){
+            if (IDSet == false) {
+                this.ID = id;
+                IDSet = true;
+            }
+        }
 
 
         public List<byte> Serialize(DynamicObstacleInformation information) {
