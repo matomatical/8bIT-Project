@@ -48,8 +48,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// what type of game have we entered?
 
-//			GameType type = SceneManager.gameType;
-			GameType type = GameType.MULTI;
+			GameType type = SceneManager.gameType;
 
 			if (type == GameType.SINGLE) {
 
