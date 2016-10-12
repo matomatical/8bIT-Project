@@ -201,32 +201,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			}
 
-
-//			// assign serialiser IDs to obstacles
-//
-//			byte id = 0;
-//
-//			foreach(BoolObstacleSerializer obstacle in
-//					level.GetComponentsInChildren<BoolObstacleSerializer> ()
-//					.OrderBy(gameObject => gameObject.name )){
-//
-//				if (!editor)
-//					UILogger.Log (string.Format("Obstacle given ID {0}", id));
-//				
-////				obstacle.SetID (id);
-//				id++;
-//			}
-//
-//			foreach(PushBlockSerializer obstacle in
-//				level.GetComponentsInChildren<PushBlockSerializer> ()
-//				.OrderBy(gameObject => gameObject.name )){
-//
-//				// TODO: implement ID's with push block serialisers
-//
-//				// obstacle.SetID (id);
-//				id++;
-//			}
-
 		}
 
 		static void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){
