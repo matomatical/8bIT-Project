@@ -14,6 +14,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public abstract class BoolObstacleSerializer : MonoBehaviour, ISerializer<BoolObstacleInformation> {
 
 		public IUpdateManager updateManager;	// IUpdateManager to send updates to
+		[SerializeField]
 		protected byte ID;				// The unique ID of the obstacle.
 		private bool IDSet = false;		// A unique ID has been assigned
 		private bool lastState;					// The last known state of this obstacle
@@ -28,6 +29,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				this.ID = id;
 				IDSet = true;
 			}
+		}
+
+		public byte GetID(){
+			return ID;
 		}
 
 		void FixedUpdate () {

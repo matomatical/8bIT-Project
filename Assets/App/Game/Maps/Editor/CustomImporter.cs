@@ -254,7 +254,11 @@ namespace xyz._8bITProject.cooperace {
 
 			foreach(BoolObstacleSerializer b in bools){
 
-				b.SetID(id++);
+				b.SetID(id);
+
+				Debug.Log (b + " gets id " + id + b.GetID());
+
+				id++;
 			}
 
 			DynamicObstacleSerializer[] dynamics = mapPrefab
