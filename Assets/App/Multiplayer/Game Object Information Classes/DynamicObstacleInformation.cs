@@ -15,6 +15,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         public readonly Vector2 pos;
         public readonly Vector2 vel;
 
+        // Keeps track of the last update to see if anything has changed
+        private DynamicObstacleInformation lastInfo;
+
         /// Use this for initialisation
         public DynamicObstacleInformation(Vector2 pos, Vector2 vel) {
             this.pos = pos;
