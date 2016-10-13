@@ -30,6 +30,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // Keeps track of the last update to see if anything has changed
         protected DynamicObjectInformation lastInfo;
 
+        protected bool isPushBlock = false;
 
         public List<byte> Serialize(DynamicObjectInformation information) {
             // initialize list to return
@@ -68,6 +69,8 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 throw e;
             }
 
+            if (isPushBlock) UILogger.Log("deserializing pb update");
+            
             // Create and return DynamicObstaceleInformation with the data deserialized
             return new DynamicObjectInformation(new Vector2(posx, posy), new Vector2(velx, vely));
         }
@@ -79,6 +82,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         protected void Apply(DynamicObjectInformation information) {
             Debug.Log("apply the update");
             Debug.Log("pos x = " + information.pos.x + " pos y = " + information.pos.y);
+            if (isPushBlock) UILogger.Log("Applying pb update");
             remoteController.SetState(information.pos, information.vel);
         }
 

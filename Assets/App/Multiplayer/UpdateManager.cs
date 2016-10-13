@@ -189,6 +189,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
             }
 
             Debug.Log("Sending push block update");
+            UILogger.Log("sending push block udpate");
             // if (uiLogger) UILogger.Log("sending player udpate");
         }
 

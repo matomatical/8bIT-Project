@@ -19,7 +19,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         // Keeps track of how long until we send an update
         private int stepsUntilSend;
-        private readonly int MAX_STEPS_BETWEEN_SENDS = 5;
+        private readonly int MAX_STEPS_BETWEEN_SENDS = 0;
 
 
         // Use this for initialization
@@ -28,6 +28,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
             // Fill out last positions with dummys
             lastInfo = null;
+            isPushBlock = true;
 
             // link Components
             localPushBlockController = GetComponent<PushBlockController>();
@@ -55,7 +56,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                     // If the update is different to the last one sent
                     if (!info.Equals(lastInfo)) {
                         Debug.Log("Serializing push block");
-
+                        UILogger.Log("Serializing push block");
                         // Get the update to be sent
                         update = Serialize(info);
 
@@ -83,6 +84,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         /// Let updateManager know there is an update
 		protected override void Send(List<byte> message) {
+            UILogger.Log("sending push block updates");
             updateManager.SendPushBlockUpdate(message);
         }
     }
