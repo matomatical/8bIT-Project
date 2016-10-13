@@ -293,12 +293,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 
 			// push blocks are also meant to subscribe to notifications from the
-			// network, and should be remote controllable
+			// network, and should be remote controllable (but still respond to
+			// pushers!)
 
 			foreach (PushBlockController pbc in level.GetComponentsInChildren<PushBlockController>()){
 
-				RemotePhysicsController rpc = pbc.GetComponent<RemotePhysicsController> ();
-				rpc.enabled = true;
+				RemoteBlockController rbc = pbc.GetComponent<RemoteBlockController> ();
+				rbc.enabled = true;
 
 				PushBlockSerializer pbs = pbc.GetComponent<PushBlockSerializer> ();
 				pbs.enabled = true;
