@@ -6,10 +6,10 @@ using System.Collections;
  * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
-*/
+ */
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class DynamicObjectInformation : MonoBehaviour {
+    public class DynamicObjectInformation {
 
         // The position of the obstacle
         public readonly Vector2 pos;
