@@ -6,10 +6,10 @@ using System.Collections;
  * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
-*/
+ */
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class DynamicObjectInformation : MonoBehaviour {
+    public class DynamicObjectInformation {
 
         // The position of the obstacle
         public readonly Vector2 pos;
@@ -21,7 +21,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         /// Use this for initialisation
         public DynamicObjectInformation(Vector2 pos, Vector2 vel) {
             this.pos = pos;
-            this.pos = vel;
+            this.vel = vel;
         }
 
         /// Check if two objects are equal
