@@ -27,7 +27,6 @@ GameObject:
   - 114: {fileID: 114000012073306260}
   - 114: {fileID: 114000012342741088}
   - 114: {fileID: 114000011649742142}
-  - 114: {fileID: 114000010585644856}
   m_Layer: 9
   m_Name: PushBlock
   m_TagString: Untagged
@@ -79,24 +78,6 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
---- !u!114 &114000010585644856
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011296907910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 56f5960f0a9ce4dd6a7470775c1f675e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 768
-  pushersMask:
-    serializedVersion: 2
-    m_Bits: 1024
-  onePusherMoveSpeed: 3
 --- !u!114 &114000011330302950
 MonoBehaviour:
   m_ObjectHideFlags: 1
