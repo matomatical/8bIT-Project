@@ -17,24 +17,37 @@ namespace xyz._8bITProject.cooperace {
 		public bool inputRightDown = false;
 		public bool inputJumpDown = false;
 
-		void Update () {
+		void OnEnable(){
+			inputManager = FindObjectOfType<InputManager> ();
+
 			if (inputLeftDown) {
 				inputManager.VirtualKeyLeftDown ();
-			} else {
-				inputManager.VirtualKeyLeftUp ();
 			}
 
 			if (inputRightDown) {
 				inputManager.VirtualKeyRightDown ();
-			} else {
-				inputManager.VirtualKeyRightUp ();
 			}
 
 			if (inputJumpDown) {
 				inputManager.VirtualKeyUpDown ();
-			} else {
+			}
+
+		}
+
+		void OnDisable() {
+
+			if (inputLeftDown) {
+				inputManager.VirtualKeyLeftUp ();
+			}
+
+			if (inputRightDown) {
+				inputManager.VirtualKeyRightUp ();
+			}
+
+			if (inputJumpDown) {
 				inputManager.VirtualKeyUpUp ();
 			}
+
 		}
 	}
 }
