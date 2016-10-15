@@ -12,10 +12,6 @@ namespace xyz._8bITProject.cooperace.recording {
 	
 		void Start(){
 
-			// turn on physics layering
-
-			ArcadePhysics.layering = true;
-
 			// shade mesh renderer
 
 			MeshRenderer renderer = GetComponentInChildren<MeshRenderer> ();

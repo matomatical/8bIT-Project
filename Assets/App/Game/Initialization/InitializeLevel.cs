@@ -106,11 +106,11 @@ namespace xyz._8bITProject.cooperace {
 
 				scroller.cam = FindObjectOfType<Camera>();
 				scroller.level = level;
+			
+				// arrange objects by z depth
 
-
-				// turn on physics layering
-
-				ArcadePhysics.layering = true;
+				level.transform.position 	+= 2*Vector3.forward;
+				ghostLevel.transform.position += Vector3.forward;
 
 				// set up level to track a recording
 

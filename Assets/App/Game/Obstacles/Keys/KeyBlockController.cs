@@ -18,32 +18,32 @@ namespace xyz._8bITProject.cooperace {
 		/// the key block to control
 		KeyBlock block;
 
-		/// Collider for detecting collisions
-		BoxCollider2D box;
-
 		void Start(){
 
 			// link components together
 
 			block = GetComponent<KeyBlock>();
-			box = GetComponent<BoxCollider2D> ();
+
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {
-			// only trigger if this component is on and
-			// inside the same physics layer
-			if (enabled && ArcadePhysics.SameLayer(other, box)) {
-				
-				// if the block collides with another game object that has a
-				// KeyHolder component that is holding a key object,
+			if (this.transform.position.z == other.transform.position.z) {
 
-				KeyHolder holder = other.gameObject.GetComponent<KeyHolder> ();
-				if (holder != null && holder.IsHoldingKey ()) {
+				// only trigger if this component is on and
+				// inside the same physics layer
+				if (enabled) {
+				
+					// if the block collides with another game object that has a
+					// KeyHolder component that is holding a key object,
+
+					KeyHolder holder = other.gameObject.GetComponent<KeyHolder> ();
+					if (holder != null && holder.IsHoldingKey ()) {
 					
-					// open (deactivate self) and mark the object as no longer
-					// holding a key
-					block.Open ();
-					holder.DropKey ();
+						// open (deactivate self) and mark the object as no longer
+						// holding a key
+						block.Open ();
+						holder.DropKey ();
+					}
 				}
 			}
 		}
