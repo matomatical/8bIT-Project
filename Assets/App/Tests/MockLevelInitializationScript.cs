@@ -1,4 +1,10 @@
-﻿using UnityEngine;
+﻿/*
+ * Sets up a level's objects' components for integration tests
+ *
+ * Matt Farrugia < farrugiam@student.unimelb.edu.au >
+ */
+
+using UnityEngine;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace.tests {

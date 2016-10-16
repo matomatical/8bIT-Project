@@ -3,6 +3,7 @@
  *
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+ * Matt Farrugia < farrugiam@student.unimelb.edu.au >
 */
 
 using UnityEngine;
@@ -11,7 +12,10 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
-	public class BoolObstacleSerializerTest {
+
+	[TestFixture]
+	public class BoolObstacleSerializerTest
+	{
 
 
 		// test testing object

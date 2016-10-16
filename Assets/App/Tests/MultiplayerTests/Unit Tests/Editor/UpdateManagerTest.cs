@@ -13,7 +13,8 @@ using UnityEngine;
 using NUnit.Framework;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
-    [TestFixture]
+    
+	[TestFixture]
     public class UpdateManagerTest {
 
         // what if the protool version is different

@@ -9,7 +9,10 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
-	public class BoolObstacleInformationTest {
+
+	[TestFixture]
+	public class BoolObstacleInformationTest
+	{
 		[Test]
 		public void EqualsNullShouldReturnFalse () {
 			BoolObstacleInformation test = new BoolObstacleInformation (0, true);

@@ -10,7 +10,10 @@ using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
-	public class ChatMessageTest {
+
+	[TestFixture]
+	public class ChatMessageTest
+	{
 		[Test]
 		public void EqualsNullShouldReturnFalse () {
 			ChatMessage test = new ChatMessage ("Hello, world!", true);
