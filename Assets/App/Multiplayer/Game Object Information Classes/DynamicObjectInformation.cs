@@ -31,25 +31,21 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 return false;
             }
 
-            // If parameter cannot be cast to Point return false.
+            // If parameter cannot be cast to DynamicObjectInformation return false.
             DynamicObjectInformation info = obj as DynamicObjectInformation;
             if ((System.Object)info == null) {
                 return false;
             }
 
             // Return true if the fields match:
-            return (info.pos == pos && info.vel == vel);
+			return this.Equals(info);
         }
 
         /// Check if two objects of type BoolObstacleInformation are equal
         public bool Equals(DynamicObjectInformation info) {
-            // If parameter is null return false:
-            if ((object)info == null) {
-                return false;
-            }
-
+            // If parameter is null return false, otherwise
             // Return true if the fields match:
-            return (info.pos == pos && info.vel == vel);
+			return (info!=null) && (info.pos == pos && info.vel == vel);
         }
     }
 }

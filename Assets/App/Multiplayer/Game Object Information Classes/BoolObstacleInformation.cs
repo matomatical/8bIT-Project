@@ -31,7 +31,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				return false;
 			}
 
-			// If parameter cannot be cast to Point return false.
+			// If parameter cannot be cast to BooleanObstacleInformation return false.
 			BoolObstacleInformation info = obj as BoolObstacleInformation;
 			if ((System.Object)info == null)
 			{
@@ -39,20 +39,15 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 			// Return true if the fields match:
-			return (info.ID == ID && info.state == state);
+			return this.Equals(info);
 		}
 
 		/// Check if two objects of type BoolObstacleInformation are equal
 		public bool Equals(BoolObstacleInformation info)
 		{
-			// If parameter is null return false:
-			if ((object)info == null)
-			{
-				return false;
-			}
-
+			// If parameter is null return false, otherwise
 			// Return true if the fields match:
-			return (info.ID == ID && info.state == state);
+			return (info!=null) && (info.ID == ID && info.state == state);
 		}
 	}
 }
