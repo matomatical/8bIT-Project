@@ -103,7 +103,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 			// strip the header into a struct
 
-			HeaderManager.Header result = HeaderManager.StripHeader(data);
+			HeaderManager.StripHeader(data);
 
 
 			// data list should now not contain those bytes
@@ -128,7 +128,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 			// strip the header into a struct
 
-			HeaderManager.Header result = HeaderManager.StripHeader(data);
+			HeaderManager.StripHeader(data);
 
 			// data list should now now contain those bytes
 
