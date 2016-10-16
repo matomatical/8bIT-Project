@@ -19,7 +19,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
         // Test that when you try to add a message to the chathistory, you are able to
         [Test]
-        public void AddMessage() {
+        public void AddMessageShouldAddMessage () {
             ChatHistory history = new ChatHistory();
 
             history.AddMessage(message,true);
@@ -27,7 +27,8 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 			bool containsMessage = false;
 
 			foreach (ChatMessage m in history.GetHistory ()) {
-				if (m.Equals (message)) {
+				Debug.Log (string.Format("message: {0}, local: {1}", m.message, m.localPlayerMsg));
+				if (m.Equals (new ChatMessage(message, true))) {
 					containsMessage = true;
 					break;
 				}
@@ -39,7 +40,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         
         // Make sure that mostRecent returns the sfirst n number of messages
         [Test]
-        public void MostRecent() {
+        public void MostRecent () {
             ChatHistory history = new ChatHistory();
 
             history.AddMessage("0", true); // first

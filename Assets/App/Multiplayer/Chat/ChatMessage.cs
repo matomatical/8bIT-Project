@@ -13,7 +13,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
     public class ChatMessage : MonoBehaviour {
         // Text to be sent
-		public String message { get; private set; }
+		public string message { get; private set; }
 
         // did I send this message?
 		public bool localPlayerMsg { get; private set; }
@@ -28,12 +28,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		public override bool Equals(System.Object obj) {
 			// If parameter is null return false.
 			if (obj == null) {
+				Debug.Log ("obj was null");
 				return false;
 			}
 
 			// If parameter cannot be cast to ChatMessage return false.
 			ChatMessage chat = obj as ChatMessage;
 			if ((System.Object)chat == null) {
+				Debug.Log("could not cast to ChatMessage");
 				return false;
 			}
 
@@ -41,12 +43,12 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			return Equals(chat);
 		}
 
-		/// Check if two objects of type BoolObstacleInformation are equal
+		/// Check if two objects of type ChatMessage are equal
 		public bool Equals(ChatMessage chat) {
-
+			Debug.Log ("chat not null: " + (chat != null) + ", message : " + (chat.message == this.message) + ", localPlayerMsg equal: " + (chat.localPlayerMsg == this.localPlayerMsg));
 
 			// Return true if the fields match:
-			return chat && chat.message == this.message && chat.localPlayerMsg == this.localPlayerMsg;
+			return (chat != null) && (chat.message == this.message) && (chat.localPlayerMsg == this.localPlayerMsg);
 		}
     }
 }
