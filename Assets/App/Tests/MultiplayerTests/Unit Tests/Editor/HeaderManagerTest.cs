@@ -14,80 +14,125 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
     [TestFixture]
     public class HeaderManagerTest {
 
-        // Make ssure the header given as an argument to HandleInput is not empty
-        [Test]
-        public void EmptyHeader() {
-            List<byte> emptyHeader = new List<byte>();
-            try {
-                HeaderManager.StripHeader(emptyHeader);
-            }
-            catch (System.ArgumentOutOfRangeException e) {
-                Debug.Log(e);
-                Assert.Pass();
-            }
-        }
+		[Test]
+		public void StrippingEmptyDataListShouldThrowException(){
+			List<byte> emptyHeader = new List<byte>();
 
-        // Make sure that the header given as an argument to HandleInput is not null
-        [Test]
-        public void NullHeader() {
-            List<byte> nullHeader = null;
-            try {
-                HeaderManager.StripHeader(nullHeader);
-            }
-            catch (System.NullReferenceException e) {
-                Debug.Log(e);
-                Assert.Pass();
-            }
-        }
+			// empty header doesn't have enough bytes, strip should fail
 
+			try {
+				HeaderManager.StripHeader(emptyHeader);
+				Assert.Fail();
+			}
+			catch (HeaderException e){
+				Assert.Pass (e.Message);
+			}
+		}
 
-        // Make sure that the header contains the right protocol version
-        [Test]
-        public void IncorrectProtocolVersion() {
-            List<byte> header = CreateHeader();
-            
-            // what if the header has an invalid protocol version
-            try {
-                HeaderManager.StripHeader(header);
-            }
-            catch (System.IndexOutOfRangeException e) {
-                Debug.Log(e);
-                Assert.Pass();
-            }
+		[Test]
+		public void StrippingShortDataListShouldThrowException(){
+			List<byte> shortHeader = new List<byte>();
+			shortHeader.Add ((byte)1);
 
-            // test it with the correct protocol version
-            //header.Insert();
-        }
+			// short header doesn't have enough bytes, strip should fail
+
+			try {
+				HeaderManager.StripHeader(shortHeader);
+				Assert.Fail();
+			}
+			catch (HeaderException e){
+				Assert.Pass (e.Message);
+			}
+		}
+
+		[Test]
+		public void StripHeaderShouldReturnCorrectHeaderStruct(){
+
+			// create a data list with enough bytes
+
+			List<byte> data = new List<byte> ();
+			data.Insert(0, UpdateManager.PROTOCOL_VERSION); //insert the valid protocol type
+			data.Insert(1, UpdateManager.PLAYER); // insert any update identifier
 
 
-        // See if Strip header strips the header as it should
-        [Test]
-        public void StripHeader() {
-            List<byte> header = CreateHeader();
-            header.Insert(0, UpdateManager.PROTOCOL_VERSION); //insert the valid protocol type
-            header.Insert(1, UpdateManager.PLAYER); // insert any update identifier
+			// strip the header into a struct
 
-            List<byte> expectedResult = new List<byte>();
-            expectedResult.Add((byte)UpdateManager.PROTOCOL_VERSION);
-            expectedResult.Add((byte)UpdateManager.PLAYER);
+			HeaderManager.Header result = HeaderManager.StripHeader(data);
 
-			HeaderManager.Header result = HeaderManager.StripHeader(header);
 
-            
-//            for (int i = 0; i < result.Count; i++) {
-//                Debug.Log("r: " + result. + " er: " + expectedResult[i]);
-//                Assert.That(result[i].Equals(expectedResult[i]));
-//            }
-        }
-        
-        // Create a meaningless header
-        private List<byte> CreateHeader() {
-            List<byte> header = new List<byte>();
-            string message = "Mariam says hello";
-            for (int i=0; i<message.Length; i++) {
-                header.Add((byte)message[i]);
-            }
-            return header;
-        }
+			// shold return the right header struct for these bytes
+			HeaderManager.Header expected =
+				new HeaderManager.Header (UpdateManager.PROTOCOL_VERSION, UpdateManager.PLAYER);
+			
+			Assert.AreEqual (expected, result);
+		}
+
+		[Test]
+		public void StripHeaderShouldLookAtFirstTwoBytes(){
+
+			// create a data list with enough bytes
+
+			List<byte> data = new List<byte> ();
+			data.Insert(0, (byte)0); // this byte should end up being the protocol
+			data.Insert(1, (byte)1); // this byte should end up being the type
+			data.Insert(2, (byte)2); // this byte should not end up in the header
+
+
+			// strip the header into a struct
+
+			HeaderManager.Header result = HeaderManager.StripHeader(data);
+
+
+			// shold return the right header struct for these bytes
+
+			HeaderManager.Header expected = new HeaderManager.Header(0, 1);
+
+			Assert.AreEqual (expected, result);
+		}
+
+		[Test]
+		public void StripHeaderShouldRemoveFirstTwoBytes(){
+
+			// create a data list with enough bytes
+
+			List<byte> data = new List<byte> ();
+			data.Insert(0, (byte)0); // this byte should end up being the protocol
+			data.Insert(1, (byte)1); // this byte should end up being the type
+			data.Insert(2, (byte)2); // this byte should not end up in the header
+
+
+			// strip the header into a struct
+
+			HeaderManager.Header result = HeaderManager.StripHeader(data);
+
+
+			// data list should now not contain those bytes
+
+			List<byte> expected = new List<byte> ();
+			expected.Add((byte)2);
+
+			CollectionAssert.AreEqual (expected, data);
+		}
+
+
+		[Test]
+		public void StripHeaderShouldRemoveTwoBytes(){
+
+			// create a data list with enough bytes
+
+			List<byte> data = new List<byte> ();
+			data.Insert(0, (byte)0); // this byte should end up being the protocol
+			data.Insert(1, (byte)1); // this byte should end up being the type
+			data.Insert(2, (byte)2); // this byte should not end up in the header
+
+
+			// strip the header into a struct
+
+			HeaderManager.Header result = HeaderManager.StripHeader(data);
+
+			// data list should now now contain those bytes
+
+			Assert.AreEqual (1, data.Count);
+		}
     }
 }
