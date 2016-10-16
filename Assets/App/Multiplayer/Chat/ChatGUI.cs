@@ -45,7 +45,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 float xpos = Screen.height * MSG_X;
 
                 // generate a message with the tag (which player sent it) appended to it
-                string taggedMsg = assignTag(m.getMessage(), m.getLocalMsg());
+				string taggedMsg = assignTag(m.message, m.localPlayerMsg);
                 
                 // display it on screen
                 GUI.Label(new Rect(xpos, ypos+= FONT_SIZE, Screen.width, Screen.height),

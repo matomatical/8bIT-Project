@@ -5,17 +5,13 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 	public class MockUpdate : MonoBehaviour {
 
-		private PlayerSerializer serializer;
+		public Vector2 position, velocity;
+		public PlayerSerializer serializer;
 
-		void Start () {
-			// Find the player and serializer
-			GameObject player1 = GameObject.Find("Player1");
-			serializer = player1.GetComponent<PlayerSerializer> ();
-		}
-
-		// Every frame, send an update to the player they should be at 0,0
+		// Every frame, send an update to a player serialiser
+		// they should be at position/velocity
 		void Update () {
-			serializer.Notify (serializer.Serialize(new DynamicObjectInformation(new Vector2 (0, 0), new Vector2 (0, 0))));
+			serializer.Notify(serializer.Serialize(new DynamicObjectInformation(position, velocity)));
 		}
 	}
 }

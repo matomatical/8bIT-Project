@@ -13,7 +13,7 @@ using NUnit.Framework;
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
     [TestFixture]
-    public class ChatHistoryTestr {
+    public class ChatHistoryTest {
         string message = "Hello World!";
         
 
@@ -23,7 +23,17 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
             ChatHistory history = new ChatHistory();
 
             history.AddMessage(message,true);
-            Assert.That(history.ContainsMessage(message));
+
+			bool containsMessage = false;
+
+			foreach (ChatMessage m in history.GetHistory ()) {
+				if (m.Equals (message)) {
+					containsMessage = true;
+					break;
+				}
+			}
+
+			Assert.IsTrue (containsMessage);
         }
 
         
@@ -39,16 +49,10 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             List<ChatMessage> recentMessages = history.MostRecent(3);
 
-            for (int i =0; i<recentMessages.Count; i++) {
-                string expectedMessage = (i + 1).ToString();
-                Assert.That(recentMessages[i].Equals(expectedMessage));
-            }
-
-            // Since we're only asking for the first 3 messages, make sure that the forst isn't added
-
-            ChatHistory topN = new ChatHistory();
-            topN.SetHistory(history.MostRecent(3));
-            Assert.That(!topN.ContainsMessage("0"));
+			Assert.That (recentMessages.Count == 3);
+			Assert.That (recentMessages[0].Equals(new ChatMessage("1", true)));
+			Assert.That (recentMessages[1].Equals(new ChatMessage("2", true)));
+			Assert.That (recentMessages[2].Equals(new ChatMessage("3", true)));
         }
 
         // Add a message to the chatHistory and make sure true is returned when seeing if the history contains
@@ -58,13 +62,24 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
             ChatHistory history = new ChatHistory();
             int numMessages = 10;
 
-            // generate 10 random messages
+            // generate 10 random messages and add them to 
             List<ChatMessage> messages = generateRandomMessages(numMessages);
-            history.SetHistory(messages);
+			for (int i = 0; i < messages.Count; i++) {
+				history.AddMessage (messages [i].message, messages [i].localPlayerMsg);
+			}
 
-            for (int i=0; i< numMessages; i++) {
-                string message = messages[i].getMessage();
-                Assert.That(history.ContainsMessage(message));
+			// For every test messages search the chat history to make sure each test message is in there
+			foreach (ChatMessage testMessage in messages) {
+				bool containsMessage = false;
+
+				foreach (ChatMessage m in history.GetHistory ()) {
+					if (m.Equals (testMessage)) {
+						containsMessage = true;
+						break;
+					}
+				}
+
+				Assert.IsTrue (containsMessage);
             }
         }
 

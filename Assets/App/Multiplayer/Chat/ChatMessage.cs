@@ -13,10 +13,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
     public class ChatMessage : MonoBehaviour {
         // Text to be sent
-        String message;
+		public String message { get; private set; }
 
         // did I send this message?
-        bool localPlayerMsg;
+		public bool localPlayerMsg { get; private set; }
 
         /// Use this for initialization
         public ChatMessage(string message, bool localPlayerMsg) {
@@ -24,25 +24,29 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             this.localPlayerMsg = localPlayerMsg;
         }
 
-        /// return the message
-        public string getMessage() {
-            return this.message;
-        }
+		/// Check if two objects are equal
+		public override bool Equals(System.Object obj) {
+			// If parameter is null return false.
+			if (obj == null) {
+				return false;
+			}
 
-        /// See if this message was sent by local player
-        public bool getLocalMsg() {
-            return this.localPlayerMsg;
-        }
+			// If parameter cannot be cast to ChatMessage return false.
+			ChatMessage chat = obj as ChatMessage;
+			if ((System.Object)chat == null) {
+				return false;
+			}
 
-        /// set the message
-        public void setMessage(string message) {
-            this.message = message;
-        }
+			// Return true if the fields match:
+			return Equals(chat);
+		}
 
-        /// Mark this message as having been sent by the local player
-        public void setLocalPlayerMsg(bool localPlayerMsg) {
-            this.localPlayerMsg = localPlayerMsg;
-        }
+		/// Check if two objects of type BoolObstacleInformation are equal
+		public bool Equals(ChatMessage chat) {
 
+
+			// Return true if the fields match:
+			return chat && chat.message == this.message && chat.localPlayerMsg == this.localPlayerMsg;
+		}
     }
 }

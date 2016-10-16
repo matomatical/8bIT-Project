@@ -22,49 +22,24 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         /// Add a new message to the chat history
         public void AddMessage(string message, bool localPlayer) {
-            try {
-                ChatMessage m = new ChatMessage(message, localPlayer);
-                history.Add(m);
-            } catch (System.ArgumentNullException e) {
-                Debug.Log(e);
-                throw e;
-            }
-            
+			if (message == null) {
+				throw new ArgumentNullException ("message is null");
+			} else {
+				ChatMessage m = new ChatMessage (message, localPlayer);
+				history.Add (m);
+			}
         }
 
-        /// Returns the most n recent messages
-        public List<ChatMessage> MostRecent(int n) {
-            List<ChatMessage> mostRecent = new List<ChatMessage>();
+        /// Returns the n most recent messages
+		/// The most recent will be at the end of the list
+		public List<ChatMessage> MostRecent(int n) {
+			int length = history.Count;
+			return history.GetRange (length - n, n);
+		}
 
-            for (int i = 0; i < history.Count; i++) {
-                if (i >= history.Count - n) {
-                    mostRecent.Add(history[i]);
-                }
-            }
-
-            return mostRecent;
-        }
-
-        // These methods below are used for testing purposes
-
-        /// Checks to see if the chat history contains a particular message
-        public bool ContainsMessage(String m) {
-            for (int i=0; i<this.history.Count; i++) {
-                if (history[i].getMessage() == m) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        /// Set the history
-        public void SetHistory(List<ChatMessage> history) {
-            this.history = history;
-        }
-
-        /// get the chat history
+        /// get a copy of the chat history
         public List<ChatMessage> GetHistory() {
-            return this.history;
+			return new List<ChatMessage> (this.history);
         }
 
     }
