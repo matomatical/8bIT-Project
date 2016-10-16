@@ -24,7 +24,7 @@ namespace xyz._8bITProject.cooperace {
 		private bool positionApplied = false;
 		private bool velocityApplied = false;
 
-		private long msecBetweenSets;
+		private RollingAverage rollingAverage = new RollingAverage (100);
 
 		Stopwatch stopWatch = new Stopwatch ();
 
@@ -48,7 +48,11 @@ namespace xyz._8bITProject.cooperace {
 		public void SetState(Vector2 position, Vector2 velocity){
 
 			// Get the time since nextPosition and nextVelocity were last set
-			msecBetweenSets = stopWatch.ElapsedMilliseconds;
+			rollingAverage.Add (stopWatch.ElapsedMilliseconds);
+
+			// Restart the stop watch
+			stopWatch.Reset ();
+			stopWatch.Start ();
 
 			previousPosition = nextPosition;
 			nextPosition = position;
@@ -57,10 +61,6 @@ namespace xyz._8bITProject.cooperace {
 			previousVelocity = nextVelocity;
 			nextVelocity = velocity;
 			velocityApplied = false;
-
-			// Restart the stop watch
-			stopWatch.Reset ();
-			stopWatch.Start ();
 		}
 
 		protected override void ChangePosition(ref Vector2 position){
@@ -74,15 +74,17 @@ namespace xyz._8bITProject.cooperace {
 		protected override void ChangeVelocity(ref Vector2 velocity){
 
 			Vector2 lerpedVel;
+			float timeToNext = rollingAverage.average;
+			UnityEngine.Debug.Log (string.Format ("Lerping from 0 to {0}ms", timeToNext));
 
 			// Get the time since we got the last update
 			long elapsed = stopWatch.ElapsedMilliseconds;
 
 			// Only lerp if there is time between updates
-			if (msecBetweenSets != 0) {
+			if (timeToNext != 0) {
 
 				// Lerp between previous velocity and the next one
-				lerpedVel = Vector2.Lerp (previousVelocity, nextVelocity, (float)(elapsed) / msecBetweenSets);
+				lerpedVel = Vector2.Lerp (previousVelocity, nextVelocity, elapsed / timeToNext);
 
 				// Update the velocity
 				velocity.x = lerpedVel.x;
