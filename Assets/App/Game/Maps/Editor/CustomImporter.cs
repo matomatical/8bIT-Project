@@ -134,9 +134,6 @@ namespace xyz._8bITProject.cooperace {
 
 			LinkObstacles (mapPrefab);
 
-			// Set up ids for boolean object serialisers
-
-			SetIDs (mapPrefab);
 		}
 
 		// Helper method to create exits colliders around a level
@@ -240,37 +237,5 @@ namespace xyz._8bITProject.cooperace {
 			
 			return groups;
 		}
-
-		// helper method to link together all pressure plates and blocks
-		void SetIDs(GameObject mapPrefab){
-
-			// assign serialiser IDs to obstacles
-
-			byte id = 0;
-
-			BoolObstacleSerializer[] bools = mapPrefab
-				.GetComponentsInChildren<BoolObstacleSerializer> ()
-				.OrderBy(gameObject => gameObject.name ).ToArray ();
-
-			foreach(BoolObstacleSerializer b in bools){
-
-				b.SetID(id);
-
-				Debug.Log (b + " gets id " + id + b.GetID());
-
-				id++;
-			}
-
-			DynamicObjectSerializer[] dynamics = mapPrefab
-				.GetComponentsInChildren<DynamicObjectSerializer> ()
-				.OrderBy(gameObject => gameObject.name ).ToArray();
-
-			foreach(DynamicObjectSerializer d in dynamics){
-
-				d.SetID(id++);
-			}
-
-		}
-
 	}
 }

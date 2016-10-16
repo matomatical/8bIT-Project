@@ -16,10 +16,9 @@ using System;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
     public class DynamicObjectSerializer : MonoBehaviour,  ISerializer<DynamicObjectInformation> {
-        
-		[SerializeField]
-        protected byte ID;                     // The unique ID of the obstacle.
-        private bool IDSet = false;            // A unique ID has been assigned
+       	
+        private byte ID;				// The unique ID of the obstacle.
+        private bool IDSet = false;		// A unique ID has been assigned
 
         // The push block controller that is used to recieve the updates
         protected RemotePhysicsController remoteController;

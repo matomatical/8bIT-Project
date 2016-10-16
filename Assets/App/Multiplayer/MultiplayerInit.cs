@@ -125,6 +125,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				updateManager.Subscribe(obstacle, UpdateManager.Channel.OBSTACLE);
 			}
 
+			// assign IDs to all objects, too
+
+			SetObjectIDs (level);
 
 		}
 
@@ -201,6 +204,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			}
 
+			// assign serialisers unique IDs
+
+			SetObjectIDs (level);
 		}
 
 		static void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){
@@ -306,6 +312,37 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				updateManager.Subscribe(pbs, UpdateManager.Channel.PUSHBLOCK);
 
 			}
+		}
+
+
+		// helper method to assign IDs to each object inside the level
+
+		static void SetObjectIDs(GameObject level){
+
+			// assign serialiser IDs to obstacles, in sorted
+			// order to guarantee same result over network
+			// (sorting by object name)
+
+			byte id = 0;
+
+			BoolObstacleSerializer[] bools = level
+				.GetComponentsInChildren<BoolObstacleSerializer> ()
+				.OrderBy(gameObject => gameObject.name ).ToArray ();
+
+			foreach(BoolObstacleSerializer b in bools){
+
+				b.SetID(id++);
+			}
+
+			DynamicObjectSerializer[] dynamics = level
+				.GetComponentsInChildren<DynamicObjectSerializer> ()
+				.OrderBy(gameObject => gameObject.name ).ToArray();
+
+			foreach(DynamicObjectSerializer d in dynamics){
+
+				d.SetID(id++);
+			}
+
 		}
 	}
 }
