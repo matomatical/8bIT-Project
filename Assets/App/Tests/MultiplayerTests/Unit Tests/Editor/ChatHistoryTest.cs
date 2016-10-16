@@ -59,7 +59,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 			List<ChatMessage> recentMessages = history.MostRecent(3);
 
-			Assert.That (recentMessages.Count == 3);
+			Assert.AreEqual (3, recentMessages.Count);
 		}
 
 		[Test]
@@ -80,11 +80,10 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             try {
                 history.AddMessage("", true);
-				Assert.Fail ();
+				Assert.Fail ("didn't throw ArgumentException when adding a message with an empty body");
             }
             catch (System.ArgumentException e) {
-                Assert.Pass();
-				Debug.Log (e.Message);
+				Assert.Pass(e.Message);
             }
         }
 
@@ -97,19 +96,12 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 			Assert.That (history.MostRecent (0).Count == 0);
 		}
 
-		[Test] public void MostRecentNegativeShouldThrowsArgumentOutOfRangeException () {
+		[Test] public void MostRecentNegativeShouldReturnEmptyList () {
 			ChatHistory history = new ChatHistory ();
 
 			history.AddMessage (message, true);
 
-			try {
-				history.MostRecent (-1);
-				Assert.Fail ();
-			}
-			catch (ArgumentOutOfRangeException e) {
-				Assert.Pass ();
-				Debug.Log (e.Message);
-			}
+			Assert.That (history.MostRecent (0).Count == 0);
 
 		}
 
@@ -118,11 +110,10 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 			try {
 				history.AddMessage (null, true);
-				Assert.Fail ();
+				Assert.Fail ("didn't throw ArugmentNullException when adding a message with null body");
 			}
 			catch (ArgumentException e) {
-				Assert.Pass ();
-				Debug.Log (e.Message);
+				Assert.Pass (e.Message);
 			}
 		}
 
