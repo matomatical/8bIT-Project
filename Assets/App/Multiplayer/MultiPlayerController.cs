@@ -40,7 +40,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		protected MultiPlayerController()
 		{
 			PlayGamesPlatform.DebugLogEnabled = true;
-			PlayGamesPlatform.Activate();
 		}
 
 		/// makes multiplayer controller a singleton
