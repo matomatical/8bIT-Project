@@ -97,7 +97,16 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             // Make sure that the byte stream that is converted and added to the chatHistory is the 
             // same as the original message
-            Assert.That(history.ContainsMessage(message1));
+			bool containsMessage = false;
+
+			foreach (ChatMessage m in history.GetHistory ()) {
+				if (m.Equals (message1)) {
+					containsMessage = true;
+					break;
+				}
+			}
+
+			Assert.IsTrue (containsMessage);
 
         }
 

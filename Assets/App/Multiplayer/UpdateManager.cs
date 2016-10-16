@@ -1,9 +1,7 @@
 ﻿/*
- * This is the class all ingoing and outgoing updates pass through
- * It attatches and detatches a header to the update telling the game about what will be in the update
- * It is also responsible for deciding whether 
- * 
- * TODO: finish header comment
+ * This is the class where all ingoing and outgoing updates pass through
+ * It is responsible for deciding which type of  update it recieves as well as
+ * sending messages with the appropriate update type header attached to them.
  * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
@@ -19,10 +17,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	{
         #if UNITY_EDITOR
         static bool editor = true;
-        static bool uiLogger = false;
         #else
 		static bool editor = false;
-        static bool uiLogger = true;
         #endif
         
         // The protcol being used to attach the header
@@ -108,7 +104,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						
                         if (header[1] == PLAYER) {
                             Debug.Log("Notifying everyone on the player channel");
-                            // if (uiLogger) UILogger.Log("recieved player update");
 
 							// Notify player subscribers of player updates
                             NotifyAll(data, Channel.PLAYER);
@@ -116,7 +111,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 						else if (header[1] == OBSTACLE) {
 							Debug.Log("Notifying everyone on the obstacle channel");
-							if (uiLogger) UILogger.Log("recieved obstacle update");
 
 							// Notify all obstacle subscribers of an obstacle update
 							NotifyAll(data, Channel.OBSTACLE);
@@ -124,7 +118,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 						else if (header[1] == PUSHBLOCK) {
 							Debug.Log("Notifying everyone on the pushblock channel");
-							if (uiLogger) UILogger.Log("recieved pushblock update");
 
 							// Notify all obstacle subscribers of an obstacle update
 							NotifyAll(data, Channel.PUSHBLOCK);
@@ -132,7 +125,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				
                         else if (header[1] == CHAT && chatController != null) {
                             Debug.Log("Notifying ChatController");
-                            if (uiLogger) UILogger.Log("recieved chat udpate");
 
 							// Give chat controller the message
                             chatController.GiveMessage(data);
@@ -175,7 +167,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
             }
             
 			Debug.Log ("Sending player update");
-            // if (uiLogger) UILogger.Log("sending player udpate");
         }
 
         // Sends an update for a pushblock
@@ -189,8 +180,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
             }
 
             Debug.Log("Sending push block update");
-            UILogger.Log("sending push block udpate");
-            // if (uiLogger) UILogger.Log("sending player udpate");
         }
 
 
@@ -204,7 +193,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				MultiPlayerController.Instance.SendMyReliable (data);	
 			}
 			Debug.Log ("Sending chat message");
-            //if (uiLogger) UILogger.Log("Sending chat message");
         }
 
 	}
