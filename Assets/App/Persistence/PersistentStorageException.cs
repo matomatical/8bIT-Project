@@ -5,14 +5,14 @@
  *
  */
 
-using System.IO;
+using System;
 using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.persistence {
 
-	public class PersistentStorageException : System.Exception {
+	public class PersistentStorageException : Exception {
 
-			public PersistentStorageException(System.Exception e) : base(e.Message) {}
+			public PersistentStorageException(Exception e) : base(e.Message) {}
 
 	}
 }

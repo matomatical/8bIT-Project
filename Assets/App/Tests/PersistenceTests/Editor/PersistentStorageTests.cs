@@ -218,24 +218,23 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 		}
 
 		[Test]
-		[ExpectedException(typeof(PersistentStorageException))]
-		public void ReadFromNonExistentFile() {
+		public void ReadFromNonExistentFileReturnsAnEmptyString() {
 
 			//Arrange
 
 			string testFilename =
-				Unique("ReadFromNonExistentFile.txt");
+				Unique("Read/From/Non/Existent/File.txt");
 
 
 			//Act
 
-
-			PersistentStorage.Read(testFilename);
+			string fileContents = PersistentStorage.Read(testFilename);
 			
 
 			//Assert
 			
-			// execution shouldn't reach this point
+			// fileContents should be an empty string.
+			Assert.AreEqual("", fileContents);
 
 		}
 
@@ -364,6 +363,77 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 		}
 
 		[Test]
+		public void ListingShouldReturnPathsRelativeToTheGivenPath() {
+
+			//Arrange
+			
+			PersistentStorage.Write (Unique("highly/nested/sub/folder/A"), "");
+			PersistentStorage.Write (Unique("highly/nested/sub/folder/B"), "");
+			PersistentStorage.Write (Unique("highly/nested/sub/folder/C"), "");
+
+
+			//Act
+
+			string[] results = PersistentStorage.ListFiles(Unique("highly/nested/sub/folder"));
+
+
+			//Assert
+
+			// the files A, B and C should be returned
+
+			CollectionAssert.AreEquivalent(
+				new string[] {"A", "B", "C"}, results);
+
+		}
+
+		[Test]
+		public void WhenListingEndingSlashShouldNotAffectResults() {
+
+			//Arrange
+			
+			PersistentStorage.Write (Unique("subfolder/A"), "");
+			PersistentStorage.Write (Unique("subfolder/B"), "");
+			PersistentStorage.Write (Unique("subfolder/C"), "");
+
+
+			//Act
+
+			string[] results1 = PersistentStorage.ListFiles(Unique("subfolder"));
+			string[] results2 = PersistentStorage.ListFiles(Unique("subfolder/"));
+			string[] results3 = PersistentStorage.ListFiles(Unique("subfolder\\"));
+
+
+			//Assert
+
+			// the files A, B and C should be returned in each case
+
+			string[] expected = new string[] {"A", "B", "C"};
+			CollectionAssert.AreEquivalent(expected, results1);
+			CollectionAssert.AreEquivalent(expected, results2);
+			CollectionAssert.AreEquivalent(expected, results3);
+
+		}
+
+		[Test]
+		public void ListingAnEmptyFolderShouldReturnAnEmptyArray() {
+
+			//Arrange
+
+			// Create nothing
+
+			//Act
+
+			string[] results = PersistentStorage.ListFiles(Unique(""));
+
+
+			//Assert
+
+			// should be empty
+			CollectionAssert.IsEmpty(results);
+
+		}
+
+		[Test]
 		public void RecursiveListingReturnsRelativePaths() {
 
 			//Arrange
@@ -390,16 +460,56 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 		}
 	
 		[Test]
-		public void ListingWithPatternsWorks() {
+		public void ListingWithPatternsWorksWithRecursionOff() {
 
 			//Arrange
 
 			PersistentStorage.Write (Unique("A.ignore"), "");
 			PersistentStorage.Write (Unique("A.return"), "");
+			PersistentStorage.Write (Unique("A2.ignore"), "");
+			PersistentStorage.Write (Unique("A2.return"), "");
 			PersistentStorage.Write (Unique("sub/B.ignore"), "");
 			PersistentStorage.Write (Unique("sub/B.return"), "");
+			PersistentStorage.Write (Unique("sub/B2.ignore"), "");
+			PersistentStorage.Write (Unique("sub/B2.return"), "");
 			PersistentStorage.Write (Unique("sub/sub/C.ignore"), "");
 			PersistentStorage.Write (Unique("sub/sub/C.return"), "");
+			PersistentStorage.Write (Unique("sub/sub/C2.ignore"), "");
+			PersistentStorage.Write (Unique("sub/sub/C2.return"), "");
+
+
+			//Act
+
+			string[] results = PersistentStorage.ListFiles(Unique(""), false, "*.return");
+
+
+			//Assert
+
+			CollectionAssert.AreEquivalent(
+				new string[] {
+					"A.return",
+					"A2.return"
+				}, results);
+
+		}
+	
+		[Test]
+		public void ListingWithPatternsWorksWithRecursionOn() {
+
+			//Arrange
+
+			PersistentStorage.Write (Unique("A.ignore"), "");
+			PersistentStorage.Write (Unique("A.return"), "");
+			PersistentStorage.Write (Unique("A2.ignore"), "");
+			PersistentStorage.Write (Unique("A2.return"), "");
+			PersistentStorage.Write (Unique("sub/B.ignore"), "");
+			PersistentStorage.Write (Unique("sub/B.return"), "");
+			PersistentStorage.Write (Unique("sub/B2.ignore"), "");
+			PersistentStorage.Write (Unique("sub/B2.return"), "");
+			PersistentStorage.Write (Unique("sub/sub/C.ignore"), "");
+			PersistentStorage.Write (Unique("sub/sub/C.return"), "");
+			PersistentStorage.Write (Unique("sub/sub/C2.ignore"), "");
+			PersistentStorage.Write (Unique("sub/sub/C2.return"), "");
 
 
 			//Act
@@ -412,9 +522,35 @@ namespace xyz._8bITProject.cooperace.persistence.tests {
 			CollectionAssert.AreEquivalent(
 				new string[] {
 					"A.return",
+					"A2.return",
 					PathJoin("sub", "B.return"),
-					PathJoin("sub", "sub", "C.return")
+					PathJoin("sub", "B2.return"),
+					PathJoin("sub", "sub", "C.return"),
+					PathJoin("sub", "sub", "C2.return")
 				}, results);
+
+		}
+
+		[Test]
+		public void ListingWithAPatternWithNoMatchesShouldReturnAnEmptyArray() {
+
+			//Arrange
+
+			PersistentStorage.Write (Unique("A.txt"), "");
+			PersistentStorage.Write (Unique("B.json"), "");
+			PersistentStorage.Write (Unique("C.pdf"), "");
+			PersistentStorage.Write (Unique("subfolder/D.xml"), "");
+
+			//Act
+
+			// pattern that won't match anything
+			string[] results = PersistentStorage.ListFiles(Unique(""), false, "*.return");
+
+
+			//Assert
+
+			// should be empty
+			CollectionAssert.IsEmpty(results);
 
 		}
 	}
