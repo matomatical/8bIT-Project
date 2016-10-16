@@ -9,9 +9,9 @@ using System;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
-	public class HeaderException : Exception
+	public class MessageHeaderException : Exception
 	{
-		public HeaderException (string m) : base(m) { }
+		public MessageHeaderException (string m) : base(m) { }
 	}
 }
 

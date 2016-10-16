@@ -30,7 +30,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			byte protocol;
 			byte updateType;
 
-			// Make sure data isn't empty or null
 			try {
 				// get the protocol and remove it from the message
 				protocol = data[0];
@@ -41,15 +40,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				data.RemoveAt (0);
 			
 			// Make sure data isn't empty
-			} catch (System.IndexOutOfRangeException e) {
-				
-				throw new HeaderException ("not enough bytes in message: " + e.Message);
-
 			} catch(System.ArgumentOutOfRangeException e) {
 
-				// Should never reach here, but can't be too safe
-				throw new HeaderException ("not enough bytes in message: " + e.Message);
-
+				throw new MessageHeaderException ("not enough bytes in message: " + e.Message);
 			}
 
 			return new Header (protocol, updateType);

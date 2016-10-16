@@ -114,7 +114,15 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
 		public BoolObstacleInformation Deserialize (List<byte> data)
 		{
-			byte info = data [0];	// Information stored in data
+
+			byte info;
+			try {
+				info = data [0];	// Information stored in data
+			} catch (ArgumentOutOfRangeException e){
+				// the message is not long enough!!
+				throw new MessageBodyException ("not enough bytes in boolean message body: " + e.Message);
+			}
+
 			byte ID;				// ID of obstacle in the data
 			bool state;				// State of the obstacle in the data
 

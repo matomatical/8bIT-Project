@@ -24,7 +24,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 				HeaderManager.StripHeader(emptyHeader);
 				Assert.Fail();
 			}
-			catch (HeaderException e){
+			catch (MessageHeaderException e){
 				Assert.Pass (e.Message);
 			}
 		}
@@ -40,7 +40,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 				HeaderManager.StripHeader(shortHeader);
 				Assert.Fail();
 			}
-			catch (HeaderException e){
+			catch (MessageHeaderException e){
 				Assert.Pass (e.Message);
 			}
 		}

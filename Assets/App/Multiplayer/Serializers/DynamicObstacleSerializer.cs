@@ -20,6 +20,26 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         private byte ID;				// The unique ID of the obstacle.
         private bool IDSet = false;		// A unique ID has been assigned
 
+
+		/// Assign this serialiser a unique id,
+		/// synched between devices, so that it
+		/// knows which updates are relevant
+		public void SetID(byte id) {
+			if (IDSet == false) {
+				this.ID = id;
+				IDSet = true;
+			}
+		}
+
+		/// Get this serialiser a unique id, if it has been set
+		/// (else throw NotYetSetException)
+		public byte GetID(){
+			if (!IDSet)
+				throw new NotYetSetException ("id not yet set");
+
+			return ID;
+		}
+
         // The push block controller that is used to recieve the updates
         protected RemotePhysicsController remoteController;
 
@@ -55,7 +75,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             float velx, vely;
             byte[] data = update.ToArray();
 
-            // Just in case the List isn't long enough
             try {
                 // Get the information from the list of bytes
                 posx = BitConverter.ToSingle(data, 0);
@@ -64,8 +83,8 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 vely = BitConverter.ToSingle(data, 12);
             }
             catch (System.ArgumentOutOfRangeException e) {
-                Debug.Log(e.Message);
-                throw e;
+                // something has gone wrong! not enough bytes in the message
+				throw new MessageBodyException("Not enough bytes in dynamic message body:" + e.Message);
             }
 
             if (isPushBlock) UILogger.Log("deserializing pb update");
@@ -79,7 +98,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             Apply(info);
         }
         protected void Apply(DynamicObjectInformation information) {
-            Debug.Log("apply the update");
             Debug.Log("pos x = " + information.pos.x + " pos y = " + information.pos.y);
             if (isPushBlock) UILogger.Log("Applying pb update");
             remoteController.SetState(information.pos, information.vel);
@@ -90,14 +108,5 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
 
-        /// Assign this serialiser a unique id,
-        /// synched between devices, so that it
-        /// knows which updates are relevant
-        public void SetID(byte id) {
-            if (IDSet == false) {
-                this.ID = id;
-                IDSet = true;
-            }
-        }
     }
 }

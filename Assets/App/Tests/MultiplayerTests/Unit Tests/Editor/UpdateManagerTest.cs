@@ -42,7 +42,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
                 um.HandleUpdate(update, "mariam");
 				Assert.Fail ("HandleUpdate should have thrown a HeaderException");
             }
-            catch (HeaderException e) {
+            catch (MessageHeaderException e) {
 				Assert.Pass(e.Message);
             }
         }

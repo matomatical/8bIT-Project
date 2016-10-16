@@ -115,12 +115,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 				} else {
 					
-					throw new HeaderException ("invalid update identifier");
+					throw new MessageHeaderException ("invalid update identifier");
 				}
 			}
 
 			else {
-				throw new HeaderException ("invalid protocol version");
+				throw new MessageHeaderException ("invalid protocol version");
 			}
 		}
 

@@ -13,25 +13,12 @@ using NUnit.Framework;
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
 	public class BoolObstacleSerializerTest {
 
-		private byte _128 = 128;
+
+		// test testing object
 
 		private MockBoolObstacleSerializer serializer;
 
-		// Test data
-		private BoolObstacleInformation BoolObstacleInformation1 = new BoolObstacleInformation (94, false);
-		private BoolObstacleInformation BoolObstacleInformation2 = new BoolObstacleInformation (111, true);
-
-		private List<byte> data1 () {
-			List<byte> data = new List<byte> ();
-			data.Add ((byte)94);
-			return data;
-		}
-
-		private List<byte> data2 () {
-			List<byte> data = new List<byte> ();
-			data.Add ((byte)(111 + _128));
-			return data;
-		}
+		// call this method before every test to set up the testing object
 
 		[SetUp]
 		public void SetUp () {
@@ -39,10 +26,15 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 			serializer = obj.AddComponent<MockBoolObstacleSerializer> ();
 		}
 
+		// call this method after every test to clean up the testing object
+
 		[TearDown]
 		public void TearDown () {
 			GameObject.DestroyImmediate (serializer.gameObject);
 		}
+
+
+		// begin tests!
 
 		[Test]
 		public void SerializeThenDeserializeShouldPreserveOriginal () {
@@ -105,7 +97,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		}
 
 		[Test]
-		public void DeserializeEmptyListShouldThrowArgumentOutOfRangeException () {
+		public void DeserializeEmptyListShouldThrowMessageBodyException () {
 
 			// try deserialize an empty list
 			try {
@@ -114,7 +106,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 				Assert.Fail ();
 
 			}
-			catch (System.ArgumentOutOfRangeException e) {
+			catch (MessageBodyException e) {
                 // Good! We can't deserialize that!
 				Assert.Pass (e.Message);
 			}
@@ -134,7 +126,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		}
 
 		[Test]
-		public void Serializer128ShouldThrowArgumentOutOfRangeException () {
+		public void Serializing128ShouldThrowArgumentOutOfRangeException () {
 			try {
 				serializer.Serialize(new BoolObstacleInformation (_128, true));
 				Assert.Fail ("Serializing invalid ID did not throw ArgumentOutOfRangeException");
@@ -148,7 +140,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 			for (int i=0; i<10; i++) {
 				try {
 					serializer.SetID (_128);
-				} catch (ArgumentOutOfRangeException e) {
+				} catch (ArgumentOutOfRangeException) {
 					// do nothing, we want this to happen
 				}
 			}
@@ -164,7 +156,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 				serializer.GetID ();
 				Assert.Fail ("NotYetSetException should have been thrown");
 			} catch (NotYetSetException e) {
-				Assert.Pass ();
+				Assert.Pass (e.Message);
 			}
 		}
 
@@ -172,7 +164,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		public void SetInvalidIDThenGetIDShouldStillThrowNotYetSetException () {
 			try {
 				serializer.SetID (_128);
-			} catch (ArgumentOutOfRangeException e) {
+			} catch (ArgumentOutOfRangeException) {
 				// do nothing, we want this to happen
 			}
 
@@ -180,8 +172,31 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 				serializer.GetID ();
 				Assert.Fail ("NotYetSetException should have been thrown");
 			} catch (NotYetSetException e) {
-				Assert.Pass ();
+				Assert.Pass (e.Message);
 			}
 		}
+
+
+
+
+		// Test data
+
+		private byte _128 = 128;
+
+		private BoolObstacleInformation BoolObstacleInformation1 = new BoolObstacleInformation (94, false);
+		private BoolObstacleInformation BoolObstacleInformation2 = new BoolObstacleInformation (111, true);
+
+		private List<byte> data1 () {
+			List<byte> data = new List<byte> ();
+			data.Add ((byte)94);
+			return data;
+		}
+
+		private List<byte> data2 () {
+			List<byte> data = new List<byte> ();
+			data.Add ((byte)(111 + _128));
+			return data;
+		}
+
 	}
 }

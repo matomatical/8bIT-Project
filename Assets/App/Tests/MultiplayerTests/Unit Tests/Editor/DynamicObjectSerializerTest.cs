@@ -13,21 +13,32 @@ using NUnit.Framework;
 namespace xyz._8bITProject.cooperace.multiplayer.tests
 {
 	[TestFixture]
-	public class PlayerSerializerTest
+	public class DynamicObjectSerializerTest
 	{
-		private readonly float POSX1 = 34.351f;
-		private readonly float POSY1 = 91.984f;
-		private readonly float VELX1 = 0.415f;
-		private readonly float VELY1 = 0.13f;
 
-		private readonly float POSX2 = 74285.13f;
-		private readonly float POSY2 = -143570108.57f;
-		private readonly float VELX2 = 14958.848f;
-		private readonly float VELY2 = 24058.4209f;
+
+		// testing object
+		DynamicObjectSerializer serializer;
+
+		// call this before every test to set up the testing object
+		[SetUp]
+		public void SetUp () {
+			GameObject obj = new GameObject ("Serializer");
+			serializer = obj.AddComponent<DynamicObjectSerializer> ();
+		}
+
+		// call this after every test to clean up testing object
+		[TearDown]
+		public void TearDown () {
+			GameObject.DestroyImmediate (serializer.gameObject);
+		}
+
+
+
+		// TESTS
 
 		[Test]
 		public void SerializeThenDeserializeShouldPreserveOriginal () {
-			PlayerSerializer serializer = new PlayerSerializer ();
 
 			// Serialize some information
 			DynamicObjectInformation info = PlayerInformation1 ();
@@ -45,7 +56,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 
 		[Test]
 		public void DeserializeThenSerializeShouldPreserveOriginal () {
-			PlayerSerializer serializer = new PlayerSerializer ();
 
 			DynamicObjectInformation info;
 			List<byte> data = data2 ();
@@ -68,7 +78,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 
 		[Test]
 		public void SerializeTestCaseShouldReturnExpected () {
-			PlayerSerializer serializer = new PlayerSerializer ();
 
 			DynamicObjectInformation info = PlayerInformation2 ();
 			List<byte> data = serializer.Serialize (info);
@@ -81,7 +90,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 
 		[Test]
 		public void DeserializeTestCaseShouldReturnExpected () {
-			PlayerSerializer serializer = new PlayerSerializer ();
 
 			List<byte> data = data1 ();
 			DynamicObjectInformation info = serializer.Deserialize (data);
@@ -90,8 +98,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		[Test]
-		public void DeserializeEmptyListShouldThrowArgumentOutOfRangeException () {
-			PlayerSerializer serializer = new PlayerSerializer ();
+		public void DeserializeEmptyListShouldThrowMessageBodyException () {
 
 			// try deserialize an empty list
 			try {
@@ -99,13 +106,50 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 				// Oh no! Deserialize shouldn't be able to deseralize an empty list...
 				Assert.Fail ();
 			}
-			catch (System.ArgumentOutOfRangeException e) {
+			catch (MessageBodyException e) {
 				// Good! We can't deserialize that!
 				Assert.Pass ();
 				Debug.Log(e);
 
 			}
 		}
+
+		[Test]
+		public void SetIDFirstTimeShouldSetID () {
+			serializer.SetID (12);
+			Assert.AreEqual (12, serializer.GetID ());
+		}
+
+		[Test]
+		public void SetIDSecondTimeShouldNotSetID () {
+			serializer.SetID (12);
+			serializer.SetID (24);
+			Assert.AreEqual (12, serializer.GetID ());
+		}
+
+		[Test]
+		public void GetIDBeforeStateSetShouldThrowNotYetSetException () {
+			try {
+				serializer.GetID ();
+				Assert.Fail ("NotYetSetException should have been thrown");
+			} catch (NotYetSetException e) {
+				Assert.Pass (e.Message);
+			}
+		}
+
+
+		// test helper methods and example data
+
+		private readonly float POSX1 = 34.351f;
+		private readonly float POSY1 = 91.984f;
+		private readonly float VELX1 = 0.415f;
+		private readonly float VELY1 = 0.13f;
+
+		private readonly float POSX2 = 74285.13f;
+		private readonly float POSY2 = -143570108.57f;
+		private readonly float VELX2 = 14958.848f;
+		private readonly float VELY2 = 24058.4209f;
+
 
 		private DynamicObjectInformation PlayerInformation1 () {
 			return new DynamicObjectInformation (new Vector2 (POSX1, POSY1), new Vector2 (VELX1, VELY1));

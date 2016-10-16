@@ -47,8 +47,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			foreach (ChatMessage m in history) {
 				if (++i > n)
 					break;
-				Debug.Log ("i: " + i);
-				Debug.Log (m.message);
+				
 				recent.Insert(0, m);
 			}
 
