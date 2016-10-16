@@ -6,6 +6,7 @@
 */
 
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
@@ -19,20 +20,12 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
         // Test that when you try to add a message to the chathistory, you are able to
         [Test]
-        public void AddMessageShouldAddMessage () {
+        public void AddedMessagesShouldBeInHistory () {
             ChatHistory history = new ChatHistory();
 
             history.AddMessage(message,true);
 
-			bool containsMessage = false;
-
-			foreach (ChatMessage m in history.GetHistory ()) {
-				Debug.Log (string.Format("message: {0}, local: {1}", m.message, m.localPlayerMsg));
-				if (m.Equals (new ChatMessage(message, true))) {
-					containsMessage = true;
-					break;
-				}
-			}
+			bool containsMessage = ContainsMessage(history, new ChatMessage(message, true));
 
 			Assert.IsTrue (containsMessage);
         }
@@ -40,7 +33,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         
         // Make sure that mostRecent returns the sfirst n number of messages
         [Test]
-        public void MostRecent () {
+        public void MostRecentThreeShouldReturnThreeMostRecentMessages () {
             ChatHistory history = new ChatHistory();
 
             history.AddMessage("0", true); // first
@@ -50,54 +43,88 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             List<ChatMessage> recentMessages = history.MostRecent(3);
 
-			Assert.That (recentMessages.Count == 3);
 			Assert.That (recentMessages[0].Equals(new ChatMessage("1", true)));
 			Assert.That (recentMessages[1].Equals(new ChatMessage("2", true)));
 			Assert.That (recentMessages[2].Equals(new ChatMessage("3", true)));
         }
 
-        // Add a message to the chatHistory and make sure true is returned when seeing if the history contains
-        // the message added
-        [Test]
-        public void ContainsMessage() {
-            ChatHistory history = new ChatHistory();
-            int numMessages = 10;
+		[Test]
+		public void MostRecentThreeShouldReturnThreeMessages () {
+			ChatHistory history = new ChatHistory();
 
-            // generate 10 random messages and add them to 
-            List<ChatMessage> messages = generateRandomMessages(numMessages);
-			for (int i = 0; i < messages.Count; i++) {
-				history.AddMessage (messages [i].message, messages [i].localPlayerMsg);
-			}
+			history.AddMessage("0", true); // first
+			history.AddMessage("1", true); // second
+			history.AddMessage("2", true); // third
+			history.AddMessage("3", true); // fourth
 
-			// For every test messages search the chat history to make sure each test message is in there
-			foreach (ChatMessage testMessage in messages) {
-				bool containsMessage = false;
+			List<ChatMessage> recentMessages = history.MostRecent(3);
 
-				foreach (ChatMessage m in history.GetHistory ()) {
-					if (m.Equals (testMessage)) {
-						containsMessage = true;
-						break;
-					}
-				}
+			Assert.That (recentMessages.Count == 3);
+		}
 
-				Assert.IsTrue (containsMessage);
-            }
-        }
+		[Test]
+		public void MostRecentShouldNotReturnMoreMessagesThanItHas () {
+			ChatHistory history = new ChatHistory();
+
+			history.AddMessage("0", true); // first
+
+			List<ChatMessage> recents = history.MostRecent (3);
+
+			Assert.AreEqual (recents.Count, 1);
+		}
 
         // test to ensure you can't add any empty messages to the history
         [Test]
-        public void AddEmptyMessage() {
+        public void AddEmptyMessageThrowsArgumentException() {
             ChatHistory history = new ChatHistory();
 
             try {
                 history.AddMessage("", true);
+				Assert.Fail ();
             }
-            catch (System.ArgumentNullException e) {
-                Debug.Log(e);
+            catch (System.ArgumentException e) {
                 Assert.Pass();
+				Debug.Log (e.Message);
             }
-
         }
+
+		[Test]
+		public void MostRecentZeroShouldReturnEmptyList () {
+			ChatHistory history = new ChatHistory ();
+
+			history.AddMessage (message, true);
+
+			Assert.That (history.MostRecent (0).Count == 0);
+		}
+
+		[Test] public void MostRecentNegativeShouldThrowsArgumentOutOfRangeException () {
+			ChatHistory history = new ChatHistory ();
+
+			history.AddMessage (message, true);
+
+			try {
+				history.MostRecent (-1);
+				Assert.Fail ();
+			}
+			catch (ArgumentOutOfRangeException e) {
+				Assert.Pass ();
+				Debug.Log (e.Message);
+			}
+
+		}
+
+		[Test] public void AddNullMessageThrowsArgumentNullException () {
+			ChatHistory history = new ChatHistory ();
+
+			try {
+				history.AddMessage (null, true);
+				Assert.Fail ();
+			}
+			catch (ArgumentException e) {
+				Assert.Pass ();
+				Debug.Log (e.Message);
+			}
+		}
 
         // generate a list of random messages of random length
         private List<ChatMessage> generateRandomMessages(int num) {
@@ -114,7 +141,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         }
 
         // generate a random string of the specified length
-        public static string RandomString(int length) {
+        private string RandomString(int length) {
             string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
             var stringChars = new char[length];
             System.Random random = new System.Random();
@@ -127,5 +154,17 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             return finalString;
         }
+
+		public static bool ContainsMessage (ChatHistory history, ChatMessage message)
+		{
+			bool containsMessage = false;
+			foreach (ChatMessage m in history.GetHistory ()) {
+				if (m.Equals (message)) {
+					containsMessage = true;
+					break;
+				}
+			}
+			return containsMessage;
+		}
     }
 }

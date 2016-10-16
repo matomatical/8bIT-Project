@@ -38,7 +38,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		}
 
 		[Test]
-		public void SerializeDeserialize () {
+		public void SerializeThenDeserializeShouldPreserveOriginal () {
 			KeyBlockSerializer serializer = new KeyBlockSerializer ();
 
 			// Serialize some information
@@ -56,7 +56,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		}
 
 		[Test]
-		public void DeserializeSerialize () {
+		public void DeserializeThenSerializeShouldPreserveOriginal () {
 			KeyBlockSerializer serializer = new KeyBlockSerializer ();
 
 			BoolObstacleInformation info;
@@ -79,7 +79,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		}
 
 		[Test]
-		public void Serialize () {
+		public void SerializeTestCaseShouldReturnExpected () {
 			KeyBlockSerializer serializer = new KeyBlockSerializer ();
 
 			BoolObstacleInformation info = BoolObstacleInformation2;
@@ -92,7 +92,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		}
 
 		[Test]
-		public void Deserialize () {
+		public void DeserializeTestCaseShouldReturnExpected () {
 			KeyBlockSerializer serializer = new KeyBlockSerializer ();
 
 			List<byte> data = data1 ();
@@ -102,19 +102,20 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		}
 
 		[Test]
-		public void DeserializeEmptyList () {
+		public void DeserializeEmptyListShouldThrowArgumentOutOfRangeException () {
 			KeyBlockSerializer serializer = new KeyBlockSerializer ();
 
 			// try deserialize an empty list
 			try {
 				serializer.Deserialize (new List<byte> ());
+				// Oh no! Deserialize shouldn't be able to deseralize an empty list...
+				Assert.Fail ();
 			}
 			catch (System.ArgumentOutOfRangeException e) {
                 // Good! We can't deserialize that!
-                Debug.Log(e);
 				Assert.Pass ();
+				Debug.Log(e);
 			}
-			// Oh no! Deserialize shouldn't be able to deseralize an empty list...
 		}
 	}
 }

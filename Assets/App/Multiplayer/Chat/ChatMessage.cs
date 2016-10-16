@@ -16,12 +16,12 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		public string message { get; private set; }
 
         // did I send this message?
-		public bool localPlayerMsg { get; private set; }
+		public bool isFromMe { get; private set; }
 
         /// Use this for initialization
         public ChatMessage(string message, bool localPlayerMsg) {
             this.message = message;
-            this.localPlayerMsg = localPlayerMsg;
+            this.isFromMe = localPlayerMsg;
         }
 
 		/// Check if two objects are equal
@@ -44,7 +44,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// Check if two objects of type ChatMessage are equal
 		public bool Equals(ChatMessage chat) {
 			// Return true if the fields match:
-			return (chat != null) && (chat.message == this.message) && (chat.localPlayerMsg == this.localPlayerMsg);
+			return (chat != null) && (chat.message == this.message) && (chat.isFromMe == this.isFromMe);
 		}
     }
 }

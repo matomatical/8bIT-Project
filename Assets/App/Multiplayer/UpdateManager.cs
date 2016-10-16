@@ -127,7 +127,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
                             Debug.Log("Notifying ChatController");
 
 							// Give chat controller the message
-                            chatController.GiveMessage(data);
+                            chatController.RecieveMessage(data);
 
                         } // Handle other types of updates in this if/else tree
                     } // Handle other protocols in this if/else tree

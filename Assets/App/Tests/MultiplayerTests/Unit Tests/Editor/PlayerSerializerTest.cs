@@ -26,7 +26,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		private readonly float VELY2 = 24058.4209f;
 
 		[Test]
-		public void SerializeDeserialize () {
+		public void SerializeThenDeserializeShouldPreserveOriginal () {
 			PlayerSerializer serializer = new PlayerSerializer ();
 
 			// Serialize some information
@@ -44,7 +44,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		[Test]
-		public void DeserializeSerialize () {
+		public void DeserializeThenSerializeShouldPreserveOriginal () {
 			PlayerSerializer serializer = new PlayerSerializer ();
 
 			DynamicObjectInformation info;
@@ -67,7 +67,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		[Test]
-		public void Serialize () {
+		public void SerializeTestCaseShouldReturnExpected () {
 			PlayerSerializer serializer = new PlayerSerializer ();
 
 			DynamicObjectInformation info = PlayerInformation2 ();
@@ -80,7 +80,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		[Test]
-		public void Deserialize () {
+		public void DeserializeTestCaseShouldReturnExpected () {
 			PlayerSerializer serializer = new PlayerSerializer ();
 
 			List<byte> data = data1 ();
@@ -90,19 +90,21 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		[Test]
-		public void DeserializeEmptyList () {
+		public void DeserializeEmptyListShouldThrowArgumentOutOfRangeException () {
 			PlayerSerializer serializer = new PlayerSerializer ();
 
 			// try deserialize an empty list
 			try {
 				serializer.Deserialize (new List<byte> ());
+				// Oh no! Deserialize shouldn't be able to deseralize an empty list...
+				Assert.Fail ();
 			}
 			catch (System.ArgumentOutOfRangeException e) {
-                Debug.Log(e);
 				// Good! We can't deserialize that!
 				Assert.Pass ();
+				Debug.Log(e);
+
 			}
-			// Oh no! Deserialize shouldn't be able to deseralize an empty list...
 		}
 
 		private DynamicObjectInformation PlayerInformation1 () {

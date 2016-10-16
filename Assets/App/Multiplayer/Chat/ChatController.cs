@@ -1,14 +1,17 @@
-﻿using UnityEngine;
-using System;
-using System.Text;
-using System.Collections.Generic;
-using UnityEngine.UI;
-/*
+﻿/*
  * Is responsible for taking text input from the user and sending it to the update manager
  * 
  * Mariam Shahid  < mariams@student.unimelb.edu.au >
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
+
+using UnityEngine;
+using System;
+using System.Text;
+using System.Collections.Generic;
+using UnityEngine.UI;
+
+
 namespace xyz._8bITProject.cooperace.multiplayer {
     public class ChatController : MonoBehaviour {
         
@@ -16,25 +19,18 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         public IUpdateManager updateManager;
 
         // A record of every message sent
-        public ChatHistory chatHistory;
+		private ChatHistory chatHistory = new ChatHistory ();
 
         // The class which looks after rendering the chat
-        private ChatGUI chatGUI;
+		private ChatGUI chatGUI;
 
         // The OS keyboard
         private TouchScreenKeyboard keyboard;
 
         /// Use this for initialization
         void Start() {
-            Init();
+			chatGUI = new ChatGUI(chatHistory);
         }
-
-        /// Initialize the chat controller object
-        public void Init() {
-            chatHistory = new ChatHistory();
-            chatGUI = new ChatGUI(chatHistory);
-        }
-
 
         /// This is called when the chat icon is pressed on screen. 
         /// It initialises the device's onscreen keyboard.
@@ -49,7 +45,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             if (keyboard != null && keyboard.done) {
 
                 string currMessage = keyboard.text;
-                chatHistory.AddMessage(currMessage, true);
+
+				try {
+                	chatHistory.AddMessage(currMessage, true);
+				}
+				catch (Exception e) {
+					Debug.Log (e.Message);
+				}
 
                 if (updateManager != null) {
                     messageList = Serialize (currMessage);
@@ -65,11 +67,18 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             chatGUI.RenderChatGUI ();
         }
 
-        /// Takes a message and adds it to the chat history
-        public void GiveMessage(List<byte> message) {
+        /// Takes a serialized message and adds it to the chat history
+        public void RecieveMessage (List<byte> message) {
 
             string strMessage = Deserialize (message);
-            chatHistory.AddMessage(strMessage, false);
+
+			try {
+            	chatHistory.AddMessage(strMessage, false);
+			}
+			catch (Exception e) {
+				Debug.Log (e.Message);
+			}
+
         }
 
         /// Takes a string of bytes and converts it to the appropriate string representations

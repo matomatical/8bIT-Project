@@ -22,7 +22,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         /// Add a new message to the chat history
         public void AddMessage(string message, bool localPlayer) {
-			if (message == null) {
+			if (message == "") {
+				throw new ArgumentException ("message is empty");
+			} else if (message == null) {
 				throw new ArgumentNullException ("message is null");
 			} else {
 				ChatMessage m = new ChatMessage (message, localPlayer);
@@ -34,6 +36,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// The most recent will be at the end of the list
 		public List<ChatMessage> MostRecent(int n) {
 			int length = history.Count;
+
+			if (length < n)
+				n = length;
+			
 			return history.GetRange (length - n, n);
 		}
 
