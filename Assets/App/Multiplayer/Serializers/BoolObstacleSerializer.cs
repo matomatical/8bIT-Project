@@ -24,6 +24,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// synched between devices, so that it
 		/// knows which updates are relevant
 		public void SetID(byte id){
+			if (id > Math.Pow(2, BITS_IN_BYTE-1)-1)
+				throw new ArgumentOutOfRangeException("id must be less than" + (Math.Pow(2, BITS_IN_BYTE-1)-1));
+
 			if (IDSet == false) {
 				this.ID = id;
 				IDSet = true;
@@ -31,6 +34,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		}
 
 		public byte GetID(){
+			if (!IDSet)
+				throw new NotYetSetException ("id not yet set");
+
 			return ID;
 		}
 
@@ -96,6 +102,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		public List<byte> Serialize (BoolObstacleInformation information)
 		{
 			List<byte> data = new List<byte> ();	// The list to store the update
+
+			if (information.ID > Math.Pow(2, BITS_IN_BYTE-1)-1)
+				throw new ArgumentOutOfRangeException("id must be less than" + (Math.Pow(2, BITS_IN_BYTE-1)-1) + ". Check the information passed");
 
 			// Add information about the state to the data
 			data.Add(information.state ? (byte)(information.ID + Math.Pow(2, BITS_IN_BYTE-1)) : (byte)information.ID);

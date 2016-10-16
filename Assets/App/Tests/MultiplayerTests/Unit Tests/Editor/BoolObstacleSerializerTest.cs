@@ -6,18 +6,20 @@
 */
 
 using UnityEngine;
+using System;
 using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace xyz._8bITProject.cooperace.multiplayer.tests {
-	public class KeySerializerTest {
+	public class BoolObstacleSerializerTest {
 
 		private byte _128 = 128;
+
+		private MockBoolObstacleSerializer serializer;
 
 		// Test data
 		private BoolObstacleInformation BoolObstacleInformation1 = new BoolObstacleInformation (94, false);
 		private BoolObstacleInformation BoolObstacleInformation2 = new BoolObstacleInformation (111, true);
-		//private BoolObstacleInformation BoolObstacleInformation3 = new BoolObstacleInformation (128, true);
 
 		private List<byte> data1 () {
 			List<byte> data = new List<byte> ();
@@ -31,15 +33,19 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 			return data;
 		}
 
-		private List<byte> data3 () {
-			List<byte> data = new List<byte> ();
-			data.Add ((byte)(_128 + _128));
-			return data;
+		[SetUp]
+		public void SetUp () {
+			GameObject obj = new GameObject ("Serializer");
+			serializer = obj.AddComponent<MockBoolObstacleSerializer> ();
+		}
+
+		[TearDown]
+		public void TearDown () {
+			GameObject.DestroyImmediate (serializer.gameObject);
 		}
 
 		[Test]
 		public void SerializeThenDeserializeShouldPreserveOriginal () {
-			KeySerializer serializer = new KeySerializer ();
 
 			// Serialize some information
 			BoolObstacleInformation info = BoolObstacleInformation1;
@@ -57,7 +63,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 		[Test]
 		public void DeserializeThenSerializeShouldPreserveOriginal () {
-			KeySerializer serializer = new KeySerializer ();
 
 			BoolObstacleInformation info;
 			List<byte> data = data2 ();
@@ -80,7 +85,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 		[Test]
 		public void SerializeTestCaseShouldReturnExpected () {
-			KeySerializer serializer = new KeySerializer ();
 
 			BoolObstacleInformation info = BoolObstacleInformation2;
 			List<byte> data = serializer.Serialize (info);
@@ -93,7 +97,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 		[Test]
 		public void DeserializeTestCaseShouldReturnExpected () {
-			KeySerializer serializer = new KeySerializer ();
 
 			List<byte> data = data1 ();
 			BoolObstacleInformation info = serializer.Deserialize (data);
@@ -103,7 +106,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 		[Test]
 		public void DeserializeEmptyListShouldThrowArgumentOutOfRangeException () {
-			KeySerializer serializer = new KeySerializer ();
 
 			// try deserialize an empty list
 			try {
@@ -114,8 +116,71 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 			}
 			catch (System.ArgumentOutOfRangeException e) {
                 // Good! We can't deserialize that!
+				Assert.Pass (e.Message);
+			}
+		}
+
+		[Test]
+		public void SetIDFirstTimeShouldSetID () {
+			serializer.SetID (12);
+			Assert.AreEqual (12, serializer.GetID ());
+		}
+
+		[Test]
+		public void SetIDSecondTimeShouldNotSetID () {
+			serializer.SetID (12);
+			serializer.SetID (24);
+			Assert.AreEqual (12, serializer.GetID ());
+		}
+
+		[Test]
+		public void Serializer128ShouldThrowArgumentOutOfRangeException () {
+			try {
+				serializer.Serialize(new BoolObstacleInformation (_128, true));
+				Assert.Fail ("Serializing invalid ID did not throw ArgumentOutOfRangeException");
+			} catch (ArgumentOutOfRangeException e) {
+				Assert.Pass (e.Message);
+			}
+		}
+
+		[Test]
+		public void SetIDShouldAcceptValidIDAfterInvalidAttempts () {
+			for (int i=0; i<10; i++) {
+				try {
+					serializer.SetID (_128);
+				} catch (ArgumentOutOfRangeException e) {
+					// do nothing, we want this to happen
+				}
+			}
+
+			serializer.SetID (12);
+
+			Assert.AreEqual (12, serializer.GetID ());
+		}
+
+		[Test]
+		public void GetIDBeforeStateSetShouldThrowNotYetSetException () {
+			try {
+				serializer.GetID ();
+				Assert.Fail ("NotYetSetException should have been thrown");
+			} catch (NotYetSetException e) {
 				Assert.Pass ();
-				Debug.Log(e);
+			}
+		}
+
+		[Test]
+		public void SetInvalidIDThenGetIDShouldStillThrowNotYetSetException () {
+			try {
+				serializer.SetID (_128);
+			} catch (ArgumentOutOfRangeException e) {
+				// do nothing, we want this to happen
+			}
+
+			try {
+				serializer.GetID ();
+				Assert.Fail ("NotYetSetException should have been thrown");
+			} catch (NotYetSetException e) {
+				Assert.Pass ();
 			}
 		}
 	}
