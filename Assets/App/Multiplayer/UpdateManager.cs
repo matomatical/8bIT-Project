@@ -57,13 +57,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void Subscribe (IListener<List<byte>> o, Channel c)
 		{
 			subscribers[(int)c].Add (o);
-
-			string msg = c.ToString() + " subscribers: [";
-			foreach(IListener<List<byte>> l in subscribers[(int)c]){
-				msg += l.ToString () + " ";
-			}
-
-			Debug.Log (msg + "]");
 		}
 
 		/// Notifies all subscribers of an update to this channel
