@@ -14,7 +14,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		[Test]
 		public void EqualsNullShouldReturnFalse () {
 			ChatMessage test = new ChatMessage ("Hello, world!", true);
-			Assert.That (!test.Equals (null));
+			Assert.IsFalse (test.Equals (null));
 		}
 
 		[Test]
@@ -27,9 +27,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		public void EqualsACopyShouldReturnTrue () {
 			ChatMessage test0 = new ChatMessage ("Hello, world!", true);
 			ChatMessage test1 = new ChatMessage ("Hello, world!", true);
-
-			Debug.Log ("test0 null: " + (test0 == null) + ", test1 null: " + (test1 == null));
-			Debug.Log ("new chat message is null: " + ((new ChatMessage ("Hello, world!", true)) == null));
 
 			Assert.That (test0.Equals (test1));
 		}
