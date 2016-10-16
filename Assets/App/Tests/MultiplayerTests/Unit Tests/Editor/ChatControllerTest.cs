@@ -96,7 +96,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         public void GiveMessageShouldAddMessageToHistory() {
 
             List<Byte> data = data1();
-            chatController.RecieveMessage(data);
+            chatController.ReceiveMessage(data);
 
             ChatHistory history = chatController.GetChatHistory();
 

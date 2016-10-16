@@ -7,52 +7,58 @@
  */
 
 using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
 	public class HeaderManager {
-		
+
+		public struct Header {
+			public byte protocol;
+			public byte messageType;
+
+			public Header (byte protocol, byte messageType) {
+				this.protocol = protocol;
+				this.messageType = messageType;
+			}
+		}
+
 		/// Strips off the header of an update, returns information contained in the header
-		public static List<byte> StripHeader(List<byte> data) {
-			List<byte> headerInfo = new List<byte>();
+		public static Header StripHeader(List<byte> data) {
+
+			byte protocol;
+			byte updateType;
 
 			// Make sure data isn't empty or null
 			try {
-				// get the protocol
-				byte protocol = data[0];
+				// get the protocol and remove it from the message
+				protocol = data[0];
+				data.RemoveAt (0);
 
-				// add the protocol to the header and remove it from the message
-				headerInfo.Add(protocol);
-				data.RemoveAt(0);
+				// get the update type and remove it from the message
+				updateType = data[0];
+				data.RemoveAt (0);
+			
+			// Make sure data isn't empty
+			} catch (System.IndexOutOfRangeException e) {
+				
+				throw new HeaderException ("not enough bytes in message: " + e.Message);
 
-				try {
-					if (protocol == UpdateManager.PROTOCOL_VERSION) {
-						// get the update type
-						headerInfo.Add(data[0]);
-						
-                        // remove the update type
-						data.RemoveAt(0);
-					}
-				} catch (System.IndexOutOfRangeException e) {
-					Debug.Log("Invalid protocol version. " + e);
-					throw e;
-				}
 			} catch(System.ArgumentOutOfRangeException e) {
-				Debug.Log("data hasn't been initialized. " + e);
-				throw e;
+
+				// Should never reach here, but can't be too safe
+				throw new HeaderException ("not enough bytes in message: " + e.Message);
+
 			}
-			catch (System.NullReferenceException e) {
-				Debug.Log("data is null. " + e);
-				throw e;
-			}
-			return headerInfo;
+
+			return new Header (protocol, updateType);
 		}
 
 		/// Applies a header to an upddate (data), at this point just a protocol version and update type
-		public static void ApplyHeader(List<byte> data, byte type) {
-			data.Insert(0, UpdateManager.PROTOCOL_VERSION);
-			data.Insert(1, type);
+		public static void ApplyHeader(List<byte> data, Header header) {
+			data.Insert(0, header.protocol);
+			data.Insert(1, header.messageType);
 		}
 	}
 }

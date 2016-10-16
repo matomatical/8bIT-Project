@@ -16,39 +16,32 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
         // what if the protool version is different
         [Test]
-        public void InvalidProtocolVersion() {
+        public void InvalidProtocolVersionShouldThrowHeaderException() {
             UpdateManager um = new UpdateManager();
-            List<byte> update = CreateInvalidUpdate();
+            List<byte> update = CreateInvalidProtocolUpdate();
 
             try {
                 um.HandleUpdate(update, "mariam");
+				Assert.Fail ("HandleUpdate should have thrown a HeaderException");
             } catch(Exception e) {
-                Debug.Log(e);
-                Assert.Pass();
+				Assert.Pass(e.Message);
             }
-
         }
         
         // what if the update identifier is invalid?
         [Test]
-        public void InvalidUpdateIdentifier() {
+        public void InvalidUpdateIdentifierShouldThrowHeaderException () {
             UpdateManager um = new UpdateManager();
 
-            // Incorrect protocol version and invalid update identifier
-            List<byte> update1 = CreateInvalidUpdate();
-
-            // Correct protocol version but invalid update identifier
-            List<byte> update2 = new List<byte>();
-            update2 = (CreateInvalidUpdate());
-            update2[0] = (UpdateManager.PROTOCOL_VERSION);
-
+            // Correct protocol version and invalid update identifier
+            List<byte> update = CreateInvalidUpdateTypeUpdate();
+			
             try {
-                um.HandleUpdate(update1, "mariam");
-                um.HandleUpdate(update2, "mariam");
+                um.HandleUpdate(update, "mariam");
+				Assert.Fail ("HandleUpdate should have thrown a HeaderException");
             }
-            catch (Exception e) {
-                Debug.Log(e);
-                Assert.Pass();
+            catch (HeaderException e) {
+				Assert.Pass(e.Message);
             }
         }
 
@@ -72,13 +65,23 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         }
 
         // create a meaningless update
-        private List<byte> CreateInvalidUpdate() {
+        private List<byte> CreateInvalidUpdateTypeUpdate() {
             List<byte> update = new List<byte>();
-            update.Add((Byte)20);
+
+			update.Add(UpdateManager.PROTOCOL_VERSION);
             update.Add((Byte)'m');
-            update.Add((Byte)27.147);
+			update.AddRange(BitConverter.GetBytes(27.147));
             return update;
         }
 
+		// create a meaningless update
+		private List<byte> CreateInvalidProtocolUpdate() {
+			List<byte> update = new List<byte>();
+
+			update.Add((byte)(UpdateManager.PROTOCOL_VERSION+1));
+			update.Add(UpdateManager.OBSTACLE);
+			update.AddRange(BitConverter.GetBytes(27.147));
+			return update;
+		}
     }
 }

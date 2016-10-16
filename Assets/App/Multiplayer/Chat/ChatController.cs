@@ -68,7 +68,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
         /// Takes a serialized message and adds it to the chat history
-        public void RecieveMessage (List<byte> message) {
+        public void ReceiveMessage (List<byte> message) {
 
             string strMessage = Deserialize (message);
 

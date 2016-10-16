@@ -95,57 +95,46 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			Debug.Log ("Update recieved from " + senderID);
 
 			// Strip the header off the update
-			List<byte> header = HeaderManager.StripHeader(data);
+			HeaderManager.Header header = HeaderManager.StripHeader(data);
 
-            try {
-                try {
+							
+			if (header.protocol == PROTOCOL_VERSION) {
+				if (header.messageType == PLAYER) {
+					Debug.Log ("Notifying everyone on the player channel");
+
+					// Notify player subscribers of player updates
+					NotifyAll (data, Channel.PLAYER);
+				} else if (header.messageType == OBSTACLE) {
+					Debug.Log ("Notifying everyone on the obstacle channel");
+
+					// Notify all obstacle subscribers of an obstacle update
+					NotifyAll (data, Channel.OBSTACLE);
+				} else if (header.messageType == PUSHBLOCK) {
+					Debug.Log ("Notifying everyone on the pushblock channel");
+
+					// Notify all obstacle subscribers of an obstacle update
+					NotifyAll (data, Channel.PUSHBLOCK);
+				} else if (header.messageType == CHAT && chatController != null) {
+					Debug.Log ("Notifying ChatController");
+
+					// Give chat controller the message
+					chatController.ReceiveMessage (data);
+
+				} else {
 					
-                    if (header[0] == PROTOCOL_VERSION) {
-						
-                        if (header[1] == PLAYER) {
-                            Debug.Log("Notifying everyone on the player channel");
+					throw new HeaderException ("invalid update identifier");
+				}
+			}
 
-							// Notify player subscribers of player updates
-                            NotifyAll(data, Channel.PLAYER);
-                        }
-
-						else if (header[1] == OBSTACLE) {
-							Debug.Log("Notifying everyone on the obstacle channel");
-
-							// Notify all obstacle subscribers of an obstacle update
-							NotifyAll(data, Channel.OBSTACLE);
-						}
-
-						else if (header[1] == PUSHBLOCK) {
-							Debug.Log("Notifying everyone on the pushblock channel");
-
-							// Notify all obstacle subscribers of an obstacle update
-							NotifyAll(data, Channel.PUSHBLOCK);
-						}
-				
-                        else if (header[1] == CHAT && chatController != null) {
-                            Debug.Log("Notifying ChatController");
-
-							// Give chat controller the message
-                            chatController.RecieveMessage(data);
-
-                        } // Handle other types of updates in this if/else tree
-                    } // Handle other protocols in this if/else tree
-
-                } catch (Exception e) {
-                    Debug.Log("Invalid update identifier");
-                    throw e;
-                }
-            } catch (Exception e) {
-                Debug.Log("Invalid Protocol");
-                throw e;
-            }
+			else {
+				throw new HeaderException ("invalid protocol version");
+			}
 		}
 
 		// Sends an update for an obstacle
 		public void SendObstacleUpdate (List<byte> data)
 		{
-            HeaderManager.ApplyHeader(data, OBSTACLE);
+			ApplyHeader(data, OBSTACLE);
 
 			if (editor) {
 				HandleUpdate (data, "myself");
@@ -159,7 +148,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Sends an update for a player
 		public void SendPlayerUpdate (List<byte> data)
 		{
-            HeaderManager.ApplyHeader(data, PLAYER);
+            ApplyHeader(data, PLAYER);
             if (editor) {
                 HandleUpdate(data, "memes");
             } else {
@@ -171,7 +160,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
         // Sends an update for a pushblock
         public void SendPushBlockUpdate(List<byte> data) {
-            HeaderManager.ApplyHeader(data, PUSHBLOCK);
+            ApplyHeader(data, PUSHBLOCK);
             if (editor) {
                 HandleUpdate(data, "memes");
             }
@@ -186,7 +175,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
         // Sends an update for a chat message
         public void SendTextChat (List<byte> data)
 		{
-            HeaderManager.ApplyHeader(data, CHAT);
+            ApplyHeader(data, CHAT);
 			if (editor) {
 				HandleUpdate(data, "myself");
 			} else {
@@ -194,6 +183,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 			Debug.Log ("Sending chat message");
         }
+
+		private void ApplyHeader (List<byte> data, byte type) {
+			HeaderManager.ApplyHeader (data, new HeaderManager.Header (PROTOCOL_VERSION, type));
+		}
 
 	}
 }
