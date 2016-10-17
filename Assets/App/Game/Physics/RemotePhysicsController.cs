@@ -21,8 +21,6 @@ namespace xyz._8bITProject.cooperace {
 
 	public class RemotePhysicsController : ArcadePhysicsController {
 
-		public bool lerping = true;
-
 		// how far back in time to lag? (default = 0.1 sec = 5 fixedupdates)
 		public float offset = 0.1f;
 
@@ -57,24 +55,32 @@ namespace xyz._8bITProject.cooperace {
 
 		protected override void ChangeVelocity(ref Vector2 velocity){
 
-			// update the time
+			// as soon as a new state becomes last,
+			// we should correct our velocity
+
+			if(!last.vSet){
+				velocity = last.velocity;
+				last.vSet = true;
+			}
+		}
+
+		protected override void ChangePosition(ref Vector2 position){
+
+			// current time
 
 			float time = Time.time - offset;
 
+			// which updates are we going through?
 
 			if (next != null && time < next.time) {
-				
-				// we still have time!
 
+				// we still have time! lerp position
 
-				if (lerping) {
-
-					float progress = (time - last.time) / (next.time - last.time);
-					velocity.x = Mathf.Lerp (last.velocity.x, next.velocity.x, progress);
-				}
+				float progress = (time - last.time) / (next.time - last.time);
+				position.x = Mathf.Lerp (last.position.x, next.position.x, progress);
 
 			} else {
-				
+
 				// time is already past next.time! let's advance to find a new next
 
 				while (next != null && next.time < time) {
@@ -94,36 +100,16 @@ namespace xyz._8bITProject.cooperace {
 					// we found a new 'next' in the while loop, successfully
 					// don't need to do anything, but this is the last case
 				}
-
-
+					
 				// as soon as a new state becomes last, we should apply its
-				// vertical velocity (but let gravity take care of the rest!)
+				// vertical position (which is not lerped - we let gravity take
+				// care of the rest)
 
-				if(!last.vSet){
-					velocity.y = last.velocity.y;
-					last.vSet = true;
-
-					if (!lerping) {
-						velocity.x = last.velocity.x;
-					}
+				if(!last.pSet){
+					position.y = last.position.y;
+					last.pSet = true;
 				}
 			}
-		}
-
-
-		protected override void ChangePosition(ref Vector2 position){
-
-			// as soon as a new state becomes last,
-			// we should correct our position
-
-			if(!last.pSet){
-				position = last.position;
-				last.pSet = true;
-			}
-
-			// last.position + (Time.time - offset - last.time) * last.velocity
-			// could be more accurate, but we'd lose collision prevention if we
-			// project and teleport to a non-safe position (into floor or wall)
 		}
 	}
 }
