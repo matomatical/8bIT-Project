@@ -1,5 +1,7 @@
 ﻿/*
- * Player inputs name logic
+ * --- Player inputs name logic ---
+ * Player can choose their name by picking up characters from
+ * the alphabet.
  *
  * Li Cheng <lcheng3@student.unimelb.edu.au>
  * Athir Saleem <isaleem@student.unimelb.edu.au> 
@@ -114,4 +116,5 @@ public class NameInputHelper : MonoBehaviour {
 	public void ConfirmButton() {
 		PersistentStorage.Write (filename, GetName ());
 	}
+
 }
