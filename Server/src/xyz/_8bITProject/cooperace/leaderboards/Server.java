@@ -1,5 +1,6 @@
 package xyz._8bITProject.cooperace.leaderboards;
 
+import com.matomatical.util.Log;
 import static com.matomatical.util.Log.log;
 import com.matomatical.net.Port;
 import com.matomatical.net.Peer;
@@ -18,6 +19,7 @@ public class Server {
 	 *  connections
 	 */
 	public static void main(String[] args) {
+		Log.setPath("./server.log");
 		
 		log("starting server!");
 		
@@ -35,8 +37,8 @@ public class Server {
 			log("server connected a new client from " + client.getAddress());
 			
 			Servant servant = new Servant(client);
-		    Thread thread = new Thread(servant);
-		    thread.start();
+			Thread thread = new Thread(servant);
+			thread.start();
 		}
 		
 		// if port closes for some reason

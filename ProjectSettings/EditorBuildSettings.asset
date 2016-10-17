@@ -20,6 +20,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/App/UI/Views/MatchMakingScreen.unity
   - enabled: 1
+    path: Assets/App/UI/Views/LeaderboardsMenu.unity
+  - enabled: 1
     path: Assets/App/Game/Scenes/Static Record Level Game Scene.unity
   - enabled: 1
     path: Assets/App/Game/Scenes/Static Replay Level Game Scene.unity
