@@ -29,6 +29,7 @@ GameObject:
   - 114: {fileID: 114000013957736046}
   - 114: {fileID: 114000014184286338}
   - 114: {fileID: 114000011470425658}
+  - 114: {fileID: 114000014068483228}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -163,6 +164,17 @@ MonoBehaviour:
   collisionMask:
     serializedVersion: 2
     m_Bits: 768
+--- !u!114 &114000014068483228
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013806612336}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c32b229154b6342b9ae259303d40fe9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000014184286338
 MonoBehaviour:
   m_ObjectHideFlags: 1

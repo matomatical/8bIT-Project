@@ -14,7 +14,7 @@ namespace xyz._8bITProject.cooperace {
 	public static class SceneManager {
 
 		public static string levelToLoad;
-		public static GameType gameType = GameType.SINGLE;
+		public static GameType gameType = GameType.MULTI;
 		public static string recording;
 		public static bool playingAgainstGhosts;
 

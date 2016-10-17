@@ -14,6 +14,7 @@ using UnityEngine;
 using Tiled2Unity;
 
 using xyz._8bITProject.cooperace.recording;
+using xyz._8bITProject.cooperace.multiplayer;
 
 
 namespace xyz._8bITProject.cooperace {
@@ -156,12 +157,10 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
-		void MultiPlayerAwake(TiledMap level){
 
-			// Multiplayer guys place your awake code here!
-			// (look at the examples above and below - toggling components
-			// on/off via enabled)
-
+	
+		void MultiPlayerAwake(TiledMap level) {
+			MultiplayerInit.Init (level.gameObject);
 		}
 
 		void RewatchRecordingAwake (TiledMap level) {

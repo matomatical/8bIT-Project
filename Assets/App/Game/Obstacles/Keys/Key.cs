@@ -15,18 +15,41 @@ namespace xyz._8bITProject.cooperace {
 		/// The key begins visible.
 		bool taken = false;
 
+		// components to disable/enable upon pickup/restore
+
+		/// The box colliders
+		BoxCollider2D box;
+		/// The sprite renderers
+		SpriteRenderer[] sprites;
+
+		void Start(){
+
+			// link components
+
+			box = GetComponent<BoxCollider2D> ();
+			sprites = GetComponentsInChildren<SpriteRenderer> ();
+		}
+
 		/// Pickup this key, making it disappear from the map
 		/// until it is Restore()'d
 		public void Pickup(){
 			taken = true;
-			gameObject.SetActive(false);
+
+			box.enabled = false;
+			foreach (SpriteRenderer sprite in sprites) {
+				sprite.enabled = false;
+			}
 		}
 
 		/// Restore this key, returning it to the level until
 		/// it is Pickup()'d
 		public void Restore(){
 			taken = false;
-			gameObject.SetActive(true);
+
+			box.enabled = true;
+			foreach (SpriteRenderer sprite in sprites) {
+				sprite.enabled = true;
+			}
 		}
 
 		/// Has this key been taken right now, or is it still available?

@@ -35,13 +35,15 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 
-		// sprites to show
+		/// Is this putton being pressed?
+		bool pressed = false;
 
+
+		// sprites to show
 		private SpriteRenderer spriteRenderer;
 		public Sprite spriteOff, spriteOn;
 
-		void Start(){
-
+		void Start() {
 
 			spriteRenderer = GetComponent<SpriteRenderer> ();
 
@@ -49,44 +51,35 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 
-		// greater than zero if anything is colliding with the pressure plate
-		int isColliding = 0;
-
 		public void Press() {
 
-			++isColliding;
+			if (pressed == false) {
 
-			if (isColliding == 1) {
-				// first presser!
+				pressed = true;
 
 				NotifyStatusChangeToBlocks();
 
 				spriteRenderer.sprite = spriteOn;
-
 			}
 		}
 
 		public void Release() {
 
-			--isColliding;
-			
-			if(isColliding < 0){
-				isColliding = 0;
-			}
+			if (pressed == true) {
 
-			if (isColliding == 0) {
+				pressed = false;
 
-				// last releaser!
-
-				NotifyStatusChangeToBlocks ();
+				NotifyStatusChangeToBlocks();
 
 				spriteRenderer.sprite = spriteOff;
 			}
+
 		}
 
+		/// true if the plate is in the 'pressed' state
 		public bool IsPressed() {
-			// true if any object is colliding with the plate.
-			return isColliding > 0;
+			
+			return pressed;
 		}
 	}
 }

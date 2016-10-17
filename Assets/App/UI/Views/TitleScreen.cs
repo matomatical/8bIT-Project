@@ -20,7 +20,7 @@ public class TitleScreen : MonoBehaviour {
 			if (success) {
 	        	UIHelper.GoTo("MainMenu");
 			} else {
-				// unhandled ;)
+				Debug.Log("Failed to authenticate");
 			}
 		});
     }

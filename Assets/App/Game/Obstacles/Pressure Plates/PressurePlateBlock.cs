@@ -21,6 +21,29 @@ namespace xyz._8bITProject.cooperace {
 		/// then it's an 'inverse' block. default: no, false
 		public bool inverse = false;
 
+		// components to disable/enable upon close/open
+
+		/// The box colliders
+		BoxCollider2D box;
+		/// The sprite renderers
+		SpriteRenderer sprite;
+
+		void Start(){
+
+			// link components
+
+			box = GetComponent<BoxCollider2D> ();
+			sprite = GetComponent<SpriteRenderer> ();
+
+			// active if inverse is false, else deactivate
+
+			bool enabled = (!inverse);
+
+			box.enabled = enabled;
+			sprite.enabled = enabled;
+
+		}
+
 		// Called by the PressurePlate class whenever its state may have
 		// changed.
 		// This method checks if any linked plate is currently pressed,
@@ -34,19 +57,15 @@ namespace xyz._8bITProject.cooperace {
 				}
 			}
 
-			if(!inverse){
-				gameObject.SetActive (!anyPressed);
-			} else {
-				gameObject.SetActive (anyPressed);
-			}
-		}
+			// if inverse is false and anyPressed is false, or if
+			// inverse is true and anyPresses is true, the blocks
+			// should be active (blocking players from passing)
 
-		void Start(){
-			if(!inverse){
-				gameObject.SetActive (true);
-			} else {
-				gameObject.SetActive (false);
-			}
+			bool enabled = (inverse == anyPressed);
+
+			box.enabled = enabled;
+			sprite.enabled = enabled;
+
 		}
 
 		public string GetAddress() {
