@@ -11,7 +11,7 @@ using System.Collections;
 using System.Threading;
 using NUnit.Framework;
 
-namespace xyz._8bITProject.cooperace.leaderboard {
+namespace xyz._8bITProject.cooperace.leaderboard.tests {
 
 	[TestFixture]
 	public class LeaderboardTests {
@@ -38,75 +38,6 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		[Test]
 		public void _PLEASE_MAKE_SURE_A_LOCAL_SERVER_INSTANCE_IS_RUNNING() {
 			// A reminder that appears at the top of the leaderboards test list
-		}
-
-		/*
-		 * Score object tests
-		 */
-
-		[Test]
-		public void ScoreEquals() {
-			Assert.AreEqual(
-				new Score(1, "aaa", "bbb"),
-				new Score(1, "aaa", "bbb"));
-
-			Assert.AreNotEqual(
-				new Score(1, "aaa", "bbb"),
-				new Score(10, "aaa", "bbb"));
-			Assert.AreNotEqual(
-				new Score(1, "aaa", "bbb"),
-				new Score(1, "ccc", "bbb"));
-			Assert.AreNotEqual(
-				new Score(1, "aaa", "bbb"),
-				new Score(1, "aaa", "ccc"));
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreZeroTime() {
-			new Score(0, "aaa", "bbb");
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreNegativeTime() {
-			new Score(-1, "aaa", "bbb");
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreMissingPlayer1Name() {
-			new Score(1, null, "bbb");
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreMissingPlayer2Name() {
-			new Score(1, "aaa", null);
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreToLongPlayer1Name() {
-			new Score(1, "aaaa", "bbb");
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreToShortPlayer1Name() {
-			new Score(1, "aa", "bbb");
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreToLongPlayer2Name() {
-			new Score(1, "aaa", "bbbb");
-		}
-
-		[Test]
-		[ExpectedException(typeof(Score.InvalidScoreException))]
-		public void InvalidScoreToShortPlayer2Name() {
-			new Score(1, "aaa", "bbbb");
 		}
 
 		/*

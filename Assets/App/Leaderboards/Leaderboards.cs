@@ -69,7 +69,8 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
-		// helper methods to operate on streams
+		// Helper methods to operate on streams.
+
 		void WriteLine(string value) {
 			try {
 				writer.WriteLine(value);
@@ -86,7 +87,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
-		// constructor can optionally override the default host and port
+		/// Constructor, can optionally override the default host and port.
 		public Leaderboards(string host=null, int? port=null) {
 			if (host != null) {
 				this.host = host;
@@ -96,7 +97,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
-		// synchronous connect
+		/// Synchronous connect.
 		void Connect() {
 			try {
 				client = new TcpClient();
@@ -107,8 +108,8 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
-		// asynchronous connect
-		// state is an object used to pass information to the AsyncCallback
+		/// Asynchronous connect.
+		/// The arg state is an object used to pass information to the AsyncCallback.
 		void ConnectAsync(AsyncCallback callback, object state) {
 			try {
 				// TcpClient.BeginConnect doesn't throw an exception if the port
@@ -125,8 +126,8 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
-		// synchronous disconnect
-		// also responsible for closing all streams
+		/// Synchronous disconnect.
+		/// Also responsible for closing all streams.
 		void Disconnect() {
 			if (reader != null) {
 				reader.Close();
@@ -144,14 +145,14 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			client = null;
 		}
 
-		// asynchronous disconnect
-		// same as the synchronous version, but also ends the callback
+		/// Ssynchronous disconnect.
+		/// Same as the synchronous version, but also ends the callback.
 		void DisconnectAsync(IAsyncResult ar) {
 			Disconnect();
 			client.EndConnect(ar);
 		}
 
-		// synchronous submission api method
+		/// Synchronous submission api method.
 		public SubmissionResponse SubmitScore(string level, Score score) {
 			// Ensure arguments are valid
 			if (level == null) {
@@ -175,8 +176,8 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			return position;
 		}
 
-		// asynchronous submission api method
-		// most work is pushed off to an OnConnect callback
+		/// Asynchronous submission api method.
+		/// Most work is pushed off to an OnConnect callback.
 		public void SubmitScoreAsync(string level, Score score, Action<SubmissionResponse, ServerException> callback) {
 			// Ensure arguments are valid
 			if (level == null) {
@@ -191,7 +192,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			ConnectAsync(new AsyncCallback(SubmitScoreOnConnectCallback), state);
 		}
 
-		// OnConnect callback, the bulk of the work is handled here
+		/// OnConnect callback, the bulk of the work is handled here.
 		void SubmitScoreOnConnectCallback(IAsyncResult ar) {
 			SubmitScoreState state = (SubmitScoreState) ar.AsyncState;
 
@@ -225,7 +226,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			DisconnectAsync(ar);
 		}
 
-		// external callback and argument container for SubmitScoreAsync
+		/// External callback and argument container for SubmitScoreAsync.
 		struct SubmitScoreState {
 			public string level;
 			public Score score;
@@ -237,7 +238,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			}
 		}
 
-		// synchronous score request api method
+		/// Synchronous score request api method.
 		public ScoresResponse RequestScores(string level) {
 			// Ensure arguments are valid
 			if (level == null) {
@@ -260,8 +261,8 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			return scores;
 		}
 
-		// asynchronous score request api method
-		// most work is pushed off to an OnConnect callback
+		/// Asynchronous score request api method.
+		/// Most work is pushed off to an OnConnect callback.
 		public void RequestScoresAsync(string level, Action<ScoresResponse, ServerException> callback) {
 			// Ensure arguments are valid
 			if (level == null) {
@@ -275,7 +276,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			ConnectAsync(new AsyncCallback(RequestScoresOnConnectCallback), state);
 		}
 
-		// OnConnect callback, the bulk of the work is handled here
+		/// OnConnect callback, the bulk of the work is handled here.
 		void RequestScoresOnConnectCallback(IAsyncResult ar) {
 			RequestScoresState state = (RequestScoresState) ar.AsyncState;
 
@@ -309,7 +310,7 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 			DisconnectAsync(ar);
 		}
 
-		// external callback and argument container for RequestScoresAsync
+		/// External callback and argument container for RequestScoresAsync.
 		struct RequestScoresState {
 			public string level;
 			public Action<ScoresResponse, ServerException> callback;
