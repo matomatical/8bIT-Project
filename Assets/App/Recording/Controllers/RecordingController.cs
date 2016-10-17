@@ -28,7 +28,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		/// How many fixed updates should pass between each frame
 		/// that is recorded? Setting this indirectly controls the
 		/// fps of the recording producted
-		public const int fixedUpdatesPerFrame = 2;
+		public const int fixedUpdatesPerFrame = 5;
 		private int fixedUpdatesSinceLastFrame = 0;
 
 		/// determined by fixed updates per frame
