@@ -21,12 +21,14 @@ GameObject:
   - 4: {fileID: 4000013962525040}
   - 212: {fileID: 212000013859232158}
   - 95: {fileID: 95000012961684102}
+  - 50: {fileID: 50000010468580636}
   - 61: {fileID: 61000010313508328}
   - 114: {fileID: 114000010732364216}
-  - 114: {fileID: 114000012953468230}
-  - 114: {fileID: 114000013538040042}
-  - 50: {fileID: 50000010468580636}
   - 114: {fileID: 114000013539410424}
+  - 114: {fileID: 114000013538040042}
+  - 114: {fileID: 114000013957736046}
+  - 114: {fileID: 114000014184286338}
+  - 114: {fileID: 114000011470425658}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -106,26 +108,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ab3f9430a1dbf4287277e960538692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012953468230
+--- !u!114 &114000011470425658
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013806612336}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ca342a55400f4341ab4bf1da3570250, type: 3}
+  m_Script: {fileID: 11500000, guid: 7307d870b70f54359a3b5c84cff1c739, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joystick: {fileID: 0}
-  jumpButton: {fileID: 0}
 --- !u!114 &114000013538040042
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000013806612336}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42e99f13c406844018542069d910df3b, type: 3}
   m_Name: 
@@ -147,6 +147,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5ac6e1bc31834840b16f22015293264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000013957736046
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013806612336}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9097143cd0aa342a4935877ff5669ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 768
+--- !u!114 &114000014184286338
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013806612336}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c0066e199930424e853a098ac170422, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!212 &212000013859232158
@@ -178,7 +203,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 107545657
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 77a2941002e2445f0a6eccbaa5007bbc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eabd4417526cf4cac92d940aa06ba4d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -8,7 +8,7 @@
  */
 
 using UnityEngine;
-using System.Collections;
+using xyz._8bITProject.cooperace.recording;
 
 namespace xyz._8bITProject.cooperace {
 
@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace {
 		public LocalPlayerController local;
 
 		/// The remote player to lead
-		public RemotePlayerController remote;
+		public RemotePhysicsController remote;
 
 		// for storing position/velocity data inside
 		// an array
@@ -28,7 +28,7 @@ namespace xyz._8bITProject.cooperace {
 
 		/// the number of frames to store at once
 		/// (follower will be n/2 frames behind)
-		public int n = 128;
+		public int n = 256;
 
 		// circular buffer of state data
 		State[] buffer;
