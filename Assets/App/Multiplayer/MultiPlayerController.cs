@@ -110,7 +110,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		/// What to do when a particular player leaves the room
 		public virtual void OnParticipantLeft(Participant participant)
 		{
-			ShowMPStatus("Player " + participant.DisplayName + " has left.");
+			UILogger.Log("Player " + participant.DisplayName + " has left.");
 			UIHelper.LeftGameMenu();
 
 		}
@@ -127,10 +127,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		/// What to do when players leave the room
 		public virtual void OnPeersDisconnected(string[] participantIds)
 		{
-			foreach (string participantID in participantIds)
+            UIHelper.LeftGameMenu();
+            foreach (string participantID in participantIds)
 			{
-				ShowMPStatus("Player " + participantID + " has left.");
-				UIHelper.LeftGameMenu();
+				UILogger.Log("Player " + participantID + " has left.");
 			}
 		}
 

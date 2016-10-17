@@ -9,20 +9,22 @@ using UnityEngine;
 using System.Collections;
 using System;
 
+
+#pragma warning disable 0659
 namespace xyz._8bITProject.cooperace.multiplayer {
 
-    public class ChatMessage {
-        // Text to be sent
+	public class ChatMessage {
+		// Text to be sent
 		public string message { get; private set; }
 
-        // did I send this message?
+		// did I send this message?
 		public bool isFromMe { get; private set; }
 
-        /// Use this for initialization
-        public ChatMessage(string message, bool localPlayerMsg) {
-            this.message = message;
-            this.isFromMe = localPlayerMsg;
-        }
+		/// Use this for initialization
+		public ChatMessage(string message, bool localPlayerMsg) {
+			this.message = message;
+			this.isFromMe = localPlayerMsg;
+		}
 
 		/// Check if two objects are equal
 		public override bool Equals(System.Object obj) {
@@ -46,5 +48,5 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			// Return true if the fields match:
 			return (chat != null) && (chat.message == this.message) && (chat.isFromMe == this.isFromMe);
 		}
-    }
+	}
 }

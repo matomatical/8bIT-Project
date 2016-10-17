@@ -8,11 +8,12 @@
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
 */
 
+#pragma warning disable 0659
 namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class BoolObstacleInformation
 	{
-		public readonly byte ID;		// ID to uniquley identify the obstacle
+		public readonly byte ID;		// ID to uniquely identify the obstacle
 		public readonly bool state;		// State of the obstacle
 
 		/// Use this for initialisation

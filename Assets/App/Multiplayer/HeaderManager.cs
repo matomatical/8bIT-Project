@@ -48,7 +48,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			return new Header (protocol, updateType);
 		}
 
-		/// Applies a header to an upddate (data), at this point just a protocol version and update type
+		/// Applies a header to an update (data), at this point just a protocol version and update type
 		public static void ApplyHeader(List<byte> data, Header header) {
 			data.Insert(0, header.protocol);
 			data.Insert(1, header.messageType);

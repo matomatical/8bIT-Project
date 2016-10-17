@@ -8,6 +8,8 @@ using System.Collections;
  * Sam Beyer     < sbeyer@student.unimelb.edu.au >
  */
 
+
+#pragma warning disable 0659
 namespace xyz._8bITProject.cooperace.multiplayer {
     public class DynamicObjectInformation {
 

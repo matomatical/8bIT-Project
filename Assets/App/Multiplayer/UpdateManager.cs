@@ -15,14 +15,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class UpdateManager : IUpdateManager, IObservable<List<byte>,UpdateManager.Channel>
 	{
-        #if UNITY_EDITOR
-        static bool editor = true;
-        #else
+		#if UNITY_EDITOR
+		static bool editor = true;
+		#else
 		static bool editor = false;
-        #endif
-        
-        // The protcol being used to attach the header
-        public static readonly byte PROTOCOL_VERSION = 0;
+		#endif
+		
+		// The protcol being used to attach the header
+		public static readonly byte PROTOCOL_VERSION = 0;
 
 		// Obstacle update identifier
 		public static readonly byte OBSTACLE = BitConverter.GetBytes ('o')[0];
@@ -90,7 +90,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// Strip the header off the update
 			HeaderManager.Header header = HeaderManager.StripHeader(data);
 
-							
 			if (header.protocol == PROTOCOL_VERSION) {
 				if (header.messageType == PLAYER) {
 					Debug.Log ("Notifying everyone on the player channel");
@@ -141,41 +140,41 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Sends an update for a player
 		public void SendPlayerUpdate (List<byte> data)
 		{
-            ApplyHeader(data, PLAYER);
-            if (editor) {
-                HandleUpdate(data, "memes");
-            } else {
-                MultiPlayerController.Instance.SendMyUnreliable(data);
-            }
-            
+			ApplyHeader(data, PLAYER);
+			if (editor) {
+				HandleUpdate(data, "memes");
+			} else {
+				MultiPlayerController.Instance.SendMyUnreliable(data);
+			}
+			
 			Debug.Log ("Sending player update");
-        }
+		}
 
-        // Sends an update for a pushblock
-        public void SendPushBlockUpdate(List<byte> data) {
-            ApplyHeader(data, PUSHBLOCK);
-            if (editor) {
-                HandleUpdate(data, "memes");
-            }
-            else {
-                MultiPlayerController.Instance.SendMyReliable(data);
-            }
+		// Sends an update for a pushblock
+		public void SendPushBlockUpdate(List<byte> data) {
+			ApplyHeader(data, PUSHBLOCK);
+			if (editor) {
+				HandleUpdate(data, "memes");
+			}
+			else {
+				MultiPlayerController.Instance.SendMyReliable(data);
+			}
 
-            Debug.Log("Sending push block update");
-        }
+			Debug.Log("Sending push block update");
+		}
 
 
-        // Sends an update for a chat message
-        public void SendTextChat (List<byte> data)
+		// Sends an update for a chat message
+		public void SendTextChat (List<byte> data)
 		{
-            ApplyHeader(data, CHAT);
+			ApplyHeader(data, CHAT);
 			if (editor) {
 				HandleUpdate(data, "myself");
 			} else {
 				MultiPlayerController.Instance.SendMyReliable (data);	
 			}
 			Debug.Log ("Sending chat message");
-        }
+		}
 
 		private void ApplyHeader (List<byte> data, byte type) {
 			HeaderManager.ApplyHeader (data, new HeaderManager.Header (PROTOCOL_VERSION, type));
