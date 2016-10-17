@@ -24,7 +24,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// use this for initialization
 		void Start()
 		{
-			showRoomDialogue = false;
+            PlayGamesPlatform.Activate();
+            showRoomDialogue = false;
 		}
 
 		// prints the status of how establishing connection with the room is going to the player's screen
