@@ -6,24 +6,26 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/App/UI/Views/TitleScreen.unity
+    path: Assets/App/UI/Main GUI.unity
   - enabled: 1
-    path: Assets/App/UI/Views/MatchMakingScreen.unity
+    path: Assets/App/UI/Old/Views/TitleScreen.unity
   - enabled: 1
-    path: Assets/App/UI/Views/PostGameMenu.unity
+    path: Assets/App/UI/Old/Views/MatchMakingScreen.unity
   - enabled: 1
-    path: Assets/App/UI/Views/RecordedGamesMenu.unity
+    path: Assets/App/UI/Old/Views/PostGameMenu.unity
   - enabled: 1
-    path: Assets/App/UI/Views/SettingsMenu.unity
+    path: Assets/App/UI/Old/Views/RecordedGamesMenu.unity
   - enabled: 1
-    path: Assets/App/UI/Views/StartGameMenu.unity
+    path: Assets/App/UI/Old/Views/SettingsMenu.unity
+  - enabled: 1
+    path: Assets/App/UI/Old/Views/StartGameMenu.unity
   - enabled: 1
     path: Assets/App/Game/Scenes/Game Scene.unity
   - enabled: 1
-    path: Assets/App/UI/Views/LeaderboardsMenu.unity
+    path: Assets/App/UI/Old/Views/LeaderboardsMenu.unity
   - enabled: 1
     path: Assets/App/Game/Scenes/Static Record Level Game Scene.unity
   - enabled: 1
     path: Assets/App/Game/Scenes/Static Replay Level Game Scene.unity
   - enabled: 1
-    path: Assets/App/UI/Views/MainMenu.unity
+    path: Assets/App/UI/Old/Views/MainMenu.unity
