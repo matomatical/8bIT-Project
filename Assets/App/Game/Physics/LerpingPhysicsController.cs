@@ -65,10 +65,15 @@ namespace xyz._8bITProject.cooperace {
 				next = states.Dequeue();
 			}
 
+			// debug line to help us out
+
 			if (next != null) {
 
 				Vector3 localPosition = (Vector3)last.position + (transform.position - transform.localPosition);
 				Debug.DrawRay (localPosition, next.position - last.position, Color.cyan);
+
+				float progress = (time - last.time) / (next.time - last.time);
+				Debug.DrawRay (localPosition, (next.position - last.position)*progress, Color.blue);
 			}
 		}
 
@@ -90,9 +95,8 @@ namespace xyz._8bITProject.cooperace {
 			// states, we'll apply the the source state
 			// (note: we might change the horizontal component later)
 			if (!last.papplied) {
-				last.papplied = true;
-
 				position = last.position;
+				last.papplied = true;
 			}
 
 			// also, every update we'll continually lerp between
@@ -113,16 +117,15 @@ namespace xyz._8bITProject.cooperace {
 			// states, we'll apply the the source state
 			// (note: we might change the horizontal component later)
 			if (!last.vapplied) {
-				last.vapplied = true;
-
 				velocity = last.velocity;
+				last.vapplied = true;
 			}
 
 			// also, every update we'll continually lerp between
 			// the horizontal components (if we are between states)
 			if (next != null) {
 				float progress = (time - last.time) / (next.time - last.time);
-				velocity.y = Mathf.Lerp (last.velocity.x, next.velocity.x, progress);
+				velocity.x = Mathf.Lerp (last.velocity.x, next.velocity.x, progress);
 			}
 		
 		}
