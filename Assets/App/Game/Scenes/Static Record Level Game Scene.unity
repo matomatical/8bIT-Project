@@ -673,7 +673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   local: {fileID: 921217384}
   remote: {fileID: 921217383}
-  n: 64
+  n: 16
   probability: 1
 --- !u!4 &1333277812
 Transform:
