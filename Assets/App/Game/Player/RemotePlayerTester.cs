@@ -66,7 +66,7 @@ namespace xyz._8bITProject.cooperace {
 
 		int framesSinceLast;
 
-		void Update(){
+		void FixedUpdate(){
 
 			if (framesSinceLast == framesPerUpdate) {
 				framesSinceLast = 0;
