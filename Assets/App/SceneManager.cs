@@ -20,7 +20,7 @@ namespace xyz._8bITProject.cooperace {
 		#endif
 
 		public static string levelToLoad;
-		public static string recording;
+		public static string recording, newRecording;
 		public static bool playingAgainstGhosts = false;
 
 		public static void Load(string name) {
