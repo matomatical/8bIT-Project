@@ -363,7 +363,7 @@ GameObject:
   - 4: {fileID: 757908545}
   - 114: {fileID: 757908544}
   m_Layer: 0
-  m_Name: InitializeLevelScript
+  m_Name: SetUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

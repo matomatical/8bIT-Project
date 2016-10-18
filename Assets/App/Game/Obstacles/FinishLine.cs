@@ -28,11 +28,10 @@ namespace xyz._8bITProject.cooperace {
 					// Send an update saying the clock has stopped
 					if (updateManager != null)
 						updateManager.SendStopClock ();
-
-					clock.StopTiming ();
+					clock.StopTiming();
+					FinalizeLevel.FinalizeGame (clock.GetTime ());
 				}
 			}
 		}
-
 	}
 }

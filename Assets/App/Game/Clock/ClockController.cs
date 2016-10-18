@@ -36,5 +36,15 @@ namespace xyz._8bITProject.cooperace {
 		public float GetTime(){
 			return time;
 		}
+
+		/// <summary>
+		///  Takes a time in seconds and turns it into tenths of a second.
+		///  Result is an int, will always round down.
+		/// </summary>
+		/// <returns>How many tenths of a second there are in time .</returns>
+		/// <param name="time">Time (in seconds) to be converted.</param>
+		public static int SecondsToTenthsOfSeconds (float time) {
+			return (int)(time * 10);
+		}
 	}
 }

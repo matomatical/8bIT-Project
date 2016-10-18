@@ -37,7 +37,15 @@ namespace xyz._8bITProject.cooperace.multiplayer
         // Whether or not you've started a game
         private bool startedGame = false;
 
+		// Are we the host?
+		public bool? host;
 
+		public bool IsHost () {
+			if (host.HasValue)
+				return host.Value;
+			else
+				throw new NotYetSetException ("host not yet set");
+		}
 
         /// initialises the Multiplayer controller instance
         protected MultiPlayerController()
