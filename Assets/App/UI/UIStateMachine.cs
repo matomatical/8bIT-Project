@@ -34,8 +34,9 @@ namespace xyz._8bITProject.cooperace.ui {
 		void Start () {
 			// TODO: google play login
 			
-			// TODO: check gamer tag existance and prompt 
-			if (false) {
+			// check gamer tag existance and prompt if not present
+			if (GamerTagManager.GetGamerTag() == null) {
+				GamerTagMenuController.IsFirstTime();
 				currentState = UIState.GamerTagMenu;
 			}
 			

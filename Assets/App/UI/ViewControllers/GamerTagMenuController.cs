@@ -12,43 +12,68 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class GamerTagMenuController : MonoBehaviour {
+		
+		// flag to indicate use of first time ui
+		static bool isFirstTime_ = false;
+		public static void IsFirstTime() {
+			isFirstTime_ = true;
+		}
 
 		// valid alphabet
-		const string VALID_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		public const string VALID_CHARS = GamerTagManager.VALID_CHARS;
 
 		// indices of the current characters
 		int[] charIndices;
 
-		// UI text elements
+		// UI elements
 		public Text[] textUI;
-
-		// real path stores the player name
-		const string filename = "playerName.txt";
+		public GameObject backButton;
+		public GameObject confirmButton;
+		public GameObject normalTitle;
+		public GameObject firstTimeTitle;
 
 		void OnEnable() {
+			if (isFirstTime_) {
+				EnableFirstTimeUI();
+			}
+
 			charIndices = new int[3];
 
 			// read in existing name if any
-			string name = PersistentStorage.Read(filename);
-			
-			// make sure it's a valid name
-			// check if letter not in game alphabet 
-			if (name.Length >= 3) {
+			string tag = GamerTagManager.GetGamerTag();
+			if (tag != null) {
 				for (int i = 0; i < 3; i++) {
-					int index = VALID_CHARS.IndexOf (name [i]);
-					if (index == -1) {
-						index = 0;
-					}
-					charIndices[i] = index;
+					charIndices[i] = VALID_CHARS.IndexOf(tag[i]);
 				}
 			}
 
 			// update three UI text elements at one go
 			UpdateTextUI();
+		}
+		
+		// Change the ui for the first time case
+		void EnableFirstTimeUI() {
+			// disable normal ui
+			backButton.SetActive(false);
+			normalTitle.SetActive(false);
+
+			// enable first time ui
+			confirmButton.SetActive(true);
+			firstTimeTitle.SetActive(true);
+		}
+		
+		// Undo first time ui changes
+		void DisableFirstTimeUI() {
+			// enable normal ui
+			backButton.SetActive(true);
+			normalTitle.SetActive(true);
+
+			// disable first time ui
+			confirmButton.SetActive(false);
+			firstTimeTitle.SetActive(false);
 		}
 
 		/// <summary>
@@ -101,10 +126,17 @@ namespace xyz._8bITProject.cooperace.ui {
 			UpdateTextUI ();
 		}
 
+		// public method to handle confirm button behaviour
+		public void ConfirmButtonHandler() {
+			isFirstTime_ = false;
+			DisableFirstTimeUI();
+			BackButtonHandler();
+		}
+
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
 			// save the current gamer tag
-			PersistentStorage.Write (filename, GetName ());
+			GamerTagManager.SetGamerTag(GetName());
 
 			UIStateMachine.instance.GoTo(UIState.MainMenu);
 		}
