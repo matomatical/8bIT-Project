@@ -24,15 +24,16 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			string ourName = PersistentStorage.Read (NameInputHelper.filename);
 			string theirName = "xyz";
 
-
+            UILogger.Log("checking if I'm the host");
 			if (MultiPlayerController.Instance.IsHost ()) {
-
+                UILogger.Log("about to submit to the leaderboards server");
 				// Submit the time the the leaderboards
 				leaderboards.SubmitScoreAsync ("levelname", new Score (ClockController.SecsToHSecs (time), ourName, theirName),
 					delegate (SubmissionResponse r, ServerException e) {
 						response = r;
 						UILogger.Log ("Congratulations! You're on the leaderboards in position " + r.position);
-						position = (byte)response.position;
+                        if(e!=null) UILogger.Log(e.Message);
+                        position = (byte)response.position;
 
 						if (updateManager != null) {
 							updateManager.SendLeaderboardsUpdate (position);

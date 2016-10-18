@@ -29,6 +29,7 @@ namespace xyz._8bITProject.cooperace {
 					if (updateManager != null)
 						updateManager.SendStopClock ();
                     clock.StopTiming();
+                    UILogger.Log("about to finalize game");
 					FinalizeLevel.FinalizeGame (clock.GetTime ());
 				}
 			}

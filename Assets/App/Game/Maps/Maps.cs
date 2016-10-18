@@ -13,7 +13,7 @@ namespace xyz._8bITProject.cooperace {
 		// list of all levels
 		public static string[] maps = new string[] {
 			//"Tutorious",
-			"Twoality",
+		    "Twoality",
 			//"Crossy Level"
 		};
 

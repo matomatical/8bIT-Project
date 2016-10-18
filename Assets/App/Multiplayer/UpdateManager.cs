@@ -136,6 +136,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						clock.StartTiming ();
 					} else if (data [0] == STOP_CLOCK) {
 						clock.StopTiming ();
+                        UILogger.Log("update manager - about to finalize game");
 						FinalizeLevel.FinalizeGame (clock.GetTime ());
 					}
 				} else if (header.messageType == LEADERBOARDS) {
