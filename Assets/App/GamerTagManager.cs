@@ -49,6 +49,10 @@ namespace xyz._8bITProject.cooperace {
 		
 		/// return whether or not the given gamer tag is valid
 		static bool IsValid(string gamerTag) {
+			if (gamerTag == null) {
+				return false;
+			}
+
 			// has to be 3 chars exactly
 			if (gamerTag.Length != 3) {
 				return false;

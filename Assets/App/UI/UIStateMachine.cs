@@ -7,6 +7,7 @@
 
 using UnityEngine;
 using System.Collections;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class UIStateMachine : MonoBehaviour {
@@ -32,8 +33,9 @@ namespace xyz._8bITProject.cooperace.ui {
 		UIState currentState = UIState.MainMenu;
 
 		void Start () {
-			// TODO: google play login
-			
+			// google play login
+			Authentication.Login(null);
+
 			// check gamer tag existance and prompt if not present
 			if (GamerTagManager.GetGamerTag() == null) {
 				GamerTagMenuController.IsFirstTime();
