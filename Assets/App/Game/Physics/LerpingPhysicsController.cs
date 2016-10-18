@@ -1,5 +1,16 @@
 /*
- * ...
+ * An arcade physics controller that makes itself controllable
+ * by remotely setting its state. It then smooths its position
+ * and velocity between these states. Smoothing happens in the
+ * x-direction, and y-direction updates are just applied once
+ * (gravity does a pretty good job there)
+ * 
+ * By delaying the application of updates a small amount (via
+ * the offset field), we're able to lerp (linearly interpolate)
+ * between the previous state and the next one.
+ * 
+ * When there are no new updates, the latest update is applied
+ * once, and then physics takes over.
  * 
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  * Sam Beyer <sbeyer@student.unimelb.edu.au>
@@ -11,7 +22,6 @@ using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace {
 
-	[RequireComponent (typeof(RemotePhysicsController))]
 	public class LerpingPhysicsController : ArcadePhysicsController {
 		
 		/// how far back in time to sit, to avoid having to project?
@@ -46,8 +56,6 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 
-
-
 		void StateUpdate() {
 
 			// what time is it!?
@@ -65,14 +73,18 @@ namespace xyz._8bITProject.cooperace {
 				next = states.Dequeue();
 			}
 
-			// debug line to help us out
+			// draw a debug line to help us see position lerping in action
 
 			if (next != null) {
 
+				// figure out the local position to start drawing the line from
 				Vector3 localPosition = (Vector3)last.position + (transform.position - transform.localPosition);
-				Debug.DrawRay (localPosition, next.position - last.position, Color.cyan);
 
+				// how far through this line are we?
 				float progress = (time - last.time) / (next.time - last.time);
+
+				// draw the line we are lerping along, and our progress along it
+				Debug.DrawRay (localPosition, next.position - last.position, Color.cyan);
 				Debug.DrawRay (localPosition, (next.position - last.position)*progress, Color.blue);
 			}
 		}

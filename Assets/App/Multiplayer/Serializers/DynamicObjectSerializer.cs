@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
        	
 		// Keeps track of how long until we send an update
 		private int stepsUntilSend = 0;
-		private readonly int MAX_STEPS_BETWEEN_SENDS = 5;
+		public readonly int MAX_STEPS_BETWEEN_SENDS = 5;
 
 		// Keeps track of the last update to see if anything has changed
 		protected DynamicObjectInformation lastInfo = null;
