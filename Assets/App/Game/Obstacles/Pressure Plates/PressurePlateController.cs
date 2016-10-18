@@ -28,25 +28,29 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		void OnTriggerEnter2D() {
+			if (enabled) { // only trigger if this controller is on
+				
+				++isColliding;
 
-			++isColliding;
-
-			if (isColliding == 1) {
-				// first presser!
-				plate.Press();
+				if (isColliding == 1) {
+					// first presser!
+					plate.Press ();
+				}
 			}
 		}
 
 		void OnTriggerExit2D() {
-			
-			--isColliding;
+			if (enabled) { // only trigger if this controller is on
+				
+				--isColliding;
 
-			if(isColliding < 0){
-				isColliding = 0;
-			}
+				if (isColliding < 0) {
+					isColliding = 0;
+				}
 
-			if (isColliding == 0) { // last releaser!
-				plate.Release();
+				if (isColliding == 0) { // last releaser!
+					plate.Release ();
+				}
 			}
 		}
 	}

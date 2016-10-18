@@ -19,5 +19,9 @@ namespace xyz._8bITProject.cooperace.recording {
 			this.position = position;
 			this.velocity = velocity;
 		}
+
+		public override string ToString() {
+			return "position : (" + position.x + ", " + position.y + "), velocity : (" + velocity.x + ", " + velocity.y + ")";
+		}
 	}
 }

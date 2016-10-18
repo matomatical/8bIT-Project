@@ -16,14 +16,16 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // The position of the obstacle
         public readonly Vector2 pos;
         public readonly Vector2 vel;
+		public readonly float time;
 
         // Keeps track of the last update to see if anything has changed
         private DynamicObjectInformation lastInfo;
 
         /// Use this for initialisation
-        public DynamicObjectInformation(Vector2 pos, Vector2 vel) {
+		public DynamicObjectInformation(Vector2 pos, Vector2 vel, float time) {
             this.pos = pos;
             this.vel = vel;
+			this.time = time;
         }
 
         /// Check if two objects are equal
@@ -44,6 +46,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
         /// Check if two objects of type BoolObstacleInformation are equal
+		/// Note: time is ignored for equality checking
         public bool Equals(DynamicObjectInformation info) {
             // If parameter is null return false, otherwise
             // Return true if the fields match:

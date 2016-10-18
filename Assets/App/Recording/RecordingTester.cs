@@ -22,7 +22,7 @@ namespace xyz._8bITProject.cooperace.recording{
 
 					// Debug.Log (Recording.jsonRecordingString);
 
-					SceneManager.Load ("Static Replay Level Game Scene");
+					SceneManager.Load ("Static Replay Scene");
 				}
 			}
 		}

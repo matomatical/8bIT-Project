@@ -60,7 +60,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 
 			// Make sure one player is remote
-			player2.GetComponent<RemotePhysicsController> ().enabled = true;
+			player2.GetComponent<LerpingPhysicsController> ().enabled = true;
 
 			// Tell update manager about the serialiser for player 2 so updates get recieved
 			player2.enabled = true;
@@ -241,7 +241,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// enable the controller components
 
 			localPlayer.GetComponent<LocalPlayerController> ().enabled = true;
-			remotePlayer.GetComponent<RemotePhysicsController> ().enabled = true;
+			remotePlayer.GetComponent<LerpingPhysicsController> ().enabled = true;
 
 
 			// enable the serialisers! and link them to update manager
@@ -330,7 +330,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			foreach (PushBlockController pbc in level.GetComponentsInChildren<PushBlockController>()){
 
-				RemotePhysicsController rpc = pbc.GetComponent<RemotePhysicsController> ();
+				LerpingPhysicsController rpc = pbc.GetComponent<LerpingPhysicsController> ();
 				rpc.enabled = true;
 
 				PushBlockSerializer pbs = pbc.GetComponent<PushBlockSerializer> ();
