@@ -21,7 +21,15 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// link components
 
-			remote = GetComponent<RemotePhysicsController> ();
+
+			foreach(RemotePhysicsController remote in
+				GetComponents<RemotePhysicsController> ()){
+
+				if (remote.enabled) {
+					this.remote = remote;
+					break;
+				}
+			}
 		}
 
 		/// set the object's state to match this state
