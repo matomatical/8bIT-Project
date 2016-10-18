@@ -13,10 +13,15 @@ namespace xyz._8bITProject.cooperace {
 	
 	public static class SceneManager {
 
-		public static string levelToLoad;
+		#if UNITY_EDITOR
+		public static GameType gameType = GameType.SINGLE;
+		#else
 		public static GameType gameType = GameType.MULTI;
+		#endif
+
+		public static string levelToLoad;
 		public static string recording;
-		public static bool playingAgainstGhosts;
+		public static bool playingAgainstGhosts = false;
 
 		public static void Load(string name) {
 			UnityEngine.SceneManagement.SceneManager.LoadScene(name);
