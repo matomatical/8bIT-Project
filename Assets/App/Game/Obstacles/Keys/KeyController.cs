@@ -16,22 +16,31 @@ namespace xyz._8bITProject.cooperace {
 	[RequireComponent (typeof(Key))]
 	public class KeyController : MonoBehaviour {
 
+		/// The key object we're controlling
 		Key key;
 
 		void Start(){
-			key = GetComponent<Key>();
+
+			// link components
+
+			key = GetComponent<Key> ();
+
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {
-			if (enabled) { // only trigger if this component is on
+			if (this.transform.position.z == other.transform.position.z) {
+			
+				// only trigger if this component is on
+				if (enabled) {
 				
-				// if the key collides with another game object that has a
-				// KeyHolder component that isn't already holding a key object,
-				KeyHolder holder = other.gameObject.GetComponent<KeyHolder> ();
-				if (holder != null && holder.CanPickupKey ()) {
-					// then mark that object as holding a key and deactivate self
-					holder.PickupKey ();
-					key.Pickup ();
+					// if the key collides with another game object that has a
+					// KeyHolder component that isn't already holding a key object,
+					KeyHolder holder = other.gameObject.GetComponent<KeyHolder> ();
+					if (holder != null && holder.CanPickupKey ()) {
+						// then mark that object as holding a key and deactivate self
+						holder.PickupKey ();
+						key.Pickup ();
+					}
 				}
 			}
 		}

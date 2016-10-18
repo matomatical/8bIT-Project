@@ -36,15 +36,13 @@ namespace xyz._8bITProject.cooperace {
 
 		void Awake() {
 
-			// load the level!
+			// clone and load the level!
 
 			GameObject prefab = Maps.Load(SceneManager.levelToLoad);
 
-			if (prefab) {
-				level = GameObject.Instantiate<GameObject> (prefab).GetComponent<TiledMap> ();
-				cam.level = level;
-				background.level = level;
-			}
+			level = GameObject.Instantiate<GameObject> (prefab).GetComponent<TiledMap> ();
+			cam.level = level;
+			background.level = level;
 
 			// what type of game have we entered?
 
@@ -79,20 +77,41 @@ namespace xyz._8bITProject.cooperace {
 
 			if (SceneManager.playingAgainstGhosts) {
 
-				GameObject ghostPrefab = Maps.Load(SceneManager.levelToLoad);
-				TiledMap ghostLevel = null;
-				if (prefab) {
-					ghostLevel = GameObject.Instantiate<GameObject>(ghostPrefab).GetComponent<TiledMap>();
+				// create replay level
+
+				TiledMap ghostLevel = GameObject.Instantiate<GameObject>(prefab).GetComponent<TiledMap>();
+
+				// shrink level behind real level
+
+				float scale = 0.8f;
+
+				ghostLevel.transform.localScale = new Vector3 (
+					ghostLevel.transform.localScale.x * scale,
+					ghostLevel.transform.localScale.y * scale,
+					ghostLevel.transform.localScale.z
+				);
+
+				// shade and order level
+
+				float color = 0.6f;
+
+				Renderer[] renderers = ghostLevel.GetComponentsInChildren<Renderer> ();
+				foreach (Renderer renderer in renderers) {
+					renderer.sortingLayerName = "Before Background";
+					renderer.material.color = new Color (color, color, color);
 				}
 
-				// TODO: shrink and position level between background and real level
+				// make ghost level scroll along with camera and real level
 
-				// TODO: shade level
+				BackgroundLevelScroller scroller = ghostLevel.gameObject.AddComponent<BackgroundLevelScroller> ();
 
-				// TODO: make level scroll
+				scroller.cam = FindObjectOfType<Camera>();
+				scroller.level = level;
+			
+				// arrange objects by z depth
 
-				// ghostLevel.gameObject.AddComponent<BackgroundScroller> ();
-				// // ...
+				level.transform.position 	+= 2*Vector3.forward;
+				ghostLevel.transform.position += Vector3.forward;
 
 				// set up level to track a recording
 

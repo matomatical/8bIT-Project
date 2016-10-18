@@ -25,26 +25,33 @@ namespace xyz._8bITProject.cooperace {
 			// link components together
 
 			plate = GetComponent<PressurePlate>();
+
 		}
 
-		void OnTriggerEnter2D() {
-			if (enabled) { // only trigger if this controller is on
+
+		void OnTriggerEnter2D(Collider2D other) {
+			if (this.transform.position.z == other.transform.position.z) {
+
+				// only trigger if this component is on
+				if (enabled) {
 				
 				++isColliding;
 
-				if (isColliding == 1) {
-					// first presser!
+				if (isColliding == 1) { // first presser!
 					plate.Press ();
 				}
 			}
 		}
 
-		void OnTriggerExit2D() {
-			if (enabled) { // only trigger if this controller is on
+		void OnTriggerExit2D(Collider2D other) {
+			if (this.transform.position.z == other.transform.position.z) {
 				
+				// only trigger if this component is on
+				if (enabled) {
+
 				--isColliding;
 
-				if (isColliding < 0) {
+				if (isColliding < 0) { // clamp at zero
 					isColliding = 0;
 				}
 
