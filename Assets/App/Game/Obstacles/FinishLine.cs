@@ -28,8 +28,7 @@ namespace xyz._8bITProject.cooperace {
 					// Send an update saying the clock has stopped
 					if (updateManager != null)
 						updateManager.SendStopClock ();
-                    clock.StopTiming();
-                    UILogger.Log("about to finalize game");
+					clock.StopTiming();
 					FinalizeLevel.FinalizeGame (clock.GetTime ());
 				}
 			}

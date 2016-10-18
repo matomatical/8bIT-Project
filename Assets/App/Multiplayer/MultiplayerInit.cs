@@ -203,7 +203,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// Link Finalize Level with UpdateManager
 			FinalizeLevel.updateManager = updateManager;
-            FinalizeLevel.sentRequest = false;
+			FinalizeLevel.sentRequest = false;
 
 			// link chat with updateManager
 
