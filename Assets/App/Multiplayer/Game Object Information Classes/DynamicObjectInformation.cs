@@ -46,6 +46,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
         /// Check if two objects of type BoolObstacleInformation are equal
+		/// Note: time is ignored for equality checking
         public bool Equals(DynamicObjectInformation info) {
             // If parameter is null return false, otherwise
             // Return true if the fields match:

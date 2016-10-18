@@ -51,7 +51,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		[Test]
-		public void EqualsBothDifferentShouldReturnFalse () {
+		public void EqualsEntirelyDifferentShouldReturnFalse () {
 			DynamicObjectInformation test0 = new DynamicObjectInformation (new Vector2 (0, 0), new Vector2 (1, 1), 0);
 			DynamicObjectInformation test1 = new DynamicObjectInformation (new Vector2 (1, 1), new Vector2 (0, 0), 0);
 
@@ -59,9 +59,11 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		}
 
 		[Test]
-		public void EqualsBothSameApartFromTimeShouldReturnTrue () {
+		public void EqualsDifferentInOnlyTimeShouldReturnTrue () {
 			DynamicObjectInformation test0 = new DynamicObjectInformation (new Vector2 (), new Vector2 (), 0);
 			DynamicObjectInformation test1 = new DynamicObjectInformation (new Vector2 (), new Vector2 (), 1);
+
+			Assert.That(test0.Equals (test1));
 		}
 	}
 }
