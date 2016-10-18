@@ -8,6 +8,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using xyz._8bITProject.cooperace.persistence;
 
 
 #pragma warning disable 0659
@@ -20,9 +21,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		// did I send this message?
 		public bool isFromMe { get; private set; }
 
+		// The player's 3 letter code
+		public string playerCode { get; private set; }
+
 		/// Use this for initialization
 		public ChatMessage(string message, bool localPlayerMsg) {
-			this.message = message;
+			// Find the player's 3 letter code and append it to the message
+			this.playerCode = PersistentStorage.Read(NameInputHelper.filename);
+			this.message = playerCode + ": "+ message;
 			this.isFromMe = localPlayerMsg;
 		}
 

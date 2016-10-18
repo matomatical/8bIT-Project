@@ -13,6 +13,7 @@ using System;
 */
 
 namespace xyz._8bITProject.cooperace.multiplayer {
+
     public class PushBlockSerializer : DynamicObjectSerializer
 	{
 		// The controller which we are tracking for updates

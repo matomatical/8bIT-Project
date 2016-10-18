@@ -97,6 +97,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         public void Notify(List<byte> message) {
             DynamicObjectInformation info = Deserialize(message);
+
             SetState(info);
         }
 
