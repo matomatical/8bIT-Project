@@ -11,19 +11,19 @@ using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.recording {
 
-	[RequireComponent (typeof (RemotePhysicsController))]
+	[RequireComponent (typeof (LerpingPhysicsController))]
 	public class ArcadePhysicsReplayer : DynamicReplayer {
 
 		/// the physics object to control
-		private RemotePhysicsController remote;
+		private LerpingPhysicsController remote;
 
 		void Start() {
 
 			// link components
 
-			RemotePhysicsController[] remotes = 
-				GetComponents<RemotePhysicsController> ();
-			foreach(RemotePhysicsController remote in remotes){
+			LerpingPhysicsController[] remotes = 
+				GetComponents<LerpingPhysicsController> ();
+			foreach(LerpingPhysicsController remote in remotes){
 
 				if (remote.enabled) {
 					this.remote = remote;
@@ -34,9 +34,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		/// set the object's state to match this state
 		public override void SetState(DynamicState state){
-			// TODO: interpolate between multiple previous states
-			// to smooth the replay!
-			remote.SetState(state.position, state.velocity);
+			remote.AddState(state.position, state.velocity);
 		}
 	}
 }

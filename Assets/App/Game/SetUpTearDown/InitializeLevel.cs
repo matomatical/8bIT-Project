@@ -173,11 +173,16 @@ namespace xyz._8bITProject.cooperace {
 
 				// enable remote control
 
-				RemotePhysicsController rpc
-					= rep.GetComponent<RemotePhysicsController> ();
-				rpc.enabled = true;
+				LerpingPhysicsController lpc
+					= rep.GetComponent<LerpingPhysicsController> ();
+				lpc.enabled = true;
 
-				// enable replaying
+				// we also want to offset only a small amount, depending on
+				// the recording framerate
+
+				lpc.offset = 0.01f + RecordingController.fixedUpdatesPerFrame * Time.fixedDeltaTime;
+
+				// finally, enable replaying
 
 				rep.enabled = true;
 			}
