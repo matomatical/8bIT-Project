@@ -65,6 +65,11 @@ namespace xyz._8bITProject.cooperace.ui {
 			currentRecordingIndex -= 1;
 		}
 
+		// public method to handle play button behaviour
+		public void PlayButtonHandler() {
+			Debug.Log("TODO: start playback of recording");
+		}
+
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
 			UIStateMachine.instance.GoTo(UIState.MainMenu);

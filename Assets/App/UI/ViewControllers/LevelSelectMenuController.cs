@@ -14,6 +14,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// ui elements
 		public Text levelNameText;
+		public GameObject messageText;
 
 		// the currently displayed level
 		int currentLevelIndex_ = 0;
@@ -38,11 +39,21 @@ namespace xyz._8bITProject.cooperace.ui {
 		void OnEnable() {
 			// make sure something is loaded when visible
 			UpdateLevelDetails();
+			HideMessage();
 		}
 
 		// display the level details
 		void UpdateLevelDetails() {
 			levelNameText.text = Maps.maps[currentLevelIndex];
+		}
+		
+		// methods to manipulate the message
+		void DisplayMessage(string msg) {
+			messageText.GetComponent<Text>().text = msg;
+			messageText.SetActive(true);
+		}
+		void HideMessage() {
+			messageText.SetActive(false);
 		}
 
 		// public methods to switch the currently displayed level
@@ -51,6 +62,11 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 		public void SwitchToPrevLevel() {
 			currentLevelIndex -= 1;
+		}
+
+		// public method to handle play button behaviour
+		public void PlayButtonHandler() {
+			Debug.Log("TODO: start game");
 		}
 
 		// public method to handle back button behaviour
