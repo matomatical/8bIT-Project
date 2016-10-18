@@ -28,10 +28,11 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		private TouchScreenKeyboard keyboard;
 
         // The player's 3 letter code
-        string gamerTag = GamerTagManager.GetGamerTag();
+        string gamerTag;
 
 		/// Use this for initialization
 		void Start() {
+			gamerTag = GamerTagManager.GetGamerTag ();
 			chatGUI = new ChatGUI(chatHistory);
 		}
 
