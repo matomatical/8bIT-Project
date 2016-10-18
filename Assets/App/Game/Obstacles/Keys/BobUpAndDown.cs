@@ -37,7 +37,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// store the initial position
 
-			origin = target.position;
+			origin = target.localPosition;
 		}
 
 		void Update() {
@@ -53,7 +53,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// apply that offset
 
-			target.position = origin + Vector3.up * offset;
+			target.localPosition = origin + Vector3.up * offset;
 		}
 
 	}
