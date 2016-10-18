@@ -25,7 +25,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		[SetUp]
 		public void SetUp () {
 			GameObject obj = new GameObject ("Serializer");
-			serializer = obj.AddComponent<DynamicObjectSerializer> ();
+			serializer = obj.AddComponent<MockDynamicObjectSerializer> ();
 		}
 
 		// call this after every test to clean up testing object
