@@ -8,6 +8,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using GooglePlayGames;
+using GooglePlayGames.BasicApi.Multiplayer;
 using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
@@ -39,6 +41,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		void OnEnable() {
 			// make sure something is loaded when visible
+			PlayGamesPlatform.Activate();
 			UpdateLevelDetails();
 			HideMessage();
 		}
@@ -68,19 +71,24 @@ namespace xyz._8bITProject.cooperace.ui {
 		// public method to handle play button behaviour
 		public void PlayButtonHandler() {
 			#if UNITY_EDITOR
-				SceneManager.Load("Game Scene");
+			SceneManager.Load("Game Scene");
 			#else
-				DisplayMessage("Starting Game...");
-				MultiPlayerController.Instance.roomListener = this;
-				MultiPlayerController.Instance.StartMPGame();
+			DisplayMessage("Starting Game...");
+			MultiPlayerController.Instance.roomListener = this;
+			MultiPlayerController.Instance.StartMPGame();
 			#endif
 		}
 
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
+			#if UNITY_EDITOR
 			UIStateMachine.instance.GoTo(UIState.MainMenu);
+			#else
+			UIHelper.LeaveRoom();
+			UIStateMachine.instance.GoTo(UIState.MainMenu);
+			#endif
 		}
-		
+
 		// IListener methods
 		public void SetRoomStatusMessage(string message) {
 			DisplayMessage(message);
