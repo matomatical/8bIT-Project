@@ -39,6 +39,10 @@ namespace xyz._8bITProject.cooperace.ui {
 				currentState = UIState.GamerTagMenu;
 			}
 
+			foreach (UIState state in System.Enum.GetValues(typeof(UIState))) {
+				Close (state);
+			}
+
 			// Open the initial state
 			Open(currentState);
 		}
