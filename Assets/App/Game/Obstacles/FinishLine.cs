@@ -29,7 +29,7 @@ namespace xyz._8bITProject.cooperace {
 					if (updateManager != null)
 						updateManager.SendStopClock ();
 
-					FindObjectOfType<FinalizeLevel> ().Finalize ();
+					FinalizeLevel.FinalizeGame (clock.GetTime ());
 				}
 			}
 		}

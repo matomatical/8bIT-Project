@@ -160,6 +160,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// the host is the participant with the first ID in the list
 
 			bool host = (participants [0].ParticipantId.Equals (myID));
+			MultiPlayerController.Instance.host = host;
 
 			UILogger.Log("I am the " + (host ? "host" : "client"));
 
@@ -200,6 +201,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			foreach (FinishLine finish in finishes)
 				finish.updateManager = updateManager;
 
+			// Link Finalize Level with UpdateManager
+			FinalizeLevel.updateManager = updateManager;
 
 			// link chat with updateManager
 

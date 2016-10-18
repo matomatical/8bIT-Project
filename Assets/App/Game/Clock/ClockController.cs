@@ -36,5 +36,9 @@ namespace xyz._8bITProject.cooperace {
 		public float GetTime(){
 			return time;
 		}
+
+		public static int SecsToHSecs (float time) {
+			return (int)(time * 10);
+		}
 	}
 }

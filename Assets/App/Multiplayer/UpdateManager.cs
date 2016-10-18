@@ -39,6 +39,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Clock update identifier
 		public static readonly byte CLOCK = BitConverter.GetBytes ('c')[0];
 
+		// Leaderboards update identifier
+		public static readonly byte LEADERBOARDS = BitConverter.GetBytes ('l')[0];
+
 
 		// The body of the message sent when the clock is to be started
 		private static readonly byte START_CLOCK = 1;
@@ -132,7 +135,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						clock.StartTiming ();
 					} else if (data [0] == START_CLOCK) {
 						clock.StopTiming ();
+						FinalizeLevel.FinalizeGame (clock.GetTime ());
 					}
+				} else if (header.messageType == LEADERBOARDS) {
+					FinalizeLevel.position = data [0];
 				} else {
 					throw new MessageHeaderException ("invalid update identifier");
 				}
@@ -206,6 +212,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			List<byte> update = new List<byte> ();
 			update.Add (STOP_CLOCK);
 			ApplyHeader (update, CLOCK);
+			MultiPlayerController.Instance.SendMyReliable (update);
+		}
+
+		public void SendLeaderboardsUpdate (byte position) {
+			List<byte> update = new List<byte> ();
+			update.Add (position);
+			ApplyHeader (update, LEADERBOARDS);
 			MultiPlayerController.Instance.SendMyReliable (update);
 		}
 

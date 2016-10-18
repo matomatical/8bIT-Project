@@ -1,19 +1,44 @@
 ﻿using UnityEngine;
 using System.Collections;
-using xyz._8bITProject.cooperace.leaderboards
+using System.Threading;
+using xyz._8bITProject.cooperace.leaderboard;
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-	public class FinalizeLevel : MonoBehaviour {
+	public static class FinalizeLevel {
+
+		public static byte position;
+
+		public static UpdateManager updateManager;
+
+		public static void FinalizeGame (float time) {
+
+			// The Leaderboards to submit our time to
+			Leaderboards leaderboards = new Leaderboards ();
+
+			// The response from the leaderboards after submitting
+			SubmissionResponse response;
 
 
+			// Our and our partners three letter names
+			string ourName = PersistentStorage.Read (NameInputHelper.filename);
+			string theirName = "xyz";
 
-		public void Finalize () {
-			ClockController clock = FindObjectOfType<ClockController> ();
-			float time;
 
-			clock.StopTiming ();
+			if (MultiPlayerController.Instance.IsHost ()) {
 
-			clock.GetTime ();
+				// Submit the time the the leaderboards
+				leaderboards.SubmitScoreAsync ("levelname", new Score (ClockController.SecsToHSecs (time), ourName, theirName),
+					delegate (SubmissionResponse r, ServerException e) {
+						response = r;
+
+						position = (byte)response.position;
+
+						if (position != 0 && updateManager != null) {
+							updateManager.SendLeaderboardsUpdate (position);
+						}
+					});
+			}
 		}
 	}
 }
