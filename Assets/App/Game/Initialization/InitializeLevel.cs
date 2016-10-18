@@ -15,218 +15,223 @@ using Tiled2Unity;
 
 using xyz._8bITProject.cooperace.recording;
 using xyz._8bITProject.cooperace.multiplayer;
-
+using xyz._8bITProject.cooperace.ui;
 
 namespace xyz._8bITProject.cooperace {
-	
-	public class InitializeLevel : MonoBehaviour {
 
-		public CameraController cam;
-		public BackgroundScroller background;
-		public GameObject gui;
+    public class InitializeLevel : MonoBehaviour {
 
-		private TiledMap level;
+        public CameraController cam;
+        public BackgroundScroller background;
+        public GameObject gui;
 
-		/// Runs before Start()
-		/// 
-		/// Loads the map prefab for the given name into the scene,
-		/// Links the surrounding objects (camera, etc) to the level,
-		/// and properly sets up the level's children's components,
-		/// depending on what type of level was entered
+        private TiledMap level;
+        private string mapPicked;
 
-		void Awake() {
+        /// Runs before Start()
+        /// 
+        /// Loads the map prefab for the given name into the scene,
+        /// Links the surrounding objects (camera, etc) to the level,
+        /// and properly sets up the level's children's components,
+        /// depending on what type of level was entered
 
-			// load the level!
+        void Awake() {
 
-			GameObject prefab = Maps.Load(SceneManager.levelToLoad);
+            // load the level!
 
-			if (prefab) {
-				level = GameObject.Instantiate<GameObject> (prefab).GetComponent<TiledMap> ();
-				cam.level = level;
-				background.level = level;
-			}
+            //GameObject prefab = Maps.Load(SceneManager.levelToLoad);
+            mapPicked = Maps.maps[LevelSelectMenuController.currentLevelIndex_];
+            GameObject prefab = Maps.Load(SceneManager.levelToLoad = mapPicked);
 
-			// what type of game have we entered?
+            if (prefab) {
+                level = GameObject.Instantiate<GameObject>(prefab).GetComponent<TiledMap>();
+                cam.level = level;
+                background.level = level;
+            }
 
-			GameType type = SceneManager.gameType;
+            // what type of game have we entered?
 
-			if (type == GameType.SINGLE) {
+            GameType type = SceneManager.gameType;
 
-				SinglePlayerAwake (level);
+            if (type == GameType.SINGLE) {
 
-				// prepare the level's objects for recording
+                SinglePlayerAwake(level);
 
-				RecordingAwake (level);
+                // prepare the level's objects for recording
 
+                RecordingAwake(level);
 
-			} else if (type == GameType.MULTI) {
-				MultiPlayerAwake (level);
 
-				// prepare the level's objects for recording
+            }
+            else if (type == GameType.MULTI) {
+                MultiPlayerAwake(level);
 
-				RecordingAwake (level);
+                // prepare the level's objects for recording
 
+                RecordingAwake(level);
 
-			} else if (type == GameType.REWATCH) {
 
-				// prepare the level for 
+            }
+            else if (type == GameType.REWATCH) {
 
-				RewatchRecordingAwake (level);
+                // prepare the level for 
 
-			}
+                RewatchRecordingAwake(level);
 
-			// is there also a level in the background?
+            }
 
-			if (SceneManager.playingAgainstGhosts) {
+            // is there also a level in the background?
 
-				GameObject ghostPrefab = Maps.Load(SceneManager.levelToLoad);
-				TiledMap ghostLevel = null;
-				if (prefab) {
-					ghostLevel = GameObject.Instantiate<GameObject>(ghostPrefab).GetComponent<TiledMap>();
-				}
+            if (SceneManager.playingAgainstGhosts) {
 
-				// TODO: shrink and position level between background and real level
+                GameObject ghostPrefab = Maps.Load(SceneManager.levelToLoad = mapPicked);
+                TiledMap ghostLevel = null;
+                if (prefab) {
+                    ghostLevel = GameObject.Instantiate<GameObject>(ghostPrefab).GetComponent<TiledMap>();
+                }
 
-				// TODO: shade level
+                // TODO: shrink and position level between background and real level
 
-				// TODO: make level scroll
+                // TODO: shade level
 
-				// ghostLevel.gameObject.AddComponent<BackgroundScroller> ();
-				// // ...
+                // TODO: make level scroll
 
-				// set up level to track a recording
+                // ghostLevel.gameObject.AddComponent<BackgroundScroller> ();
+                // // ...
 
-				RewatchRecordingAwake (ghostLevel);
-			}
-		}
+                // set up level to track a recording
 
-		void SinglePlayerAwake(TiledMap level){
+                RewatchRecordingAwake(ghostLevel);
+            }
+        }
 
-			// player should be controllable by inputs, turn on
-			// LocalPlayerController for first available player!
+        void SinglePlayerAwake(TiledMap level) {
 
-			LocalPlayerController lpc = level.GetComponentInChildren<LocalPlayerController> ();
-			lpc.enabled = true;
+            // player should be controllable by inputs, turn on
+            // LocalPlayerController for first available player!
 
-			// All other players can get orphaned remote physics controllers
-			// just so they obey physics / can be recorded
+            LocalPlayerController lpc = level.GetComponentInChildren<LocalPlayerController>();
+            lpc.enabled = true;
 
-			foreach (LocalPlayerController lpc2 in
-				level.GetComponentsInChildren<LocalPlayerController>()){
+            // All other players can get orphaned remote physics controllers
+            // just so they obey physics / can be recorded
 
-				if(!lpc2.enabled){
-					lpc2.gameObject.GetComponent<RemotePhysicsController>().enabled = true;
-				}
-			}
+            foreach (LocalPlayerController lpc2 in
+                level.GetComponentsInChildren<LocalPlayerController>()) {
 
-			// push blocks should also respond to collisions rather than
-			// remote updates
+                if (!lpc2.enabled) {
+                    lpc2.gameObject.GetComponent<RemotePhysicsController>().enabled = true;
+                }
+            }
 
-			foreach (PushBlockController pbc in
-				level.GetComponentsInChildren<PushBlockController>()){
+            // push blocks should also respond to collisions rather than
+            // remote updates
 
-				pbc.enabled = true;
-			}
+            foreach (PushBlockController pbc in
+                level.GetComponentsInChildren<PushBlockController>()) {
 
+                pbc.enabled = true;
+            }
 
-			// keys, key blocks and pressure plates should respond to
-			// collisions, not remote updates!
 
-			foreach (KeyController key in
-					level.GetComponentsInChildren<KeyController>()) {
+            // keys, key blocks and pressure plates should respond to
+            // collisions, not remote updates!
 
-				key.enabled = true;
-			}
+            foreach (KeyController key in
+                    level.GetComponentsInChildren<KeyController>()) {
 
-			foreach (PressurePlateController plate in
-					level.GetComponentsInChildren<PressurePlateController>()) {
+                key.enabled = true;
+            }
 
-				plate.enabled = true;
-			}
+            foreach (PressurePlateController plate in
+                    level.GetComponentsInChildren<PressurePlateController>()) {
 
-			foreach (KeyBlockController block in
-					level.GetComponentsInChildren<KeyBlockController>()) {
+                plate.enabled = true;
+            }
 
-				block.enabled = true;
-			}
+            foreach (KeyBlockController block in
+                    level.GetComponentsInChildren<KeyBlockController>()) {
 
+                block.enabled = true;
+            }
 
-			// camera should have a reference to the player to-be-followed
 
-			cam.target = (ArcadePhysicsController)lpc;
+            // camera should have a reference to the player to-be-followed
 
-		}
+            cam.target = (ArcadePhysicsController)lpc;
 
+        }
 
-	
-		void MultiPlayerAwake(TiledMap level) {
-			MultiplayerInit.Init (level.gameObject);
-		}
 
-		void RewatchRecordingAwake (TiledMap level) {
 
-			// enable remote physics controllers on dynamic objects,
-			// and enable dynamic recorders
+        void MultiPlayerAwake(TiledMap level) {
+            MultiplayerInit.Init(level.gameObject);
+        }
 
-			foreach (DynamicReplayer rep in
-					level.GetComponentsInChildren<DynamicReplayer>()) {
+        void RewatchRecordingAwake(TiledMap level) {
 
-				// enable remote control
+            // enable remote physics controllers on dynamic objects,
+            // and enable dynamic recorders
 
-				RemotePhysicsController rpc
-					= rep.GetComponent<RemotePhysicsController> ();
-				rpc.enabled = true;
+            foreach (DynamicReplayer rep in
+                    level.GetComponentsInChildren<DynamicReplayer>()) {
 
-				// enable replaying
+                // enable remote control
 
-				rep.enabled = true;
-			}
+                RemotePhysicsController rpc
+                    = rep.GetComponent<RemotePhysicsController>();
+                rpc.enabled = true;
 
-			// enable static replayers, and disable box collider
-			// triggering to prevent triggering on collisions
+                // enable replaying
 
-			foreach (StaticReplayer rep in
-					level.GetComponentsInChildren<StaticReplayer>()) {
+                rep.enabled = true;
+            }
 
-				// enable replaying
+            // enable static replayers, and disable box collider
+            // triggering to prevent triggering on collisions
 
-				rep.enabled = true;
+            foreach (StaticReplayer rep in
+                    level.GetComponentsInChildren<StaticReplayer>()) {
 
-			}
+                // enable replaying
 
-			// enable the replayer and start the replaying
+                rep.enabled = true;
 
-			ReplayingController rc = FindObjectOfType<ReplayingController> ();
-			rc.enabled = true;
-			rc.level = level;
-			rc.StartReplaying (SceneManager.recording);
+            }
 
-		}
+            // enable the replayer and start the replaying
 
-		void RecordingAwake (TiledMap level){
+            ReplayingController rc = FindObjectOfType<ReplayingController>();
+            rc.enabled = true;
+            rc.level = level;
+            rc.StartReplaying(SceneManager.recording);
 
-			// enable static recorders
+        }
 
-			foreach (StaticRecorder rec in
-					level.GetComponentsInChildren<StaticRecorder>()) {
-				rec.enabled = true;
-			}
+        void RecordingAwake(TiledMap level) {
 
-			// enable dynamic recorders
+            // enable static recorders
 
-			foreach (DynamicRecorder rec in
-					level.GetComponentsInChildren<DynamicRecorder>()) {
-				rec.enabled = true;
-			}
+            foreach (StaticRecorder rec in
+                    level.GetComponentsInChildren<StaticRecorder>()) {
+                rec.enabled = true;
+            }
 
-			// enable the recorder and start the recording
+            // enable dynamic recorders
 
-			RecordingController rc = FindObjectOfType<RecordingController> ();
-			rc.enabled = true;
-			rc.level = level;
-			rc.StartRecording (SceneManager.levelToLoad);
+            foreach (DynamicRecorder rec in
+                    level.GetComponentsInChildren<DynamicRecorder>()) {
+                rec.enabled = true;
+            }
 
-		}
+            // enable the recorder and start the recording
 
-	}
+            RecordingController rc = FindObjectOfType<RecordingController>();
+            rc.enabled = true;
+            rc.level = level;
+            rc.StartRecording(SceneManager.levelToLoad = mapPicked);
+
+        }
+
+    }
 }

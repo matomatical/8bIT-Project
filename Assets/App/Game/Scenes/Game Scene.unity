@@ -227,6 +227,16 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: GetChatInput
       objectReference: {fileID: 0}
+    - target: {fileID: 114000010055101574, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Main GUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000011527064108, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Main GUI
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0, type: 2}
   m_IsPrefabParent: 0

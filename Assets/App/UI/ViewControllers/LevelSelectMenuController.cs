@@ -11,14 +11,19 @@ using System.Collections;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class LevelSelectMenuController : MonoBehaviour {
+		#if UNITY_EDITOR
+		static bool editor = true;
+		#else
+		static bool editor = false;
+		#endif
 
 		// ui elements
 		public Text levelNameText;
 		public GameObject messageText;
 
 		// the currently displayed level
-		int currentLevelIndex_ = 0;
-		int currentLevelIndex {
+		public static int currentLevelIndex_ = 0;
+		public int currentLevelIndex {
 			get {
 				return currentLevelIndex_;
 			}
@@ -35,7 +40,7 @@ namespace xyz._8bITProject.cooperace.ui {
 				UpdateLevelDetails();
 			}
 		}
-		
+
 		void OnEnable() {
 			// make sure something is loaded when visible
 			UpdateLevelDetails();
@@ -46,7 +51,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		void UpdateLevelDetails() {
 			levelNameText.text = Maps.maps[currentLevelIndex];
 		}
-		
+
 		// methods to manipulate the message
 		void DisplayMessage(string msg) {
 			messageText.GetComponent<Text>().text = msg;
@@ -66,7 +71,9 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle play button behaviour
 		public void PlayButtonHandler() {
-			Debug.Log("TODO: start game");
+			if (editor) UIHelper.GoTo("Game Scene");
+			else UIHelper.GoTo("MatchMakingScreen");
+
 		}
 
 		// public method to handle back button behaviour

@@ -12,6 +12,7 @@ using GooglePlayGames;
 using GooglePlayGames.BasicApi.Multiplayer;
 using System;
 using System.Collections.Generic;
+using xyz._8bITProject.cooperace.ui;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
@@ -29,7 +30,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		private uint maximumPartners = 1;
 
 		// Sticking with a single game mode
-		private uint gameVariation = 0;
+		private uint gameVariation = (uint)LevelSelectMenuController.currentLevelIndex_;
 
 		// The unity scene to go to when starting the game
 		private String levelName = "Game Scene";
