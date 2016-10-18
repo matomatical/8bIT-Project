@@ -42,13 +42,10 @@ namespace xyz._8bITProject.cooperace.ui {
 					value = Maps.maps.Length - 1;
 				}
 				currentLevelIndex_ = value;
+				currentLevelName = Maps.maps[currentLevelIndex];
 			}
 		}
-		string currentLevelName {
-			get {
-				return Maps.maps[currentLevelIndex];
-			}
-		}
+		protected string currentLevelName;
 		
 		void OnEnable() {
 			items = scoresList.GetComponentsInChildren<LeaderboardItem>();
@@ -71,7 +68,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 
 		// fetches the actual leaderboard scores
-		void LoadLevelStats() {
+		protected void LoadLevelStats() {
 			DisplayMessage("Loading scores for " + currentLevelName);
 			lb.RequestScoresAsync(currentLevelName,
 				new Action<ScoresResponse, ServerException>(OnServerResponse));
@@ -98,7 +95,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 
 		// methods to actually change the ui
-		void DisplayMessage(string message) {
+		protected void DisplayMessage(string message) {
 			// hide level name
 			levelNameText.text = "";
 
