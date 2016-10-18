@@ -9,60 +9,54 @@ using UnityEngine;
 using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class ChatGUI {
+	public class ChatGUI {
 
-        // font size for the chat messages for when they show up on screen.
-        private int FONT_SIZE = 40;
+		// font size for the chat messages for when they show up on screen.
+		private int FONTSIZE = 20;
 
-        // Details of where to render chat
-        private readonly float MSG_X = 0.3f;
-        private readonly float MSG_Y = 0.03f;
+		// Display the n most recent messages 
+		public readonly int TOPN = 3;
 
-        // Display the n most recent messages 
-        public readonly int TOPN = 3;
+		// A record of all the messages sent
+		private ChatHistory chatHistory;
 
-        // A record of all the messages sent
-        private ChatHistory chatHistory;
+		Font font = (Font) Resources.Load("PressStart2P");
 
-        public ChatGUI (ChatHistory chatHistory) {
-            this.chatHistory = chatHistory;
-        }
+		public ChatGUI (ChatHistory chatHistory) {
+			this.chatHistory = chatHistory;
+		}
 
-        /// displays the n most recent messages on screen
-        public void RenderChatGUI() {
-            GUIStyle myStyle = new GUIStyle();
-            myStyle.fontSize = FONT_SIZE;
-            
-            // The x and y positions at which to display the messages
-            float ypos = (Screen.width * MSG_Y)-FONT_SIZE;
+		/// displays the n most recent messages on screen
+		public void RenderChatGUI() {
+			GUIStyle mystyle = new GUIStyle();
+			mystyle.fontSize = FONTSIZE;
+			mystyle.font = font;
 
-            // get the most recent messages
-            List<ChatMessage> recentMessages = chatHistory.MostRecent(TOPN);
+			// These values have been tested on a resolution of 1024x768.
+			// The gui matrix will handle scaling the gui components to suit different resolutions
+			float scalex = Screen.width / 1280.0f;
+			float scaley = Screen.height / 720.0f;
 
-            for (int i = 0; i< recentMessages.Count; i++) {
-                ChatMessage m = recentMessages[i];
+			// The of the first chat message should appear if the resolution is 1024x768.
+			float xpos = 110, ypos = 10;
 
-                float xpos = Screen.height * MSG_X;
+			GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity, new Vector3(scalex, scaley, 1));           //And create your elements
+			//GUI.color = Color.white;
 
-                // generate a message with the tag (which player sent it) appended to it
-				string taggedMsg = assignTag(m.message, m.isFromMe);
-                
-                // display it on screen
-                GUI.Label(new Rect(xpos, ypos+= FONT_SIZE, Screen.width, Screen.height),
-                    taggedMsg, myStyle);
-            }
+			// The y pos for the next message
+			int offset = mystyle.fontSize + 8; // Add a few pixels for breathing room
 
-            
-        }
+			// get the most recent messages
+			List<ChatMessage> recentMessages = chatHistory.MostRecent(TOPN);
+			
+			for (int i = 0; i< recentMessages.Count; i++) {
+				ChatMessage m = recentMessages[i];
 
-        /// Take a string, check which player sent it and assign a tag accordingly
-        private string assignTag(string m, bool isLocalPlayer) {
-            if (isLocalPlayer) {
-                m = "      me: " + m;
-            } else {
-                m = "partner: " + m;
-            }
-            return m;
-        }
-    }
+				// display it on screen
+				GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width), m.message, mystyle);
+			}
+
+
+		}
+	}
 }

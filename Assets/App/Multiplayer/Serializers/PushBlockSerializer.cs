@@ -56,7 +56,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                     // If the update is different to the last one sent
                     if (!info.Equals(lastInfo)) {
                         Debug.Log("Serializing push block");
-                        UILogger.Log("Serializing push block");
                         // Get the update to be sent
                         update = Serialize(info);
 
@@ -84,7 +83,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         /// Let updateManager know there is an update
 		protected override void Send(List<byte> message) {
-            UILogger.Log("sending push block updates");
             updateManager.SendPushBlockUpdate(message);
         }
     }
