@@ -14,10 +14,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         // font size for the chat messages for when they show up on screen.
         private int FONTSIZE = 40;
 
-        // Details of where to render chat
-        private readonly float MSG_X = 0.3f;
-        private readonly float MSG_Y = 0.03f;
-
         // Display the n most recent messages 
         public readonly int TOPN = 3;
 
