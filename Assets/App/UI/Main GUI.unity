@@ -5433,6 +5433,32 @@ Prefab:
       value: 
       objectReference: {fileID: 21300008, guid: 1959ba09ab0354a50a78e6d82948051d,
         type: 3}
+    - target: {fileID: 114000013192134058, guid: ac6d63117b9950a489fb6ee62f626d24,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013192134058, guid: ac6d63117b9950a489fb6ee62f626d24,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013192134058, guid: ac6d63117b9950a489fb6ee62f626d24,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
+      value: 
+      objectReference: {fileID: 114000013566356042, guid: c3ec73dfbff527f4ebdd3d2d97f1f8ef,
+        type: 2}
+    - target: {fileID: 114000013192134058, guid: ac6d63117b9950a489fb6ee62f626d24,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
+      value: iLeaveRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013192134058, guid: ac6d63117b9950a489fb6ee62f626d24,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ac6d63117b9950a489fb6ee62f626d24, type: 2}
   m_IsPrefabParent: 0
