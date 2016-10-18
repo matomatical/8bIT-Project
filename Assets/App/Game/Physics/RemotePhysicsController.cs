@@ -11,7 +11,7 @@ using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
 
-	public class OriginalRemotePhysicsController : RemotePhysicsController {
+	public class RemotePhysicsController : ArcadePhysicsController {
 
 		Vector2 externalPosition;
 		Vector2 externalVelocity;
@@ -29,7 +29,7 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
-		public override void SetState(Vector2 position, Vector2 velocity){
+		public void SetState(Vector2 position, Vector2 velocity){
 
 			externalPosition = position;
 			positionSet = false;

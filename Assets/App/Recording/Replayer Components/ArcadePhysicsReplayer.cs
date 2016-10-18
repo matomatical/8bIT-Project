@@ -21,9 +21,9 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			// link components
 
-
-			foreach(RemotePhysicsController remote in
-				GetComponents<RemotePhysicsController> ()){
+			RemotePhysicsController[] remotes = 
+				GetComponents<RemotePhysicsController> ();
+			foreach(RemotePhysicsController remote in remotes){
 
 				if (remote.enabled) {
 					this.remote = remote;
@@ -33,8 +33,9 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 
 		/// set the object's state to match this state
-		/// TODO: interpolate between multiple previous states!!
 		public override void SetState(DynamicState state){
+			// TODO: interpolate between multiple previous states
+			// to smooth the replay!
 			remote.SetState(state.position, state.velocity);
 		}
 	}
