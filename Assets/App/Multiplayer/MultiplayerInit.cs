@@ -43,7 +43,21 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			PlayerSerializer player1 = players[0];
 			PlayerSerializer player2 = players[1];
 
+			// Get timing related objects
+			ClockController clock = FindObjectOfType<ClockController> ();
+			StartLine[] starts = level.GetComponentsInChildren<StartLine> ();
+			FinishLine[] finishes = level.GetComponentsInChildren<FinishLine> ();
+
+			// Set up updateManager
 			UpdateManager updateManager = new UpdateManager();
+			updateManager.clock = clock;
+
+			// Set up the start and finish line to recieve updates
+			foreach (StartLine start in starts)
+				start.updateManager = updateManager;
+			foreach (FinishLine finish in finishes)
+				finish.updateManager = updateManager;
+
 
 			// Make sure one player is remote
 			player2.GetComponent<RemotePhysicsController> ().enabled = true;
@@ -172,6 +186,19 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			UpdateManager updateManager = new UpdateManager();
 			MultiPlayerController.Instance.updateManager = updateManager;
 
+			// Get timing related objects
+			ClockController clock = FindObjectOfType<ClockController> ();
+			StartLine[] starts = level.GetComponentsInChildren<StartLine> ();
+			FinishLine[] finishes = level.GetComponentsInChildren<FinishLine> ();
+
+			// Set up updateManager
+			updateManager.clock = clock;
+
+			// Set up the start and finish line to recieve updates
+			foreach (StartLine start in starts)
+				start.updateManager = updateManager;
+			foreach (FinishLine finish in finishes)
+				finish.updateManager = updateManager;
 
 
 			// link chat with updateManager
