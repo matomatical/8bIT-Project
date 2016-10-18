@@ -21,10 +21,8 @@ namespace xyz._8bITProject.cooperace {
 
 	public class RemotePhysicsController : ArcadePhysicsController {
 
-		public bool lerping = true;
-
 		// how far back in time to lag? (default = 0.1 sec = 5 fixedupdates)
-		public float offset = 0.1f;
+		public float offset = 0.25f;
 
 		class StateTime {
 			public Vector2 position, velocity;
@@ -65,13 +63,9 @@ namespace xyz._8bITProject.cooperace {
 			if (next != null && time < next.time) {
 				
 				// we still have time!
-
-
-				if (lerping) {
-
-					float progress = (time - last.time) / (next.time - last.time);
-					velocity.x = Mathf.Lerp (last.velocity.x, next.velocity.x, progress);
-				}
+		
+				float progress = (time - last.time) / (next.time - last.time);
+				velocity.x = Mathf.Lerp (last.velocity.x, next.velocity.x, progress);
 
 			} else {
 				
@@ -102,10 +96,6 @@ namespace xyz._8bITProject.cooperace {
 				if(!last.vSet){
 					velocity.y = last.velocity.y;
 					last.vSet = true;
-
-					if (!lerping) {
-						velocity.x = last.velocity.x;
-					}
 				}
 			}
 		}
