@@ -61,8 +61,10 @@ namespace xyz._8bITProject.cooperace.ui {
 		void LoginToGooglePlay(bool processToLevelSelect) {
 			if (!Authentication.IsLoggedIn()) {
 				Authentication.Login((bool success) => {
-					if (success && processToLevelSelect) {
-						UIStateMachine.instance.GoTo(UIState.LevelSelect);
+					if (success) {
+						if (processToLevelSelect) {
+							UIStateMachine.instance.GoTo(UIState.LevelSelect);
+						}
 					} else {
 						SetTapText("Unable to login to\nGoogle Play Games.\n\nTap to Try Again");
 					}

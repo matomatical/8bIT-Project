@@ -719,7 +719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &271376914
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2488,7 +2488,9 @@ Prefab:
     - target: {fileID: 114000012336144778, guid: 426f7e05c9bb3e2499a3140bf4079b38,
         type: 2}
       propertyPath: m_Text
-      value: Logout
+      value: 'Switch
+
+        Account'
       objectReference: {fileID: 0}
     - target: {fileID: 224000011910958718, guid: 426f7e05c9bb3e2499a3140bf4079b38,
         type: 2}
