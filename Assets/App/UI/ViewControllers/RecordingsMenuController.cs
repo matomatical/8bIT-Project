@@ -65,9 +65,14 @@ namespace xyz._8bITProject.cooperace.ui {
 			currentRecordingIndex -= 1;
 		}
 
-		// public method to handle play button behaviour
-		public void PlayButtonHandler() {
+		// public method to handle watch button behaviour
+		public void WatchButtonHandler() {
 			Debug.Log("TODO: start playback of recording");
+		}
+
+		// public method to handle play vs ghost button behaviour
+		public void GhostButtonHandler() {
+			Debug.Log("TODO: start playback of recording vs ghosts");
 		}
 
 		// public method to handle back button behaviour
