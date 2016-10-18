@@ -3,6 +3,7 @@ using System.Collections;
 using System.Threading;
 using xyz._8bITProject.cooperace.leaderboard;
 using xyz._8bITProject.cooperace.persistence;
+using xyz._8bITProject.cooperace.ui;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
 	public static class FinalizeLevel {
@@ -27,7 +28,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				string theirName = "sam";
 				if (MultiPlayerController.Instance.IsHost()) {
 					// Submit the time the the leaderboards
-					leaderboards.SubmitScoreAsync("levelname", new Score(ClockController.SecondsToTenthsOfSeconds(time), ourName, theirName),
+					leaderboards.SubmitScoreAsync(Maps.maps[LevelSelectMenuController.currentLevelIndex_], new Score(ClockController.SecondsToTenthsOfSeconds(time), ourName, theirName),
 						delegate (SubmissionResponse r, ServerException e) {
 							response = r;
 							if (e != null) UILogger.Log(e.Message);
