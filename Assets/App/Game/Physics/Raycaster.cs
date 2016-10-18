@@ -38,6 +38,7 @@ namespace xyz._8bITProject.cooperace {
 		float raySpacingVertical;
 
 		BoxCollider2D box;
+		float depth = 0;
 
 		public Raycaster (BoxCollider2D box) {
 
@@ -48,8 +49,10 @@ namespace xyz._8bITProject.cooperace {
 			UpdateRayOrigins ();
 			
 			CalculateRaySpacing ();
-
+		
 		}
+
+
 
 		void CalculateRaySpacing() {
 
@@ -66,6 +69,8 @@ namespace xyz._8bITProject.cooperace {
 
 			raySpacingHorizontal = height / (rayCountHorizontal - 1);
 			raySpacingVertical   = width  / (rayCountVertical   - 1);
+
+			this.depth = box.transform.position.z;
 
 		}
 
@@ -124,7 +129,7 @@ namespace xyz._8bITProject.cooperace {
 				// cast the actual ray!
 
 				RaycastHit2D hit = Physics2D.Raycast(origin,
-						Vector2.right * direction, magnitude, layers);
+					Vector2.right * direction, magnitude, layers, depth, depth);
 
 				if(hit) {
 					// if we're decreasing,
@@ -187,10 +192,12 @@ namespace xyz._8bITProject.cooperace {
 				if (debugrays) Debug.DrawRay(origin,
 					Vector2.up * direction * magnitude, Color.red);
 
-				RaycastHit2D hit = Physics2D.Raycast(origin,
-					Vector2.up * direction, magnitude, layers);
+
 
 				// cast an actual ray!
+
+				RaycastHit2D hit = Physics2D.Raycast (origin,
+					Vector2.up * direction, magnitude, layers, depth, depth);
 
 				if(hit) {
 					// if we're decreasing,
@@ -248,7 +255,7 @@ namespace xyz._8bITProject.cooperace {
 				// cast rays to detect all collisions!
 
 				RaycastHit2D[] hit = Physics2D.RaycastAll(origin,
-					Vector2.right * direction, magnitude, layers);
+					Vector2.right * direction, magnitude, layers, depth, depth);
 
 				// add valid results to the output list
 
@@ -305,7 +312,7 @@ namespace xyz._8bITProject.cooperace {
 				// cast rays to detect all collisions!
 
 				RaycastHit2D[] hit = Physics2D.RaycastAll(origin,
-					Vector2.right * direction, magnitude, layers);
+					Vector2.right * direction, magnitude, layers, depth, depth);
 
 				// add valid results to the output list
 

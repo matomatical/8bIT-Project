@@ -36,18 +36,15 @@ namespace xyz._8bITProject.cooperace {
         /// depending on what type of level was entered
 
         void Awake() {
-
-            // load the level!
+			// clone and load the level!
 
             mapPicked = Maps.maps[LevelSelectMenuController.currentLevelIndex_];
             SceneManager.levelToLoad = mapPicked;
             GameObject prefab = Maps.Load(mapPicked);
 
-            if (prefab) {
-                level = GameObject.Instantiate<GameObject>(prefab).GetComponent<TiledMap>();
-                cam.level = level;
-                background.level = level;
-            }
+			level = GameObject.Instantiate<GameObject> (prefab).GetComponent<TiledMap> ();
+			cam.level = level;
+			background.level = level;
 
             // what type of game have we entered?
 
@@ -84,20 +81,42 @@ namespace xyz._8bITProject.cooperace {
 
             if (SceneManager.playingAgainstGhosts) {
 
-                GameObject ghostPrefab = Maps.Load(SceneManager.levelToLoad = mapPicked);
-                TiledMap ghostLevel = null;
-                if (prefab) {
-                    ghostLevel = GameObject.Instantiate<GameObject>(ghostPrefab).GetComponent<TiledMap>();
-                }
+				// create replay level
 
-                // TODO: shrink and position level between background and real level
+				TiledMap ghostLevel = GameObject.Instantiate<GameObject>(prefab).GetComponent<TiledMap>();
 
-                // TODO: shade level
+				// shrink level behind real level
 
-                // TODO: make level scroll
+				float scale = 0.8f;
 
-                // ghostLevel.gameObject.AddComponent<BackgroundScroller> ();
-                // // ...
+				ghostLevel.transform.localScale = new Vector3 (
+					ghostLevel.transform.localScale.x * scale,
+					ghostLevel.transform.localScale.y * scale,
+					ghostLevel.transform.localScale.z
+				);
+
+				// shade and order level
+
+				float color = 0.6f;
+
+				Renderer[] renderers = ghostLevel.GetComponentsInChildren<Renderer> ();
+				foreach (Renderer renderer in renderers) {
+					renderer.sortingLayerName = "Before Background";
+					renderer.material.color = new Color (color, color, color);
+				}
+
+				// make ghost level scroll along with camera and real level
+
+				BackgroundLevelScroller scroller = ghostLevel.gameObject.AddComponent<BackgroundLevelScroller> ();
+
+				scroller.cam = FindObjectOfType<Camera>();
+				scroller.level = level;
+			
+				// arrange objects by z depth
+
+				level.transform.position 	+= 2*Vector3.forward;
+				ghostLevel.transform.position += Vector3.forward;
+
 
                 // set up level to track a recording
 

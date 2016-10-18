@@ -16,7 +16,7 @@ namespace xyz._8bITProject.cooperace {
 		public static string levelToLoad;
 		public static GameType gameType = GameType.MULTI;
 		public static string recording;
-		public static bool playingAgainstGhosts;
+		public static bool playingAgainstGhosts = true;
 
 		public static void Load(string name) {
 			UnityEngine.SceneManagement.SceneManager.LoadScene(name);

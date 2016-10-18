@@ -43,20 +43,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			PlayerSerializer player1 = players[0];
 			PlayerSerializer player2 = players[1];
 
-			// Get timing related objects
-			ClockController clock = FindObjectOfType<ClockController> ();
-			StartLine[] starts = level.GetComponentsInChildren<StartLine> ();
-			FinishLine[] finishes = level.GetComponentsInChildren<FinishLine> ();
 
 			// Set up updateManager
 			UpdateManager updateManager = new UpdateManager();
-			updateManager.clock = clock;
-
-			// Set up the start and finish line to recieve updates
-			foreach (StartLine start in starts)
-				start.updateManager = updateManager;
-			foreach (FinishLine finish in finishes)
-				finish.updateManager = updateManager;
 
 
 			// Make sure one player is remote
@@ -75,14 +64,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			player1.updateManager = updateManager;
 
 
+			// link clock with updateManager
+			ClockController clock = FindObjectOfType<ClockController> ();
+			updateManager.clock = clock;
+
+
 			// link chat with updateManager
 
 			ChatController chat = FindObjectOfType<ChatController>();
 
 			updateManager.chatController = chat;
 			chat.updateManager = updateManager;
-
-
 
 
 			// camera should have a reference to the player to-be-followed
@@ -181,29 +173,16 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 
 
-
 			// Enter update manager, stage left!
 
 			UpdateManager updateManager = new UpdateManager();
 			MultiPlayerController.Instance.updateManager = updateManager;
 
-			// Get timing related objects
-			ClockController clock = FindObjectOfType<ClockController> ();
-			StartLine[] starts = level.GetComponentsInChildren<StartLine> ();
-			FinishLine[] finishes = level.GetComponentsInChildren<FinishLine> ();
 
-			// Set up updateManager
+			// link clock with updateManager
+			ClockController clock = FindObjectOfType<ClockController> ();
 			updateManager.clock = clock;
 
-			// Set up the start and finish line to recieve updates
-			foreach (StartLine start in starts)
-				start.updateManager = updateManager;
-			foreach (FinishLine finish in finishes)
-				finish.updateManager = updateManager;
-
-			// Link Finalize Level with UpdateManager
-			FinalizeLevel.updateManager = updateManager;
-			FinalizeLevel.sentRequest = false;
 
 			// link chat with updateManager
 
@@ -238,6 +217,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// assign serialisers unique IDs
 
 			SetObjectIDs (level);
+
+
+			// set up the start lines, finish lines and finalizer
+
+			InitializeFinalization (level, updateManager);
+
 		}
 
 		static void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){
@@ -343,6 +328,29 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				updateManager.Subscribe(pbs, UpdateManager.Channel.PUSHBLOCK);
 
 			}
+		}
+
+		static void InitializeFinalization(GameObject level, UpdateManager updateManager) {
+
+			StartLineSerializer[] starts = level.GetComponentsInChildren<StartLineSerializer> ();
+			FinishLineSerializer[] finishes = level.GetComponentsInChildren<FinishLineSerializer> ();
+
+			// Set up the start and finish line blocks to send updates
+			foreach (StartLineSerializer start in starts) {
+				start.enabled = true;	
+				start.updateManager = updateManager;
+			}
+
+			foreach (FinishLineSerializer finish in finishes) {
+				finish.enabled = true;
+				finish.updateManager = updateManager;
+			}
+				
+
+			// Set up Finalize Level, linked to UpdateManager
+
+			FinalizeLevel.updateManager = updateManager;
+			FinalizeLevel.sentRequest = false;
 		}
 
 

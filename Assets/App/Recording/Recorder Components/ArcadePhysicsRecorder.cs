@@ -35,8 +35,9 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		/// get the object's dynamic state this frame
 		public override DynamicState GetState(){
-			return new DynamicState(
-				physics.GetPosition(), physics.GetVelocity());
+			Vector2 position = physics.GetPosition ();
+			Vector2 velocity = physics.GetVelocity ();
+			return new DynamicState(position, velocity);
 		}
 	}
 
