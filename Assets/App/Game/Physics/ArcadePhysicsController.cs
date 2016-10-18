@@ -106,21 +106,20 @@ namespace xyz._8bITProject.cooperace {
 
 
 		protected virtual void Awake () {
-			
-			// link components
-
-			box = GetComponent<BoxCollider2D> ();
-
-		}
-
-		protected virtual void Start() {
 
 			// initialise kinematic state
 
 			velocity = Vector2.zero;
 			position = transform.localPosition;
 
+			// link public components
 
+			box = GetComponent<BoxCollider2D> ();
+
+		}
+
+		protected virtual void Start() {
+			
 			// initialise raycaster 
 
 			raycaster = new Raycaster(box);

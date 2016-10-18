@@ -15,34 +15,45 @@ using System;
 namespace xyz._8bITProject.cooperace.multiplayer {
     public class PushBlockSerializer : DynamicObjectSerializer
 	{
-		// The controller which we are sending updates from
-		private PushBlockController localController;
+		// The controller which we are tracking for updates
+		private ArcadePhysicsController block;
 
-		// The controller that is used to recieve the updates
-		private RemotePhysicsController remoteController;
+		// The lerper that is used to recieve the updates
+		private LerpingPhysicsController lerper;
 
 		void Start () {
-			// Get compenents
-			remoteController = GetComponent<RemotePhysicsController> ();
-			localController = GetComponent<PushBlockController> ();
+
+			// link components
+
+			lerper = GetComponent<LerpingPhysicsController> ();
+
+			// find the first enabled player controller
+
+			ArcadePhysicsController[] controllers = GetComponents<ArcadePhysicsController> ();
+			foreach (ArcadePhysicsController controller in controllers) {
+				if (controller.enabled) {
+					// found an enabled controller! let's track this one
+					block = controller;
+					break;
+				}
+			}
 		}
 
 		/// Let updateManager know there is an update
 		protected override void Send (List<byte> message)
 		{
-			updateManager.SendPushBlockUpdate(message);
+			updateManager.SendPushBlockUpdate (message);
 		}
 
 		protected override DynamicObjectInformation GetState ()
 		{
-			return new DynamicObjectInformation (localController.GetPosition (),
-				localController.GetVelocity (),
-				Time.time);
+			return new DynamicObjectInformation (
+				block.GetPosition (), block.GetVelocity (), Time.time);
 		}
 
 		protected override void SetState (DynamicObjectInformation information)
 		{
-			remoteController.SetState(information.pos, information.vel);
+			lerper.AddState(information.pos, information.vel);
 		}
 	}
 }

@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace {
 		public LocalPlayerController local;
 
 		/// The remote player to lead
-		public RemotePhysicsController[] remotes;
+		public LerpingPhysicsController remote;
 
 		// for storing position/velocity data inside
 		// an array
@@ -47,20 +47,6 @@ namespace xyz._8bITProject.cooperace {
 
 			framesSinceLast = framesPerUpdate;
 
-			// get ENABLED remote controllers
-
-			for (int i = 0; i < remotes.Length; i++) {
-
-				RemotePhysicsController[] alts =
-						remotes [i].GetComponents<RemotePhysicsController> ();
-				
-				foreach (RemotePhysicsController alt in alts) {
-					if (alt.enabled) {
-						remotes [i] = alt;
-						break;
-					}
-				}
-			}
 		}
 
 
@@ -92,11 +78,7 @@ namespace xyz._8bITProject.cooperace {
 				// apply a previous state with specified probability
 				int j = (i + n/2) % n;
 				if (Random.value <= probabilityOfUpdate) {
-
-					foreach(RemotePhysicsController remote in remotes){
-						
-						remote.SetState (buffer [j].position, buffer [j].velocity);
-					}
+					remote.AddState (buffer [j].position, buffer [j].velocity);
 				}
 
 			} else {

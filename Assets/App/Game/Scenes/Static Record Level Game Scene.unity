@@ -389,11 +389,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   local: {fileID: 921217376}
-  remotes:
-  - {fileID: 1885357755}
+  remote: {fileID: 1707796889}
   n: 32
-  framesPerUpdate: 1
-  probabilityOfUpdate: 1
+  framesPerUpdate: 5
+  probabilityOfUpdate: 0.8
 --- !u!4 &1333277812
 Transform:
   m_ObjectHideFlags: 0
@@ -703,6 +702,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012377668432, guid: 00462364bb0bb4cda88189d1aeafe1e2,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 00462364bb0bb4cda88189d1aeafe1e2, type: 2}
   m_IsPrefabParent: 0
@@ -722,12 +726,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cca8d693f41e841a7991332329161f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1885357755 stripped
+--- !u!114 &1707796889 stripped
 MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000011902260710, guid: 00462364bb0bb4cda88189d1aeafe1e2,
+  m_PrefabParentObject: {fileID: 114000012377668432, guid: 00462364bb0bb4cda88189d1aeafe1e2,
     type: 2}
   m_PrefabInternal: {fileID: 1706408277}
-  m_Script: {fileID: 11500000, guid: bfcec9011d1b44936bf1599fcabf55c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 9097143cd0aa342a4935877ff5669ba1, type: 3}
 --- !u!20 &1961636743 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20000013805494800, guid: 5ed9808070316bb438e34ecb48a936b6,
