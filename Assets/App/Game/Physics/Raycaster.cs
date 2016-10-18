@@ -6,12 +6,20 @@
  *
  */
 
+//#define RAYCAST_DEBUG_RAYS
+
 using UnityEngine;
 using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace {
-
+	
 	public class Raycaster {
+
+		#if RAYCAST_DEBUG_RAYS
+		private bool debugrays = true;
+		#else
+		private bool debugrays = false;
+		#endif
 
 		public const float skinWidth = 0.015f;
 		public const float raySpacing = 0.25f;
@@ -110,11 +118,11 @@ namespace xyz._8bITProject.cooperace {
 				origin.y += offset;
 
 				// draw black ray to see direction
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.right * direction, Color.black);
 				
 				// draw red ray to see magnitude
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.right * direction * magnitude, Color.red);
 
 
@@ -139,7 +147,7 @@ namespace xyz._8bITProject.cooperace {
 
 				// draw green ray, AFTER raycast to see truncation
 
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.right * direction * magnitude, Color.green);
 
 			}
@@ -178,10 +186,11 @@ namespace xyz._8bITProject.cooperace {
 				origin.x += offset;
 
 				// draw ray to see direction
-				Debug.DrawRay(origin, Vector2.up * direction, Color.black);
+				if (debugrays) Debug.DrawRay(origin,
+					Vector2.up * direction, Color.black);
 				// draw ray to see magnitude
-				Debug.DrawRay(origin, Vector2.up * direction * magnitude,
-					Color.red);
+				if (debugrays) Debug.DrawRay(origin,
+					Vector2.up * direction * magnitude, Color.red);
 
 
 
@@ -206,7 +215,7 @@ namespace xyz._8bITProject.cooperace {
 
 				// draw one more ray, AFTER raycast to see truncation
 
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.up * direction * magnitude, Color.green);
 
 			}
@@ -236,11 +245,11 @@ namespace xyz._8bITProject.cooperace {
 				origin.y += offset;
 
 				// draw black ray to see direction
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.right * direction, Color.black);
 
 				// draw red ray to see magnitude
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.right * direction * magnitude, Color.red);
 
 				// cast rays to detect all collisions!
@@ -264,7 +273,7 @@ namespace xyz._8bITProject.cooperace {
 
 				// draw green ray, AFTER raycast to see truncation
 
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.right * direction * magnitude, Color.green);
 
 			}
@@ -294,10 +303,11 @@ namespace xyz._8bITProject.cooperace {
 				origin.x += offset;
 
 				// draw ray to see direction
-				Debug.DrawRay(origin, Vector2.up * direction, Color.black);
+				if (debugrays) Debug.DrawRay(origin,
+					Vector2.up * direction,Color.black);
 				// draw ray to see magnitude
-				Debug.DrawRay(origin, Vector2.up * direction * magnitude,
-					Color.red);
+				if (debugrays) Debug.DrawRay(origin,
+					Vector2.up * direction * magnitude, Color.red);
 				
 				// cast rays to detect all collisions!
 
@@ -320,7 +330,7 @@ namespace xyz._8bITProject.cooperace {
 
 				// draw one more ray, AFTER raycast to see truncation
 
-				Debug.DrawRay(origin,
+				if (debugrays) Debug.DrawRay(origin,
 					Vector2.up * direction * magnitude, Color.green);
 
 			}

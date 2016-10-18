@@ -97,11 +97,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114000012415668606, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 224000013361984740, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -197,31 +192,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 105699130}
-    - target: {fileID: 114000012415668606, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012415668606, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012415668606, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 256504202}
-    - target: {fileID: 114000012415668606, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
-      value: StopTiming
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000012415668606, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
-        type: 2}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0, type: 2}
   m_IsPrefabParent: 0
@@ -393,7 +363,7 @@ GameObject:
   - 4: {fileID: 757908545}
   - 114: {fileID: 757908544}
   m_Layer: 0
-  m_Name: InitializeLevelScript
+  m_Name: SetUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -407,7 +377,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 757908543}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 430e9c9e180ceee4dae6983e56f44991, type: 3}
+  m_Script: {fileID: 11500000, guid: 31d3a21d9ca156441a1fda6bd8e2ba7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 105699131}

@@ -11,7 +11,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: 8-bIT Project
-  productName: IT Project Project
+  productName: Cooperace
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenStyle: 0
@@ -164,7 +164,7 @@ PlayerSettings:
   AndroidTargetDevice: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: 8bit.keystore
+  AndroidKeystoreName: F:/program/itp/8bit.keystore
   AndroidKeyaliasName: 8bit
   AndroidTVCompatibility: 1
   AndroidIsGame: 1

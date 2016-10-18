@@ -17,6 +17,9 @@ namespace xyz._8bITProject.cooperace {
 		/// the pressure plate to control
 		PressurePlate plate;
 
+		// how many colliders are colliding with the collider?
+		int isColliding = 0;
+
 		void Start(){
 
 			// link components together
@@ -25,11 +28,16 @@ namespace xyz._8bITProject.cooperace {
 
 		}
 
+
 		void OnTriggerEnter2D(Collider2D other) {
 			if (this.transform.position.z == other.transform.position.z) {
 
 				// only trigger if this component is on
 				if (enabled) {
+				
+				++isColliding;
+
+				if (isColliding == 1) { // first presser!
 					plate.Press ();
 				}
 			}
@@ -40,6 +48,14 @@ namespace xyz._8bITProject.cooperace {
 				
 				// only trigger if this component is on
 				if (enabled) {
+
+				--isColliding;
+
+				if (isColliding < 0) { // clamp at zero
+					isColliding = 0;
+				}
+
+				if (isColliding == 0) { // last releaser!
 					plate.Release ();
 				}
 			}

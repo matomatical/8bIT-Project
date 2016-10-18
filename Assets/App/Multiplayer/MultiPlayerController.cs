@@ -1,143 +1,211 @@
-﻿using UnityEngine;
+﻿/*
+ * Acts as a controller for the multiplayer side of the game
+ * Works as an interface between the game and Google Play
+ * 
+ * Mariam Shahid  < mariams@student.unimelb.edu.au >
+ * Sam Beyer     < sbeyer@student.unimelb.edu.au >
+ */
+
+using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi.Multiplayer;
 using System;
 using System.Collections.Generic;
 
-// Making this controller the listener as well to keep all the MultiPlayer logic in one class
-public class MultiplayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener
+namespace xyz._8bITProject.cooperace.multiplayer
 {
-    public MPRoomListener roomListener;
-    public Team8bITProject.IUpdateManager updateManager;
+	// Making this controller the listener as well to keep all the MultiPlayer logic in one class
+	public class MultiPlayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener
+	{
+		public IRoomListener roomListener;
+		public IUpdateManager updateManager;
 
-    // Making this a singleon as it'll be used in both the main menu and the game
-    private static MultiplayerController _instance = null;
+		// Making this a singleton
+		private static MultiPlayerController _instance = null;
 
-    // Sticking to a 2 player game
-    private uint minimumPartners = 1;
-    private uint maximumPartners = 1;
+		// Sticking to a 2 player game
+		private uint minimumPartners = 1;
+		private uint maximumPartners = 1;
 
-    // Sticking with a single game mode
-    private uint gameVariation = 0;
+		// Sticking with a single game mode
+		private uint gameVariation = 0;
 
-    private String levelName = "MP Empty Level";
+		// The unity scene to go to when starting the game
+		private String levelName = "Game Scene";
 
-    private byte protocolVersion = 1;
-    // Byte + Byte + 2 floats for position + 2 floats for velcocity
-    private int updateMessageLength = 18;
-    private List<byte> updateMessage;
+        // Whether or not you've started a game
+        private bool startedGame = false;
 
-    private MultiplayerController()
-    {
-        updateMessage = new List<byte>(updateMessageLength);
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
-    }
+		// Are we the host?
+		public bool? host;
 
-    public static MultiplayerController Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new MultiplayerController();
+		public bool IsHost () {
+			if (host.HasValue)
+				return host.Value;
+			else
+				throw new NotYetSetException ("host not yet set");
+		}
+
+        /// initialises the Multiplayer controller instance
+        protected MultiPlayerController()
+		{
+            PlayGamesPlatform.Activate();
+            PlayGamesPlatform.DebugLogEnabled = true;
+		}
+
+		/// makes multiplayer controller a singleton
+		public static MultiPlayerController Instance
+		{
+			get
+			{
+				if (_instance == null)
+				{
+					_instance = new MultiPlayerController();
+				}
+				return _instance;
+			}
+		}
+
+		/// Start a new Multiplayer game by looking for someone to play with
+		public virtual void StartMPGame()
+		{
+			StartMatchMaking();
+		}
+
+		/// Look for a suitable partner to play the game with
+		private void StartMatchMaking()
+		{
+			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
+		}
+
+		/// Let's the player know how the matchmaking process is going
+		private void ShowMPStatus(string message)
+		{
+			Debug.Log(message);
+			if (roomListener != null)
+			{
+				roomListener.SetRoomStatusMessage(message);
+			}
+		}
+
+		/// How's progress with setting up the room?
+		public virtual void OnRoomSetupProgress(float percent)
+		{
+			ShowMPStatus("We are " + percent + "% done with setup");
+		}
+
+		/// After connection is established go to the level specified, otherwise print an error message
+		public virtual void OnRoomConnected(bool success)
+		{
+			if (success)
+			{
+				ShowMPStatus("We are connected to the room! WOOHOO!");
+				roomListener.HideRoom();
+				roomListener = null;
+                startedGame = true;
+				UIHelper.GoTo(levelName);
+			}
+			else
+			{
+				ShowMPStatus("Uh-oh. Looks like something went wrong when trying to connect to the room.");
+			}
+		}
+
+		/// What to do if the player leaves the room.
+		public virtual void OnLeftRoom()
+		{
+			ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
+            UILogger.Log("I have left the game");
+            //LeaveRoom(startedGame);
+
+        }
+
+		/// What to do when a particular player leaves the room
+		public virtual void OnParticipantLeft(Participant participant)
+		{
+			UILogger.Log("Player " + participant.DisplayName + " has left.");
+            LeaveRoom(startedGame);
+            //UIHelper.LeftGameMenu();
+
+		}
+
+		/// What to do when a player has joined the room
+		public virtual void OnPeersConnected(string[] participantIds)
+		{
+			foreach (string participantID in participantIds)
+			{
+				ShowMPStatus("Player " + participantID + " has joined.");
+			}
+		}
+
+		/// What to do when players leave the room
+		public virtual void OnPeersDisconnected(string[] participantIds)
+		{
+            //UIHelper.LeftGameMenu();
+            foreach (string participantID in participantIds)
+			{
+				UILogger.Log("Player " + participantID + " has left.");
+			}
+            LeaveRoom(startedGame);
+        }
+
+		/* Called when an update is recieved from a peer
+		 * 
+		 * isReliable	- Whether the message was sent using the reliable protocol or not
+		 * senderID		- The ParticipantID of the sender
+		 * data			- The message recieved
+		 */
+		public virtual void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data)
+		{
+			// turn the data into a List instead of an array
+			List<byte> listData = new List<byte> ();
+			listData.AddRange (data);
+
+			// Tell our update manager about this.
+			if (updateManager != null)
+			{
+				updateManager.HandleUpdate(listData, senderId);
+			}
+		}
+
+		/// Get a list of all Participants in the room
+		public virtual List<Participant> GetAllPlayers()
+		{
+			return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
+		}
+
+		/// Returns the ParticipantID of the device
+		public virtual string GetMyParticipantId()
+		{
+			return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
+		}
+
+		/// Sends an update to all participants in the room using the reliable protocol
+		public virtual void SendMyReliable(List<byte> data)
+		{
+			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, data.ToArray ());
+		}
+
+		/// Sends an update to all participants in the room using the unreliable protocol
+		public virtual void SendMyUnreliable(List<byte> data)
+		{
+			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
+		}
+
+        /// Leave a room appropriately
+        private void LeaveRoom(bool startedGame) {
+            if (startedGame) {
+                // If the game has started and your partner leaves, bring up a menu notifying
+                // the player
+
+                UIHelper.PartnerLeftGameMenu();
+
+            } else {
+                // restart the matchmaking process
+                UIHelper.LeaveRoom();
+                //_instance.StartMPGame();
             }
-            return _instance;
         }
-    }
-
-    public void StartMPGame()
-    {
-        StartMatchMaking();
-    }
-
-    private void StartMatchMaking()
-    {
-        PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
-    }
-
-    private void ShowMPStatus(string message)
-    {
-        Debug.Log(message);
-        if (roomListener != null)
-        {
-            roomListener.SetRoomStatusMessage(message);
-        }
-    }
-
-    public void OnRoomSetupProgress(float percent)
-    {
-        ShowMPStatus("We are " + percent + "% done with setup");
-    }
-
-    public void OnRoomConnected(bool success)
-    {
-        if (success)
-        {
-            ShowMPStatus("We are connected to the room! WOOHOO!");
-            roomListener.HideRoom();
-            roomListener = null;
-            UIHelper.GoTo(levelName);
-        }
-        else
-        {
-            ShowMPStatus("Uh-oh. Looks like something went wrong when trying to connect to the room.");
-        }
-    }
-
-    public void OnLeftRoom()
-    {
-        ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
-    }
-
-    public void OnParticipantLeft(Participant participant)
-    {
-        ShowMPStatus("Player " + participant.DisplayName + " has left.");
-    }
-
-    public void OnPeersConnected(string[] participantIds)
-    {
-        foreach (string participantID in participantIds)
-        {
-            ShowMPStatus("Player " + participantID + " has joined.");
-        }
-    }
-
-    public void OnPeersDisconnected(string[] participantIds)
-    {
-        foreach (string participantID in participantIds)
-        {
-            ShowMPStatus("Player " + participantID + " has left.");
-        }
-    }
-
-    public void OnRealTimeMessageReceived(bool isReliable, string senderId, byte[] data)
-	{
-        // Tell our GameController about this.
-        if (updateManager != null)
-        {
-            updateManager.HandleUpdate(data, senderId);
-        }
-    }
-
-    public List<Participant> GetAllPlayers()
-    {
-        return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
-    }
-
-    public string GetMyParticipantId()
-    {
-        return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
-    }
-
-	public void SendMyReliable(List<byte> data)
-    {
-		PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, data.ToArray ());
-    }
-
-	public void SendMyUnreliable(List<byte> data)
-	{
-		PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
 	}
 }

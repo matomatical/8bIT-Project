@@ -1,5 +1,8 @@
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+import org.junit.BeforeClass;
+
+import com.matomatical.util.Log;
 
 import xyz._8bITProject.cooperace.leaderboards.tests.*;
 import xyz._8bITProject.cooperace.leaderboards.protocol.tests.*;
@@ -25,5 +28,13 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.tests.*;
  * @author Matt <farrugiam@student.unimelb.edu.au>
  */
 public class TestSuite {
-	// empty, used only as a holder for the above annotations
+
+	// redirect test logging to test.log
+	// and disable stdout logging to not interfere with test results
+	@BeforeClass
+	public static void setupLogging() {
+		Log.setPath("./test.log", true);
+		Log.setStdoutLogging(false);
+	}
+
 }

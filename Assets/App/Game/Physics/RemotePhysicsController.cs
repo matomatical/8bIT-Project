@@ -19,14 +19,12 @@ namespace xyz._8bITProject.cooperace {
 		bool positionSet = false;
 		bool velocitySet = false;
 
-		protected override void Start(){
+		protected override void Awake() {
 
-			base.Start();
+			base.Awake ();
 
-			externalPosition = transform.localPosition;
-
-			externalVelocity = Vector2.zero;
-
+			externalPosition = base.GetPosition();
+			externalVelocity = base.GetVelocity();
 		}
 
 		public void SetState(Vector2 position, Vector2 velocity){
@@ -52,8 +50,6 @@ namespace xyz._8bITProject.cooperace {
 				velocity = externalVelocity;
 				velocitySet = true;
 			}
-
-			// velocity = externalVelocity;
 		}
 	}
 }

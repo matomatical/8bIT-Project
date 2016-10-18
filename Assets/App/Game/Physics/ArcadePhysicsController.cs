@@ -92,33 +92,42 @@ namespace xyz._8bITProject.cooperace {
 			return position;
 		}
 
+		/// return the actual velocity being experienced
+		/// right now (unlike this.velocity, takes collisions
+		/// into account
 		public Vector2 GetVelocity(){
+			Vector2 velocity = this.velocity;
+
+			if (collisions.right && velocity.x > 0) {
+				velocity.x = 0;
+			} else if (collisions.left && velocity.x < 0) {
+				velocity.x = 0;
+			}
+
 			return velocity;
 		}
 
 
 		protected virtual void Awake () {
-			
-			// link components
-
-			box = GetComponent<BoxCollider2D> ();
-
-		}
-
-		protected virtual void Start() {
 
 			// initialise kinematic state
 
 			velocity = Vector2.zero;
 			position = transform.localPosition;
 
+			// link public components
 
+			box = GetComponent<BoxCollider2D> ();
+
+		}
+
+		protected virtual void Start() {
+			
 			// initialise raycaster 
 
 			raycaster = new Raycaster(box);
 
 		}
-
 
 		void FixedUpdate() {
 
@@ -201,7 +210,6 @@ namespace xyz._8bITProject.cooperace {
 
 					// truncate movement to account
 					movement.x = hit.distance * Mathf.Sign(movement.x);
-
 				}
 			}
 

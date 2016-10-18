@@ -3,7 +3,7 @@
  *
  * Athir Saleem <isaleem@student.unimelb.edu.au>
  * 
- * Modified to use a sine curve
+ * Modified to use a sine curve and localposition
  * 
  * Matthew Farrugia-Roberts <farrugiam@student.unimelb.edu.au>
  *
