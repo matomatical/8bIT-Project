@@ -28,7 +28,8 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		void OnTriggerEnter2D() {
-			if (enabled) { // only trigger if this component is on
+			if (enabled) { // only trigger if this controller is on
+				
 				++isColliding;
 
 				if (isColliding == 1) {
@@ -39,7 +40,8 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		void OnTriggerExit2D() {
-			if (enabled) { // only trigger if this component is on
+			if (enabled) { // only trigger if this controller is on
+				
 				--isColliding;
 
 				if (isColliding < 0) {

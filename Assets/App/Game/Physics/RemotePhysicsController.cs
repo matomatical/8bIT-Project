@@ -50,8 +50,6 @@ namespace xyz._8bITProject.cooperace {
 				velocity = externalVelocity;
 				velocitySet = true;
 			}
-
-			// velocity = externalVelocity;
 		}
 	}
 }
