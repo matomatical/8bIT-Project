@@ -43,10 +43,24 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			PlayerSerializer player1 = players[0];
 			PlayerSerializer player2 = players[1];
 
+			// Get timing related objects
+			ClockController clock = FindObjectOfType<ClockController> ();
+			StartLine[] starts = level.GetComponentsInChildren<StartLine> ();
+			FinishLine[] finishes = level.GetComponentsInChildren<FinishLine> ();
+
+			// Set up updateManager
 			UpdateManager updateManager = new UpdateManager();
+			updateManager.clock = clock;
+
+			// Set up the start and finish line to recieve updates
+			foreach (StartLine start in starts)
+				start.updateManager = updateManager;
+			foreach (FinishLine finish in finishes)
+				finish.updateManager = updateManager;
+
 
 			// Make sure one player is remote
-			player2.GetComponent<RemotePhysicsController> ().enabled = true;
+			player2.GetComponent<LerpingPhysicsController> ().enabled = true;
 
 			// Tell update manager about the serialiser for player 2 so updates get recieved
 			player2.enabled = true;
@@ -146,6 +160,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// the host is the participant with the first ID in the list
 
 			bool host = (participants [0].ParticipantId.Equals (myID));
+			MultiPlayerController.Instance.host = host;
 
 			UILogger.Log("I am the " + (host ? "host" : "client"));
 
@@ -172,7 +187,23 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			UpdateManager updateManager = new UpdateManager();
 			MultiPlayerController.Instance.updateManager = updateManager;
 
+			// Get timing related objects
+			ClockController clock = FindObjectOfType<ClockController> ();
+			StartLine[] starts = level.GetComponentsInChildren<StartLine> ();
+			FinishLine[] finishes = level.GetComponentsInChildren<FinishLine> ();
 
+			// Set up updateManager
+			updateManager.clock = clock;
+
+			// Set up the start and finish line to recieve updates
+			foreach (StartLine start in starts)
+				start.updateManager = updateManager;
+			foreach (FinishLine finish in finishes)
+				finish.updateManager = updateManager;
+
+			// Link Finalize Level with UpdateManager
+			FinalizeLevel.updateManager = updateManager;
+			FinalizeLevel.sentRequest = false;
 
 			// link chat with updateManager
 
@@ -214,7 +245,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// enable the controller components
 
 			localPlayer.GetComponent<LocalPlayerController> ().enabled = true;
-			remotePlayer.GetComponent<RemotePhysicsController> ().enabled = true;
+			remotePlayer.GetComponent<LerpingPhysicsController> ().enabled = true;
 
 
 			// enable the serialisers! and link them to update manager
@@ -303,7 +334,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			foreach (PushBlockController pbc in level.GetComponentsInChildren<PushBlockController>()){
 
-				RemotePhysicsController rpc = pbc.GetComponent<RemotePhysicsController> ();
+				LerpingPhysicsController rpc = pbc.GetComponent<LerpingPhysicsController> ();
 				rpc.enabled = true;
 
 				PushBlockSerializer pbs = pbc.GetComponent<PushBlockSerializer> ();

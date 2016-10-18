@@ -35,12 +35,24 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// The unity scene to go to when starting the game
 		private String levelName = "Game Scene";
 
+        // Whether or not you've started a game
+        private bool startedGame = false;
 
+		// Are we the host?
+		public bool? host;
 
-		/// initialises the Multiplayer controller instance
-		protected MultiPlayerController()
+		public bool IsHost () {
+			if (host.HasValue)
+				return host.Value;
+			else
+				throw new NotYetSetException ("host not yet set");
+		}
+
+        /// initialises the Multiplayer controller instance
+        protected MultiPlayerController()
 		{
-			PlayGamesPlatform.DebugLogEnabled = true;
+            PlayGamesPlatform.Activate();
+            PlayGamesPlatform.DebugLogEnabled = true;
 		}
 
 		/// makes multiplayer controller a singleton
@@ -92,6 +104,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				ShowMPStatus("We are connected to the room! WOOHOO!");
 				roomListener.HideRoom();
 				roomListener = null;
+                startedGame = true;
 				UIHelper.GoTo(levelName);
 			}
 			else
@@ -104,15 +117,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public virtual void OnLeftRoom()
 		{
 			ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
-			UIHelper.LeftGameMenu();
+            UILogger.Log("I have left the game");
+            //LeaveRoom(startedGame);
 
-		}
+        }
 
 		/// What to do when a particular player leaves the room
 		public virtual void OnParticipantLeft(Participant participant)
 		{
 			UILogger.Log("Player " + participant.DisplayName + " has left.");
-			UIHelper.LeftGameMenu();
+            LeaveRoom(startedGame);
+            //UIHelper.LeftGameMenu();
 
 		}
 
@@ -128,12 +143,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		/// What to do when players leave the room
 		public virtual void OnPeersDisconnected(string[] participantIds)
 		{
-            UIHelper.LeftGameMenu();
+            //UIHelper.LeftGameMenu();
             foreach (string participantID in participantIds)
 			{
 				UILogger.Log("Player " + participantID + " has left.");
 			}
-		}
+            LeaveRoom(startedGame);
+        }
 
 		/* Called when an update is recieved from a peer
 		 * 
@@ -178,6 +194,19 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
 		}
 
-		
+        /// Leave a room appropriately
+        private void LeaveRoom(bool startedGame) {
+            if (startedGame) {
+                // If the game has started and your partner leaves, bring up a menu notifying
+                // the player
+
+                UIHelper.PartnerLeftGameMenu();
+
+            } else {
+                // restart the matchmaking process
+                UIHelper.LeaveRoom();
+                //_instance.StartMPGame();
+            }
+        }
 	}
 }

@@ -13,79 +13,48 @@ using System;
 */
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class PushBlockSerializer : DynamicObjectSerializer {
-        // The push block controller that is used to send the updates
-        private PushBlockController localPushBlockController;
 
-        // Keeps track of how long until we send an update
-        private int stepsUntilSend;
-        private readonly int MAX_STEPS_BETWEEN_SENDS = 0;
+    public class PushBlockSerializer : DynamicObjectSerializer
+	{
+		// The controller which we are tracking for updates
+		private ArcadePhysicsController block;
 
+		// The lerper that is used to recieve the updates
+		private LerpingPhysicsController lerper;
 
-        // Use this for initialization
-        void Start() {
-            stepsUntilSend = 0;
+		void Start () {
 
-            // Fill out last positions with dummys
-            lastInfo = null;
-            isPushBlock = true;
+			// link components
 
-            // link Components
-            localPushBlockController = GetComponent<PushBlockController>();
-            remoteController = GetComponent<RemotePhysicsController>();
-        }
+			lerper = GetComponent<LerpingPhysicsController> ();
 
-        /// Called at set intervals, used to let update manager know there is an update
-		void FixedUpdate() {
-            // Stores current state
-            List<byte> update;
+			// find the first enabled player controller
 
-            // Stores current information about the push block
-            DynamicObjectInformation info;
+			ArcadePhysicsController[] controllers = GetComponents<ArcadePhysicsController> ();
+			foreach (ArcadePhysicsController controller in controllers) {
+				if (controller.enabled) {
+					// found an enabled controller! let's track this one
+					block = controller;
+					break;
+				}
+			}
+		}
 
-            // Only send if there is an update manager to send to and the transform is found
-            if (updateManager != null) {
+		/// Let updateManager know there is an update
+		protected override void Send (List<byte> message)
+		{
+			updateManager.SendPushBlockUpdate (message);
+		}
 
-                // If it's time to send another update
-                if (stepsUntilSend < 1) {
+		protected override DynamicObjectInformation GetState ()
+		{
+			return new DynamicObjectInformation (
+				block.GetPosition (), block.GetVelocity (), Time.time);
+		}
 
-                    // Read information about the push block currently
-                    info = new DynamicObjectInformation(localPushBlockController.GetPosition(), 
-                                                                localPushBlockController.GetVelocity());
-
-                    // If the update is different to the last one sent
-                    if (!info.Equals(lastInfo)) {
-                        Debug.Log("Serializing push block");
-                        UILogger.Log("Serializing push block");
-                        // Get the update to be sent
-                        update = Serialize(info);
-
-
-                        // Send the update
-                        Send(update);
-
-                        // reflect changes in the last update
-                        lastInfo = info;
-
-                        // reset the steps since an update was sent
-                        stepsUntilSend = MAX_STEPS_BETWEEN_SENDS;
-
-                    }
-                    else {
-                        Debug.Log("push block has not changed since last update");
-                    }
-
-                }
-
-                // show a step has been taken regardless of what happens
-                stepsUntilSend -= 1;
-            }
-        }
-
-        /// Let updateManager know there is an update
-		protected override void Send(List<byte> message) {
-            UILogger.Log("sending push block updates");
-            updateManager.SendPushBlockUpdate(message);
-        }
-    }
+		protected override void SetState (DynamicObjectInformation information)
+		{
+			lerper.AddState(information.pos, information.vel);
+		}
+	}
 }

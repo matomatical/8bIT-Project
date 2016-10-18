@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using GooglePlayGames;
 using xyz._8bITProject.cooperace;
@@ -45,13 +45,13 @@ public class UIHelper : MonoBehaviour {
 
 	// If your partner leaves the game, it brings up the left game menu
 	public static void LeftGameMenu() {
+		// Find the relavent menus
 		GameObject gui = GameObject.Find("In-Game GUI");
 
 		GameObject menu = gui.transform.FindChild("PlayerDisconnectedMenu").gameObject;
-		GameObject controlls = gui.transform.FindChild("OnScreenControlls").gameObject;
+		GameObject controls = gui.transform.FindChild("OnScreenControls").gameObject;
+		
 		menu.SetActive(true);
 		controlls.SetActive(false);
 	}
-
-
 }

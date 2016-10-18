@@ -8,11 +8,13 @@
 using UnityEngine;
 using System.Collections;
 using xyz._8bITProject.cooperace.recording;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace {
 	public class StartLine : MonoBehaviour {
 
 		ClockController clock;
+		public UpdateManager updateManager;
 
 		void Start () {
 			clock = FindObjectOfType<ClockController> ();
@@ -22,9 +24,13 @@ namespace xyz._8bITProject.cooperace {
 
 			if (enabled) { // only trigger if this component is on
 
-				// start the clock the first time a player comes through!
+				// start the clock, the first time a player comes through!
 
 				if (other.gameObject.CompareTag ("Player")) {
+
+					// Send an update saying the clock has started
+					if (updateManager != null)
+						updateManager.SendStartClock ();
 
 					clock.StartTiming ();
 				}
