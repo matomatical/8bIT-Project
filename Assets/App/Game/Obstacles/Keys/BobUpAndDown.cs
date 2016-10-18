@@ -3,7 +3,7 @@
  *
  * Athir Saleem <isaleem@student.unimelb.edu.au>
  * 
- * Modified to use a sine curve
+ * Modified to use a sine curve and localposition
  * 
  * Matthew Farrugia-Roberts <farrugiam@student.unimelb.edu.au>
  *
@@ -37,7 +37,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// store the initial position
 
-			origin = target.position;
+			origin = target.localPosition;
 		}
 
 		void Update() {
@@ -53,7 +53,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// apply that offset
 
-			target.position = origin + Vector3.up * offset;
+			target.localPosition = origin + Vector3.up * offset;
 		}
 
 	}
