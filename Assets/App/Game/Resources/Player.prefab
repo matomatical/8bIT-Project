@@ -26,10 +26,11 @@ GameObject:
   - 114: {fileID: 114000010732364216}
   - 114: {fileID: 114000013539410424}
   - 114: {fileID: 114000013538040042}
-  - 114: {fileID: 114000013957736046}
+  - 114: {fileID: 114000010104284180}
   - 114: {fileID: 114000014184286338}
   - 114: {fileID: 114000011470425658}
   - 114: {fileID: 114000014068483228}
+  - 114: {fileID: 114000013957736046}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -98,6 +99,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010104284180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013806612336}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfcec9011d1b44936bf1599fcabf55c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!114 &114000010732364216
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -161,9 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9097143cd0aa342a4935877ff5669ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 768
+  offset: 0.1
 --- !u!114 &114000014068483228
 MonoBehaviour:
   m_ObjectHideFlags: 1
