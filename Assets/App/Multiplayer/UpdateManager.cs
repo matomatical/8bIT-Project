@@ -129,11 +129,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					chatController.ReceiveMessage (data);
 				} else if (header.messageType == CLOCK && clock != null) {
 					Debug.Log ("Notifying Clock");
+                   // UILogger.Log("Notifying Clock");
 
 					// Start or stop the clock as appropriate
 					if (data [0] == START_CLOCK) {
 						clock.StartTiming ();
-					} else if (data [0] == START_CLOCK) {
+					} else if (data [0] == STOP_CLOCK) {
 						clock.StopTiming ();
 						FinalizeLevel.FinalizeGame (clock.GetTime ());
 					}
