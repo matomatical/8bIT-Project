@@ -14,8 +14,18 @@ using System;
 
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class DynamicObjectSerializer : MonoBehaviour,  ISerializer<DynamicObjectInformation> {
+    public abstract class DynamicObjectSerializer : MonoBehaviour,  ISerializer<DynamicObjectInformation> {
        	
+		// Keeps track of how long until we send an update
+		private int stepsUntilSend = 0;
+		private readonly int MAX_STEPS_BETWEEN_SENDS = 5;
+
+		// Keeps track of the last update to see if anything has changed
+		protected DynamicObjectInformation lastInfo = null;
+
+		// the update manager which should be told about any updates
+		public IUpdateManager updateManager;
+
         private byte ID;				// The unique ID of the obstacle.
         private bool IDSet = false;		// A unique ID has been assigned
 
@@ -39,16 +49,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			return ID;
 		}
 
-        // The push block controller that is used to recieve the updates
-        protected RemotePhysicsController remoteController;
-
-        // the update manager which should be told about any updates
-        public IUpdateManager updateManager;
-
-        // Keeps track of the last update to see if anything has changed
-        protected DynamicObjectInformation lastInfo;
-
-        protected bool isPushBlock = false;
 
         public List<byte> Serialize(DynamicObjectInformation information) {
             // initialize list to return
@@ -90,7 +90,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				throw new MessageBodyException("Not enough bytes in dynamic message body:" + e.Message);
             }
 
-            if (isPushBlock) UILogger.Log("deserializing pb update");
             
             // Create and return DynamicObstaceleInformation with the data deserialized
             return new DynamicObjectInformation(new Vector2(posx, posy), new Vector2(velx, vely), time);
@@ -98,18 +97,60 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         public void Notify(List<byte> message) {
             DynamicObjectInformation info = Deserialize(message);
-            Apply(info);
-        }
-        protected void Apply(DynamicObjectInformation information) {
-            Debug.Log("pos x = " + information.pos.x + " pos y = " + information.pos.y);
-            if (isPushBlock) UILogger.Log("Applying pb update");
-            remoteController.SetState(information.pos, information.vel);
+            SetState(info);
         }
 
-        protected virtual void Send(List<byte> message) {
-            // send the update to update manager
-        }
+		protected abstract void SetState (DynamicObjectInformation information);
 
+
+		/// Called at set intervals, used to let update manager know there is an update
+
+		void FixedUpdate () {
+			// Stores current state
+			List<byte> update;
+
+			// Stores current information about the player
+			DynamicObjectInformation info;
+
+			// Only send if there is an update manager to send to and the transform is found
+			if (updateManager != null) {
+
+				// If it's time to send another update
+				if (stepsUntilSend < 1) {
+
+					// Read information about the player currently
+					info = GetState();
+
+					// If the update is different to the last one sent
+					if (!info.Equals(lastInfo)) {
+						// Get the update to be sent
+						update = Serialize (info);
+
+						Debug.Log ("Serializing new update posx = " + info.pos.x + " pos y = " + info.pos.y);
+
+						// Send the update
+						Send (update);
+
+						// reflect changes in the last update
+						lastInfo = info;
+
+						// reset the steps since an update was sent
+						stepsUntilSend = MAX_STEPS_BETWEEN_SENDS;
+
+					} else {
+						Debug.Log ("Local player has not changed since last update");
+					}
+
+				}
+
+				// show a step has been taken regardless of what happens
+				stepsUntilSend -= 1;
+			}
+		}
+
+		protected abstract void Send (List<byte> message);
+
+		protected abstract DynamicObjectInformation GetState ();
 
     }
 }
