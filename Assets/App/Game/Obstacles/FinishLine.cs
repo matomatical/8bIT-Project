@@ -29,10 +29,9 @@ namespace xyz._8bITProject.cooperace {
 					if (updateManager != null)
 						updateManager.SendStopClock ();
 
-					clock.StopTiming ();
+					FindObjectOfType<FinalizeLevel> ().Finalize ();
 				}
 			}
 		}
-
 	}
 }
