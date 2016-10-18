@@ -12,13 +12,15 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public class ChatGUI {
 
 		// font size for the chat messages for when they show up on screen.
-		private int FONTSIZE = 40;
+		private int FONTSIZE = 20;
 
 		// Display the n most recent messages 
 		public readonly int TOPN = 3;
 
 		// A record of all the messages sent
 		private ChatHistory chatHistory;
+
+		Font font = (Font) Resources.Load("PressStart2P");
 
 		public ChatGUI (ChatHistory chatHistory) {
 			this.chatHistory = chatHistory;
@@ -28,6 +30,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		public void RenderChatGUI() {
 			GUIStyle mystyle = new GUIStyle();
 			mystyle.fontSize = FONTSIZE;
+			mystyle.font = font;
 
 			// These values have been tested on a resolution of 1024x768.
 			// The gui matrix will handle scaling the gui components to suit different resolutions
@@ -38,7 +41,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			float xpos = 110, ypos = 10;
 
 			GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity, new Vector3(scalex, scaley, 1));           //And create your elements
-			GUI.color = Color.black;
+			//GUI.color = Color.white;
 
 			// The y pos for the next message
 			int offset = mystyle.fontSize + 8; // Add a few pixels for breathing room
@@ -49,24 +52,11 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			for (int i = 0; i< recentMessages.Count; i++) {
 				ChatMessage m = recentMessages[i];
 
-				// generate a message with the tag (which player sent it) appended to it
-				string taggedMsg = assignTag(m.message, m.isFromMe);
-				
 				// display it on screen
-				GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width), taggedMsg, mystyle);
+				GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width), m.message, mystyle);
 			}
 
 
-		}
-
-		/// Take a string, check which player sent it and assign a tag accordingly
-		private string assignTag(string m, bool isLocalPlayer) {
-			if (isLocalPlayer) {
-				m = "      me: " + m;
-			} else {
-				m = "partner: " + m;
-			}
-			return m;
 		}
 	}
 }
