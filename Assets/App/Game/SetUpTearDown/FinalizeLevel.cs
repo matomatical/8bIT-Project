@@ -31,10 +31,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				leaderboards.SubmitScoreAsync ("levelname", new Score (ClockController.SecsToHSecs (time), ourName, theirName),
 					delegate (SubmissionResponse r, ServerException e) {
 						response = r;
-
+						UILogger.Log ("Congratulations! You're on the leaderboards in position " + r.position);
 						position = (byte)response.position;
 
-						if (position != 0 && updateManager != null) {
+						if (updateManager != null) {
 							updateManager.SendLeaderboardsUpdate (position);
 						}
 					});
