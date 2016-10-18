@@ -19,7 +19,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		}
 		
 		public static bool IsLoggedIn() {
-			return Social.localUser.authenticated;
+			return PlayGamesPlatform.Instance.IsAuthenticated();
 		}
 
 		public static void Logout() {

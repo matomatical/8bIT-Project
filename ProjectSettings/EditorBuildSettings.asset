@@ -13,7 +13,7 @@ EditorBuildSettings:
     path: Assets/App/UI/Old/Views/PostGameMenu.unity
   - enabled: 1
     path: Assets/App/Game/Scenes/Game Scene.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/App/Game/Scenes/Static Record Level Game Scene.unity
-  - enabled: 1
+  - enabled: 0
     path: Assets/App/Game/Scenes/Static Replay Level Game Scene.unity

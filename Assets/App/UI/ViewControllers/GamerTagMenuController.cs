@@ -12,6 +12,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class GamerTagMenuController : MonoBehaviour {
@@ -32,12 +33,16 @@ namespace xyz._8bITProject.cooperace.ui {
 		public Text[] textUI;
 		public GameObject backButton;
 		public GameObject confirmButton;
+		public GameObject logoutButton;
 		public GameObject normalTitle;
 		public GameObject firstTimeTitle;
 
 		void OnEnable() {
 			if (isFirstTime_) {
 				EnableFirstTimeUI();
+			} else {
+				// show/hide logout button based on the player's login status
+				logoutButton.SetActive(Authentication.IsLoggedIn());
 			}
 
 			charIndices = new int[3];
@@ -59,6 +64,7 @@ namespace xyz._8bITProject.cooperace.ui {
 			// disable normal ui
 			backButton.SetActive(false);
 			normalTitle.SetActive(false);
+			logoutButton.SetActive(false);
 
 			// enable first time ui
 			confirmButton.SetActive(true);
@@ -70,6 +76,7 @@ namespace xyz._8bITProject.cooperace.ui {
 			// enable normal ui
 			backButton.SetActive(true);
 			normalTitle.SetActive(true);
+			logoutButton.SetActive(true);
 
 			// disable first time ui
 			confirmButton.SetActive(false);
@@ -130,6 +137,12 @@ namespace xyz._8bITProject.cooperace.ui {
 		public void ConfirmButtonHandler() {
 			isFirstTime_ = false;
 			DisableFirstTimeUI();
+			BackButtonHandler();
+		}
+
+		// public method to handle logout button behaviour
+		public void LogoutButtonHandler() {
+			Authentication.Logout();
 			BackButtonHandler();
 		}
 

@@ -33,15 +33,12 @@ namespace xyz._8bITProject.cooperace.ui {
 		UIState currentState = UIState.MainMenu;
 
 		void Start () {
-			// google play login
-			Authentication.Login(null);
-
 			// check gamer tag existance and prompt if not present
 			if (GamerTagManager.GetGamerTag() == null) {
 				GamerTagMenuController.IsFirstTime();
 				currentState = UIState.GamerTagMenu;
 			}
-			
+
 			// Open the initial state
 			Open(currentState);
 		}
