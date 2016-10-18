@@ -1,8 +1,8 @@
 ﻿/*
- * Start line logic.
+ * Start line syncronisation component.
  *
+ * Sam Beyer 	 <sbeyer@student.unimelb.edu.au>
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
- *
  */
 
 using UnityEngine;
@@ -11,17 +11,12 @@ using xyz._8bITProject.cooperace.recording;
 using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace {
-	public class StartLine : MonoBehaviour {
+	public class StartLineSerializer : MonoBehaviour {
 
-		/// The Clock to start when we cross the line
-		ClockController clock;
 		public UpdateManager updateManager;
 
 		void Start(){
-
-			// link components together
-
-			clock = FindObjectOfType<ClockController> ();
+			// we need this so that unity lets us disable the component
 		}
 
 		void OnTriggerEnter2D (Collider2D other) {
@@ -37,16 +32,9 @@ namespace xyz._8bITProject.cooperace {
 
 						if (updateManager != null)
 							updateManager.SendStartClock ();
-						
-						clock.StartTiming ();
-						
 					}
-
 				}
-
 			}
-
 		}
-
 	}
 }
