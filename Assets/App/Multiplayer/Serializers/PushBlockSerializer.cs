@@ -51,7 +51,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
                     // Read information about the push block currently
                     info = new DynamicObjectInformation(localPushBlockController.GetPosition(), 
-                                                                localPushBlockController.GetVelocity());
+						localPushBlockController.GetVelocity(), Time.time);
 
                     // If the update is different to the last one sent
                     if (!info.Equals(lastInfo)) {

@@ -145,19 +145,21 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 		private readonly float POSY1 = 91.984f;
 		private readonly float VELX1 = 0.415f;
 		private readonly float VELY1 = 0.13f;
+		private readonly float TIME1 = 26.2f;
 
 		private readonly float POSX2 = 74285.13f;
 		private readonly float POSY2 = -143570108.57f;
 		private readonly float VELX2 = 14958.848f;
 		private readonly float VELY2 = 24058.4209f;
+		private readonly float TIME2 = 245285.1445f;
 
 
 		private DynamicObjectInformation PlayerInformation1 () {
-			return new DynamicObjectInformation (new Vector2 (POSX1, POSY1), new Vector2 (VELX1, VELY1));
+			return new DynamicObjectInformation (new Vector2 (POSX1, POSY1), new Vector2 (VELX1, VELY1), TIME1);
 		}
 
 		private DynamicObjectInformation PlayerInformation2 () {
-			return new DynamicObjectInformation (new Vector2 (POSX2, POSY2), new Vector2 (VELX2, VELY2));
+			return new DynamicObjectInformation (new Vector2 (POSX2, POSY2), new Vector2 (VELX2, VELY2), TIME2);
 		}
 
 		private List<byte> data1 () {
@@ -182,6 +184,12 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			data.Add(FloatGetByte(VELY1, 1));
 			data.Add(FloatGetByte(VELY1, 2));
 			data.Add(FloatGetByte(VELY1, 3));
+
+			data.Add(FloatGetByte (TIME1, 0));
+			data.Add(FloatGetByte (TIME1, 1));
+			data.Add(FloatGetByte (TIME1, 2));
+			data.Add(FloatGetByte (TIME1, 3));
+
 
 			return data;
 		}
@@ -208,6 +216,11 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 			data.Add(FloatGetByte(VELY2, 1));
 			data.Add(FloatGetByte(VELY2, 2));
 			data.Add(FloatGetByte(VELY2, 3));
+
+			data.Add(FloatGetByte (TIME2, 0));
+			data.Add(FloatGetByte (TIME2, 1));
+			data.Add(FloatGetByte (TIME2, 2));
+			data.Add(FloatGetByte (TIME2, 3));
 
 			return data;
 		}

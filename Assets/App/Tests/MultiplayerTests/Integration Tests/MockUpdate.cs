@@ -11,7 +11,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		// Every frame, send an update to a player serialiser
 		// they should be at position/velocity
 		void Update () {
-			serializer.Notify(serializer.Serialize(new DynamicObjectInformation(position, velocity)));
+			serializer.Notify(serializer.Serialize(new DynamicObjectInformation(position, velocity, Time.time)));
 		}
 	}
 }

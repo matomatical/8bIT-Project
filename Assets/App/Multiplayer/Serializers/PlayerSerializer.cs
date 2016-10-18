@@ -47,7 +47,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				if (stepsUntilSend < 1) {
 					 
 					// Read information about the player currently
-					info = new DynamicObjectInformation (localController.GetPosition (), localController.GetVelocity ());
+					info = new DynamicObjectInformation (localController.GetPosition (),
+														 localController.GetVelocity (),
+														 Time.time);
 
 					// If the update is different to the last one sent
 					if (!info.Equals(lastInfo)) {
