@@ -69,6 +69,10 @@ namespace xyz._8bITProject.cooperace.ui {
 						SetTapText("Unable to login to\nGoogle Play Games.\n\nTap to Try Again");
 					}
 				});
+			} else {
+				if (processToLevelSelect) {
+					UIStateMachine.instance.GoTo(UIState.LevelSelect);
+				}
 			}
 		}
 		
