@@ -12,7 +12,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
     public class ChatGUI {
 
         // font size for the chat messages for when they show up on screen.
-        private int FONT_SIZE = 40;
+        private int FONTSIZE = 40;
 
         // Details of where to render chat
         private readonly float MSG_X = 0.3f;
@@ -30,29 +30,37 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
         /// displays the n most recent messages on screen
         public void RenderChatGUI() {
-            GUIStyle myStyle = new GUIStyle();
-            myStyle.fontSize = FONT_SIZE;
-            
-            // The x and y positions at which to display the messages
-            float ypos = (Screen.width * MSG_Y)-FONT_SIZE;
+            GUIStyle mystyle = new GUIStyle();
+            mystyle.fontSize = FONTSIZE;
+
+            // These values have been tested on a resolution of 1024x768.
+            // The gui matrix will handle scaling the gui components to suit different resolutions
+            float scalex = Screen.width / 1280.0f;
+            float scaley = Screen.height / 720.0f;
+
+            // The of the first chat message should appear if the resolution is 1024x768.
+            float xpos = 110, ypos = 10;
+
+            GUI.matrix = Matrix4x4.TRS(new Vector3(0, 0, 0), Quaternion.identity, new Vector3(scalex, scaley, 1));           //And create your elements
+            GUI.color = Color.black;
+
+            // The y pos for the next message
+            int offset = mystyle.fontSize + 8; // Add a few pixels for breathing room
 
             // get the most recent messages
             List<ChatMessage> recentMessages = chatHistory.MostRecent(TOPN);
-
+            
             for (int i = 0; i< recentMessages.Count; i++) {
                 ChatMessage m = recentMessages[i];
-
-                float xpos = Screen.height * MSG_X;
 
                 // generate a message with the tag (which player sent it) appended to it
 				string taggedMsg = assignTag(m.message, m.isFromMe);
                 
                 // display it on screen
-                GUI.Label(new Rect(xpos, ypos+= FONT_SIZE, Screen.width, Screen.height),
-                    taggedMsg, myStyle);
+                GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width), taggedMsg, mystyle);
             }
 
-            
+
         }
 
         /// Take a string, check which player sent it and assign a tag accordingly
