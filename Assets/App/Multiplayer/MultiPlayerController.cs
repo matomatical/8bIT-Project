@@ -200,7 +200,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
                 // If the game has started and your partner leaves, bring up a menu notifying
                 // the player
 
-                UIHelper.PartnerLeftGameMenu();
+				UIHelper.LeftGameMenu ();
 
             } else {
                 // restart the matchmaking process

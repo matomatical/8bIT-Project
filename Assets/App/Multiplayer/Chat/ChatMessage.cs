@@ -27,7 +27,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// Use this for initialization
 		public ChatMessage(string message, bool localPlayerMsg) {
 			// Find the player's 3 letter code and append it to the message
-			this.playerCode = PersistentStorage.Read(NameInputHelper.filename);
+			this.playerCode = GamerTagManager.GetGamerTag();
 			this.message = playerCode + ": "+ message;
 			this.isFromMe = localPlayerMsg;
 		}
