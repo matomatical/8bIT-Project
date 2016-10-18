@@ -12,7 +12,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public class ChatGUI {
 
 		// font size for the chat messages for when they show up on screen.
-		private int FONTSIZE = 20;
+		private int FONTSIZE = 25;
 
 		// Display the n most recent messages 
 		public readonly int TOPN = 3;

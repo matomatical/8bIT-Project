@@ -27,6 +27,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		// The OS keyboard
 		private TouchScreenKeyboard keyboard;
 
+        // The player's 3 letter code
+        string gamerTag = GamerTagManager.GetGamerTag();
+
 		/// Use this for initialization
 		void Start() {
 			chatGUI = new ChatGUI(chatHistory);
@@ -35,7 +38,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// This is called when the chat icon is pressed on screen. 
 		/// It initialises the device's onscreen keyboard.
 		public void GetChatInput() {
-			keyboard = TouchScreenKeyboard.Open("");
+			keyboard = TouchScreenKeyboard.Open("hello");
 		}
 
 		/// Update is called once per frame
@@ -44,7 +47,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			// If the user is done typing a message, add it to the chat history and send
 			if (keyboard != null && keyboard.done) {
 
-				string currMessage = keyboard.text;
+				string currMessage = gamerTag + ":"+keyboard.text;
 
 				try {
 					chatHistory.AddMessage(currMessage, true);
