@@ -8,14 +8,10 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
-	public class LevelSelectMenuController : MonoBehaviour {
-		#if UNITY_EDITOR
-		static bool editor = true;
-		#else
-		static bool editor = false;
-		#endif
+	public class LevelSelectMenuController : MonoBehaviour, IRoomListener {
 
 		// ui elements
 		public Text levelNameText;
@@ -71,14 +67,26 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle play button behaviour
 		public void PlayButtonHandler() {
-			if (editor) UIHelper.GoTo("Game Scene");
-			else UIHelper.GoTo("MatchMakingScreen");
-
+			#if UNITY_EDITOR
+				SceneManager.Load("Game Scene");
+			#else
+				DisplayMessage("Starting Game...");
+				MultiPlayerController.Instance.roomListener = this;
+				MultiPlayerController.Instance.StartMPGame();
+			#endif
 		}
 
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
 			UIStateMachine.instance.GoTo(UIState.MainMenu);
+		}
+		
+		// IListener methods
+		public void SetRoomStatusMessage(string message) {
+			DisplayMessage(message);
+		}
+		public void HideRoom() {
+			// HideMessage();
 		}
 
 	}
