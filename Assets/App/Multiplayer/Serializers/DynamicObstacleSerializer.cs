@@ -1,5 +1,4 @@
-﻿
-/*
+﻿/*
  * The multiplayer serializer for Dynamic game objects
  * Used for representation of the state of the object as a list of bytes 
  * and updating the state of the object from a list of bytes.
@@ -60,12 +59,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             float posy = information.pos.y;
             float velx = information.vel.x;
             float vely = information.vel.y;
+			float time = information.time;
 
             // Add the byte representation of the above values into the list
-            bytes.AddRange(BitConverter.GetBytes(posx));
-            bytes.AddRange(BitConverter.GetBytes(posy));
-            bytes.AddRange(BitConverter.GetBytes(velx));
-            bytes.AddRange(BitConverter.GetBytes(vely));
+            bytes.AddRange (BitConverter.GetBytes (posx));
+            bytes.AddRange (BitConverter.GetBytes (posy));
+            bytes.AddRange (BitConverter.GetBytes (velx));
+            bytes.AddRange (BitConverter.GetBytes (vely));
+			bytes.AddRange (BitConverter.GetBytes (time));
 
             return bytes;
         }
@@ -73,6 +74,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         public DynamicObjectInformation Deserialize(List<byte> update) {
             float posx, posy;
             float velx, vely;
+			float time;
             byte[] data = update.ToArray();
 
             try {
@@ -81,6 +83,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 posy = BitConverter.ToSingle(data, 4);
                 velx = BitConverter.ToSingle(data, 8);
                 vely = BitConverter.ToSingle(data, 12);
+				time = BitConverter.ToSingle(data, 16);
             }
             catch (System.ArgumentOutOfRangeException e) {
                 // something has gone wrong! not enough bytes in the message
@@ -90,7 +93,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
             if (isPushBlock) UILogger.Log("deserializing pb update");
             
             // Create and return DynamicObstaceleInformation with the data deserialized
-            return new DynamicObjectInformation(new Vector2(posx, posy), new Vector2(velx, vely));
+            return new DynamicObjectInformation(new Vector2(posx, posy), new Vector2(velx, vely), time);
         }
 
         public void Notify(List<byte> message) {
