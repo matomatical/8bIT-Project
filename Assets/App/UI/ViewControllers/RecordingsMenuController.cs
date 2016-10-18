@@ -75,6 +75,11 @@ namespace xyz._8bITProject.cooperace.ui {
 			Debug.Log("TODO: start playback of recording vs ghosts");
 		}
 
+		// public method to handle delete recording button behaviour
+		public void DeleteButtonHandler() {
+			Debug.Log("TODO: delete recording");
+		}
+
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
 			UIStateMachine.instance.GoTo(UIState.MainMenu);

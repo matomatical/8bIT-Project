@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1959ba09ab0354a50a78e6d82948051d
-timeCreated: 1476810554
+timeCreated: 1476823078
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -11,6 +11,7 @@ TextureImporter:
     21300008: gui_icons_20_4
     21300010: gui_icons_20_5
     21300012: gui_icons_20_6
+    21300014: gui_icons_20_7
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -152,6 +153,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 40
+        y: 0
+        width: 20
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: gui_icons_20_7
+      rect:
+        serializedVersion: 2
+        x: 60
         y: 0
         width: 20
         height: 20
