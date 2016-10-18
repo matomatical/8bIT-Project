@@ -19,7 +19,7 @@ using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace {
 
-	public class RemotePhysicsController : ArcadePhysicsController {
+	public class VelocityLerpRemotePhysicsController : RemotePhysicsController {
 
 		// how far back in time to lag? (default = 0.1 sec = 5 fixedupdates)
 		public float offset = 0.1f;
@@ -48,23 +48,12 @@ namespace xyz._8bITProject.cooperace {
 			next = null;
 		}
 
-		public void SetState(Vector2 position, Vector2 velocity){
+		public override void SetState(Vector2 position, Vector2 velocity){
 
 			states.Enqueue(new StateTime(position, velocity));
 		}
 
 		protected override void ChangeVelocity(ref Vector2 velocity){
-
-			// as soon as a new state becomes last,
-			// we should correct our velocity
-
-			if(!last.vSet){
-				velocity = last.velocity;
-				last.vSet = true;
-			}
-		}
-
-		protected override void ChangePosition(ref Vector2 position){
 
 			// current time
 
@@ -74,10 +63,10 @@ namespace xyz._8bITProject.cooperace {
 
 			if (next != null && time < next.time) {
 
-				// we still have time! lerp position
+				// we still have time! lerp velocity
 
 				float progress = (time - last.time) / (next.time - last.time);
-				position.x = Mathf.Lerp (last.position.x, next.position.x, progress);
+				velocity.x = Mathf.Lerp (last.velocity.x, next.velocity.x, progress);
 
 			} else {
 
@@ -100,16 +89,29 @@ namespace xyz._8bITProject.cooperace {
 					// we found a new 'next' in the while loop, successfully
 					// don't need to do anything, but this is the last case
 				}
-					
-				// as soon as a new state becomes last, we should apply its
-				// vertical position (which is not lerped - we let gravity take
-				// care of the rest)
 
-				if(!last.pSet){
-					position.y = last.position.y;
-					last.pSet = true;
+				// as soon as a new state becomes last, we should apply its
+				// vertical velocity (which is not lerped, it's controlled
+				// by gravity
+
+				if(!last.vSet) {
+					velocity.y = last.velocity.y;
+					last.vSet = true;
 				}
 			}
+		}
+
+		protected override void ChangePosition(ref Vector2 position){
+
+
+			// as soon as a new state becomes last,
+			// we should correct our position
+
+			if(!last.pSet) {
+				position = last.position;
+				last.pSet = true;
+			}
+
 		}
 	}
 }

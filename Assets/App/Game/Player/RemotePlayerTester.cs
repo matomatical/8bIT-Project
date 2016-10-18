@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace {
 		public LocalPlayerController local;
 
 		/// The remote player to lead
-		public RemotePhysicsController remote;
+		public RemotePhysicsController[] remotes;
 
 		// for storing position/velocity data inside
 		// an array
@@ -28,42 +28,77 @@ namespace xyz._8bITProject.cooperace {
 
 		/// the number of frames to store at once
 		/// (follower will be n/2 frames behind)
-		public int n = 256;
+		public int n = 16;
 
 		// circular buffer of state data
 		State[] buffer;
 		int i = 0; // and current index
-		
-		public float probability = 1; // probability a state will be applied
+
+		public int framesPerUpdate = 5;
+		public float probabilityOfUpdate = 1; // probability a state will be applied
 
 		// have we started following yet? need to wait for some states first
 		bool started = false;
-
 
 		void Start(){
 
 			// initialise state buffer
 			buffer = new State[n];
+
+			framesSinceLast = framesPerUpdate;
+
+			// get ENABLED remote controllers
+
+			for (int i = 0; i < remotes.Length; i++) {
+
+				RemotePhysicsController[] alts =
+						remotes [i].GetComponents<RemotePhysicsController> ();
+				
+				foreach (RemotePhysicsController alt in alts) {
+					if (alt.enabled) {
+						remotes [i] = alt;
+						break;
+					}
+				}
+			}
 		}
+
+
+		int framesSinceLast;
 
 		void Update(){
 
+			if (framesSinceLast == framesPerUpdate) {
+				framesSinceLast = 0;
+				RecordState ();
+				DispatchStates ();
+			} else {
+				framesSinceLast++;
+			}
+		}
+
+		void RecordState(){
 			// save the leading player's state
 
-			buffer[i].position = local.GetPosition();
-			buffer[i].velocity = local.GetVelocity();
+			buffer [i].position = local.GetPosition ();
+			buffer [i].velocity = local.GetVelocity ();
+		}
 
-
+		void DispatchStates(){
 			// if we've started following,
 
 			if(started){
 
 				// apply a previous state with specified probability
 				int j = (i + n/2) % n;
-				if (Random.value <= probability) {
-					remote.SetState (buffer [j].position, buffer [j].velocity);
+				if (Random.value <= probabilityOfUpdate) {
+
+					foreach(RemotePhysicsController remote in remotes){
+						
+						remote.SetState (buffer [j].position, buffer [j].velocity);
+					}
 				}
-			
+
 			} else {
 
 				// otherwise, make sure we start as soon as we can
@@ -74,7 +109,5 @@ namespace xyz._8bITProject.cooperace {
 
 			i = (i + 1) % n;
 		}
-
-
 	}
 }
