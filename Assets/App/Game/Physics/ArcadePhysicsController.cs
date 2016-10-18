@@ -93,6 +93,14 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		public Vector2 GetVelocity(){
+			Vector2 velocity = this.velocity;
+
+			if (velocity.x > 0 && collisions.right) {
+				velocity.x = 0;
+			} else if (velocity.x < 0 && collisions.left) {
+				velocity.x = 0;
+			}
+
 			return velocity;
 		}
 

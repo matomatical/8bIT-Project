@@ -92,6 +92,9 @@ namespace xyz._8bITProject.cooperace {
 					// do nothing until we have a new update:
 					next = (states.Count > 0) ? states.Dequeue () : null;
 
+					if (!last.pSet) {
+						position.x = last.position.x;
+					}
 				} else {
 					// we found a new 'next' in the while loop, successfully
 					// don't need to do anything, but this is the last case
