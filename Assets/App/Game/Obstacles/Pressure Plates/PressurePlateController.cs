@@ -34,11 +34,12 @@ namespace xyz._8bITProject.cooperace {
 
 				// only trigger if this component is on
 				if (enabled) {
-				
-				++isColliding;
+					
+					++isColliding;
 
-				if (isColliding == 1) { // first presser!
-					plate.Press ();
+					if (isColliding == 1) { // first presser!
+						plate.Press ();
+					}
 				}
 			}
 		}
@@ -49,14 +50,15 @@ namespace xyz._8bITProject.cooperace {
 				// only trigger if this component is on
 				if (enabled) {
 
-				--isColliding;
+					--isColliding;
 
-				if (isColliding < 0) { // clamp at zero
-					isColliding = 0;
-				}
+					if (isColliding < 0) { // clamp at zero
+						isColliding = 0;
+					}
 
-				if (isColliding == 0) { // last releaser!
-					plate.Release ();
+					if (isColliding == 0) { // last releaser!
+						plate.Release ();
+					}
 				}
 			}
 		}
