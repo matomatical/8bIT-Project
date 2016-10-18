@@ -250,6 +250,13 @@ namespace xyz._8bITProject.cooperace {
             rc.level = level;
             rc.StartRecording(SceneManager.levelToLoad = mapPicked);
 
+
+			// make the finish line finish the recording
+
+			foreach (RecordingFinalizer rf in
+				level.GetComponentsInChildren<RecordingFinalizer>()) {
+				rf.enabled = true;
+			}
         }
 
     }
