@@ -18,6 +18,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		public Text levelNameText;
 		public GameObject scoresList;
 		public GameObject messageText;
+		public RawImage preview;
 		LeaderboardItem[] items;
 
 		// api
@@ -109,7 +110,11 @@ namespace xyz._8bITProject.cooperace.ui {
 		void DisplayNames(Score[] scores) {
 			// update level name as well
 			levelNameText.text = currentLevelName;
+			
+			// update level preview
+			LevelPreview.LoadPreview(currentLevelName, preview);
 
+			// update score list
 			for (int i = 0; i < items.Length; i++) {
 				LeaderboardItem item = items[i];
 				item.player1 = scores[i].player1;
