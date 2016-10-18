@@ -27,7 +27,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				string theirName = "sam";
 				if (MultiPlayerController.Instance.IsHost()) {
 					// Submit the time the the leaderboards
-					leaderboards.SubmitScoreAsync("levelname", new Score(ClockController.SecsToHSecs(time), ourName, theirName),
+					leaderboards.SubmitScoreAsync("levelname", new Score(ClockController.SecondsToTenthsOfSeconds(time), ourName, theirName),
 						delegate (SubmissionResponse r, ServerException e) {
 							response = r;
 							if (e != null) UILogger.Log(e.Message);
