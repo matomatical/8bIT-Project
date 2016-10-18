@@ -12,7 +12,7 @@ using System.Collections.Generic;
 namespace xyz._8bITProject.cooperace {
 
 	[RequireComponent (typeof(RemotePhysicsController))]
-	public class LerpingPhysicsController : MonoBehaviour {
+	public class LerpingPhysicsController : ArcadePhysicsController {
 		
 		/// how far back in time to sit, to avoid having to project?
 		/// (the default, 0.15 sec, is 7.5 fixedupdates)
@@ -21,19 +21,20 @@ namespace xyz._8bITProject.cooperace {
 		/// Chronological FIFO Queue of states we have recieved
 		UpdateQueue<StateTime> states = new UpdateQueue<StateTime>();
 
-		// the most recently dequeued state; our target for lerping
+		/// the most recently dequeued state; our target for lerping
 		StateTime next = null;
 
-		// the second most recently dequeued state; our source for lerping
+		/// the second most recently dequeued state; our source for lerping
 		StateTime last;
 
-		/// The remote physics controller for us to hand synthesised updates to
-		RemotePhysicsController remote;
+		/// The current time we are working with this frame
+		float time;
 
-		void Start() {
-			remote = GetComponent<RemotePhysicsController> ();
+		protected override void Start() {
 
-			last = new StateTime (remote.GetPosition(), remote.GetVelocity(), 0);
+			base.Start ();
+
+			last = new StateTime (base.GetPosition(), base.GetVelocity(), 0);
 		}
 
 		public void AddState(Vector2 position, Vector2 velocity, float time) {
@@ -45,12 +46,13 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 
-		void FixedUpdate(){
+
+
+		void StateUpdate() {
 
 			// what time is it!?
 
-			float time = Time.time - offset;
-
+			time = Time.time - offset;
 
 			// okay, which updates are we between?
 
@@ -63,41 +65,70 @@ namespace xyz._8bITProject.cooperace {
 				next = states.Dequeue();
 			}
 
+			if (next != null) {
 
-			// let's find a target state, interpolated between
-			// these two updates!
+				Vector3 localPosition = (Vector3)last.position + (transform.position - transform.localPosition);
+				Debug.DrawRay (localPosition, next.position - last.position, Color.cyan);
+			}
+		}
 
-			Vector2 position = remote.GetPosition ();
-			Vector2 velocity = remote.GetVelocity ();
+
+
+
+
+		protected override void ChangePosition(ref Vector2 position){
+
+			// ChangePosition is called at the start of the physics cycle,
+			// so we should start by fast forwarding to the correct states
+
+			StateUpdate ();
+
+
+			// then we can actually conduct some lerping!
 
 			// the first time we are between these two
-			// states, we'll apply the it
-			// (we might change the horizontal later)
-			if (last.unapplied) {
-				last.unapplied = false;
+			// states, we'll apply the the source state
+			// (note: we might change the horizontal component later)
+			if (!last.papplied) {
+				last.papplied = true;
 
 				position = last.position;
+			}
+
+			// also, every update we'll continually lerp between
+			// the horizontal components (if we are between states)
+			if (next != null) {
+				float progress = (time - last.time) / (next.time - last.time);
+				position.x = Mathf.Lerp (last.position.x, next.position.x, progress);
+			}
+		}
+
+
+		protected override void ChangeVelocity(ref Vector2 velocity){
+
+			// At this point, we will have already fast forwarded to the
+			// correct sates, so we can jump straight into lerping!
+
+			// the first time we are between these two
+			// states, we'll apply the the source state
+			// (note: we might change the horizontal component later)
+			if (!last.vapplied) {
+				last.vapplied = true;
+
 				velocity = last.velocity;
 			}
 
-			// but every update we'll continually lerp between
-			// the horizontal components if we are between two
-			// states
+			// also, every update we'll continually lerp between
+			// the horizontal components (if we are between states)
 			if (next != null) {
 				float progress = (time - last.time) / (next.time - last.time);
-
-				position.x = Mathf.Lerp (last.position.x, next.position.x, progress);
 				velocity.y = Mathf.Lerp (last.velocity.x, next.velocity.x, progress);
 			}
-
-
-			// when all is said and done, we'll actually apply
-			// this calculated intermediate state to the remote
-			// physics controller, and it will do the rest!
-
-			remote.SetState (position, velocity);
-
+		
 		}
+
+
+
 
 		/// A class representing a position/velocity state
 		/// for the motion of our object at a certain time
@@ -113,7 +144,7 @@ namespace xyz._8bITProject.cooperace {
 			}
 
 			/// has this state been applied already?
-			public bool unapplied = true;
+			public bool papplied = false, vapplied = false;
 		}
 
 		/// A data structure that acts as a FIFO list of timed updates
