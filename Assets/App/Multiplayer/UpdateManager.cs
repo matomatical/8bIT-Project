@@ -36,11 +36,22 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Chat update identifier
 		public static readonly byte CHAT = BitConverter.GetBytes ('t')[0];
 
+		// Clock update identifier
+		public static readonly byte CLOCK = BitConverter.GetBytes ('c')[0];
+
+
+		// The body of the message sent when the clock is to be started
+		private static readonly byte START_CLOCK = 1;
+
+		// The body of the message sent when the clock is to be stopped
+		private static readonly byte STOP_CLOCK = 0;
+
 
 		// The ChatController to which chat message updates should be sent
 		public ChatController chatController;
 
-
+		// The ClockController which should be told about clock updates
+		public ClockController clock;
 
 
 		// OBSERVER PATTERN
@@ -91,6 +102,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			HeaderManager.Header header = HeaderManager.StripHeader(data);
 
 			if (header.protocol == PROTOCOL_VERSION) {
+
+				// If/else tree for handling the message type
 				if (header.messageType == PLAYER) {
 					Debug.Log ("Notifying everyone on the player channel");
 
@@ -111,14 +124,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 					// Give chat controller the message
 					chatController.ReceiveMessage (data);
+				} else if (header.messageType == CLOCK && clock != null) {
+					Debug.Log ("Notifying Clock");
 
+					// Start or stop the clock as appropriate
+					if (data [0] == START_CLOCK) {
+						clock.StartTiming ();
+					} else if (data [0] == START_CLOCK) {
+						clock.StopTiming ();
+					}
 				} else {
-					
 					throw new MessageHeaderException ("invalid update identifier");
 				}
-			}
 
-			else {
+			} else {
 				throw new MessageHeaderException ("invalid protocol version");
 			}
 		}
@@ -176,10 +195,23 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			Debug.Log ("Sending chat message");
 		}
 
+		public void SendStartClock () {
+			List<byte> update = new List<byte> ();
+			update.Add (START_CLOCK);
+			ApplyHeader (update, CLOCK);
+			MultiPlayerController.Instance.SendMyReliable (update);
+		}
+
+		public void SendStopClock () {
+			List<byte> update = new List<byte> ();
+			update.Add (STOP_CLOCK);
+			ApplyHeader (update, CLOCK);
+			MultiPlayerController.Instance.SendMyReliable (update);
+		}
+
 		private void ApplyHeader (List<byte> data, byte type) {
 			HeaderManager.ApplyHeader (data, new HeaderManager.Header (PROTOCOL_VERSION, type));
 		}
-
 	}
 }
 

@@ -471,7 +471,7 @@ Prefab:
     - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
         type: 2}
@@ -487,12 +487,63 @@ Prefab:
     - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: iLeaveRoom
+      value: iGoTo
       objectReference: {fileID: 0}
     - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
+      value: 
+      objectReference: {fileID: 114000013566356042, guid: c3ec73dfbff527f4ebdd3d2d97f1f8ef,
+        type: 2}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_MethodName
+      value: iGoTo
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_StringArgument
+      value: MainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: iLeaveRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012786349318, guid: e7d6bb4c2b607cc418c6020da9074278,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: MainMenu
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e7d6bb4c2b607cc418c6020da9074278, type: 2}

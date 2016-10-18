@@ -86,8 +86,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
                 // something has gone wrong! not enough bytes in the message
 				throw new MessageBodyException("Not enough bytes in dynamic message body:" + e.Message);
             }
-
-            if (isPushBlock) UILogger.Log("deserializing pb update");
+            
             
             // Create and return DynamicObstaceleInformation with the data deserialized
             return new DynamicObjectInformation(new Vector2(posx, posy), new Vector2(velx, vely));
@@ -99,7 +98,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
         protected void Apply(DynamicObjectInformation information) {
             Debug.Log("pos x = " + information.pos.x + " pos y = " + information.pos.y);
-            if (isPushBlock) UILogger.Log("Applying pb update");
             remoteController.SetState(information.pos, information.vel);
         }
 
