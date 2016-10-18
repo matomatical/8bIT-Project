@@ -29,7 +29,7 @@ public class NameInputHelper : MonoBehaviour {
 
 	// real path stores the player name
 
-	private const string filename = "playerName.txt";
+	public static readonly string filename = "playerName.txt";
 
 	void Start() {
 		
