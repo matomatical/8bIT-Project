@@ -51,6 +51,7 @@ namespace xyz._8bITProject.cooperace.ui {
 			items = scoresList.GetComponentsInChildren<LeaderboardItem>();
 
 			// make sure something is loaded when visible
+			currentLevelIndex = 0;
 			LoadLevelStats();
 		}
 

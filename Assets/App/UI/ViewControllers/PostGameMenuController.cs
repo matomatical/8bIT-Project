@@ -14,7 +14,6 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		public void Start() {
 			currentLevelName = SceneManager.levelToLoad;
-			currentLevelName = Maps.maps[0];
 			LoadLevelStats();
 		}
 
@@ -24,6 +23,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle back to main menu button behaviour
 		public void MainMenuButtonHandler() {
+			SceneManager.Load ("Main GUI");
 		}
 
 		// public method to handle save recording button behaviour
