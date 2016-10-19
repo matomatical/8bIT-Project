@@ -17,8 +17,8 @@ public class CheckeredFlag : MonoBehaviour {
 		// decide on the sprite
 
 		Sprite sprite;
-
-		if (x % 2 == y % 2) {
+		
+		if ((x % 2 != 0) == (y % 2 != 0)) {
 			// odd odd or even evn tile: sprite one!
 			sprite = spriteOn;
 		} else {
