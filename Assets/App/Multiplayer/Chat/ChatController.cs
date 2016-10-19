@@ -27,8 +27,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		// The OS keyboard
 		private TouchScreenKeyboard keyboard;
 
-        // The player's 3 letter code
-        string gamerTag;
+
+		// The player's 3 letter code
+		string gamerTag;
 
 		/// Use this for initialization
 		void Start() {
