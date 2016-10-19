@@ -13,8 +13,9 @@ namespace xyz._8bITProject.cooperace {
 		// list of all levels
 		public static string[] maps = new string[] {
 			"Tutorious",
-		    "Twoality",
-			"Crossy Level"
+			"Twoality",
+			"Crossy Level",
+			"Random"
 		};
 
 		// Loads and returns a tiled map prefab object,
@@ -22,8 +23,8 @@ namespace xyz._8bITProject.cooperace {
 		// return a random level instead.
 		// If no level is found, null is returned instead.
 		public static GameObject Load(string name=null) {
-			if (name == null) {
-				name = maps[Random.Range(0, maps.Length)];
+			if (name == null || name.Equals("Random")) {
+				name = maps[Random.Range(0, maps.Length-1)];
 			}
 			return Resources.Load("Maps/" + name) as GameObject;
 		}
