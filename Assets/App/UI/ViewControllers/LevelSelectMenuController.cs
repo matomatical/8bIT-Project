@@ -76,6 +76,8 @@ namespace xyz._8bITProject.cooperace.ui {
 			#if UNITY_EDITOR
 			SceneManager.Load("Game Scene");
 			#else
+			SceneManager.gameType = GameType.MULTI;
+			SceneManager.playingAgainstGhosts = false;
 			DisplayMessage("Starting Game...");
 			MultiPlayerController.Instance.roomListener = this;
 			MultiPlayerController.Instance.StartMPGame((uint)currentLevelIndex_);
