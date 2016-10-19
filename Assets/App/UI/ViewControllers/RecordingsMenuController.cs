@@ -95,7 +95,17 @@ namespace xyz._8bITProject.cooperace.ui {
 				SceneManager.levelToLoad = SceneManager.recording.level;
 				SceneManager.playingAgainstGhosts = playagainst;
 
-				SceneManager.Load ("Game Scene");
+				if (playagainst) {
+					#if UNITY_EDITOR
+					SceneManager.Load ("Game Scene");
+					#else
+					DisplayMessage("Starting Game...");
+					MultiPlayerController.Instance.roomListener = this;
+					MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
+					#endif
+				} else {
+					SceneManager.Load ("Game Scene");
+				}
 			}
 		}
 

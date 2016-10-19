@@ -74,15 +74,15 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 		/// Start a new Multiplayer game by looking for someone to play with
-		public virtual void StartMPGame()
+		public virtual void StartMPGame(uint index)
 		{
-			StartMatchMaking();
+			StartMatchMaking(index);
 		}
 
 		/// Look for a suitable partner to play the game with
-		private void StartMatchMaking()
+		private void StartMatchMaking(uint index)
 		{
-			gameVariation = (uint)(LevelSelectMenuController.currentLevelIndex_);
+			gameVariation = index;
 			// if it's the random level
 			if (gameVariation == 0) gameVariation = (uint)UnityEngine.Random.Range(1, Maps.maps.Length - 1);
 			UILogger.Log("index: "+ gameVariation);

@@ -78,7 +78,7 @@ namespace xyz._8bITProject.cooperace.ui {
 			#else
 			DisplayMessage("Starting Game...");
 			MultiPlayerController.Instance.roomListener = this;
-			MultiPlayerController.Instance.StartMPGame();
+			MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
 			#endif
 		}
 
