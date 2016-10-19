@@ -143,6 +143,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					}
 				} else if (header.messageType == LEADERBOARDS) {
 					FinalizeLevel.position = data [0];
+					FinalizeLevel.requestComplete = true;
 				} else if (header.messageType == GAMER_TAG) {
 					MultiPlayerController.Instance.theirName = Encoding.ASCII.GetString (data.ToArray ());
 				} else {
