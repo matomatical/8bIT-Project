@@ -12,10 +12,10 @@ namespace xyz._8bITProject.cooperace {
 
 		// list of all levels
 		public static string[] maps = new string[] {
+			"Random",
 			"Tutorious",
 			"Twoality",
-			"Crossy Level",
-			"Random"
+			"Crossy Level"
 		};
 
 		// Loads and returns a tiled map prefab object,

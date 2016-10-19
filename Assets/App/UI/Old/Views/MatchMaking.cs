@@ -38,7 +38,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				roomMessage = "Starting a multi-player game...";
 				showRoomDialogue = true;
 				MultiPlayerController.Instance.roomListener = this;
-				MultiPlayerController.Instance.StartMPGame();
+				MultiPlayerController.Instance.StartMPGame(1);
 			}
 			
 			// Print the room's status to the player's screen to let them know how well establishing connection is going
