@@ -18,6 +18,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		// ui elements
 		public Text levelNameText;
 		public GameObject messageText;
+		public RawImage preview;
 
 		// the currently displayed level
 		public static int currentLevelIndex_ = 0;
@@ -48,7 +49,9 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// display the level details
 		void UpdateLevelDetails() {
-			levelNameText.text = Maps.maps[currentLevelIndex];
+			string levelName = Maps.maps[currentLevelIndex];
+			levelNameText.text = levelName;
+			LevelPreview.LoadPreview(levelName, preview);
 		}
 
 		// methods to manipulate the message

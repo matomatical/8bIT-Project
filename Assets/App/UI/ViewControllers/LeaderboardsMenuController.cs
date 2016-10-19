@@ -18,6 +18,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		public Text levelNameText;
 		public GameObject scoresList;
 		public GameObject messageText;
+		public RawImage preview;
 		LeaderboardItem[] items;
 
 		// api
@@ -42,18 +43,16 @@ namespace xyz._8bITProject.cooperace.ui {
 					value = Maps.maps.Length - 1;
 				}
 				currentLevelIndex_ = value;
+				currentLevelName = Maps.maps[currentLevelIndex];
 			}
 		}
-		string currentLevelName {
-			get {
-				return Maps.maps[currentLevelIndex];
-			}
-		}
+		protected string currentLevelName;
 		
 		void OnEnable() {
 			items = scoresList.GetComponentsInChildren<LeaderboardItem>();
 
 			// make sure something is loaded when visible
+			currentLevelIndex = 0;
 			LoadLevelStats();
 		}
 
@@ -71,7 +70,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 
 		// fetches the actual leaderboard scores
-		void LoadLevelStats() {
+		protected void LoadLevelStats() {
 			DisplayMessage("Loading scores for " + currentLevelName);
 			lb.RequestScoresAsync(currentLevelName,
 				new Action<ScoresResponse, ServerException>(OnServerResponse));
@@ -98,7 +97,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 
 		// methods to actually change the ui
-		void DisplayMessage(string message) {
+		protected void DisplayMessage(string message) {
 			// hide level name
 			levelNameText.text = "";
 
@@ -111,7 +110,11 @@ namespace xyz._8bITProject.cooperace.ui {
 		void DisplayNames(Score[] scores) {
 			// update level name as well
 			levelNameText.text = currentLevelName;
+			
+			// update level preview
+			LevelPreview.LoadPreview(currentLevelName, preview);
 
+			// update score list
 			for (int i = 0; i < items.Length; i++) {
 				LeaderboardItem item = items[i];
 				item.player1 = scores[i].player1;

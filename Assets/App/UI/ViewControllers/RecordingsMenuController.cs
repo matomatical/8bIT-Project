@@ -14,6 +14,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// ui elements
 		public Text levelNameText;
+		public RawImage preview;
 		
 		// list of recordings
 		string[] recordings;
@@ -54,7 +55,9 @@ namespace xyz._8bITProject.cooperace.ui {
 		
 		// Load in the details of the current recording
 		void UpdateRecordingDetails() {
-			levelNameText.text = recordings[currentRecordingIndex];
+			string levelName = recordings[currentRecordingIndex];
+			levelNameText.text = levelName;
+			LevelPreview.LoadPreview(levelName, preview);
 		}
 
 		// public methods to switch the currently displayed recording

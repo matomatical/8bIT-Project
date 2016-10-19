@@ -14,11 +14,15 @@ namespace xyz._8bITProject.cooperace {
 		/// The Clock to start when we cross the line
 		ClockController clock;
 
+
+
+
 		void Start(){
 
 			// link components together
 
 			clock = FindObjectOfType<ClockController> ();
+
 		}
 
 		void OnTriggerEnter2D (Collider2D other) {
