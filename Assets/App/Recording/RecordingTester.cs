@@ -18,7 +18,7 @@ namespace xyz._8bITProject.cooperace.recording{
 					RecordingController controller = FindObjectOfType<RecordingController> ();
 
 					controller.EndRecording ();
-					Recording.jsonRecordingString = controller.GetRecording ();
+					SceneManager.recording = controller.GetRecording ();
 
 					// Debug.Log (Recording.jsonRecordingString);
 

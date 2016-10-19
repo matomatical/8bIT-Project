@@ -56,16 +56,15 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			timer.StartTiming ();
 
-			StartReplaying (Recording.jsonRecordingString);
+			StartReplaying (SceneManager.recording);
 		}
 
 		/// start replaying if we haven't already
-		public void StartReplaying(string recording){
+		public void StartReplaying(Recording recording){
 			
 			if(!hasStarted) {
 
-				this.recording =
-					JsonUtility.FromJson<Recording>(recording);
+				this.recording = recording;
 				
 				isReplaying = true;
 				hasStarted = true;

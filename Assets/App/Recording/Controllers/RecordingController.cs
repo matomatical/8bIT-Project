@@ -128,9 +128,8 @@ namespace xyz._8bITProject.cooperace.recording {
 			}
 		}
 
-		public string GetRecording () {
-
-			return JsonUtility.ToJson (recording);
+		public Recording GetRecording () {
+			return recording;
 		}
 
 

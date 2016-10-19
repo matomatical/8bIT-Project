@@ -1,23 +1,32 @@
 ﻿/*
  * Recordings menu logic.
  *
- * Athir Saleem <isaleem@student.unimelb.edu.au>
+ * Athir Saleem    <isaleem@student.unimelb.edu.au>
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *
  */
 
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using xyz._8bITProject.cooperace.recording;
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class RecordingsMenuController : MonoBehaviour {
 
 		// ui elements
 		public Text levelNameText;
+		public Text messageText;
+		public GameObject confirmationPanel;
 		public RawImage preview;
-		
+
+
 		// list of recordings
 		string[] recordings;
+
+		// list of recordings is nonempty
+		bool recordingsExist = true;
 
 		// the currently displayed recording
 		int currentRecordingIndex_ = 0;
@@ -40,24 +49,20 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 		
 		void OnEnable() {
-			// TODO: get a list of all the recordings
-			// fake list for now
-			recordings = new string[Maps.maps.Length * 2];
-			int i = 0;
-			foreach (string map in Maps.maps) {
-				recordings[i++] = "recording of " + map + " 1";
-				recordings[i++] = "recording of " + map + " 2";
-			}
+			recordings = ListRecordings();
 
 			// load in the first recording
-			UpdateRecordingDetails();
+			UpdateRecordingDetails();	
 		}
 		
 		// Load in the details of the current recording
 		void UpdateRecordingDetails() {
-			string levelName = recordings[currentRecordingIndex];
-			levelNameText.text = levelName;
-			LevelPreview.LoadPreview(levelName, preview);
+			if (recordingsExist) {
+				HideMessage ();
+				string levelName = recordings [currentRecordingIndex];
+				levelNameText.text = levelName;
+				LevelPreview.LoadPreview (levelName, preview);
+			}
 		}
 
 		// public methods to switch the currently displayed recording
@@ -70,17 +75,54 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle watch button behaviour
 		public void WatchButtonHandler() {
-			Debug.Log("TODO: start playback of recording");
+			TryLoadRecording (false);
 		}
 
 		// public method to handle play vs ghost button behaviour
 		public void GhostButtonHandler() {
-			Debug.Log("TODO: start playback of recording vs ghosts");
+			TryLoadRecording (true);
+		}
+
+		// helper method to load recording and go to scene
+		void TryLoadRecording(bool playagainst){
+			if (recordingsExist) {
+				SceneManager.recording = TryReadRecording(recordings [currentRecordingIndex]);
+				if (SceneManager.recording == null) {
+					return;
+				}
+
+				SceneManager.gameType = GameType.REWATCH;
+				SceneManager.levelToLoad = SceneManager.recording.level;
+				SceneManager.playingAgainstGhosts = playagainst;
+
+				SceneManager.Load ("Game Scene");
+			}
 		}
 
 		// public method to handle delete recording button behaviour
 		public void DeleteButtonHandler() {
-			Debug.Log("TODO: delete recording");
+			if (recordingsExist) {
+				HideMessage ();
+				confirmationPanel.SetActive (true);
+			}
+		}
+
+		// public method to handle confirm-deletion button behaviour
+		public void ConfirmButtonHandler() {
+
+			try {
+				DeleteRecording(recordings [currentRecordingIndex]);
+			} catch (PersistentStorageException) {
+				Debug.Log ("TODO: handle this exception");
+			}
+
+			// refresh list, also make sure recordings still exists
+			recordings = ListRecordings();
+		}
+
+		// public method to handle cancel-deletion button behaviour
+		public void CancelButtonHandler() {
+			confirmationPanel.SetActive (false);
 		}
 
 		// public method to handle back button behaviour
@@ -88,5 +130,58 @@ namespace xyz._8bITProject.cooperace.ui {
 			UIStateMachine.instance.GoTo(UIState.MainMenu);
 		}
 
+		// methods to actually change the ui
+		protected void DisplayMessage(string message) {
+			// hide level name
+			levelNameText.text = "";
+			
+			messageText.text = message;
+
+			// make sure message is currently displayed
+			messageText.gameObject.SetActive(true);
+		}
+		protected void HideMessage(){
+			messageText.text = "";
+
+			// make sure message is no longer displayed
+			messageText.gameObject.SetActive(false);
+		}
+
+		// helper methods to access files
+		// (dealing extensions and subfolders)
+
+		string[] ListRecordings(){
+			
+			string[] ls = PersistentStorage.ListFiles ("Recordings/", false, "*.crr");
+			for (int i = 0; i < ls.Length; i++) {
+				//TODO: strip extensions
+			}
+
+			if (ls.Length < 1) {
+				recordingsExist = false;
+				DisplayMessage ("No recordings found.\n\nPlay a game and\nsave a recording.");
+			}
+			return ls;
+		}
+
+		Recording TryReadRecording(string recordingName){
+			try {
+				//TODO: strip filename earlier, add it back here...
+				string recordingString = PersistentStorage.Read("Recordings/" + recordingName);
+				return Recording.FromString(recordingString);
+			} catch (RecordingFormatException) {
+				// something went wrong reading the recording
+				DisplayMessage ("Problem reading recording file.");
+			} catch (PersistentStorageException) {
+				DisplayMessage ("Problem reading recording file.");
+			}
+			return null;
+		}
+
+		void DeleteRecording(string recordingName){
+
+			//TODO: strip filename earlier, add it back here...
+			PersistentStorage.Delete ("Recordings/" + recordingName);
+		}
 	}
 }

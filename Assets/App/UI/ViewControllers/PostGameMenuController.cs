@@ -8,6 +8,7 @@
 using UnityEngine;
 using System.Collections;
 using xyz._8bITProject.cooperace.persistence;
+using xyz._8bITProject.cooperace.recording;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class PostGameMenuController : LeaderboardsMenuController {
@@ -31,7 +32,7 @@ namespace xyz._8bITProject.cooperace.ui {
 			if (SceneManager.newRecording != null) {
 				PersistentStorage.Write(
 					"Recording/" + SceneManager.levelToLoad + ".crr",
-					SceneManager.newRecording);
+					Recording.ToString(SceneManager.newRecording));
 			}
 		}
 

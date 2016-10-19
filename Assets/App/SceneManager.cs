@@ -8,6 +8,7 @@
 
 using UnityEngine;
 using System.Collections;
+using xyz._8bITProject.cooperace.recording;
 
 namespace xyz._8bITProject.cooperace {
 	
@@ -20,7 +21,7 @@ namespace xyz._8bITProject.cooperace {
 		#endif
 
 		public static string levelToLoad;
-		public static string recording, newRecording;
+		public static Recording recording, newRecording;
 		public static bool playingAgainstGhosts = false;
 
 		public static void Load(string name) {
