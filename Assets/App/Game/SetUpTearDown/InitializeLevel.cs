@@ -38,9 +38,9 @@ namespace xyz._8bITProject.cooperace {
         void Awake() {
 			// clone and load the level!
 
-            mapPicked = Maps.maps[LevelSelectMenuController.currentLevelIndex_];
-            SceneManager.levelToLoad = mapPicked;
-            GameObject prefab = Maps.Load(mapPicked);
+//            mapPicked = Maps.maps[LevelSelectMenuController.currentLevelIndex_];
+//            SceneManager.levelToLoad = mapPicked;
+            GameObject prefab = Maps.Load(SceneManager.levelToLoad);
 
 			level = GameObject.Instantiate<GameObject> (prefab).GetComponent<TiledMap> ();
 			cam.level = level;

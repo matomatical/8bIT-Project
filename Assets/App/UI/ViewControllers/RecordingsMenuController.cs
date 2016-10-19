@@ -97,6 +97,9 @@ namespace xyz._8bITProject.cooperace.ui {
 				SceneManager.playingAgainstGhosts = playagainst;
                 uint currentLevelIndex_ = (uint) Maps.GetIndex(SceneManager.levelToLoad);
 
+				Debug.Log (SceneManager.recording.level);
+				Debug.Log (SceneManager.levelToLoad);
+
 				if (playagainst) {
 					#if UNITY_EDITOR
 					SceneManager.Load ("Game Scene");
