@@ -45,6 +45,7 @@ namespace xyz._8bITProject.cooperace.ui {
 				PersistentStorage.Write(
 					"Recordings/" + SceneManager.levelToLoad + ".crr",
 					Recording.ToString(SceneManager.newRecording));
+				message.text = "Save Complete!";
 			}
 		}
 
