@@ -31,7 +31,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		public void SaveRecordingButtonHandler() {
 			if (SceneManager.newRecording != null) {
 				PersistentStorage.Write(
-					"Recording/" + SceneManager.levelToLoad + ".crr",
+					"Recordings/" + SceneManager.levelToLoad + ".crr",
 					Recording.ToString(SceneManager.newRecording));
 			}
 		}
