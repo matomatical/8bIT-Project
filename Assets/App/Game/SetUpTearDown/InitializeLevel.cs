@@ -46,6 +46,10 @@ namespace xyz._8bITProject.cooperace {
 			cam.level = level;
 			background.level = level;
 
+			// is there a game in the background?
+
+			GhostLevelAwake (level, prefab);
+
             // what type of game have we entered?
 
             GameType type = SceneManager.gameType;
@@ -76,10 +80,13 @@ namespace xyz._8bITProject.cooperace {
                 RewatchRecordingAwake(level);
 
             }
+        }
 
-            // is there also a level in the background?
+		void GhostLevelAwake(TiledMap level, GameObject prefab) {
 
-            if (SceneManager.playingAgainstGhosts) {
+			// is there also a level in the background?
+
+			if (SceneManager.playingAgainstGhosts) {
 
 				// create replay level
 
@@ -111,18 +118,18 @@ namespace xyz._8bITProject.cooperace {
 
 				scroller.cam = FindObjectOfType<Camera>();
 				scroller.level = level;
-			
+
 				// arrange objects by z depth
 
 				level.transform.position 	+= 2*Vector3.forward;
 				ghostLevel.transform.position += Vector3.forward;
 
 
-                // set up level to track a recording
+				// set up level to track a recording
 
-                RewatchRecordingAwake(ghostLevel);
-            }
-        }
+				RewatchRecordingAwake(ghostLevel);
+			}
+		}
 
         void SinglePlayerAwake(TiledMap level) {
 
@@ -197,13 +204,16 @@ namespace xyz._8bITProject.cooperace {
 
                 // enable remote control
 
-                RemotePhysicsController rpc
-                    = rep.GetComponent<RemotePhysicsController>();
-                rpc.enabled = true;
+				LerpingPhysicsController lpc
+                    = rep.GetComponent<LerpingPhysicsController>();
+                lpc.enabled = true;
 
                 // enable replaying
 
                 rep.enabled = true;
+
+				// camera should follow one of these guys
+				cam.target = (ArcadePhysicsController)lpc;
             }
 
             // enable static replayers, and disable box collider

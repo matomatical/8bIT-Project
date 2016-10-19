@@ -91,7 +91,7 @@ namespace xyz._8bITProject.cooperace.ui {
 					return;
 				}
 
-				SceneManager.gameType = GameType.REWATCH;
+				SceneManager.gameType = (playagainst ? GameType.MULTI : GameType.REWATCH);
 				SceneManager.levelToLoad = SceneManager.recording.level;
 				SceneManager.playingAgainstGhosts = playagainst;
 
@@ -113,8 +113,10 @@ namespace xyz._8bITProject.cooperace.ui {
 			try {
 				DeleteRecording(recordings [currentRecordingIndex]);
 			} catch (PersistentStorageException) {
-				Debug.Log ("TODO: handle this exception");
+				DisplayMessage ("Problem reading recording file.\n\nTry another.");
 			}
+
+			confirmationPanel.SetActive (false);
 
 			// refresh list, also make sure recordings still exists
 			recordings = ListRecordings();
