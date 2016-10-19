@@ -77,7 +77,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			string strMessage = Deserialize (message);
 
 			try {
-				chatHistory.AddMessage(strMessage, false);
+				chatHistory.AddMessage(MultiPlayerController.Instance.theirName + ":" + strMessage, false);
 			}
 			catch (Exception e) {
 				Debug.Log (e.Message);

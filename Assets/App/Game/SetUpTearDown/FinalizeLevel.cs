@@ -24,8 +24,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				SubmissionResponse response;
 
 				// Our and our partners three letter names
-				string ourName = "mar";
-				string theirName = "sam";
+				string ourName = GamerTagManager.GetGamerTag ();
+				string theirName = MultiPlayerController.Instance.theirName;
+
 				if (MultiPlayerController.Instance.IsHost()) {
 					// Submit the time the the leaderboards
 					leaderboards.SubmitScoreAsync(Maps.maps[LevelSelectMenuController.currentLevelIndex_], new Score(ClockController.SecondsToTenthsOfSeconds(time), ourName, theirName),
