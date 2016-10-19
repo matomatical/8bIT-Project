@@ -27,8 +27,9 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		// The OS keyboard
 		private TouchScreenKeyboard keyboard;
 
-        // The player's 3 letter code
-        string gamerTag;
+
+		// The player's 3 letter code
+		string gamerTag;
 
 		/// Use this for initialization
 		void Start() {
@@ -77,7 +78,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			string strMessage = Deserialize (message);
 
 			try {
-				chatHistory.AddMessage(strMessage, false);
+				chatHistory.AddMessage(MultiPlayerController.Instance.theirName + ":" + strMessage, false);
 			}
 			catch (Exception e) {
 				Debug.Log (e.Message);

@@ -8,6 +8,7 @@
  * Matt Farrugia < farrugiam@student.unimelb.edu.au >
  */
 using System;
+using System.Text;
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -42,6 +43,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Leaderboards update identifier
 		public static readonly byte LEADERBOARDS = BitConverter.GetBytes ('l')[0];
 
+		// Gamer tag update identifier
+		public static readonly byte GAMER_TAG = BitConverter.GetBytes('g')[0];
 
 		// The body of the message sent when the clock is to be started
 		private static readonly byte START_CLOCK = 1;
@@ -56,6 +59,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// The ClockController which should be told about clock updates
 		public ClockController clock;
 
+		private bool sentGamerTag = false;
 
 		// OBSERVER PATTERN
 
@@ -139,6 +143,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 					}
 				} else if (header.messageType == LEADERBOARDS) {
 					FinalizeLevel.position = data [0];
+				} else if (header.messageType == GAMER_TAG) {
+					MultiPlayerController.Instance.theirName = Encoding.ASCII.GetString (data.ToArray ());
 				} else {
 					throw new MessageHeaderException ("invalid update identifier");
 				}
@@ -173,6 +179,18 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 			
 			Debug.Log ("Sending player update");
+
+			if (!sentGamerTag) {
+				List<byte> gamerTagUpdate = new List <byte> ();
+
+				gamerTagUpdate.AddRange(Encoding.ASCII.GetBytes(GamerTagManager.GetGamerTag ()));
+
+				ApplyHeader (gamerTagUpdate, GAMER_TAG);
+
+				MultiPlayerController.Instance.SendMyReliable (gamerTagUpdate);
+
+				sentGamerTag = true;
+			}
 		}
 
 		// Sends an update for a pushblock
