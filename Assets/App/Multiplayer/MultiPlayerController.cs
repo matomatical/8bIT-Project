@@ -13,6 +13,7 @@ using GooglePlayGames.BasicApi.Multiplayer;
 using System;
 using System.Collections.Generic;
 using xyz._8bITProject.cooperace.ui;
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
@@ -40,6 +41,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// Are we the host?
 		public bool? host;
+
+		//
+		public string ourName = GamerTagManager.GetGamerTag ();
+		public string theirName;
 
 		public bool IsHost () {
 			if (host.HasValue)
