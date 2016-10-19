@@ -172,11 +172,11 @@ namespace xyz._8bITProject.cooperace {
 
 			// disable the finish lines and stuff
 
-			foreach (FinishLine finish in level.GetComponentInChildren<FinishLine>()) {
+			foreach (FinishLine finish in level.GetComponentsInChildren<FinishLine>()) {
 				finish.enabled = false;
 			}
 
-			foreach (LevelBoundary exit in level.GetComponentInChildren<LevelBoundary>()) {
+			foreach (LevelBoundary exit in level.GetComponentsInChildren<LevelBoundary>()) {
 				exit.enabled = false;
 			}
 		}
