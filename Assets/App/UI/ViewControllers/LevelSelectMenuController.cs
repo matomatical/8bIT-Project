@@ -75,7 +75,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		public void PlayButtonHandler() {
 			#if UNITY_EDITOR
 			SceneManager.levelToLoad = Maps.maps[currentLevelIndex_];
-			SceneManager.Load("Game Scene");
+			SceneManager.Load(Magic.Scenes.GAME_SCENE);
 			#else
 			SceneManager.gameType = GameType.MULTI;
 			SceneManager.levelToLoad = Maps.maps[currentLevelIndex_];

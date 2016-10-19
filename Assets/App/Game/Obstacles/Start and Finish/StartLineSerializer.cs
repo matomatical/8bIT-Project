@@ -26,7 +26,7 @@ namespace xyz._8bITProject.cooperace {
 				if (enabled) { // only trigger if this component is on
 
 					// start the clock the first time a player comes through!
-					if (other.gameObject.CompareTag ("Player")) {
+					if (other.gameObject.CompareTag (Magic.Tags.PLAYER)) {
 
 						// Send an update saying the clock has started
 

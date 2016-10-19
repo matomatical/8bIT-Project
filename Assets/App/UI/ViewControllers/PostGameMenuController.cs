@@ -36,7 +36,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle back to main menu button behaviour
 		public void MainMenuButtonHandler() {
-			SceneManager.Load ("Main GUI");
+			SceneManager.Load (Magic.Scenes.MAIN_MENU);
 		}
 
 		// public method to handle save recording button behaviour

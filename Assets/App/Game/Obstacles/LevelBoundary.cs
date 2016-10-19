@@ -15,9 +15,9 @@ namespace xyz._8bITProject.cooperace {
 			if (this.transform.position.z == other.transform.position.z) {
 
 				// the game ends when the player touches the exit portal
-				if (other.gameObject.CompareTag ("Player")) {
+				if (other.gameObject.CompareTag (Magic.Tags.PLAYER)) {
 
-					SceneManager.Load ("PostGameMenu");
+					SceneManager.Load (Magic.Scenes.POSTGAME);
 
 				}
 			}

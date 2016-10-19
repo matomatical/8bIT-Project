@@ -33,9 +33,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Sticking with a single game mode
 		private uint gameVariation;
 
-		// The unity scene to go to when starting the game
-		private String levelName = "Game Scene";
-
 		// Whether or not you've started a game
 		private bool startedGame = false;
 
@@ -114,7 +111,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				roomListener.HideRoom();
 				roomListener = null;
 				startedGame = true;
-				UIHelper.GoTo(levelName);
+				UIHelper.GoTo(Magic.Scenes.GAME_SCENE);
 			}
 			else
 			{

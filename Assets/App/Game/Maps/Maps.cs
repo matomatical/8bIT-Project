@@ -12,11 +12,21 @@ namespace xyz._8bITProject.cooperace {
 
 		// list of all levels
 		public static string[] maps = new string[] {
-//			"Random",
 			"Tutorious",
 			"Twoality",
 			"Crossy Level"
 		};
+			
+		/// The index in Maps.maps of the map this this name,
+		/// or -1 if the name does not occur
+		public static int GetIndex(string levelName) {
+			for (int i = 0; i < maps.Length; i++) {
+				if (levelName.Equals(maps[i])) {
+					return i;
+				}
+			}
+			return -1;
+		}
 
 		// Loads and returns a tiled map prefab object,
 		// Levels are identified by name (a string), but passing null will
@@ -29,14 +39,6 @@ namespace xyz._8bITProject.cooperace {
 			return Resources.Load("Maps/" + name) as GameObject;
 		}
 
-		public static int GetIndex(string levelName) {
-			for (int i = 0; i < maps.Length; i++) {
-				if (levelName.Equals(maps[i])) {
-					return i;
-				}
-			}
-			return -1;
-		}
 
 	}
 }

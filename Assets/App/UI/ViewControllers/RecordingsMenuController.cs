@@ -101,7 +101,7 @@ namespace xyz._8bITProject.cooperace.ui {
 				SceneManager.levelToLoad = SceneManager.recording.level;
 				SceneManager.playingAgainstGhosts = false;
 
-				SceneManager.Load ("Game Scene");
+				SceneManager.Load (Magic.Scenes.GAME_SCENE);
 			}
 		}
 
@@ -128,7 +128,7 @@ namespace xyz._8bITProject.cooperace.ui {
 				uint currentLevelIndex_ = (uint) Maps.GetIndex(SceneManager.levelToLoad);
 
 				#if UNITY_EDITOR
-				SceneManager.Load ("Game Scene");
+				SceneManager.Load (Magic.Scenes.GAME_SCENE);
 				#else
 				DisplayMessage("Starting Game...");
 				MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);

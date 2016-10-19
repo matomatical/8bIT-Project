@@ -108,7 +108,7 @@ namespace xyz._8bITProject.cooperace {
 
 				Renderer[] renderers = ghostLevel.GetComponentsInChildren<Renderer> ();
 				foreach (Renderer renderer in renderers) {
-					renderer.sortingLayerName = "Before Background";
+					renderer.sortingLayerName = Magic.SortingLayers.BEFORE_BGR;
 					renderer.material.color = new Color (color, color, color);
 				}
 
