@@ -36,17 +36,17 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle back to main menu button behaviour
 		public void MainMenuButtonHandler() {
-			SceneManager.Load (Magic.Scenes.MAIN_MENU);
+			SceneManager.LoadMainMenu ();
 		}
 
 		// public method to handle save recording button behaviour
 		public void SaveRecordingButtonHandler() {
 			
-			if (SceneManager.newRecording != null) {
+			if (SceneManager.outs.recording != null) {
 
 				// TODO: pass in more details about level
 
-				RecordingFileManager.WriteRecording (SceneManager.newRecording);
+				RecordingFileManager.WriteRecording (SceneManager.outs.recording);
 				message.text = "Save Complete!";
 			}
 		}

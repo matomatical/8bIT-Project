@@ -9,21 +9,20 @@
 
 using UnityEngine;
 using System.Collections;
-using xyz._8bITProject.cooperace.recording;
 
-namespace xyz._8bITProject.cooperace {
-	public class RecordingFinalizer : MonoBehaviour {
-
+namespace xyz._8bITProject.cooperace.recording {
+	public class RecordingEnder : MonoBehaviour {
 		
-		static bool finalized = false;
+		static bool ended = false;
 
-		RecordingController recorder;
+		public RecordingController recorder;
 
 		void Start(){
 
 			// link components together
-
-			recorder = FindObjectOfType<RecordingController> ();
+			if (recorder == null) {
+				recorder = FindObjectOfType<RecordingController> ();
+			}
 		}
 
 		void OnTriggerEnter2D (Collider2D other) {
@@ -32,15 +31,11 @@ namespace xyz._8bITProject.cooperace {
 				// only trigger if this component is on
 				if (enabled) {
 					
-					if(finalized == false){
+					if(ended == false && recorder != null){
 
-						if(recorder != null){
+						recorder.EndRecording();
 
-							recorder.EndRecording();
-
-							SceneManager.newRecording = recorder.GetRecording();
-							
-						}	
+						ended = true;
 					}
 				}
 			}

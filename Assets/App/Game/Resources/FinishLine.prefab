@@ -25,6 +25,7 @@ GameObject:
   - 114: {fileID: 114000012149299344}
   - 114: {fileID: 114000013321748396}
   - 212: {fileID: 212000013702880190}
+  - 114: {fileID: 114000010676004244}
   m_Layer: 0
   m_Name: FinishLine
   m_TagString: Untagged
@@ -59,6 +60,18 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
+--- !u!114 &114000010676004244
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013050480432}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 462cf27a943a64d3a81d55eb4af1c0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  replayer: {fileID: 0}
 --- !u!114 &114000012149299344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -67,9 +80,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000013050480432}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a04cc9affe25489d9135956102609be, type: 3}
+  m_Script: {fileID: 11500000, guid: 5139621166ac9404ea1d986cd366ef32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  recorder: {fileID: 0}
 --- !u!114 &114000013321748396
 MonoBehaviour:
   m_ObjectHideFlags: 1

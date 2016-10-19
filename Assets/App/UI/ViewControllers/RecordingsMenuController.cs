@@ -84,8 +84,10 @@ namespace xyz._8bITProject.cooperace.ui {
 
 			if (recordingsExist) {
 
+				Recording recording = null;
+
 				try{
-					SceneManager.recording = RecordingFileManager.TryReadRecording(recordings [currentRecordingIndex]);
+					recording = RecordingFileManager.TryReadRecording(recordings [currentRecordingIndex]);
 				} catch (RecordingFormatException) {
 					// something went wrong reading the recording
 					DisplayMessage ("Problem reading recording file.");
@@ -93,15 +95,11 @@ namespace xyz._8bITProject.cooperace.ui {
 					DisplayMessage ("Problem reading recording file.");
 				}
 
-				if (SceneManager.recording == null) {
+				if (recording == null) {
 					return;
 				}
 
-				SceneManager.gameType = GameType.REWATCH;
-				SceneManager.levelToLoad = SceneManager.recording.level;
-				SceneManager.playingAgainstGhosts = false;
-
-				SceneManager.Load (Magic.Scenes.GAME_SCENE);
+				SceneManager.StartReplayGame (recording.level, recording);
 			}
 		}
 
@@ -109,8 +107,9 @@ namespace xyz._8bITProject.cooperace.ui {
 		public void GhostButtonHandler() {
 			if (recordingsExist) {
 
+				Recording recording = null;
 				try{
-					SceneManager.recording = RecordingFileManager.TryReadRecording(recordings [currentRecordingIndex]);
+					recording = RecordingFileManager.TryReadRecording(recordings [currentRecordingIndex]);
 				} catch (RecordingFormatException) {
 					// something went wrong reading the recording
 					DisplayMessage ("Problem reading recording file.");
@@ -118,21 +117,11 @@ namespace xyz._8bITProject.cooperace.ui {
 					DisplayMessage ("Problem reading recording file.");
 				}
 
-				if (SceneManager.recording == null) {
+				if (recording == null) {
 					return;
 				}
 
-				SceneManager.gameType = GameType.MULTI;
-				SceneManager.levelToLoad = SceneManager.recording.level;
-				SceneManager.playingAgainstGhosts = true;
-				uint currentLevelIndex_ = (uint) Maps.GetIndex(SceneManager.levelToLoad);
-
-				#if UNITY_EDITOR
-				SceneManager.Load (Magic.Scenes.GAME_SCENE);
-				#else
-				DisplayMessage("Starting Game...");
-				MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
-				#endif
+				SceneManager.StartPlayagainstGame (recording.level, recording);
 			}
 		}
 

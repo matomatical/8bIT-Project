@@ -140,12 +140,6 @@ Camera:
   m_PrefabParentObject: {fileID: 20000013805494800, guid: 5ed9808070316bb438e34ecb48a936b6,
     type: 2}
   m_PrefabInternal: {fileID: 1759243651}
---- !u!114 &105699131 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000011606254736, guid: 5ed9808070316bb438e34ecb48a936b6,
-    type: 2}
-  m_PrefabInternal: {fileID: 1759243651}
-  m_Script: {fileID: 11500000, guid: 5d0fe5325f5e149c9a575041c33018ee, type: 3}
 --- !u!1001 &128221455
 Prefab:
   m_ObjectHideFlags: 0
@@ -1107,9 +1101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31d3a21d9ca156441a1fda6bd8e2ba7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 105699131}
-  background: {fileID: 1920872516}
-  gui: {fileID: 318328256}
 --- !u!4 &757908545
 Transform:
   m_ObjectHideFlags: 0
@@ -2463,12 +2454,6 @@ CanvasRenderer:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1917361747}
---- !u!114 &1920872516 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114000011196186662, guid: 5a661a7ed0c243f4cabb6b7730b5c952,
-    type: 2}
-  m_PrefabInternal: {fileID: 426209950}
-  m_Script: {fileID: 11500000, guid: e9e0f65149c12486dbb2b77739430fb1, type: 3}
 --- !u!1001 &2043857133
 Prefab:
   m_ObjectHideFlags: 0

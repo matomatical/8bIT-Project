@@ -72,10 +72,10 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 
 		/// start recording if we haven't already
-		public void StartRecording(string level){
+		public void StartRecording(){
 
 			if(!hasStarted){
-				recording = new Recording(level, this.fps);
+				recording = new Recording(SceneManager.opts.level, this.fps);
 				hasStarted = true;
 				isRecording = true;
 
@@ -131,7 +131,5 @@ namespace xyz._8bITProject.cooperace.recording {
 		public Recording GetRecording () {
 			return recording;
 		}
-
-
 	}
 }

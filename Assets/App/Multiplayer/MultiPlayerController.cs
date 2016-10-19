@@ -80,8 +80,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		private void StartMatchMaking(uint index)
 		{
 			gameVariation = index;
-			// if it's the random level
-			gameVariation = (uint)(UnityEngine.Random.Range(0, Maps.maps.Length - 1) + 1);
+//			if it's the random level
+//			gameVariation = (uint)(UnityEngine.Random.Range(0, Maps.maps.Length - 1) + 1);
 			UILogger.Log("index: "+ gameVariation);
 			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 		}
@@ -111,7 +111,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				roomListener.HideRoom();
 				roomListener = null;
 				startedGame = true;
-				UIHelper.GoTo(Magic.Scenes.GAME_SCENE);
+				SceneManager.StartMultiplayerGame (Maps.maps [gameVariation]);
 			}
 			else
 			{

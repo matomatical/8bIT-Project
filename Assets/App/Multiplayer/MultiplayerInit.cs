@@ -22,13 +22,20 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		static bool editor = false;
 		#endif
 
-		public static void Init(GameObject level){
+		public static void MultiplayerAwake(GameObject level){
 			if(editor){
 				InEditorInit (level);
 			} else {
 				OnAndroidInit (level);
 			}
 		}
+
+		// code that should probably be called:
+
+//		MultiPlayerController.Instance.roomListener = this;
+//		MultiPlayerController.Instance.StartMPGame((uint)currentLevelIndex_);
+//		MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
+
 
 		/// According to monodevelop's intelligent documentation generator, this method
 		/// 'Ins the editor init'. Well, I think that just about says it all!

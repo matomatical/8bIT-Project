@@ -73,17 +73,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle play button behaviour
 		public void PlayButtonHandler() {
-			#if UNITY_EDITOR
-			SceneManager.levelToLoad = Maps.maps[currentLevelIndex_];
-			SceneManager.Load(Magic.Scenes.GAME_SCENE);
-			#else
-			SceneManager.gameType = GameType.MULTI;
-			SceneManager.levelToLoad = Maps.maps[currentLevelIndex_];
-			SceneManager.playingAgainstGhosts = false;
-			DisplayMessage("Starting Game...");
-			MultiPlayerController.Instance.roomListener = this;
-			MultiPlayerController.Instance.StartMPGame((uint)currentLevelIndex_);
-			#endif
+			SceneManager.StartMultiplayerGame(Maps.maps[currentLevelIndex_]);
 		}
 
 		// public method to handle back button behaviour

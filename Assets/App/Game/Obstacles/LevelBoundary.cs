@@ -17,7 +17,7 @@ namespace xyz._8bITProject.cooperace {
 				// the game ends when the player touches the exit portal
 				if (other.gameObject.CompareTag (Magic.Tags.PLAYER)) {
 
-					SceneManager.Load (Magic.Scenes.POSTGAME);
+					SceneManager.ExitGame (ExitType.FINISH);
 
 				}
 			}

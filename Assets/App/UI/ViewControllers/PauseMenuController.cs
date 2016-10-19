@@ -24,8 +24,8 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle exit button behaviour
 		public void ExitButtonHandler() {
-			SceneManager.Load(Magic.Scenes.MAIN_MENU);
-			UIHelper.LeaveRoom();	
+			UIHelper.LeaveRoom ();
+			SceneManager.LoadMainMenu ();
 		}
 
 	}

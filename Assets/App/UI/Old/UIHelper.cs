@@ -5,9 +5,9 @@ using xyz._8bITProject.cooperace;
 
 public class UIHelper : MonoBehaviour {
 
-	public static void GoTo (string sceneName) {
-		xyz._8bITProject.cooperace.SceneManager.Load(sceneName);
-	}
+//	public static void GoTo (string sceneName) {
+//		xyz._8bITProject.cooperace.SceneManager.Load(sceneName);
+//	}
 
 	public static void Login (System.Action<bool> callback, bool silent=false) {
 		if (Social.localUser.authenticated) return;
@@ -26,11 +26,11 @@ public class UIHelper : MonoBehaviour {
 
 
 	// instance versions for use as button on click handlers (static methods don't work)
-
-	public void iGoTo (string sceneName) {
-		UIHelper.GoTo(sceneName);
-	}
-
+//
+//	public void iGoTo (string sceneName) {
+//		UIHelper.GoTo(sceneName);
+//	}
+//
 	public void iLogout () {
 		UIHelper.Logout();
 	}
