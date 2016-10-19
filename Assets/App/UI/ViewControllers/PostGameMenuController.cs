@@ -6,16 +6,28 @@
  */
 
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using xyz._8bITProject.cooperace.persistence;
 using xyz._8bITProject.cooperace.recording;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class PostGameMenuController : LeaderboardsMenuController {
 
-		public void Start() {
-			currentLevelName = SceneManager.levelToLoad;
-			LoadLevelStats();
+		public Text message;
+		
+		public void Update() {
+			int position = FinalizeLevel.position;
+			if (FinalizeLevel.requestComplete) {
+				if (position == 0) {
+					message.text = "Sorry you didn't make the leaderboard.";
+				} else {
+					message.text = "You placed " + position + " on the leaderboard.";
+				}
+			} else {
+				message.text = "Contacting the leaderboard server...";
+			}
 		}
 
 		// public method to handle play again button behaviour

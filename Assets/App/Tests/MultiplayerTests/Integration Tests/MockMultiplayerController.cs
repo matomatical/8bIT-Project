@@ -8,7 +8,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests
 	public class MockMultiPlayerController : MultiPlayerController
 	{
 		// not needed for testing
-		public override void StartMPGame()
+		public override void StartMPGame(uint i)
 		{
 			return;
 		}

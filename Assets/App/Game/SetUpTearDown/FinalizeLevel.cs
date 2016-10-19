@@ -9,6 +9,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public static class FinalizeLevel {
 
 		public static byte position;
+		public static bool requestComplete = false;
 
 		public static UpdateManager updateManager;
 
@@ -31,6 +32,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 					// Submit the time the the leaderboards
 					leaderboards.SubmitScoreAsync(Maps.maps[LevelSelectMenuController.currentLevelIndex_], new Score(ClockController.SecondsToTenthsOfSeconds(time), ourName, theirName),
 						delegate (SubmissionResponse r, ServerException e) {
+							requestComplete = true;
 							response = r;
 							if (e != null) UILogger.Log(e.Message);
 							position = (byte)response.position;
