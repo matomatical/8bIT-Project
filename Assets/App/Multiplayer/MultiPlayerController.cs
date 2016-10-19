@@ -84,7 +84,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
 			gameVariation = (uint)(LevelSelectMenuController.currentLevelIndex_);
 			// if it's the random level
-			if (gameVariation == 0) gameVariation = UnityEngine.Random.Range(1, Maps.maps.Length - 1);
+			if (gameVariation == 0) gameVariation = (uint)UnityEngine.Random.Range(1, Maps.maps.Length - 1);
 			UILogger.Log("index: "+ gameVariation);
 			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 		}
