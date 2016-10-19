@@ -29,5 +29,14 @@ namespace xyz._8bITProject.cooperace {
 			return Resources.Load("Maps/" + name) as GameObject;
 		}
 
+		public static int GetIndex(string levelName) {
+			for (int i = 0; i < maps.Length; i++) {
+				if (levelName.Equals(maps[i])) {
+					return i;
+				}
+			}
+			return -1;
+		}
+
 	}
 }

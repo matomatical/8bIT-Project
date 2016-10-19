@@ -11,6 +11,7 @@ using UnityEngine.UI;
 using System.Collections;
 using xyz._8bITProject.cooperace.recording;
 using xyz._8bITProject.cooperace.persistence;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class RecordingsMenuController : MonoBehaviour {
@@ -94,13 +95,13 @@ namespace xyz._8bITProject.cooperace.ui {
 				SceneManager.gameType = (playagainst ? GameType.MULTI : GameType.REWATCH);
 				SceneManager.levelToLoad = SceneManager.recording.level;
 				SceneManager.playingAgainstGhosts = playagainst;
+                uint currentLevelIndex_ = (uint) Maps.GetIndex(SceneManager.levelToLoad);
 
 				if (playagainst) {
 					#if UNITY_EDITOR
 					SceneManager.Load ("Game Scene");
 					#else
 					DisplayMessage("Starting Game...");
-					MultiPlayerController.Instance.roomListener = this;
 					MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
 					#endif
 				} else {
