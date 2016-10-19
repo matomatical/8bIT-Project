@@ -1100,8 +1100,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e16988d08d30447098fa3b673c515cea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelNameText: {fileID: 0}
-  scoresList: {fileID: 0}
-  messageText: {fileID: 267041119}
-  preview: {fileID: 0}
-  message: {fileID: 0}
+  message: {fileID: 267041120}

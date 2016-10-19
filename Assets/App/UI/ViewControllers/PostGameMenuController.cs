@@ -13,7 +13,7 @@ using xyz._8bITProject.cooperace.recording;
 using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
-	public class PostGameMenuController : LeaderboardsMenuController {
+	public class PostGameMenuController : MonoBehaviour {
 
 		public Text message;
 		
