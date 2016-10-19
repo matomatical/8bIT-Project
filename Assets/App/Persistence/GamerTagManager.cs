@@ -8,9 +8,8 @@
 
 using UnityEngine;
 using System.Collections;
-using xyz._8bITProject.cooperace.persistence;
 
-namespace xyz._8bITProject.cooperace {
+namespace xyz._8bITProject.cooperace.persistence {
 	
 	public static class GamerTagManager {
 

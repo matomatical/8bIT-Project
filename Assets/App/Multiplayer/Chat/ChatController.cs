@@ -10,7 +10,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
 	public class ChatController : MonoBehaviour {

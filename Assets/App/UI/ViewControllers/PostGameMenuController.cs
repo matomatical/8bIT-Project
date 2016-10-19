@@ -41,10 +41,12 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle save recording button behaviour
 		public void SaveRecordingButtonHandler() {
+			
 			if (SceneManager.newRecording != null) {
-				PersistentStorage.Write(
-					"Recordings/" + SceneManager.levelToLoad + ".crr",
-					Recording.ToString(SceneManager.newRecording));
+
+				// TODO: pass in more details about level
+
+				RecordingFileManager.WriteRecording (SceneManager.newRecording);
 				message.text = "Save Complete!";
 			}
 		}

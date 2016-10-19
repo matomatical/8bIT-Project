@@ -11,6 +11,7 @@ using System;
 using System.Text;
 using UnityEngine;
 using System.Collections.Generic;
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {

@@ -50,7 +50,12 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 		
 		void OnEnable() {
-			recordings = ListRecordings();
+			recordings = RecordingFileManager.ListRecordings();
+
+			if (recordings.Length < 1) {
+				recordingsExist = false;
+				DisplayMessage ("No recordings found.\n\nPlay a game and\nsave a recording.");
+			}
 
 			// load in the first recording
 			UpdateRecordingDetails();	
@@ -76,40 +81,58 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle watch button behaviour
 		public void WatchButtonHandler() {
-			TryLoadRecording (false);
-		}
 
-		// public method to handle play vs ghost button behaviour
-		public void GhostButtonHandler() {
-			TryLoadRecording (true);
-		}
-
-		// helper method to load recording and go to scene
-		void TryLoadRecording(bool playagainst){
 			if (recordingsExist) {
-				SceneManager.recording = TryReadRecording(recordings [currentRecordingIndex]);
+
+				try{
+					SceneManager.recording = RecordingFileManager.TryReadRecording(recordings [currentRecordingIndex]);
+				} catch (RecordingFormatException) {
+					// something went wrong reading the recording
+					DisplayMessage ("Problem reading recording file.");
+				} catch (PersistentStorageException) {
+					DisplayMessage ("Problem reading recording file.");
+				}
+
 				if (SceneManager.recording == null) {
 					return;
 				}
 
-				SceneManager.gameType = (playagainst ? GameType.MULTI : GameType.REWATCH);
+				SceneManager.gameType = GameType.REWATCH;
 				SceneManager.levelToLoad = SceneManager.recording.level;
-				SceneManager.playingAgainstGhosts = playagainst;
-                uint currentLevelIndex_ = (uint) Maps.GetIndex(SceneManager.levelToLoad);
+				SceneManager.playingAgainstGhosts = false;
 
-				Debug.Log (SceneManager.recording.level);
-				Debug.Log (SceneManager.levelToLoad);
+				SceneManager.Load ("Game Scene");
+			}
+		}
 
-				if (playagainst) {
-					#if UNITY_EDITOR
-					SceneManager.Load ("Game Scene");
-					#else
-					DisplayMessage("Starting Game...");
-					MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
-					#endif
-				} else {
-					SceneManager.Load ("Game Scene");
+		// public method to handle play vs ghost button behaviour
+		public void GhostButtonHandler() {
+			if (recordingsExist) {
+
+				try{
+					SceneManager.recording = RecordingFileManager.TryReadRecording(recordings [currentRecordingIndex]);
+				} catch (RecordingFormatException) {
+					// something went wrong reading the recording
+					DisplayMessage ("Problem reading recording file.");
+				} catch (PersistentStorageException) {
+					DisplayMessage ("Problem reading recording file.");
 				}
+
+				if (SceneManager.recording == null) {
+					return;
+				}
+
+				SceneManager.gameType = GameType.MULTI;
+				SceneManager.levelToLoad = SceneManager.recording.level;
+				SceneManager.playingAgainstGhosts = true;
+				uint currentLevelIndex_ = (uint) Maps.GetIndex(SceneManager.levelToLoad);
+
+				#if UNITY_EDITOR
+				SceneManager.Load ("Game Scene");
+				#else
+				DisplayMessage("Starting Game...");
+				MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
+				#endif
 			}
 		}
 
@@ -125,7 +148,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		public void ConfirmButtonHandler() {
 
 			try {
-				DeleteRecording(recordings [currentRecordingIndex]);
+				RecordingFileManager.DeleteRecording(recordings [currentRecordingIndex]);
 			} catch (PersistentStorageException) {
 				DisplayMessage ("Problem reading recording file.\n\nTry another.");
 			}
@@ -133,7 +156,12 @@ namespace xyz._8bITProject.cooperace.ui {
 			confirmationPanel.SetActive (false);
 
 			// refresh list, also make sure recordings still exists
-			recordings = ListRecordings();
+			recordings = RecordingFileManager.ListRecordings();
+			
+			if (recordings.Length < 1) {
+				recordingsExist = false;
+				DisplayMessage ("No recordings found.\n\nPlay a game and\nsave a recording.");
+			}
 		}
 
 		// public method to handle cancel-deletion button behaviour
@@ -163,41 +191,5 @@ namespace xyz._8bITProject.cooperace.ui {
 			messageText.gameObject.SetActive(false);
 		}
 
-		// helper methods to access files
-		// (dealing extensions and subfolders)
-
-		string[] ListRecordings(){
-			
-			string[] ls = PersistentStorage.ListFiles ("Recordings/", false, "*.crr");
-			for (int i = 0; i < ls.Length; i++) {
-				//TODO: strip extensions
-			}
-
-			if (ls.Length < 1) {
-				recordingsExist = false;
-				DisplayMessage ("No recordings found.\n\nPlay a game and\nsave a recording.");
-			}
-			return ls;
-		}
-
-		Recording TryReadRecording(string recordingName){
-			try {
-				//TODO: strip filename earlier, add it back here...
-				string recordingString = PersistentStorage.Read("Recordings/" + recordingName);
-				return Recording.FromString(recordingString);
-			} catch (RecordingFormatException) {
-				// something went wrong reading the recording
-				DisplayMessage ("Problem reading recording file.");
-			} catch (PersistentStorageException) {
-				DisplayMessage ("Problem reading recording file.");
-			}
-			return null;
-		}
-
-		void DeleteRecording(string recordingName){
-
-			//TODO: strip filename earlier, add it back here...
-			PersistentStorage.Delete ("Recordings/" + recordingName);
-		}
 	}
 }

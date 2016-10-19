@@ -22,21 +22,7 @@ namespace xyz._8bITProject.cooperace.recording {
 	/// stores a sequence of frames and some header information
 	[System.Serializable]
 	public class Recording {
-
-		public static Recording FromString(string text){
-			try{
-				return JsonUtility.FromJson<Recording>(text);
-			} catch (System.Exception e){
-				// something's gone wrong (not sure what type
-				// of exceptions this throws because no docs)
-				throw new RecordingFormatException (e.Message);
-			}
-		}
-
-		public static string ToString(Recording recording){
-			return JsonUtility.ToJson (recording);
-		}
-
+		
 		/// The recording file format's version number
 		[SerializeField] public static int version = 1;
 

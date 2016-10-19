@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using xyz._8bITProject.cooperace.multiplayer;
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class MainMenuController : MonoBehaviour {
