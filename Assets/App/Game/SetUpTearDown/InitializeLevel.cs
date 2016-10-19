@@ -127,7 +127,57 @@ namespace xyz._8bITProject.cooperace {
 
 				// set up level to track a recording
 
-				RewatchRecordingAwake(ghostLevel);
+				RewatchRecordingAwakeGhost(ghostLevel);
+			}
+		}
+
+		void RewatchRecordingAwakeGhost(TiledMap level) {
+
+			// enable remote physics controllers on dynamic objects,
+			// and enable dynamic recorders
+
+			foreach (DynamicReplayer rep in
+				level.GetComponentsInChildren<DynamicReplayer>()) {
+
+				// enable remote control
+
+				LerpingPhysicsController lpc
+				= rep.GetComponent<LerpingPhysicsController>();
+				lpc.enabled = true;
+
+				// enable replaying
+
+				rep.enabled = true;
+			}
+
+			// enable static replayers, and disable box collider
+			// triggering to prevent triggering on collisions
+
+			foreach (StaticReplayer rep in
+				level.GetComponentsInChildren<StaticReplayer>()) {
+
+				// enable replaying
+
+				rep.enabled = true;
+
+			}
+
+			// enable the replayer and start the replaying
+
+			ReplayingController rc = FindObjectOfType<ReplayingController>();
+			rc.enabled = true;
+			rc.level = level;
+			rc.StartReplaying(SceneManager.recording);
+
+
+			// disable the finish lines and stuff
+
+			foreach (FinishLine finish in level.GetComponentInChildren<FinishLine>()) {
+				finish.enabled = false;
+			}
+
+			foreach (LevelBoundary exit in level.GetComponentInChildren<LevelBoundary>()) {
+				exit.enabled = false;
 			}
 		}
 
@@ -268,6 +318,7 @@ namespace xyz._8bITProject.cooperace {
 				rf.enabled = true;
 			}
         }
+
 
     }
 }
