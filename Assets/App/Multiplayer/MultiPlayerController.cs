@@ -82,7 +82,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		/// Look for a suitable partner to play the game with
 		private void StartMatchMaking()
 		{
-			gameVariation = (uint)(LevelSelectMenuController.currentLevelIndex_+1);
+			gameVariation = (uint)(LevelSelectMenuController.currentLevelIndex_);
+			// if it's the random level
+			if (gameVariation == 0) gameVariation = Random.Range(1, Maps.maps.Length - 1);
 			UILogger.Log("index: "+ gameVariation);
 			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 		}
