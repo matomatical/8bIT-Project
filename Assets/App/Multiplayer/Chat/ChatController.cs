@@ -27,13 +27,8 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		// The OS keyboard
 		private TouchScreenKeyboard keyboard;
 
-
-		// The player's 3 letter code
-		string gamerTag;
-
 		/// Use this for initialization
 		void Start() {
-			gamerTag = GamerTagManager.GetGamerTag ();
 			chatGUI = new ChatGUI(chatHistory);
 		}
 
