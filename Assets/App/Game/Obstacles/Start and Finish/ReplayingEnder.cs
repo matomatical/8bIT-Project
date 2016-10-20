@@ -11,7 +11,9 @@ using System.Collections;
 namespace xyz._8bITProject.cooperace.recording {
 	public class ReplayingEnder : MonoBehaviour {
 
-		static bool started = false;
+		static bool ended = false;
+
+		public bool terminal = false;
 
 		public ReplayingController replayer;
 
@@ -29,11 +31,18 @@ namespace xyz._8bITProject.cooperace.recording {
 				// only trigger if this component is on
 				if (enabled) {
 
-					if(started == false && replayer != null){
+					if(ended == false && replayer != null){
 
 						replayer.EndReplaying();
 
-						started = true;
+						ended = true;
+
+						// if this component is meant to end
+						// the level, end it
+
+						if (terminal) {
+							SceneManager.ExitGame (ExitType.FINISH);
+						}
 					}
 				}
 			}

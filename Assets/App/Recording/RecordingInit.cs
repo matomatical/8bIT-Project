@@ -47,10 +47,14 @@ namespace xyz._8bITProject.cooperace.recording {
 			replayer.StartReplaying();
 
 
-			// TODO: what about the finish lines?
-			// we should end when the recording ends?
+			// the finish lines in the main level should end
+			// the replaying, and also exit the game
 
-			// ...
+			foreach (ReplayingEnder ender in level.GetComponentsInChildren<ReplayingEnder>()) {
+				ender.enabled = true;
+
+				ender.terminal = true;
+			}
 		}
 
 
@@ -108,7 +112,8 @@ namespace xyz._8bITProject.cooperace.recording {
 			// the start lines in the first level, actually!
 
 
-			// make sure the start line will start the recording
+			// make sure the start line in the main level
+			// will start the recording in the ghost level
 
 			foreach (ReplayingStarter starter in level.GetComponentsInChildren<ReplayingStarter>()) {
 				starter.enabled = true;
@@ -118,10 +123,28 @@ namespace xyz._8bITProject.cooperace.recording {
 			}
 
 
-			// TODO: what about the finish lines? they
-			// should NOT end the game in this case, but the should end the recording
+			// the finish lines in the ghost level should not exit the game,
+			// or stop the clock! they should just end the replaying being replayed
 
-			// ...
+			foreach (FinishLine finish in ghost.GetComponentsInChildren<FinishLine>()) {
+
+				// turn off clock-stopping
+
+				finish.enabled = false;
+
+				// turn on replaying ending but not level-leaving
+
+				ReplayingEnder ender = finish.GetComponent<ReplayingEnder> ();
+				ender.enabled = true;
+				ender.terminal = false;
+			}
+
+			// also, the level boundaries should not exit the game! they should be deactivated,
+			// because they are active by default
+
+			foreach (LevelBoundary exit in ghost.GetComponentsInChildren<LevelBoundary>()) {
+				exit.enabled = false;
+			}
 		}
 
 

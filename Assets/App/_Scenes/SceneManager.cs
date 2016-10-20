@@ -42,6 +42,7 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		public static void ExitGame(ExitType type, Recording recording = null){
+			Debug.Log ("Exiting: " + type + " with " + (recording == null ? "no" : "a new") + " recording");
 			SceneManager.outs = new GameOuts (opts, type, recording);
 			Load (Magic.Scenes.POSTGAME);
 		}

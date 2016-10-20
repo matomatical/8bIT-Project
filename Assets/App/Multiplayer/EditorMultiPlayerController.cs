@@ -22,7 +22,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			ShowMPStatus("Connecting...");
 
 			// start a matchmaking game right here
-			// OnRoomConnected(true);
+			 OnRoomConnected(true);
 		}
 
 		public override void StopMatchMaking(){
