@@ -31,9 +31,8 @@ namespace xyz._8bITProject.cooperace.recording {
 			// also, there's no need for the controls or chat
 			// in a replay
 
-			InitializeLevel.instance.gui.SetActive (false);
-			InitializeLevel.instance.chat.SetActive (false);
-
+			InitializeLevel.instance.gui.OnScreenControls.SetActive (false);
+			InitializeLevel.instance.gui.ChatButton.SetActive (false);
 
 			// enable the replayer object itself
 
@@ -218,6 +217,17 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			foreach (RecordingEnder ender in level.GetComponentsInChildren<RecordingEnder>()) {
 				ender.enabled = true;
+			}
+
+
+			// actually, we should also set up the finish and start lines to light up
+
+			foreach (StartLineLighter lighter in level.GetComponentsInChildren<StartLineLighter>()) {
+				lighter.enabled = true;
+			}
+
+			foreach (FinishLineLighter lighter in level.GetComponentsInChildren<FinishLineLighter>()) {
+				lighter.enabled = true;
 			}
 		}
 

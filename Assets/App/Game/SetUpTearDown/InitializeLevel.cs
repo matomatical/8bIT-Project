@@ -15,6 +15,7 @@ using Tiled2Unity;
 
 using xyz._8bITProject.cooperace.recording;
 using xyz._8bITProject.cooperace.multiplayer;
+using xyz._8bITProject.cooperace.ui;
 
 namespace xyz._8bITProject.cooperace {
 
@@ -24,7 +25,7 @@ namespace xyz._8bITProject.cooperace {
 
 		public CameraController cam;
 		public BackgroundScroller bg;
-		public GameObject gui, chat;
+		public InGameGUIController gui;
 
         private TiledMap level;
 

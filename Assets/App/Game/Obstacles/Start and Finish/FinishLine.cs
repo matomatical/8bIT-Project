@@ -18,8 +18,6 @@ namespace xyz._8bITProject.cooperace {
 
 		void Start(){
 
-			// link components together
-
 			clock = FindObjectOfType<ClockController> ();
 		}
 
@@ -28,9 +26,10 @@ namespace xyz._8bITProject.cooperace {
 
 				// only trigger if this component is on
 				if (enabled) {
-
+						
 					// the timer is stopped when a player touches the line
-					clock.StopTiming();
+					// idempotent, so don't worry about calling it more than once
+					clock.StopTiming ();
 
 				}
 			}

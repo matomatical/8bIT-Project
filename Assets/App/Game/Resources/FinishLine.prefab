@@ -26,6 +26,7 @@ GameObject:
   - 114: {fileID: 114000013321748396}
   - 212: {fileID: 212000013702880190}
   - 114: {fileID: 114000010676004244}
+  - 114: {fileID: 114000012387850482}
   m_Layer: 0
   m_Name: FinishLine
   m_TagString: Untagged
@@ -71,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 462cf27a943a64d3a81d55eb4af1c0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terminal: 0
   replayer: {fileID: 0}
 --- !u!114 &114000012149299344
 MonoBehaviour:
@@ -84,6 +86,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   recorder: {fileID: 0}
+--- !u!114 &114000012387850482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013050480432}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d28884e0cc674574805954f5fc860c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000013321748396
 MonoBehaviour:
   m_ObjectHideFlags: 1

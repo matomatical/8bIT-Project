@@ -19,6 +19,9 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		void Start(){
 
+			// reset static state between games
+			ended = false;
+
 			// link components together
 			if (recorder == null) {
 				recorder = FindObjectOfType<RecordingController> ();
