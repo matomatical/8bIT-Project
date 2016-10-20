@@ -11,6 +11,7 @@ namespace xyz._8bITProject.cooperace {
 	public static class FinalizeLevel {
 
 		public static byte position;
+		public static float time;
 
 		public static bool finishLineCrossed = false;
 		public static bool positionSet = false;
@@ -26,10 +27,9 @@ namespace xyz._8bITProject.cooperace {
 			positionSet = false;
 		}
 
-		/// exit the level through a menu or disconnection dialog,
-		/// beore actually finishing and walking off the edge of
-		/// the level
-		public static void ExitGame(){
+		/// exit the level through a menu beore actually
+		/// finishing and walking off the edge of the level
+		public static void ExitGame(bool disconnected){
 
 			// the behaviour of exiting is different depending on
 			// whether the race has ended or not. so, have we crossed
@@ -40,7 +40,7 @@ namespace xyz._8bITProject.cooperace {
 				// transition to the main menu
 				// (this will exit the multiplayer game)
 
-				SceneManager.ExitGameQuit ();
+				SceneManager.ExitGameQuit (disconnected);
 
 			} else {
 
@@ -49,12 +49,12 @@ namespace xyz._8bITProject.cooperace {
 				// the postgame menu (instead of going to the
 				// main menu)
 
-				FinishGame ();
+				FinishGame (disconnected);
 
 			}
 		}
 
-		public static void FinishGame(){
+		public static void FinishGame(bool disconnected = false){
 
 			// get the recording
 
@@ -66,8 +66,10 @@ namespace xyz._8bITProject.cooperace {
 
 			// take it to the postgame menu
 
-			SceneManager.ExitGameFinish (recording);
+			SceneManager.ExitGameFinish (recording, disconnected);
 		}
+
+
 
 		public static void CrossFinishLine (float time) {
 
@@ -84,6 +86,7 @@ namespace xyz._8bITProject.cooperace {
 
 					// the host has to submit a score to the leaderboards,
 					// and then update the client on receiving a response
+
 					SubmitScore (time);
 
 				} else {
@@ -94,6 +97,9 @@ namespace xyz._8bITProject.cooperace {
 					updateManager.SendStopClock ();
 					
 				}
+
+				// we also need to save the time to make tha available
+				FinalizeLevel.time = time;
 			}
 		}
 
@@ -103,9 +109,6 @@ namespace xyz._8bITProject.cooperace {
 
 			// The Leaderboards to submit our time to
 			Leaderboards leaderboards = new Leaderboards();
-
-			// The response from the leaderboards after submitting
-			SubmissionResponse response;
 
 			// The score to submit
 			string ourName = GamerTagManager.GetGamerTag ();
@@ -117,10 +120,9 @@ namespace xyz._8bITProject.cooperace {
 			// to the client upon response
 			leaderboards.SubmitScoreAsync(SceneManager.opts.level, score,
 				delegate (SubmissionResponse r, ServerException e) {
-
-					response = r;
+					
 					if (e != null) UILogger.Log(e.Message);
-					position = (byte)response.position;
+					position = (byte)r.position;
 					positionSet = true;
 
 					updateManager.SendLeaderboardsUpdate(position);

@@ -43,9 +43,9 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 
 		// public method to handle exit button behaviour
-		public void ExitButtonHandler() {
+		public void ExitButtonHandler(bool disconnected) {
 
-			FinalizeLevel.ExitGame ();
+			FinalizeLevel.ExitGame (disconnected);
 		}
 
 		// public method to handle a disconnection notification

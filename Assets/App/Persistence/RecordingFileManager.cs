@@ -27,16 +27,13 @@ namespace xyz._8bITProject.cooperace.persistence{
 		}
 
 
-		/// throws RecordingFormatException and PersisntentSotrageException
-		public static void WriteRecording(Recording recording){
-
-			string name = recording.level; // TODO: add more info
+		public static void WriteRecording(Recording recording, string name){
 
 			string recordingString = RecordingToString (recording);
 			PersistentStorage.Write(Path(name), recordingString);
 		}
 
-		/// throws RecordingFormatException and PersisntentSotrageException
+		/// throws RecordingFormatException and PersistentSotrageException
 		public static Recording TryReadRecording(string name){
 			string recordingString = PersistentStorage.Read(Path(name));
 			return RecordingFromString(recordingString);

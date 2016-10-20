@@ -15,41 +15,26 @@ using xyz._8bITProject.cooperace.multiplayer;
 namespace xyz._8bITProject.cooperace.ui {
 	public class PostGameMenuController : MonoBehaviour {
 
-		public Text message;
-		
-		public void Update() {
-			int position = FinalizeLevel.position;
-			if (FinalizeLevel.positionSet) {
-				if (position == 0) {
-					message.text = "Sorry you didn't make the leaderboard.";
-				} else {
-					message.text = "You placed " + position + " on the leaderboard.";
-				}
-			} else {
-				message.text = "Contacting the leaderboard server...";
+		// the actual menu objects
+		public GameObject scoreSubmissionScreen;
+		public GameObject replayingFinishedScreen;
+
+		void Start(){
+
+			// make sure screens start disabled
+
+			scoreSubmissionScreen.SetActive (false);
+			replayingFinishedScreen.SetActive (false);
+
+
+			// which type of postgame menu are we loading?
+
+			if (SceneManager.outs.opts.type == GameType.REWATCH) {
+				replayingFinishedScreen.SetActive (true);
+			} else if (SceneManager.outs.opts.type == GameType.GHOST
+			           || SceneManager.outs.opts.type == GameType.MULTI) {
+				scoreSubmissionScreen.SetActive (true);
 			}
 		}
-
-		// public method to handle play again button behaviour
-		public void PlayAgainButtonHandler() {
-		}
-
-		// public method to handle back to main menu button behaviour
-		public void MainMenuButtonHandler() {
-			SceneManager.LoadMainMenu ();
-		}
-
-		// public method to handle save recording button behaviour
-		public void SaveRecordingButtonHandler() {
-			
-			if (SceneManager.outs.recording != null) {
-
-				// TODO: pass in more details about level
-
-				RecordingFileManager.WriteRecording (SceneManager.outs.recording);
-				message.text = "Save Complete!";
-			}
-		}
-
 	}	
 }

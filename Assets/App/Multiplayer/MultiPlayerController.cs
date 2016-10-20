@@ -206,11 +206,21 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			if (gui != null) {
 				// we are in a level
 				gui.DisconnectionHandler ();
-			} else {
-				// we much not be in a level yet
-				// in that case, we have to handle the transition ourselves
-				SceneManager.ExitGameDisconnect();
+				return;
 			}
+
+			// if that didn't work, maybe we are in the postgame menu! in which case,
+			// we should let the menu controller know about the disconnection
+			PostSubmissionMenuController menu = GameObject.FindObjectOfType<PostSubmissionMenuController> ();
+			if (menu != null) {
+				menu.OnDisconnect ();
+				return;
+			}
+
+			// hmm, if we're here, we much not be in a level yet,
+			// which is unlikely. But, if that's the case, we have
+			// to handle the transition ourselves
+			SceneManager.LoadMainMenu();
 		}
 
 

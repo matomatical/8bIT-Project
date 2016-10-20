@@ -85,7 +85,7 @@ namespace xyz._8bITProject.cooperace.ui {
 				default: // keeps compiler happy
 					return null;
 			}
-		} 
+		}
 
 	}
 }

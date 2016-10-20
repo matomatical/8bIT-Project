@@ -3,7 +3,8 @@
  *
  * Athir Saleem <isaleem@student.unimelb.edu.au>
  * 
- * Modified to use a sine curve and localposition
+ * Modified to use a sine curve and localposition and a vector
+ * amplitude
  * 
  * Matthew Farrugia-Roberts <farrugiam@student.unimelb.edu.au>
  *
@@ -14,12 +15,12 @@ using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
 	
-	public class BobUpAndDown : MonoBehaviour {
+	public class Bob : MonoBehaviour {
 
 		/// How many seconds for a full cycle?
 		public float period = 2;
 		/// How far above/below the origin do we go?
-		public float amplitude = 0.2f;
+		public Vector3 amplitude = 0.2f*Vector3.up;
 
 		/// Keep track of when we are in the cycle
 		private float t = 0;
@@ -49,11 +50,11 @@ namespace xyz._8bITProject.cooperace {
 
 			// calculate the relevant offset using Sin
 
-			float offset = amplitude * Mathf.Sin (2 * Mathf.PI * t / period);
+			Vector3 offset = amplitude * Mathf.Sin (2 * Mathf.PI * t / period);
 
 			// apply that offset
 
-			target.localPosition = origin + Vector3.up * offset;
+			target.localPosition = origin + offset;
 		}
 
 	}

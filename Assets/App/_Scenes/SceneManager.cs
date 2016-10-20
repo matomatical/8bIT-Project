@@ -49,8 +49,9 @@ namespace xyz._8bITProject.cooperace {
 			Load (Magic.Scenes.GAME_SCENE);
 		}
 
-		public static void ExitGameFinish(Recording recording = null){
-			SceneManager.outs = new GameOuts (opts, ExitType.FINISH, recording);
+		public static void ExitGameFinish(Recording recording = null, bool disconnected = false){
+			ExitType exit = disconnected ? ExitType.DISCONNECT : ExitType.FINISH;
+			SceneManager.outs = new GameOuts (opts, exit, recording);
 			Load (Magic.Scenes.POSTGAME);
 		}
 
@@ -59,8 +60,9 @@ namespace xyz._8bITProject.cooperace {
 			Load (Magic.Scenes.POSTGAME);
 		}
 
-		public static void ExitGameQuit(){
-			SceneManager.outs = new GameOuts (opts, ExitType.QUIT);
+		public static void ExitGameQuit(bool disconnected){
+			ExitType exit = disconnected ? ExitType.DISCONNECT : ExitType.QUIT;
+			SceneManager.outs = new GameOuts (opts, exit);
 			Load (Magic.Scenes.MAIN_MENU);
 		}
 	}
@@ -81,14 +83,17 @@ namespace xyz._8bITProject.cooperace {
 	public enum ExitType { FINISH, QUIT, DISCONNECT }
 
 	public struct GameOuts {
-		public readonly GameType type;
+		public readonly GameOpts opts;
 		public readonly ExitType exit;
-		public readonly string level;
 		public readonly Recording recording;
-		public GameOuts(GameOpts opts, ExitType type, Recording recording = null){
-			this.type = opts.type;
+		public readonly float time;
+		public readonly string name, partner;
+		public GameOuts(GameOpts opts, ExitType type, Recording recording = null, float time = -1){
+			this.opts = opts;
 			this.exit = type;
-			this.level = opts.level;
+			this.name = MultiPlayerController.Instance.ourName;
+			this.partner = MultiPlayerController.Instance.theirName;
+			this.time = time;
 			this.recording = recording;
 		}
 	}
