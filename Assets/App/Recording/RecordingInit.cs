@@ -23,14 +23,16 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			foreach (ArcadePhysicsController apc in level.GetComponentsInChildren<ArcadePhysicsController> ()) {
 				if (apc.enabled) {
-					InitializeLevel.cam.target = apc;
+					InitializeLevel.instance.cam.target = apc;
 					break;
 				}
 			}
 
-			// also, there's no need for the GUI in a replay
+			// also, there's no need for the controls or chat
+			// in a replay
 
-			InitializeLevel.gui.SetActive (false);
+			InitializeLevel.instance.gui.SetActive (false);
+			InitializeLevel.instance.chat.SetActive (false);
 
 
 			// enable the replayer object itself
@@ -149,7 +151,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			BackgroundLevelScroller scroller = ghost.gameObject.AddComponent<BackgroundLevelScroller> ();
 
-			scroller.cam = InitializeLevel.cam.GetComponent<Camera>();
+			scroller.cam = InitializeLevel.instance.cam.GetComponent<Camera>();
 			scroller.level = level.GetComponent<TiledMap>();
 
 			// arrange objects by z depth

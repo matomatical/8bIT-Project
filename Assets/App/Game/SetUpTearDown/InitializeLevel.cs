@@ -20,9 +20,11 @@ namespace xyz._8bITProject.cooperace {
 
     public class InitializeLevel : MonoBehaviour {
 
-		public static CameraController cam;
-		public static BackgroundScroller bg;
-		public static GameObject gui;
+		public static InitializeLevel instance = null;
+
+		public CameraController cam;
+		public BackgroundScroller bg;
+		public GameObject gui, chat;
 
         private TiledMap level;
 
@@ -35,10 +37,9 @@ namespace xyz._8bITProject.cooperace {
 
         void Awake() {
 
-			// find the components we need
-			cam = FindObjectOfType<CameraController> ();
-			gui = FindObjectOfType<Canvas>().gameObject;
-			bg  = FindObjectOfType<BackgroundScroller> ();
+			// make this instance statically available
+
+			InitializeLevel.instance = this;
 
 			// clone prefab and load the level into the scene
 
