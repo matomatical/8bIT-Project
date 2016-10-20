@@ -31,10 +31,11 @@ namespace xyz._8bITProject.cooperace {
 					if (other.gameObject.CompareTag (Magic.Tags.PLAYER)) {
 
 						if (recorder != null) {
-							SceneManager.ExitGame (ExitType.FINISH, recorder.GetRecording ());
+							SceneManager.ExitGameFinish(recorder.GetRecording ());
 
 						} else {
-							SceneManager.ExitGame (ExitType.FINISH);
+							// no recording
+							SceneManager.ExitGameFinish ();
 
 						}
 

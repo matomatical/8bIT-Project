@@ -44,7 +44,7 @@ namespace xyz._8bITProject.cooperace.recording {
 						// the level, end it
 
 						if (terminal) {
-							SceneManager.ExitGame (ExitType.FINISH);
+							SceneManager.ExitGameFinish();
 						}
 					}
 				}
