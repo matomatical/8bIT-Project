@@ -45,9 +45,9 @@ namespace xyz._8bITProject.cooperace.leaderboard {
 		}
 
 		public static string TimeToString(int time) {
-			int fractions = time % 10;
-			int seconds = (time / 10) % 60;
-			int minutes = (time / 10) / 60;
+			string fractions = (time % 10).ToString();
+			string seconds = ((time / 10) % 60).ToString ().PadLeft (2, '0');
+			string minutes = ((time / 10) / 60).ToString();
 
 			return minutes + ":" + seconds + "." + fractions;
 		}
