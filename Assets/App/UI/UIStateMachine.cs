@@ -30,6 +30,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		public GameObject gamerTagMenu;
 		public GameObject recordingsMenu;
 		public GameObject levelSelectMenu;
+		public GameObject matchmakingMenu;
 
 		UIState currentState = UIState.MainMenu;
 
@@ -79,6 +80,8 @@ namespace xyz._8bITProject.cooperace.ui {
 					return recordingsMenu;
 				case UIState.LevelSelect:
 					return levelSelectMenu;
+				case UIState.Matchmaking:
+					return matchmakingMenu;
 				default: // keeps compiler happy
 					return null;
 			}

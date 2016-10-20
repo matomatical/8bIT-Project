@@ -13,7 +13,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		void SetRoomStatusMessage(string message);
 
 		/// Hide the room
-		void HideRoom();
+		void HideRoomStatusMessage();
 
 		/// Called on completion of connection
 		void OnConnectionComplete();

@@ -13,7 +13,7 @@ using GooglePlayGames.BasicApi.Multiplayer;
 using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
-	public class LevelSelectMenuController : MonoBehaviour, IRoomListener {
+	public class LevelSelectMenuController : MonoBehaviour {
 
 		// ui elements
 		public Text levelNameText;
@@ -43,7 +43,6 @@ namespace xyz._8bITProject.cooperace.ui {
 		void OnEnable() {
 			// make sure something is loaded when visible
 			UpdateLevelDetails();
-			HideMessage();
 		}
 
 		// display the level details
@@ -53,46 +52,24 @@ namespace xyz._8bITProject.cooperace.ui {
 			LevelPreview.LoadPreview(levelName, preview);
 		}
 
-		// methods to manipulate the message
-		void DisplayMessage(string msg) {
-			messageText.GetComponent<Text>().text = msg;
-			messageText.SetActive(true);
-		}
-		void HideMessage() {
-			messageText.SetActive(false);
-		}
-
 		// public methods to switch the currently displayed level
 		public void SwitchToNextLevel() {
-			MultiPlayerController.Instance.StopMatchMaking ();
 			currentLevelIndex += 1;
 		}
 		public void SwitchToPrevLevel() {
-			MultiPlayerController.Instance.StopMatchMaking ();
 			currentLevelIndex -= 1;
 		}
 
 		// public method to handle play button behaviour
 		public void PlayButtonHandler() {
-			MultiPlayerController.Instance.StartMatchMaking (Maps.maps [currentLevelIndex_], this);
+			MatchmakingMenuController.previousState = UIState.LevelSelect;
+			MatchmakingMenuController.level = Maps.maps [currentLevelIndex];
+			UIStateMachine.instance.GoTo(UIState.Matchmaking);
 		}
 
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
-			MultiPlayerController.Instance.StopMatchMaking ();
 			UIStateMachine.instance.GoTo(UIState.MainMenu);
 		}
-
-		// IListener methods
-		public void SetRoomStatusMessage(string message) {
-			DisplayMessage(message);
-		}
-		public void HideRoom() {
-			// HideMessage();
-		}
-		public void OnConnectionComplete(){
-			SceneManager.StartMultiplayerGame(Maps.maps[currentLevelIndex_]);
-		}
-
 	}
 }

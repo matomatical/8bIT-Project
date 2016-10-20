@@ -19,9 +19,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			this.roomListener = room;
 
 			startedMatching = true;
+			ShowMPStatus("Connecting...");
 
 			// start a matchmaking game right here
-			OnRoomConnected(true);
+			// OnRoomConnected(true);
 		}
 
 		public override void StopMatchMaking(){
@@ -51,14 +52,14 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			}
 			else
 			{
-				ShowMPStatus("Uh-oh. Looks like something went wrong when trying to connect to the room.");
+				ShowMPStatus("Failed to connect.");
 			}
 		}
 
 		/// How's progress with setting up the room?
 		public override void OnRoomSetupProgress(float percent)
 		{
-			ShowMPStatus("We are " + percent + "% done with setup");
+			ShowMPStatus("Connecting... " + percent + "%");
 		}
 
 		/// What to do when a player declines an invitiation to join a room

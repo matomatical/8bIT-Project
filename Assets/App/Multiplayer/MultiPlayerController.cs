@@ -96,6 +96,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			this.roomListener = room;
 
 			startedMatching = true;
+			ShowMPStatus("Connecting...");
 			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 		}
 
@@ -124,17 +125,15 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				startedMatching = false;
 				updateManager = new UpdateManager ();
 				roomListener.OnConnectionComplete ();
-			}
-			else
-			{
-				ShowMPStatus("Uh-oh. Looks like something went wrong when trying to connect to the room.");
+			} else {
+				ShowMPStatus("Failed to connect.");
 			}
 		}
 			
 		/// How's progress with setting up the room?
 		public virtual void OnRoomSetupProgress(float percent)
 		{
-			ShowMPStatus("We are " + percent + "% done with setup");
+			ShowMPStatus("Connecting... " + percent + "%");
 		}
 
 		/// What to do when a player declines an invitiation to join a room
@@ -150,8 +149,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		protected void ShowMPStatus(string message)
 		{
 			Debug.Log(message);
-			if (roomListener != null)
-			{
+			if (roomListener != null) {
 				roomListener.SetRoomStatusMessage(message);
 			}
 		}

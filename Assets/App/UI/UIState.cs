@@ -12,5 +12,6 @@ namespace xyz._8bITProject.cooperace.ui {
 		RecordingsMenu,
 		GamerTagMenu,
 		LevelSelect,
+		Matchmaking,
 	}
 }
