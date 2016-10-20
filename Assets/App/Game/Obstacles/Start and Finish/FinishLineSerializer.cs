@@ -17,8 +17,6 @@ namespace xyz._8bITProject.cooperace {
 		/// The Clock to get the time from
 		ClockController clock;
 
-		public UpdateManager updateManager;
-
 		void Start(){
 
 			// link components together
@@ -31,13 +29,9 @@ namespace xyz._8bITProject.cooperace {
 
 				// only trigger if this component is on
 				if (enabled) {
-					
-					// Send an update saying the clock has stopped
-					if (updateManager != null)
-						updateManager.SendStopClock ();
 
 					// and now it's time to stop the level
-					FinalizeLevel.FinalizeGame (clock.GetTime ());
+					FinalizeLevel.CrossFinishLine (clock.GetTime ());
 				}
 			}
 		}

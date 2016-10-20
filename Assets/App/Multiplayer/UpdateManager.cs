@@ -133,11 +133,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 						clock.StartTiming ();
 					} else if (data [0] == STOP_CLOCK) {
 						clock.StopTiming ();
-						FinalizeLevel.FinalizeGame (clock.GetTime ());
+						FinalizeLevel.CrossFinishLine (clock.GetTime ());
 					}
 				} else if (header.messageType == LEADERBOARDS) {
 					FinalizeLevel.position = data [0];
-					FinalizeLevel.requestComplete = true;
+					FinalizeLevel.positionSet = true;
 				} else if (header.messageType == GAMER_TAG) {
 					MultiPlayerController.Instance.theirName = Encoding.ASCII.GetString (data.ToArray ());
 				} else {

@@ -19,7 +19,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		
 		public void Update() {
 			int position = FinalizeLevel.position;
-			if (FinalizeLevel.requestComplete) {
+			if (FinalizeLevel.positionSet) {
 				if (position == 0) {
 					message.text = "Sorry you didn't make the leaderboard.";
 				} else {

@@ -23,6 +23,14 @@ namespace xyz._8bITProject.cooperace {
 		}
 
 		public static void LoadMainMenu(){
+
+			// if we're in a networked game, we should leave
+			// the room
+
+			if (MultiPlayerController.Instance.InGame ()) {
+				MultiPlayerController.Instance.LeaveGame ();
+			}
+
 			Load (Magic.Scenes.MAIN_MENU);
 		}
 

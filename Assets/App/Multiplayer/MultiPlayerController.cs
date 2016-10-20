@@ -162,6 +162,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		// DURING A GAME
 
+		public virtual bool InGame(){
+			return startedGame;
+		}
+
 		public virtual void LeaveGame(){
 			if (startedGame) {
 				PlayGamesPlatform.Instance.RealTime.LeaveRoom ();

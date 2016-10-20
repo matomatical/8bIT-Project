@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using xyz._8bITProject.cooperace.multiplayer;
+using xyz._8bITProject.cooperace.recording;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class InGameGUIController : MonoBehaviour {
@@ -44,16 +45,7 @@ namespace xyz._8bITProject.cooperace.ui {
 		// public method to handle exit button behaviour
 		public void ExitButtonHandler() {
 
-			// we have to exit the multi-player game
-
-			if (SceneManager.opts.type == GameType.MULTI
-			 || SceneManager.opts.type == GameType.GHOST) {
-				MultiPlayerController.Instance.LeaveGame ();
-			}
-
-			// and transition out of the level
-
-			SceneManager.ExitGameQuit();
+			FinalizeLevel.ExitGame ();
 		}
 
 		// public method to handle a disconnection notification
@@ -70,14 +62,8 @@ namespace xyz._8bITProject.cooperace.ui {
 
 			DisconnectMenu.SetActive (true);
 
-			// there is no way back from there, so it's all good
+			// there is no way back from here, so it's
+			// all good, no need to undo this change
 		}
-
-		// public method to handle clicking exit after a disconnection message
-		public void DisconnectedExitButtonHandler(){
-			SceneManager.ExitGameDisconnect();
-		}
-
-
 	}
 }

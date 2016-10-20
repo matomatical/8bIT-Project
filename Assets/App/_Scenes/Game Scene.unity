@@ -268,7 +268,7 @@ Prefab:
       objectReference: {fileID: 105699130}
     - target: {fileID: 1000011796883170, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0, type: 2}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224000013361984740, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
         type: 2}
@@ -278,7 +278,7 @@ Prefab:
     - target: {fileID: 114000013626022684, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: DisconnectedExitButtonHandler
+      value: ExitButtonHandler
       objectReference: {fileID: 0}
     - target: {fileID: 114000013626022684, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
         type: 2}

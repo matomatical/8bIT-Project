@@ -228,14 +228,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			foreach (FinishLineSerializer finish in finishes) {
 				finish.enabled = true;
-				finish.updateManager = updateManager;
 			}
 				
+			// set up the static state of the finaliser for a new game,
+			// linking it to the update manager
 
-			// Set up Finalize Level, linked to UpdateManager
+			FinalizeLevel.Init (updateManager);
 
-			FinalizeLevel.updateManager = updateManager;
-			FinalizeLevel.sentRequest = false;
 		}
 
 
