@@ -9,6 +9,7 @@
 using UnityEngine;
 using System.Collections;
 using xyz._8bITProject.cooperace.recording;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace {
 	

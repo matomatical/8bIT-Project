@@ -21,7 +21,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 	public class MultiPlayerController : GooglePlayGames.BasicApi.Multiplayer.RealTimeMultiplayerListener
 	{
 		public IRoomListener roomListener;
-		public IUpdateManager updateManager;
+		public UpdateManager updateManager;
 
 		// Making this a singleton
 		private static MultiPlayerController _instance = null;
@@ -30,18 +30,17 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		private uint minimumPartners = 1;
 		private uint maximumPartners = 1;
 
-		// Sticking with a single game mode
-		private uint gameVariation;
-
 		// Whether or not you've started a game
-		private bool startedGame = false;
+		protected bool startedGame = false;
+		protected bool startedMatching = false;
 
 		// Are we the host?
 		public bool? host;
 
-		//
+		// gamer tags
 		public string ourName = GamerTagManager.GetGamerTag ();
-		public string theirName;
+		public string theirName = "???"; // until we know their tag, leave it as "???"
+
 
 		public bool IsHost () {
 			if (host.HasValue)
@@ -49,6 +48,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			else
 				throw new NotYetSetException ("host not yet set");
 		}
+
+
+
+
+
+
+		// SINGLETON PATTERN
 
 		/// initialises the Multiplayer controller instance
 		protected MultiPlayerController()
@@ -64,30 +70,84 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			{
 				if (_instance == null)
 				{
+					#if UNITY_EDITOR
+					_instance = new EditorMultiPlayerController();
+					#else
 					_instance = new MultiPlayerController();
+					#endif
 				}
 				return _instance;
 			}
 		}
 
-		/// Start a new Multiplayer game by looking for someone to play with
-		public virtual void StartMPGame(uint index)
-		{
-			StartMatchMaking(index);
-		}
+
+
+
+
+		// STARTING A GAME
+
 
 		/// Look for a suitable partner to play the game with
-		private void StartMatchMaking(uint index)
+		public virtual void StartMatchMaking(string level, IRoomListener room = null)
 		{
-			gameVariation = index;
-//			if it's the random level
-//			gameVariation = (uint)(UnityEngine.Random.Range(0, Maps.maps.Length - 1) + 1);
+			uint gameVariation = (uint)Maps.GetIndex(level);
 			UILogger.Log("index: "+ gameVariation);
+
+			this.roomListener = room;
+
+			startedMatching = true;
 			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 		}
 
-		/// Let's the player know how the matchmaking process is going
-		private void ShowMPStatus(string message)
+		public virtual void StopMatchMaking(){
+			if (startedMatching && !startedGame) {
+				PlayGamesPlatform.Instance.RealTime.LeaveRoom ();
+				startedMatching = false;
+			}
+		}
+
+
+
+
+
+
+		// ROOM SET UP EVENTS
+
+		/// If connection is established go back to whoever started matchmaking,
+		/// so that they can continue and go to the game
+		/// otherwise print an error message
+		public virtual void OnRoomConnected(bool success)
+		{
+			if (success) {
+				ShowMPStatus("Connected!");
+				startedGame = true;
+				startedMatching = false;
+				updateManager = new UpdateManager ();
+				roomListener.OnConnectionComplete ();
+			}
+			else
+			{
+				ShowMPStatus("Uh-oh. Looks like something went wrong when trying to connect to the room.");
+			}
+		}
+			
+		/// How's progress with setting up the room?
+		public virtual void OnRoomSetupProgress(float percent)
+		{
+			ShowMPStatus("We are " + percent + "% done with setup");
+		}
+
+		/// What to do when a player declines an invitiation to join a room
+		public virtual void OnParticipantLeft(Participant participant)
+		{
+			startedMatching = false;
+			UILogger.Log("Player " + participant.DisplayName + " has left.");
+		}
+
+
+
+		/// Lets the player know how the matchmaking process is going
+		protected void ShowMPStatus(string message)
 		{
 			Debug.Log(message);
 			if (roomListener != null)
@@ -96,66 +156,68 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		/// How's progress with setting up the room?
-		public virtual void OnRoomSetupProgress(float percent)
-		{
-			ShowMPStatus("We are " + percent + "% done with setup");
+
+
+
+
+
+
+		// DURING A GAME
+
+		public virtual void LeaveGame(){
+			if (startedGame) {
+				PlayGamesPlatform.Instance.RealTime.LeaveRoom ();
+				startedGame = false;
+			}
 		}
 
-		/// After connection is established go to the level specified, otherwise print an error message
-		public virtual void OnRoomConnected(bool success)
-		{
-			if (success)
-			{
-				ShowMPStatus("We are connected to the room! WOOHOO!");
-				roomListener.HideRoom();
-				roomListener = null;
-				startedGame = true;
-				SceneManager.StartMultiplayerGame (Maps.maps [gameVariation]);
-			}
-			else
-			{
-				ShowMPStatus("Uh-oh. Looks like something went wrong when trying to connect to the room.");
-			}
-		}
+
+
+		// ROOM EVENTS DURING GAMEPLAY
 
 		/// What to do if the player leaves the room.
 		public virtual void OnLeftRoom()
 		{
-			ShowMPStatus("We have left the room. We should probably perform some clean-up stuff.");
 			UILogger.Log("I have left the game");
-			//LeaveRoom(startedGame);
-
 		}
 
-		/// What to do when a particular player leaves the room
-		public virtual void OnParticipantLeft(Participant participant)
-		{
-			UILogger.Log("Player " + participant.DisplayName + " has left.");
-			LeaveRoom(startedGame);
-			//UIHelper.LeftGameMenu();
-
-		}
 
 		/// What to do when a player has joined the room
-		public virtual void OnPeersConnected(string[] participantIds)
-		{
-			foreach (string participantID in participantIds)
-			{
-				ShowMPStatus("Player " + participantID + " has joined.");
+		public virtual void OnPeersConnected(string[] participantIds) {
+			foreach (string participantID in participantIds) {
+				UILogger.Log("Player " + participantID + " has joined.");
 			}
 		}
 
 		/// What to do when players leave the room
-		public virtual void OnPeersDisconnected(string[] participantIds)
-		{
-			//UIHelper.LeftGameMenu();
-			foreach (string participantID in participantIds)
-			{
+		public virtual void OnPeersDisconnected(string[] participantIds) {
+			foreach (string participantID in participantIds) {
 				UILogger.Log("Player " + participantID + " has left.");
 			}
-			LeaveRoom(startedGame);
 		}
+
+
+
+
+
+		// WHO IS IN THE ROOM?
+
+		/// Get a list of all Participants in the room
+		public virtual List<Participant> GetAllPlayers() {
+			return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
+		}
+
+		/// Returns the ParticipantID of the device
+		public virtual string GetMyParticipantId() {
+			return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
+		}
+
+
+
+
+
+		// NETWORK EVENT DURING GAMEPLAY
+
 
 		/* Called when an update is recieved from a peer
 		 * 
@@ -176,43 +238,18 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			}
 		}
 
-		/// Get a list of all Participants in the room
-		public virtual List<Participant> GetAllPlayers()
-		{
-			return PlayGamesPlatform.Instance.RealTime.GetConnectedParticipants();
-		}
 
-		/// Returns the ParticipantID of the device
-		public virtual string GetMyParticipantId()
-		{
-			return PlayGamesPlatform.Instance.RealTime.GetSelf().ParticipantId;
-		}
+
 
 		/// Sends an update to all participants in the room using the reliable protocol
-		public virtual void SendMyReliable(List<byte> data)
-		{
+		public virtual void SendMyReliable(List<byte> data) {
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(true, data.ToArray ());
 		}
 
 		/// Sends an update to all participants in the room using the unreliable protocol
-		public virtual void SendMyUnreliable(List<byte> data)
-		{
+		public virtual void SendMyUnreliable(List<byte> data) {
 			PlayGamesPlatform.Instance.RealTime.SendMessageToAll(false, data.ToArray ());
 		}
 
-		/// Leave a room appropriately
-		private void LeaveRoom(bool startedGame) {
-			if (startedGame) {
-				// If the game has started and your partner leaves, bring up a menu notifying
-				// the player
-
-				UIHelper.LeftGameMenu ();
-
-			} else {
-				// restart the matchmaking process
-				UIHelper.LeaveRoom();
-				//_instance.StartMPGame();
-			}
-		}
 	}
 }

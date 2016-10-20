@@ -16,140 +16,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 {
 	public class MultiplayerInit : MonoBehaviour {
 
-		#if UNITY_EDITOR
-		static bool editor = true;
-		#else
-		static bool editor = false;
-		#endif
 
+		/// welcome to the start of our multiplayer connection!
+		/// today we will be setting up a level with all of
+		/// its child objects and their components, so that they
+		/// can send and receive updates over the network!
 		public static void MultiplayerAwake(GameObject level){
-			if(editor){
-				InEditorInit (level);
-			} else {
-				OnAndroidInit (level);
-			}
-		}
-
-		// code that should probably be called:
-
-//		MultiPlayerController.Instance.roomListener = this;
-//		MultiPlayerController.Instance.StartMPGame((uint)currentLevelIndex_);
-//		MultiPlayerController.Instance.StartMPGame(currentLevelIndex_);
-
-
-		/// According to monodevelop's intelligent documentation generator, this method
-		/// 'Ins the editor init'. Well, I think that just about says it all!
-		/// 
-		/// (Actually, this method initialises the components and objects inside a
-		///  level, specifically in a way to play a multiplayer game inside the unity
-		///  editor, rather than on a device)
-		static void InEditorInit (GameObject level){
-
-			// Get player1 and player2 game objects
-			PlayerSerializer[] players = level.GetComponentsInChildren<PlayerSerializer>();
-			PlayerSerializer player1 = players[0];
-			PlayerSerializer player2 = players[1];
-
-
-			// Set up updateManager
-			UpdateManager updateManager = new UpdateManager();
-
-
-			// Make sure one player is remote
-			player2.GetComponent<LerpingPhysicsController> ().enabled = true;
-
-			// Tell update manager about the serialiser for player 2 so updates get recieved
-			player2.enabled = true;
-			updateManager.Subscribe(player2, UpdateManager.Channel.PLAYER);
-
-
-			// Make sure one player is local
-			player1.GetComponent<LocalPlayerController> ().enabled = true;
-
-			// Tell player 1 to send updates to the update manager
-			player1.enabled = true;
-			player1.updateManager = updateManager;
-
-
-			// link clock with updateManager
-			ClockController clock = FindObjectOfType<ClockController> ();
-			updateManager.clock = clock;
-
-
-			// link chat with updateManager
-
-			ChatController chat = FindObjectOfType<ChatController>();
-
-			updateManager.chatController = chat;
-			chat.updateManager = updateManager;
-
-
-			// camera should have a reference to the player to-be-followed
-
-			CameraController camera = FindObjectOfType<CameraController> ();
-			camera.target = player1.GetComponent<ArcadePhysicsController>();
-
-
-
-			// push blocks should also respond to collisions rather than
-			// remote updates
-
-			foreach (PushBlockController pbc in
-				level.GetComponentsInChildren<PushBlockController>()){
-
-				pbc.enabled = true;
-			}
-
-
-
-			// keys, key blocks and pressure plates should respond to
-			// collisions, not remote updates!
-
-			foreach (KeyController key in
-				level.GetComponentsInChildren<KeyController>()) {
-
-				key.enabled = true;
-			}
-
-			foreach (PressurePlateController plate in
-				level.GetComponentsInChildren<PressurePlateController>()) {
-
-				plate.enabled = true;
-			}
-
-			foreach (KeyBlockController block in
-				level.GetComponentsInChildren<KeyBlockController>()) {
-
-				block.enabled = true;
-			}
-
-
-
-			// all of these obstacles need to be set up to notify the 
-			// update manager when something changes!
-
-			foreach (BoolObstacleSerializer obstacle in level.GetComponentsInChildren<BoolObstacleSerializer>()) {
-
-				obstacle.enabled = true;
-
-				obstacle.updateManager = updateManager;
-
-				// for now, ALSO subscribe them all
-				updateManager.Subscribe(obstacle, UpdateManager.Channel.OBSTACLE);
-			}
-
-			// assign IDs to all objects, too
-
-			SetObjectIDs (level);
-
-		}
-
-		/// Set up a level and its child objects and their components to
-		/// play a multi-player game, deciding who is the host and enabling
-		/// all of the necessary components
-		/// 
-		static void OnAndroidInit(GameObject level){
-
 
 			// decide which player is the host by participant ID
 
@@ -162,6 +34,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			MultiPlayerController.Instance.host = host;
 
 			UILogger.Log("I am the " + (host ? "host" : "client"));
+
 
 			// Get localPlayer and remotePlayer gameObjects sorted
 
@@ -182,8 +55,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			// Enter update manager, stage left!
 
-			UpdateManager updateManager = new UpdateManager();
-			MultiPlayerController.Instance.updateManager = updateManager;
+			UpdateManager updateManager = MultiPlayerController.Instance.updateManager;
 
 
 			// link clock with updateManager
@@ -205,6 +77,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			CameraController camera = FindObjectOfType<CameraController> ();
 
 			camera.target = localPlayer.GetComponent<ArcadePhysicsController>();
+
+
+
+
 
 
 
@@ -230,6 +106,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			InitializeFinalization (level, updateManager);
 
+
+
+			// Dont forget to let our peer know our gamertag!
+
+			updateManager.SendGamerTag ();
 		}
 
 		static void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){

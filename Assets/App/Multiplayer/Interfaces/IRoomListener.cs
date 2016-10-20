@@ -14,5 +14,8 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		/// Hide the room
 		void HideRoom();
+
+		/// Called on completion of connection
+		void OnConnectionComplete();
 	}
 }

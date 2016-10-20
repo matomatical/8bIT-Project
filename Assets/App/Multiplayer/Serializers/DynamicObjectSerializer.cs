@@ -24,7 +24,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		protected DynamicObjectInformation lastInfo = null;
 
 		// the update manager which should be told about any updates
-		public IUpdateManager updateManager;
+		public UpdateManager updateManager;
 
         private byte ID;				// The unique ID of the obstacle.
         private bool IDSet = false;		// A unique ID has been assigned

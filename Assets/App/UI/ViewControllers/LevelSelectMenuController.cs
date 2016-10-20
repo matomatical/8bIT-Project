@@ -42,7 +42,6 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		void OnEnable() {
 			// make sure something is loaded when visible
-			PlayGamesPlatform.Activate();
 			UpdateLevelDetails();
 			HideMessage();
 		}
@@ -65,25 +64,23 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public methods to switch the currently displayed level
 		public void SwitchToNextLevel() {
+			MultiPlayerController.Instance.StopMatchMaking ();
 			currentLevelIndex += 1;
 		}
 		public void SwitchToPrevLevel() {
+			MultiPlayerController.Instance.StopMatchMaking ();
 			currentLevelIndex -= 1;
 		}
 
 		// public method to handle play button behaviour
 		public void PlayButtonHandler() {
-			SceneManager.StartMultiplayerGame(Maps.maps[currentLevelIndex_]);
+			MultiPlayerController.Instance.StartMatchMaking (Maps.maps [currentLevelIndex_], this);
 		}
 
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
-			#if UNITY_EDITOR
+			MultiPlayerController.Instance.StopMatchMaking ();
 			UIStateMachine.instance.GoTo(UIState.MainMenu);
-			#else
-			UIHelper.LeaveRoom();
-			UIStateMachine.instance.GoTo(UIState.MainMenu);
-			#endif
 		}
 
 		// IListener methods
@@ -92,6 +89,9 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 		public void HideRoom() {
 			// HideMessage();
+		}
+		public void OnConnectionComplete(){
+			SceneManager.StartMultiplayerGame(Maps.maps[currentLevelIndex_]);
 		}
 
 	}

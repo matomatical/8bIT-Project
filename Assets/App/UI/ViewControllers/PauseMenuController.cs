@@ -8,6 +8,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class PauseMenuController : MonoBehaviour {
@@ -24,7 +25,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle exit button behaviour
 		public void ExitButtonHandler() {
-			UIHelper.LeaveRoom ();
+			MultiPlayerController.Instance.LeaveGame ();
 			SceneManager.LoadMainMenu ();
 		}
 

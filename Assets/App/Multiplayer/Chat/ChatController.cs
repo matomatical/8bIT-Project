@@ -16,7 +16,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public class ChatController : MonoBehaviour {
 		
 		// the update manager which should be told about any updates
-		public IUpdateManager updateManager;
+		public UpdateManager updateManager;
 
 		// A record of every message sent
 		private ChatHistory chatHistory = new ChatHistory ();

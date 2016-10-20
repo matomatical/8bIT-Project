@@ -100,7 +100,7 @@ namespace xyz._8bITProject.cooperace.recording {
 
 			ReplayingController replayer = FindObjectOfType<ReplayingController>();
 			replayer.enabled = true;
-			replayer.level = level.GetComponent<TiledMap>();
+			replayer.level = ghost.GetComponent<TiledMap>();
 
 			// but don't start playing just yet! Wait till someone crosses
 			// the start lines in the first level, actually!

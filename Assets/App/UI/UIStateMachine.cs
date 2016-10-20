@@ -40,6 +40,7 @@ namespace xyz._8bITProject.cooperace.ui {
 				currentState = UIState.GamerTagMenu;
 			}
 
+			// make sure each 
 			foreach (UIState state in System.Enum.GetValues(typeof(UIState))) {
 				Close (state);
 			}

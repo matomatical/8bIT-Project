@@ -14,7 +14,7 @@ using xyz._8bITProject.cooperace.persistence;
 using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.ui {
-	public class RecordingsMenuController : MonoBehaviour {
+	public class RecordingsMenuController : MonoBehaviour, IRoomListener {
 
 		// ui elements
 		public Text levelNameText;
@@ -25,6 +25,9 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// list of recordings
 		string[] recordings;
+
+		/// The currently selected recording
+		Recording recording;
 
 		// list of recordings is nonempty
 		bool recordingsExist = true;
@@ -73,15 +76,17 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public methods to switch the currently displayed recording
 		public void SwitchToNextRecording() {
+			MultiPlayerController.Instance.StopMatchMaking ();
 			currentRecordingIndex += 1;
 		}
 		public void SwitchToPrevRecording() {
+			MultiPlayerController.Instance.StopMatchMaking ();
 			currentRecordingIndex -= 1;
 		}
 
 		// public method to handle watch button behaviour
 		public void WatchButtonHandler() {
-
+			MultiPlayerController.Instance.StopMatchMaking ();
 			if (recordingsExist) {
 
 				Recording recording = null;
@@ -105,6 +110,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle play vs ghost button behaviour
 		public void GhostButtonHandler() {
+			MultiPlayerController.Instance.StopMatchMaking ();
 			if (recordingsExist) {
 
 				Recording recording = null;
@@ -120,13 +126,15 @@ namespace xyz._8bITProject.cooperace.ui {
 				if (recording == null) {
 					return;
 				}
-
-				SceneManager.StartPlayagainstGame (recording.level, recording);
+					
+				this.recording = recording;
+				MultiPlayerController.Instance.StartMatchMaking (recording.level, this);
 			}
 		}
 
 		// public method to handle delete recording button behaviour
 		public void DeleteButtonHandler() {
+			MultiPlayerController.Instance.StopMatchMaking ();
 			if (recordingsExist) {
 				HideMessage ();
 				confirmationPanel.SetActive (true);
@@ -149,7 +157,7 @@ namespace xyz._8bITProject.cooperace.ui {
 			
 			if (recordings.Length < 1) {
 				recordingsExist = false;
-				DisplayMessage ("No recordings found.\n\nPlay a game and\nsave a recording.");
+				DisplayMessage ("No recordings found.\n\nPlay a game and save a recording.");
 			}
 		}
 
@@ -160,6 +168,7 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
+			MultiPlayerController.Instance.StopMatchMaking ();
 			UIStateMachine.instance.GoTo(UIState.MainMenu);
 		}
 
@@ -180,5 +189,15 @@ namespace xyz._8bITProject.cooperace.ui {
 			messageText.gameObject.SetActive(false);
 		}
 
+		// IListener methods
+		public void SetRoomStatusMessage(string message) {
+			DisplayMessage(message);
+		}
+		public void HideRoom() {
+			 HideMessage();
+		}
+		public void OnConnectionComplete(){
+			SceneManager.StartPlayagainstGame(this.recording.level, this.recording);
+		}
 	}
 }

@@ -15,13 +15,7 @@ using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
-	public class UpdateManager : IUpdateManager, IObservable<List<byte>,UpdateManager.Channel>
-	{
-		#if UNITY_EDITOR
-		static bool editor = true;
-		#else
-		static bool editor = false;
-		#endif
+	public class UpdateManager : IObservable<List<byte>,UpdateManager.Channel> {
 		
 		// The protcol being used to attach the header
 		public static readonly byte PROTOCOL_VERSION = 0;
@@ -60,7 +54,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// The ClockController which should be told about clock updates
 		public ClockController clock;
 
-		private bool sentGamerTag = false;
 
 		// OBSERVER PATTERN
 
@@ -161,11 +154,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
 			ApplyHeader(data, OBSTACLE);
 
-			if (editor) {
-				HandleUpdate (data, "myself");
-			} else {
-				MultiPlayerController.Instance.SendMyReliable (data);
-			}
+			MultiPlayerController.Instance.SendMyReliable (data);
 
 			Debug.Log ("Sending obstacle update");
 		}
@@ -174,36 +163,27 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendPlayerUpdate (List<byte> data)
 		{
 			ApplyHeader(data, PLAYER);
-			if (editor) {
-				HandleUpdate(data, "memes");
-			} else {
-				MultiPlayerController.Instance.SendMyUnreliable(data);
-			}
+
+			MultiPlayerController.Instance.SendMyUnreliable(data);
 			
 			Debug.Log ("Sending player update");
+		}
 
-			if (!sentGamerTag) {
-				List<byte> gamerTagUpdate = new List <byte> ();
+		public void SendGamerTag(){
+			List<byte> gamerTagUpdate = new List <byte> ();
 
-				gamerTagUpdate.AddRange(Encoding.ASCII.GetBytes(GamerTagManager.GetGamerTag ()));
+			gamerTagUpdate.AddRange(Encoding.ASCII.GetBytes(GamerTagManager.GetGamerTag ()));
 
-				ApplyHeader (gamerTagUpdate, GAMER_TAG);
+			ApplyHeader (gamerTagUpdate, GAMER_TAG);
 
-				MultiPlayerController.Instance.SendMyReliable (gamerTagUpdate);
-
-				sentGamerTag = true;
-			}
+			MultiPlayerController.Instance.SendMyReliable (gamerTagUpdate);
 		}
 
 		// Sends an update for a pushblock
 		public void SendPushBlockUpdate(List<byte> data) {
 			ApplyHeader(data, PUSHBLOCK);
-			if (editor) {
-				HandleUpdate(data, "memes");
-			}
-			else {
-				MultiPlayerController.Instance.SendMyReliable(data);
-			}
+
+			MultiPlayerController.Instance.SendMyReliable(data);
 
 			Debug.Log("Sending push block update");
 		}
@@ -213,11 +193,9 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendTextChat (List<byte> data)
 		{
 			ApplyHeader(data, CHAT);
-			if (editor) {
-				HandleUpdate(data, "myself");
-			} else {
-				MultiPlayerController.Instance.SendMyReliable (data);	
-			}
+
+			MultiPlayerController.Instance.SendMyReliable (data);	
+
 			Debug.Log ("Sending chat message");
 		}
 
