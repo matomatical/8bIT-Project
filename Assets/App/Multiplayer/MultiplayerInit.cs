@@ -81,9 +81,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 
 
-
-
-
 			// set up objects and their components!
 
 			InitializePlayers (localPlayer, remotePlayer, updateManager);

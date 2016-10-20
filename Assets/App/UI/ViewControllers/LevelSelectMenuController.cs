@@ -62,8 +62,15 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle play button behaviour
 		public void PlayButtonHandler() {
+
+			// set up matchmaking for multiplayer game
+
 			MatchmakingMenuController.previousState = UIState.LevelSelect;
+			MatchmakingMenuController.type = GameType.MULTI;
 			MatchmakingMenuController.level = Maps.maps [currentLevelIndex];
+
+			// start matchmaking!
+
 			UIStateMachine.instance.GoTo(UIState.Matchmaking);
 		}
 

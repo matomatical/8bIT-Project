@@ -121,9 +121,15 @@ namespace xyz._8bITProject.cooperace.ui {
 					return;
 				}
 
-				MatchmakingMenuController.previousState = UIState.LevelSelect;
+				// set up matchmaking for playagainst game
+
+				MatchmakingMenuController.previousState = UIState.RecordingsMenu;
+				MatchmakingMenuController.type = GameType.GHOST;
 				MatchmakingMenuController.level = recording.level;
 				MatchmakingMenuController.recording = recording;
+
+				// start matchmaking!
+
 				UIStateMachine.instance.GoTo(UIState.Matchmaking);
 			}
 		}
