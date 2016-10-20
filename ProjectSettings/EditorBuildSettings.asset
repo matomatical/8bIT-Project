@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/App/_Scenes/Game Scene.unity
-  - enabled: 1
     path: Assets/App/_Scenes/Main GUI.unity
+  - enabled: 1
+    path: Assets/App/_Scenes/Game Scene.unity
   - enabled: 1
     path: Assets/App/_Scenes/PostGameMenu.unity

@@ -41,10 +41,19 @@ namespace xyz._8bITProject.cooperace {
 			Load (Magic.Scenes.GAME_SCENE);
 		}
 
-		public static void ExitGame(ExitType type, Recording recording = null){
-			Debug.Log ("Exiting: " + type + " with " + (recording == null ? "no" : "a new") + " recording");
-			SceneManager.outs = new GameOuts (opts, type, recording);
+		public static void ExitGameFinish(Recording recording = null){
+			SceneManager.outs = new GameOuts (opts, ExitType.FINISH, recording);
 			Load (Magic.Scenes.POSTGAME);
+		}
+
+		public static void ExitGameDisconnect(){
+			SceneManager.outs = new GameOuts (opts, ExitType.DISCONNECT);
+			Load (Magic.Scenes.POSTGAME);
+		}
+
+		public static void ExitGameQuit(){
+			SceneManager.outs = new GameOuts (opts, ExitType.QUIT);
+			Load (Magic.Scenes.MAIN_MENU);
 		}
 	}
 
@@ -68,7 +77,7 @@ namespace xyz._8bITProject.cooperace {
 		public readonly ExitType exit;
 		public readonly string level;
 		public readonly Recording recording;
-		public GameOuts(GameOpts opts, ExitType type, Recording recording){
+		public GameOuts(GameOpts opts, ExitType type, Recording recording = null){
 			this.type = opts.type;
 			this.exit = type;
 			this.level = opts.level;

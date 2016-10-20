@@ -140,7 +140,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public virtual void OnParticipantLeft(Participant participant)
 		{
 			startedMatching = false;
-			UILogger.Log("Player " + participant.DisplayName + " has left.");
+			UILogger.Log("Player " + participant.DisplayName + " has not connected.");
 		}
 
 
@@ -180,17 +180,32 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 
-		/// What to do when a player has joined the room
+		/// What to do when an extra player has joined the room
 		public virtual void OnPeersConnected(string[] participantIds) {
 			foreach (string participantID in participantIds) {
 				UILogger.Log("Player " + participantID + " has joined.");
 			}
 		}
 
-		/// What to do when players leave the room
+		/// What to do when any players leave the room
 		public virtual void OnPeersDisconnected(string[] participantIds) {
 			foreach (string participantID in participantIds) {
 				UILogger.Log("Player " + participantID + " has left.");
+			}
+
+			// we should also exit the room
+
+			LeaveGame ();
+
+			// and we should bring up the disconnection dialog if we are in a game
+			InGameGUIController gui = GameObject.FindObjectOfType<InGameGUIController>();
+			if (gui != null) {
+				// we are in a level
+				gui.DisconnectionHandler ();
+			} else {
+				// we much not be in a level yet
+				// in that case, we have to handle the transition ourselves
+				SceneManager.ExitGameDisconnect();
 			}
 		}
 
@@ -230,8 +245,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			listData.AddRange (data);
 
 			// Tell our update manager about this.
-			if (updateManager != null)
-			{
+			if (updateManager != null) {
 				updateManager.HandleUpdate(listData, senderId);
 			}
 		}

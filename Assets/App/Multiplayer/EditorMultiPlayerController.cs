@@ -95,11 +95,11 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			var list = new List<Participant> ();
 			list.Add (
 				new Participant ("matt", "editor", Participant.ParticipantStatus.Joined,
-					new Player ("matt", "1", "https://s15-us2.ixquick.com/cgi-bin/serveimage?url=http%3A%2F%2Ft2.gstatic.com%2Fimages%3Fq%3Dtbn%3AANd9GcRp4pE8LCsGUPcyGDY-YB0d-UvwsSyeXhDMGrS7eUuAqJkl5SBTJw&sp=cac082468e9fdb45aa30dd9b4a892bdf"),
+					new Player ("matt", "1", ""),
 					true));
 			list.Add (
 				new Participant ("matt", "another ID", Participant.ParticipantStatus.Joined,
-					new Player ("matt", "1", "https://s15-us2.ixquick.com/cgi-bin/serveimage?url=http%3A%2F%2Ft2.gstatic.com%2Fimages%3Fq%3Dtbn%3AANd9GcRp4pE8LCsGUPcyGDY-YB0d-UvwsSyeXhDMGrS7eUuAqJkl5SBTJw&sp=cac082468e9fdb45aa30dd9b4a892bdf"),
+					new Player ("matt", "1", ""),
 					true));
 			return list;
 		}
