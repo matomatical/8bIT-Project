@@ -49,7 +49,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			// If the user is done typing a message, add it to the chat history and send
 			if (keyboard != null && keyboard.done) {
 
-				string currMessage = gamerTag + ":"+keyboard.text;
+				string currMessage = keyboard.text;
 
 				try {
 					chatHistory.AddMessage(currMessage, true);
