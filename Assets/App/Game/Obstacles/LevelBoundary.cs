@@ -7,12 +7,20 @@
 
 using UnityEngine;
 using System.Collections;
+using xyz._8bITProject.cooperace.recording;
 
 namespace xyz._8bITProject.cooperace {
 	public class LevelBoundary : MonoBehaviour {
 
+		public RecordingController recorder;
+
 		void Start(){
-			// need a start method to allow enabling/disabling inside the editor
+			
+			// link components together
+
+			if (recorder == null) {
+				recorder = FindObjectOfType<RecordingController> ();
+			}
 		}
 
 		void OnTriggerEnter2D(Collider2D other) {
@@ -22,7 +30,13 @@ namespace xyz._8bITProject.cooperace {
 					// the game ends when the player touches the exit portal
 					if (other.gameObject.CompareTag (Magic.Tags.PLAYER)) {
 
-						SceneManager.ExitGame (ExitType.FINISH);
+						if (recorder != null) {
+							SceneManager.ExitGame (ExitType.FINISH, recorder.GetRecording ());
+
+						} else {
+							SceneManager.ExitGame (ExitType.FINISH);
+
+						}
 
 					}
 				}

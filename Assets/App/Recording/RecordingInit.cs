@@ -42,9 +42,10 @@ namespace xyz._8bITProject.cooperace.recording {
 			replayer.level = level.GetComponent<TiledMap>();
 
 
-			// start playing straight away!
+			// start playing straight away! also start the clock
 
 			replayer.StartReplaying();
+			FindObjectOfType<ClockController> ().StartTiming ();
 
 
 			// the finish lines in the main level should end
