@@ -55,12 +55,7 @@ namespace xyz._8bITProject.cooperace {
 
 		/// The layer mask to use for detecting collisions that
 		/// prevent the object from moving
-		/// NOTE: by default, set to layers 7 and 8
-		/// (we'd like to use
-		/// 	LayerMask.GetMask(new string[]{"Collision","Obstacle"});
-		/// but unity won't allow this, so the defualt values are
-		/// hard-coded instead, to be overriden in the inspector, anyway)
-		public LayerMask collisionMask = 768;
+		public LayerMask collisionMask = Magic.Layers.COLLISION & Magic.Layers.OBSTACLE;
 
 
 		public struct CollisionInfo {

@@ -18,19 +18,18 @@ namespace xyz._8bITProject.cooperace {
 
 		void Start(){
 
-			// link components together
-
 			clock = FindObjectOfType<ClockController> ();
 		}
 
 		void OnTriggerEnter2D (Collider2D other) {
-			if (this.transform.position.z == other.transform.position.z) {
+			if (ArcadePhysics.SameWorld(this, other)) {
 
 				// only trigger if this component is on
 				if (enabled) {
-
+						
 					// the timer is stopped when a player touches the line
-					clock.StopTiming();
+					// idempotent, so don't worry about calling it more than once
+					clock.StopTiming ();
 
 				}
 			}

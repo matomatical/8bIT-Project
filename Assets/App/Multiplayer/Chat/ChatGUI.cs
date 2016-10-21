@@ -12,7 +12,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public class ChatGUI {
 
 		// font size for the chat messages for when they show up on screen.
-		private int FONTSIZE = 20;
+		private int FONTSIZE = 25;
 
 		// Display the n most recent messages 
 		public readonly int TOPN = 3;
@@ -51,9 +51,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			
 			for (int i = 0; i< recentMessages.Count; i++) {
 				ChatMessage m = recentMessages[i];
+				string display = m.gamerTag + ": " + m.message;
 
 				// display it on screen
-				GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width), m.message, mystyle);
+				GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width),display, mystyle);
 			}
 
 

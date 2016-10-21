@@ -10,13 +10,13 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
 	public class ChatController : MonoBehaviour {
 		
 		// the update manager which should be told about any updates
-		public IUpdateManager updateManager;
+		public UpdateManager updateManager;
 
 		// A record of every message sent
 		private ChatHistory chatHistory = new ChatHistory ();
@@ -40,25 +40,29 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
 		/// Update is called once per frame
 		void Update() {
-			List<byte> messageList;
 			// If the user is done typing a message, add it to the chat history and send
 			if (keyboard != null && keyboard.done) {
 
-				string currMessage = keyboard.text;
-
-				try {
-					chatHistory.AddMessage(currMessage, true);
-				}
-				catch (Exception e) {
-					Debug.Log (e.Message);
-				}
-
-				if (updateManager != null) {
-					messageList = Serialize (currMessage);
-					updateManager.SendTextChat (messageList);
-				}
-
+				SendMessage(keyboard.text);
 				keyboard = null;
+			}
+		}
+		
+		/// Method to send a message.
+		new public void SendMessage(string message) {
+			try {
+				ChatMessage m = new ChatMessage(message, MultiPlayerController.Instance.ourName);
+				chatHistory.AddMessage(m);
+			}
+			catch (ArgumentNullException e) {
+				Debug.Log (e.Message);
+			}
+
+			if (updateManager != null) {
+				List<byte> messageList;
+
+				messageList = Serialize (message);
+				updateManager.SendTextChat (messageList);
 			}
 		}
 
@@ -73,9 +77,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			string strMessage = Deserialize (message);
 
 			try {
-				chatHistory.AddMessage(strMessage, false);
+				ChatMessage m = new ChatMessage(strMessage, MultiPlayerController.Instance.theirName);
+				chatHistory.AddMessage(m);
 			}
-			catch (Exception e) {
+			catch (ArgumentNullException e) {
 				Debug.Log (e.Message);
 			}
 

@@ -17,7 +17,7 @@ namespace xyz._8bITProject.cooperace {
 
 
 		// collision layer is named "Collision"
-
+		// would like to use Magic here but can't for some reason - editor script :(
 		private int collisionLayer = LayerMask.NameToLayer("Collision");
 
 

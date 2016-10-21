@@ -16,7 +16,7 @@ namespace xyz._8bITProject.cooperace {
 
 		// who can push this block?
 
-		public LayerMask pushersMask;
+		public LayerMask pushersMask = Magic.Layers.PLAYER;
 
 		// how fast could they push it (with one pusher?)
 

@@ -50,22 +50,15 @@ namespace xyz._8bITProject.cooperace.recording {
 				gameObject => gameObject.enabled).ToArray ();
 			statics = statics.OrderBy(
 				gameObject => gameObject.name ).ToArray();
-
-			// TODO: someone else should be setting up this recording
-			// then they can also pause it etc
-
-			timer.StartTiming ();
-
-			StartReplaying (Recording.jsonRecordingString);
+			
 		}
 
 		/// start replaying if we haven't already
-		public void StartReplaying(string recording){
+		public void StartReplaying(){
 			
 			if(!hasStarted) {
 
-				this.recording =
-					JsonUtility.FromJson<Recording>(recording);
+				this.recording = SceneManager.opts.recording;
 				
 				isReplaying = true;
 				hasStarted = true;

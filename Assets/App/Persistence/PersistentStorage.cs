@@ -10,6 +10,7 @@
 
 using System;
 using System.IO;
+using System.IO.IsolatedStorage;
 using UnityEngine;
 
 namespace xyz._8bITProject.cooperace.persistence {
@@ -69,6 +70,9 @@ namespace xyz._8bITProject.cooperace.persistence {
 			} catch (DirectoryNotFoundException) {
 				return "";
 			} catch (FileNotFoundException) {
+				return "";
+			// need for android
+			} catch (IsolatedStorageException) {
 				return "";
 			// wrap any other errors
 			} catch (IOException e) {

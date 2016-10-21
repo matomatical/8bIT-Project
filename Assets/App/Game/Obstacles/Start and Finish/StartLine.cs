@@ -19,16 +19,16 @@ namespace xyz._8bITProject.cooperace {
 			// link components together
 
 			clock = FindObjectOfType<ClockController> ();
+
 		}
 
 		void OnTriggerEnter2D (Collider2D other) {
-			
-			if (this.transform.position.z == other.transform.position.z) {
+			if (ArcadePhysics.SameWorld(this, other)) {
 
 				if (enabled) { // only trigger if this component is on
 
 					// start the clock the first time a player comes through!
-					if (other.gameObject.CompareTag ("Player")) {
+					if (other.gameObject.CompareTag (Magic.Tags.PLAYER)) {
 
 						clock.StartTiming ();
 

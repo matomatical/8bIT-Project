@@ -8,18 +8,14 @@
  * Matt Farrugia < farrugiam@student.unimelb.edu.au >
  */
 using System;
+using System.Text;
 using UnityEngine;
 using System.Collections.Generic;
+using xyz._8bITProject.cooperace.persistence;
 
 namespace xyz._8bITProject.cooperace.multiplayer
 {
-	public class UpdateManager : IUpdateManager, IObservable<List<byte>,UpdateManager.Channel>
-	{
-		#if UNITY_EDITOR
-		static bool editor = true;
-		#else
-		static bool editor = false;
-		#endif
+	public class UpdateManager : IObservable<List<byte>,UpdateManager.Channel> {
 		
 		// The protcol being used to attach the header
 		public static readonly byte PROTOCOL_VERSION = 0;
@@ -42,12 +38,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Leaderboards update identifier
 		public static readonly byte LEADERBOARDS = BitConverter.GetBytes ('l')[0];
 
+		// Gamer tag update identifier
+		public static readonly byte GAMER_TAG = BitConverter.GetBytes('g')[0];
 
 		// The body of the message sent when the clock is to be started
-		private static readonly byte START_CLOCK = 1;
+		public static readonly float START_CLOCK = 0f;
 
-		// The body of the message sent when the clock is to be stopped
-		private static readonly byte STOP_CLOCK = 0;
+		// The body of the message sent if the clock is to be stopped, but not set to a paticular time
+		public const float STOP_CLOCK = -1f;
 
 
 		// The ChatController to which chat message updates should be sent
@@ -130,15 +128,12 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				} else if (header.messageType == CLOCK && clock != null) {
 					Debug.Log ("Notifying Clock");
 
-					// Start or stop the clock as appropriate
-					if (data [0] == START_CLOCK) {
-						clock.StartTiming ();
-					} else if (data [0] == STOP_CLOCK) {
-						clock.StopTiming ();
-						FinalizeLevel.FinalizeGame (clock.GetTime ());
-					}
+					ApplyClockUpdate (data);
 				} else if (header.messageType == LEADERBOARDS) {
 					FinalizeLevel.position = data [0];
+					FinalizeLevel.positionSet = true;
+				} else if (header.messageType == GAMER_TAG) {
+					MultiPlayerController.Instance.theirName = Encoding.ASCII.GetString (data.ToArray ());
 				} else {
 					throw new MessageHeaderException ("invalid update identifier");
 				}
@@ -153,11 +148,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
 			ApplyHeader(data, OBSTACLE);
 
-			if (editor) {
-				HandleUpdate (data, "myself");
-			} else {
-				MultiPlayerController.Instance.SendMyReliable (data);
-			}
+			MultiPlayerController.Instance.SendMyReliable (data);
 
 			Debug.Log ("Sending obstacle update");
 		}
@@ -166,24 +157,27 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendPlayerUpdate (List<byte> data)
 		{
 			ApplyHeader(data, PLAYER);
-			if (editor) {
-				HandleUpdate(data, "memes");
-			} else {
-				MultiPlayerController.Instance.SendMyUnreliable(data);
-			}
+
+			MultiPlayerController.Instance.SendMyUnreliable(data);
 			
 			Debug.Log ("Sending player update");
+		}
+
+		public void SendGamerTag(){
+			List<byte> gamerTagUpdate = new List <byte> ();
+
+			gamerTagUpdate.AddRange(Encoding.ASCII.GetBytes(GamerTagManager.GetGamerTag ()));
+
+			ApplyHeader (gamerTagUpdate, GAMER_TAG);
+
+			MultiPlayerController.Instance.SendMyReliable (gamerTagUpdate);
 		}
 
 		// Sends an update for a pushblock
 		public void SendPushBlockUpdate(List<byte> data) {
 			ApplyHeader(data, PUSHBLOCK);
-			if (editor) {
-				HandleUpdate(data, "memes");
-			}
-			else {
-				MultiPlayerController.Instance.SendMyReliable(data);
-			}
+
+			MultiPlayerController.Instance.SendMyReliable(data);
 
 			Debug.Log("Sending push block update");
 		}
@@ -193,24 +187,22 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public void SendTextChat (List<byte> data)
 		{
 			ApplyHeader(data, CHAT);
-			if (editor) {
-				HandleUpdate(data, "myself");
-			} else {
-				MultiPlayerController.Instance.SendMyReliable (data);	
-			}
+
+			MultiPlayerController.Instance.SendMyReliable (data);	
+
 			Debug.Log ("Sending chat message");
 		}
 
 		public void SendStartClock () {
 			List<byte> update = new List<byte> ();
-			update.Add (START_CLOCK);
+			update.AddRange (BitConverter.GetBytes(START_CLOCK));
 			ApplyHeader (update, CLOCK);
 			MultiPlayerController.Instance.SendMyReliable (update);
 		}
 
-		public void SendStopClock () {
+		public void SendStopClock (float time = STOP_CLOCK) {
 			List<byte> update = new List<byte> ();
-			update.Add (STOP_CLOCK);
+			update.AddRange (BitConverter.GetBytes(time));
 			ApplyHeader (update, CLOCK);
 			MultiPlayerController.Instance.SendMyReliable (update);
 		}
@@ -224,6 +216,25 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		private void ApplyHeader (List<byte> data, byte type) {
 			HeaderManager.ApplyHeader (data, new HeaderManager.Header (PROTOCOL_VERSION, type));
+		}
+
+		// Helper method used by HandleUpdate to take a clock update and act accordingly
+		private void ApplyClockUpdate (List<byte> data) {
+			
+			// Get the time sent with the notification
+			float time = BitConverter.ToSingle (data.ToArray (), 0);
+
+			// Start or stop the clock as appropriate
+			if (time == START_CLOCK) {
+				clock.StartTiming ();
+			} else if (time == STOP_CLOCK) {
+				clock.StopTiming ();
+				FinalizeLevel.CrossFinishLine (clock.GetTime ());
+			} else {
+				clock.StopTiming ();
+				clock.SetTime (time);
+				FinalizeLevel.CrossFinishLine (time);
+			}
 		}
 	}
 }

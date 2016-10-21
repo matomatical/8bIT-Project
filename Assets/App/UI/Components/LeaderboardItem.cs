@@ -8,8 +8,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using xyz._8bITProject.cooperace.leaderboard;
 
-namespace xyz._8bITProject.cooperace.leaderboard {
+namespace xyz._8bITProject.cooperace.ui {
 
 	public class LeaderboardItem : MonoBehaviour {
 
