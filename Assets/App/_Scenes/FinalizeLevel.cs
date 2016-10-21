@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿/*
+ * A static class for managing the proper ending of a game
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
+
+using UnityEngine;
 using System.Collections;
 using System.Threading;
 using xyz._8bITProject.cooperace.leaderboard;

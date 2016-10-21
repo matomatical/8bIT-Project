@@ -1,4 +1,20 @@
-﻿using System;
+﻿/*
+ * Stands in for the google play games controller that is used
+ * on android, pretending to call the relevant methods from that,
+ * to allow for testing of some multiplayer features inside the editor
+ * 
+ * At the moment, it sets things up so that all messages sent through
+ * the controllers send messages are just looped back to the same update
+ * manager.
+ * 
+ * Possible extensions include adding a second update manager that messages can
+ * be sent between.
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
+using System;
 using System.Collections.Generic;
 using GooglePlayGames.BasicApi.Multiplayer;
 using UnityEngine;
@@ -7,8 +23,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public class EditorMultiPlayerController : MultiPlayerController
 	{
 
-		// STARTING A GAME
+		/// This variable should be toggled depending if you want to
+		/// pretend to be the host or not
+		private bool editorhost = true;
 
+
+
+		// STARTING A GAME
 
 		/// Look for a suitable partner to play the game with
 		public override void StartMatchMaking(string level, IRoomListener room = null)
@@ -32,10 +53,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		}
 
 
-
-
-
-
 		// ROOM SET UP EVENTS
 
 		/// If connection is established go back to whoever started matchmaking,
@@ -47,7 +64,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				ShowMPStatus("Connected!");
 				startedGame = true;
 				startedMatching = false;
-				updateManager = new UpdateManager (); // TODO later we'll do something really clever here
+				updateManager = new UpdateManager ();
 				roomListener.OnConnectionComplete ();
 			}
 			else
@@ -70,9 +87,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		}
 
 
-
-
-
 		// DURING A GAME
 
 		public override void LeaveGame(){
@@ -85,10 +99,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		}
 
 
-
 		// WHO IS IN THE ROOM?
-
-		private bool editorhost = true;
 
 		/// Get a list of all Participants in the room
 		public override List<Participant> GetAllPlayers() {
@@ -108,8 +119,6 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		public override string GetMyParticipantId() {
 			return (editorhost ? "editor" : "another ID");
 		}
-
-
 
 
 

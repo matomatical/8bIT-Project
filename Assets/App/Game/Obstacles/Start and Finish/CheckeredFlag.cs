@@ -1,4 +1,14 @@
-﻿using UnityEngine;
+﻿/*
+ * This component determines the correct checkered pattern to
+ * display depending on the location of its object! If the
+ * object is in an (odd, odd) or (even, even) position, it will
+ * use one pattern, and a complementary pattern otherwise.
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using System.Collections;
 
 public class CheckeredFlag : MonoBehaviour {
@@ -10,7 +20,7 @@ public class CheckeredFlag : MonoBehaviour {
 
 		// where are we?
 
-		Vector2 position = transform.position;
+		Vector2 position = transform.localPosition;
 		int x = (int)position.x;
 		int y = (int)position.y;
 

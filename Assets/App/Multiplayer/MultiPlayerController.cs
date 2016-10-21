@@ -37,11 +37,16 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		// Are we the host?
 		public bool? host;
 
-		// gamer tags
+		/// our game tag
 		public string ourName = GamerTagManager.GetGamerTag ();
-		public string theirName = "???"; // until we know their tag, leave it as "???"
 
+		/// their gamer tag
+		public string theirName = "???"; // until we know their tag, leave this as "???"
 
+		/// <summary>
+		/// Determines whether this instance is host.
+		/// </summary>
+		/// <returns><c>true</c> if this instance is host; otherwise, <c>false</c>.</returns>
 		public bool IsHost () {
 			if (host.HasValue)
 				return host.Value;
@@ -50,20 +55,16 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		}
 
 
-
-
-
-
 		// SINGLETON PATTERN
 
-		/// initialises the Multiplayer controller instance
+		/// initialise the Multiplayer controller instance
 		protected MultiPlayerController()
 		{
 			PlayGamesPlatform.Activate();
 			PlayGamesPlatform.DebugLogEnabled = true;
 		}
 
-		/// makes multiplayer controller a singleton
+		/// get the singleton instance
 		public static MultiPlayerController Instance
 		{
 			get
@@ -82,10 +83,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 
 
-
-
 		// STARTING A GAME
-
 
 		/// Look for a suitable partner to play the game with
 		public virtual void StartMatchMaking(string level, IRoomListener room = null)
@@ -100,16 +98,13 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			PlayGamesPlatform.Instance.RealTime.CreateQuickGame(minimumPartners, maximumPartners, gameVariation, this);
 		}
 
+		/// Abandon matchmaking attempt
 		public virtual void StopMatchMaking(){
 			if (startedMatching && !startedGame) {
 				PlayGamesPlatform.Instance.RealTime.LeaveRoom ();
 				startedMatching = false;
 			}
 		}
-
-
-
-
 
 
 		// ROOM SET UP EVENTS
@@ -129,7 +124,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				ShowMPStatus("Failed to connect.");
 			}
 		}
-			
+
 		/// How's progress with setting up the room?
 		public virtual void OnRoomSetupProgress(float percent)
 		{
@@ -141,9 +136,11 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		{
 			startedMatching = false;
 			UILogger.Log("Player " + participant.DisplayName + " has not connected.");
+
+			// we should also exit the room
+
+			LeaveGame ();
 		}
-
-
 
 		/// Lets the player know how the matchmaking process is going
 		protected void ShowMPStatus(string message)
@@ -153,11 +150,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				roomListener.SetRoomStatusMessage(message);
 			}
 		}
-
-
-
-
-
 
 
 		// DURING A GAME
@@ -172,7 +164,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				startedGame = false;
 			}
 		}
-
 
 
 		// ROOM EVENTS DURING GAMEPLAY

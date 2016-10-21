@@ -1,4 +1,12 @@
-﻿using UnityEngine;
+﻿/*
+ * A static class that provides on-screen message rendering
+ * for debugging purposes.
+ *
+ * Athir Saleem <isaleem@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using System.Collections.Generic;
 using System;
 

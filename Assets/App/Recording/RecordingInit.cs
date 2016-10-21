@@ -1,5 +1,8 @@
 /*
- * ...
+ * This class contains the static methods for setting up a game
+ * for watching a recording and playing against a recording game
+ * in the background, and also setting up a level so that it can
+ * be recorded and the recording can be saved afterwards.
  *
  * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *

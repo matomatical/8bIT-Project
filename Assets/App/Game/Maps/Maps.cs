@@ -17,7 +17,7 @@ namespace xyz._8bITProject.cooperace {
 			"Crossy Level"
 		};
 			
-		/// The index in Maps.maps of the map this this name,
+		/// The index in Maps.maps of the map this name,
 		/// or -1 if the name does not occur
 		public static int GetIndex(string levelName) {
 			for (int i = 0; i < maps.Length; i++) {

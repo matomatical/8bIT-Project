@@ -1,4 +1,16 @@
-﻿using UnityEngine;
+﻿/*
+ * A static class containing all of the magic strings and numbers
+ * used for scene names, object tags, and physics / sorting layers
+ * 
+ * If you find yourself hard coding a string (the name of a layer,
+ * object, component, scene, or anything else), consider adding it
+ * to this class instead!
+ *
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
+ *
+ */
+
+using UnityEngine;
 using System.Collections;
 
 namespace xyz._8bITProject.cooperace {
