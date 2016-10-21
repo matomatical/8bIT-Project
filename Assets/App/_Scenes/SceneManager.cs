@@ -26,10 +26,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// if we're in a networked game, we should leave
 			// the room
-
-			if (MultiPlayerController.Instance.InGame ()) {
-				MultiPlayerController.Instance.LeaveGame ();
-			}
+			MultiPlayerController.Instance.LeaveGame ();
 
 			Load (Magic.Scenes.MAIN_MENU);
 		}
@@ -63,6 +60,11 @@ namespace xyz._8bITProject.cooperace {
 		public static void ExitGameQuit(bool disconnected){
 			ExitType exit = disconnected ? ExitType.DISCONNECT : ExitType.QUIT;
 			SceneManager.outs = new GameOuts (opts, exit);
+
+			// if we're in a networked game, we should leave
+			// the room
+			MultiPlayerController.Instance.LeaveGame ();
+
 			Load (Magic.Scenes.MAIN_MENU);
 		}
 	}
