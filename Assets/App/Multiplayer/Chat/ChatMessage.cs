@@ -17,10 +17,12 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 	public class ChatMessage {
 		// Text to be sent
 		public string message { get; private set; }
+		public string gamerTag { get; private set; }
 
 		/// Use this for initialization
-		public ChatMessage(string message) {
+		public ChatMessage(string message, string gamerTag) {
 			this.message = message;
+			this.gamerTag = gamerTag;
 		}
 
 		/// Check if two objects are equal
@@ -43,7 +45,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// Check if two objects of type ChatMessage are equal
 		public bool Equals(ChatMessage chat) {
 			// Return true if the fields match:
-			return (chat != null) && (chat.message == this.message);
+			return (chat != null) && (chat.message == this.message) && (chat.gamerTag == this.gamerTag);
 		}
 	}
 }

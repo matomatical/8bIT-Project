@@ -11,34 +11,33 @@ using System;
 using System.Collections.Generic;
 
 namespace xyz._8bITProject.cooperace.multiplayer {
-    public class ChatHistory {
+	public class ChatHistory {
 
 		public static readonly int MAX_MESSAGES_STORED = 25;
-        // A record of every single message sent
-        private LinkedList<ChatMessage> history;
+		// A record of every single message sent
+		private LinkedList<ChatMessage> history;
 
-        /// Use this for initialization
-        public ChatHistory() {
-            this.history = new LinkedList<ChatMessage>();
-        }
+		/// Use this for initialization
+		public ChatHistory() {
+			this.history = new LinkedList<ChatMessage>();
+		}
 
-        /// Add a new message to the chat history
-        public void AddMessage(string message) {
-			if (message == "") {
+		/// Add a new message to the chat history
+		public void AddMessage(ChatMessage message) {
+			if (message.message == "") {
 				throw new ArgumentException ("message is empty");
 			} else if (message == null) {
 				throw new ArgumentNullException ("message is null");
 			} else {
-				ChatMessage m = new ChatMessage (message);
-				history.AddFirst (m);
+				history.AddFirst (message);
 
 				if (history.Count >= MAX_MESSAGES_STORED) {
 					history.RemoveLast ();
 				}
 			}
-        }
+		}
 
-        /// Returns the n most recent messages
+		/// Returns the n most recent messages
 		/// The most recent will be at the end of the list
 		public List<ChatMessage> MostRecent(int n) {
 			int i = 0;
@@ -54,10 +53,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			return recent;
 		}
 
-        /// get a copy of the chat history
-        public List<ChatMessage> GetHistory() {
+		/// get a copy of the chat history
+		public List<ChatMessage> GetHistory() {
 			return new List<ChatMessage> (this.history);
-        }
+		}
 
-    }
+	}
 }

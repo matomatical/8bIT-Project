@@ -16,27 +16,27 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 	{
 		[Test]
 		public void EqualsNullShouldReturnFalse () {
-			ChatMessage test = new ChatMessage ("Hello, world!");
+			ChatMessage test = new ChatMessage ("Hello, world!", "MSA");
 			Assert.IsFalse (test.Equals (null));
 		}
 
 		[Test]
 		public void EqualsItselfShouldReturnTrue () {
-			ChatMessage test = new ChatMessage ("Hello, world!");
+			ChatMessage test = new ChatMessage ("Hello, world!", "MSA");
 			Assert.That (test.Equals (test));
 		}
 
 		[Test]
 		public void EqualsACopyShouldReturnTrue () {
-			ChatMessage test0 = new ChatMessage ("Hello, world!");
-			ChatMessage test1 = new ChatMessage ("Hello, world!");
+			ChatMessage test0 = new ChatMessage ("Hello, world!", "MSA");
+			ChatMessage test1 = new ChatMessage ("Hello, world!", "MSA");
 
 			Assert.That (test0.Equals (test1));
 		}
 		[Test]
 		public void EqualsDifferentIDShouldReturnFalse () {
-			ChatMessage test0 = new ChatMessage ("Hello, world!");
-			ChatMessage test1 = new ChatMessage ("Hello, world!1!");
+			ChatMessage test0 = new ChatMessage ("Hello, world!", "MSA");
+			ChatMessage test1 = new ChatMessage ("Hello, world!1!", "MSA");
 
 			Assert.That (!test0.Equals (test1));
 		}
