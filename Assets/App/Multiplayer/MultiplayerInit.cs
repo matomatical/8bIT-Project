@@ -228,7 +228,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		static void InitializeFinalization(GameObject level, UpdateManager updateManager) {
 
 			StartLineSerializer[] starts = level.GetComponentsInChildren<StartLineSerializer> ();
-			FinishLineSerializer[] finishes = level.GetComponentsInChildren<FinishLineSerializer> ();
+			FinishLineSynchronizer[] finishes = level.GetComponentsInChildren<FinishLineSynchronizer> ();
 
 			// Set up the start and finish line blocks to send updates
 			foreach (StartLineSerializer start in starts) {
@@ -236,7 +236,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				start.updateManager = updateManager;
 			}
 
-			foreach (FinishLineSerializer finish in finishes) {
+			foreach (FinishLineSynchronizer finish in finishes) {
 				finish.enabled = true;
 			}
 				

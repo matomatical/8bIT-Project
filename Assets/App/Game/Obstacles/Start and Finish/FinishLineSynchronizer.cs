@@ -12,7 +12,7 @@ using System.Collections;
 using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace {
-	public class FinishLineSerializer : MonoBehaviour {
+	public class FinishLineSynchronizer : MonoBehaviour {
 
 		/// The Clock to get the time from
 		ClockController clock;
