@@ -40,7 +40,7 @@ namespace xyz._8bITProject.cooperace {
 				// transition to the main menu
 				// (this will exit the multiplayer game)
 
-				SceneManager.ExitGameQuit (disconnected);
+				SceneManager.ExitGameOnQuit (disconnected);
 
 			} else {
 
@@ -66,7 +66,7 @@ namespace xyz._8bITProject.cooperace {
 
 			// take it to the postgame menu
 
-			SceneManager.ExitGameFinish (recording, disconnected);
+			SceneManager.ExitGameOnFinish (recording, disconnected);
 		}
 
 

@@ -15,13 +15,22 @@ namespace xyz._8bITProject.cooperace {
 	
 	public static class SceneManager {
 
+		/// This struct contains the information required between
+		/// scenes for properly setting up a game scene for the
+		/// game type we are entering
 		public static GameOpts opts { get; private set; }
+
+		/// After a level (in the postgame menu), this struct has
+		/// all the information about that level including the
+		/// opts that were used to initialize it.
 		public static GameOuts outs { get; private set; }
 
+		/// Used internally by SceneManager to transition between scenes
 		static void Load(string name) {
 			UnityEngine.SceneManagement.SceneManager.LoadScene(name);
 		}
 
+		/// Get out of the game or postgame menu and back to the main menu
 		public static void LoadMainMenu(){
 
 			// if we're in a networked game, we should leave
@@ -31,33 +40,41 @@ namespace xyz._8bITProject.cooperace {
 			Load (Magic.Scenes.MAIN_MENU);
 		}
 
+		/// Start a new replaying of a certain recording
 		public static void StartReplayGame(string level, Recording recording) {
 			SceneManager.opts = new GameOpts (GameType.REWATCH, level, recording);
 			Load (Magic.Scenes.GAME_SCENE);
 		}
 
+		/// After matchmaking has succeeded, start a new multiplayer level
 		public static void StartMultiplayerGame(string level){
 			SceneManager.opts = new GameOpts (GameType.MULTI, level);
 			Load (Magic.Scenes.GAME_SCENE);
 		}
 
+		/// After matchmaking has succeeded, start a new playagainst level
 		public static void StartPlayagainstGame(string level, Recording recording){
 			SceneManager.opts = new GameOpts (GameType.GHOST, level, recording);
 			Load (Magic.Scenes.GAME_SCENE);
 		}
 
-		public static void ExitGameFinish(Recording recording = null, bool disconnected = false){
+		/// Exit the game after finishing a level (after crossing the
+		/// finish line)
+		/// Takes a 'disconnected' boolean, which should be true if we
+		/// came from the disconnection dialog after losing connection
+		/// with another player.
+		public static void ExitGameOnFinish(Recording recording = null, bool disconnected = false){
 			ExitType exit = disconnected ? ExitType.DISCONNECT : ExitType.FINISH;
 			SceneManager.outs = new GameOuts (opts, exit, recording);
 			Load (Magic.Scenes.POSTGAME);
 		}
 
-		public static void ExitGameDisconnect(){
-			SceneManager.outs = new GameOuts (opts, ExitType.DISCONNECT);
-			Load (Magic.Scenes.POSTGAME);
-		}
-
-		public static void ExitGameQuit(bool disconnected){
+		/// Exit the game by quitting (e.g. pressing 'exit' in the pause
+		/// menu or disconnect dialog)
+		/// Takes a 'disconnected' boolean, which should be true if we
+		/// came from the disconnection dialog after losing connection
+		/// with another player.
+		public static void ExitGameOnQuit(bool disconnected){
 			ExitType exit = disconnected ? ExitType.DISCONNECT : ExitType.QUIT;
 			SceneManager.outs = new GameOuts (opts, exit);
 
