@@ -28,17 +28,16 @@ namespace xyz._8bITProject.cooperace {
 			return -1;
 		}
 
-		// Loads and returns a tiled map prefab object,
-		// Levels are identified by name (a string), but passing null will
-		// return a random level instead.
-		// If no level is found, null is returned instead.
+		/// Loads and returns a tiled map prefab object,
+		/// Levels are identified by name (a string), but passing null will
+		/// return a random level instead.
+		/// If no level is found, null is returned instead.
 		public static GameObject Load(string name=null) {
 			if (name == null) {
-				name = maps[Random.Range(0, maps.Length-1)];
+				name = maps[Random.Range(0, maps.Length)];
 			}
 			return Resources.Load("Maps/" + name) as GameObject;
 		}
-
 
 	}
 }
