@@ -364,6 +364,18 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 186285220}
   m_Script: {fileID: 11500000, guid: 53d194f1b6596425282f55b69ca6d2a9, type: 3}
+--- !u!114 &186285222 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010711432856, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
+    type: 2}
+  m_PrefabInternal: {fileID: 186285220}
+  m_Script: {fileID: 11500000, guid: b82337634d7ff4c6ab21ab7d84382dc8, type: 3}
+--- !u!114 &186285223 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114000010473243858, guid: 5fd6b86e58d657a45b1cdf4a066ac3c0,
+    type: 2}
+  m_PrefabInternal: {fileID: 186285220}
+  m_Script: {fileID: 11500000, guid: a85b042eb5266424a9051e8251b3adaa, type: 3}
 --- !u!114 &256504202 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000012343777784, guid: 1938b201b48f14e2f92ec403a1f2b6c4,
@@ -551,12 +563,12 @@ Prefab:
         type: 2}
       propertyPath: joystick
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 186285223}
     - target: {fileID: 114000013783180616, guid: 82a54274b924a44c1a83e9d6cd094ffa,
         type: 2}
       propertyPath: jumpButton
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 186285222}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 82a54274b924a44c1a83e9d6cd094ffa, type: 2}
   m_IsPrefabParent: 0
