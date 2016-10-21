@@ -88,7 +88,7 @@ namespace xyz._8bITProject.cooperace.ui {
 				string partner = SceneManager.outs.partner;
 				string time = Score.TimeToString((int)(SceneManager.outs.time*10));
 				string level = SceneManager.outs.opts.level;
-				string name = level + "in " + time + " with " + partner;
+				string name = level + " in " + time + " with " + partner;
 
 				// and save the recording
 

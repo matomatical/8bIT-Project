@@ -90,12 +90,12 @@ namespace xyz._8bITProject.cooperace {
 		public readonly Recording recording;
 		public readonly float time;
 		public readonly string name, partner;
-		public GameOuts(GameOpts opts, ExitType type, Recording recording = null, float time = -1){
+		public GameOuts(GameOpts opts, ExitType type, Recording recording = null){
 			this.opts = opts;
 			this.exit = type;
 			this.name = MultiPlayerController.Instance.ourName;
 			this.partner = MultiPlayerController.Instance.theirName;
-			this.time = time;
+			this.time = FinalizeLevel.time;
 			this.recording = recording;
 		}
 	}
