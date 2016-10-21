@@ -23,13 +23,13 @@ namespace xyz._8bITProject.cooperace.multiplayer {
         }
 
         /// Add a new message to the chat history
-        public void AddMessage(string message, bool localPlayer) {
+        public void AddMessage(string message) {
 			if (message == "") {
 				throw new ArgumentException ("message is empty");
 			} else if (message == null) {
 				throw new ArgumentNullException ("message is null");
 			} else {
-				ChatMessage m = new ChatMessage (message, localPlayer);
+				ChatMessage m = new ChatMessage (message);
 				history.AddFirst (m);
 
 				if (history.Count >= MAX_MESSAGES_STORED) {

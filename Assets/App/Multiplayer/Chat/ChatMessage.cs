@@ -19,7 +19,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		public string message { get; private set; }
 
 		/// Use this for initialization
-		public ChatMessage(string message, bool localPlayerMsg) {
+		public ChatMessage(string message) {
 			this.message = message;
 		}
 

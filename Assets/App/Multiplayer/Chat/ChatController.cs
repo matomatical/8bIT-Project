@@ -47,7 +47,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				string currMessage = keyboard.text;
 
 				try {
-					chatHistory.AddMessage(currMessage, true);
+					chatHistory.AddMessage(MultiPlayerController.Instance.ourName + ": " + currMessage);
 				}
 				catch (Exception e) {
 					Debug.Log (e.Message);
@@ -73,7 +73,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			string strMessage = Deserialize (message);
 
 			try {
-				chatHistory.AddMessage(MultiPlayerController.Instance.theirName + ":" + strMessage, false);
+				chatHistory.AddMessage(MultiPlayerController.Instance.theirName + ": " + strMessage);
 			}
 			catch (Exception e) {
 				Debug.Log (e.Message);

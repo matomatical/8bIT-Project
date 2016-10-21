@@ -23,9 +23,9 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         public void AddedMessagesShouldBeInHistory () {
             ChatHistory history = new ChatHistory();
 
-            history.AddMessage(message,true);
+            history.AddMessage(message);
 
-			bool containsMessage = ContainsMessage(history, new ChatMessage(message, true));
+			bool containsMessage = ContainsMessage(history, new ChatMessage(message));
 
 			Assert.IsTrue (containsMessage);
         }
@@ -36,26 +36,26 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
         public void MostRecentThreeShouldReturnThreeMostRecentMessages () {
             ChatHistory history = new ChatHistory();
 
-            history.AddMessage("0", true); // first
-            history.AddMessage("1", true); // second
-            history.AddMessage("2", true); // third
-            history.AddMessage("3", true); // fourth
+            history.AddMessage("0"); // first
+            history.AddMessage("1"); // second
+            history.AddMessage("2"); // third
+            history.AddMessage("3"); // fourth
 
             List<ChatMessage> recentMessages = history.MostRecent(3);
 
-			Assert.That (recentMessages[0].Equals(new ChatMessage("1", true)));
-			Assert.That (recentMessages[1].Equals(new ChatMessage("2", true)));
-			Assert.That (recentMessages[2].Equals(new ChatMessage("3", true)));
+			Assert.That (recentMessages[0].Equals(new ChatMessage("1")));
+			Assert.That (recentMessages[1].Equals(new ChatMessage("2")));
+			Assert.That (recentMessages[2].Equals(new ChatMessage("3")));
         }
 
 		[Test]
 		public void MostRecentThreeShouldReturnThreeMessages () {
 			ChatHistory history = new ChatHistory();
 
-			history.AddMessage("0", true); // first
-			history.AddMessage("1", true); // second
-			history.AddMessage("2", true); // third
-			history.AddMessage("3", true); // fourth
+			history.AddMessage("0"); // first
+			history.AddMessage("1"); // second
+			history.AddMessage("2"); // third
+			history.AddMessage("3"); // fourth
 
 			List<ChatMessage> recentMessages = history.MostRecent(3);
 
@@ -66,7 +66,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		public void MostRecentShouldNotReturnMoreMessagesThanItHas () {
 			ChatHistory history = new ChatHistory();
 
-			history.AddMessage("0", true); // first
+			history.AddMessage("0"); // first
 
 			List<ChatMessage> recents = history.MostRecent (3);
 
@@ -79,7 +79,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
             ChatHistory history = new ChatHistory();
 
             try {
-                history.AddMessage("", true);
+                history.AddMessage("");
 				Assert.Fail ("didn't throw ArgumentException when adding a message with an empty body");
             }
             catch (System.ArgumentException e) {
@@ -91,7 +91,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		public void MostRecentZeroShouldReturnEmptyList () {
 			ChatHistory history = new ChatHistory ();
 
-			history.AddMessage (message, true);
+			history.AddMessage (message);
 
 			Assert.That (history.MostRecent (0).Count == 0);
 		}
@@ -99,7 +99,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 		[Test] public void MostRecentNegativeShouldReturnEmptyList () {
 			ChatHistory history = new ChatHistory ();
 
-			history.AddMessage (message, true);
+			history.AddMessage (message);
 
 			Assert.That (history.MostRecent (0).Count == 0);
 
@@ -109,7 +109,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 			ChatHistory history = new ChatHistory ();
 
 			try {
-				history.AddMessage (null, true);
+				history.AddMessage (null);
 				Assert.Fail ("didn't throw ArugmentNullException when adding a message with null body");
 			}
 			catch (ArgumentException e) {
@@ -124,7 +124,7 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
             for (int i=0; i< num; i++) {
                 int len = random.Next(1, 140);
-                ChatMessage m = new ChatMessage(RandomString(len), true);
+                ChatMessage m = new ChatMessage(RandomString(len));
                 messages.Add(m);
             }
 
