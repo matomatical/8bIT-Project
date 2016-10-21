@@ -128,20 +128,7 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				} else if (header.messageType == CLOCK && clock != null) {
 					Debug.Log ("Notifying Clock");
 
-					// Get the time sent with the notification
-					float time = BitConverter.ToSingle (data.ToArray (), 0);
-
-					// Start or stop the clock as appropriate
-					if (time == START_CLOCK) {
-						clock.StartTiming ();
-					} else if (time == STOP_CLOCK) {
-						clock.StopTiming ();
-						FinalizeLevel.CrossFinishLine (clock.GetTime ());
-					} else {
-						clock.StopTiming ();
-						clock.SetTime (time);
-						FinalizeLevel.CrossFinishLine (time);
-					}
+					ApplyClockUpdate (data);
 				} else if (header.messageType == LEADERBOARDS) {
 					FinalizeLevel.position = data [0];
 					FinalizeLevel.positionSet = true;
@@ -229,6 +216,25 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		private void ApplyHeader (List<byte> data, byte type) {
 			HeaderManager.ApplyHeader (data, new HeaderManager.Header (PROTOCOL_VERSION, type));
+		}
+
+		// Helper method used by HandleUpdate to take a clock update and act accordingly
+		private void ApplyClockUpdate (List<byte> data) {
+			
+			// Get the time sent with the notification
+			float time = BitConverter.ToSingle (data.ToArray (), 0);
+
+			// Start or stop the clock as appropriate
+			if (time == START_CLOCK) {
+				clock.StartTiming ();
+			} else if (time == STOP_CLOCK) {
+				clock.StopTiming ();
+				FinalizeLevel.CrossFinishLine (clock.GetTime ());
+			} else {
+				clock.StopTiming ();
+				clock.SetTime (time);
+				FinalizeLevel.CrossFinishLine (time);
+			}
 		}
 	}
 }
