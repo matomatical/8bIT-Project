@@ -40,26 +40,29 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 
 		/// Update is called once per frame
 		void Update() {
-			List<byte> messageList;
 			// If the user is done typing a message, add it to the chat history and send
 			if (keyboard != null && keyboard.done) {
 
-				string currMessage = keyboard.text;
-
-				try {
-					ChatMessage m = new ChatMessage(currMessage, MultiPlayerController.Instance.ourName);
-					chatHistory.AddMessage(m);
-				}
-				catch (Exception e) {
-					Debug.Log (e.Message);
-				}
-
-				if (updateManager != null) {
-					messageList = Serialize (currMessage);
-					updateManager.SendTextChat (messageList);
-				}
-
+				SendMessage(keyboard.text);
 				keyboard = null;
+			}
+		}
+		
+		/// Method to send a message.
+		new public void SendMessage(string message) {
+			try {
+				ChatMessage m = new ChatMessage(message, MultiPlayerController.Instance.ourName);
+				chatHistory.AddMessage(m);
+			}
+			catch (ArgumentNullException e) {
+				Debug.Log (e.Message);
+			}
+
+			if (updateManager != null) {
+				List<byte> messageList;
+
+				messageList = Serialize (message);
+				updateManager.SendTextChat (messageList);
 			}
 		}
 

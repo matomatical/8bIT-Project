@@ -21,6 +21,9 @@ namespace xyz._8bITProject.cooperace.ui {
 		public GameObject PauseButton;
 		public GameObject ChatButton;
 		public GameObject TextClock;
+		
+		public ChatController chatController;
+
 		bool menu = true;
 
 
@@ -46,6 +49,12 @@ namespace xyz._8bITProject.cooperace.ui {
 		public void ExitButtonHandler(bool disconnected) {
 
 			FinalizeLevel.ExitGame (disconnected);
+		}
+		
+		// GO! Button handler, a quick communication function that sends the
+		// message GO! on tapping the screen.
+		public void GoButtonHandler() {
+			chatController.SendMessage("GO!");
 		}
 
 		// public method to handle a disconnection notification
