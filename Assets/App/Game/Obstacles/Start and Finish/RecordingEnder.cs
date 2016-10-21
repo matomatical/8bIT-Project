@@ -17,8 +17,14 @@ namespace xyz._8bITProject.cooperace.recording {
 
 		public RecordingController recorder;
 
+		/// The Clock to stop when we cross the line
+		ClockController clock;
+
 		void Start(){
 
+			// find the clock
+			clock = FindObjectOfType<ClockController> ();
+		
 			// reset static state between games
 			ended = false;
 
@@ -36,7 +42,7 @@ namespace xyz._8bITProject.cooperace.recording {
 					
 					if(ended == false && recorder != null){
 
-						recorder.EndRecording();
+						recorder.EndRecording(clock.GetTime());
 
 						ended = true;
 					}

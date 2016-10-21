@@ -9,6 +9,7 @@ using UnityEngine;
 using System.Collections;
 using xyz._8bITProject.cooperace.recording;
 using xyz._8bITProject.cooperace.persistence;
+using xyz._8bITProject.cooperace.leaderboard;
 
 namespace xyz._8bITProject.cooperace.persistence{
 	public class RecordingFileManager {
@@ -27,7 +28,16 @@ namespace xyz._8bITProject.cooperace.persistence{
 		}
 
 
-		public static void WriteRecording(Recording recording, string name){
+		public static void WriteRecording(Recording recording){
+
+
+			// make up a name for our recording file
+
+			string partner = recording.player2;
+			string time = Score.TimeToString((int)(recording.time*10));
+			string level = recording.level;
+			string name = level + " in " + time + " with " + partner;
+
 
 			string recordingString = RecordingToString (recording);
 			PersistentStorage.Write(Path(name), recordingString);

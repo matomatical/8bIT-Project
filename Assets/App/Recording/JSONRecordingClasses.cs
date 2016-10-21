@@ -30,6 +30,10 @@ namespace xyz._8bITProject.cooperace.recording {
 		[SerializeField] public int fps;
 		/// The recording's level's name
 		[SerializeField] public string level;
+		/// The name of the player in the levels
+		[SerializeField] public string player1, player2;
+		/// The completion time of the level.
+		[SerializeField] public float time;
 
 		/// The recording: a sequence of frames
 		[SerializeField] private List<Frame> frames;
@@ -38,6 +42,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		public Recording (string level, int fps) {
 
 			this.level = level;
+
 			this.fps = fps;
 
 			frames = new List<Frame>();

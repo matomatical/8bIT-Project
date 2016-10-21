@@ -10,7 +10,7 @@
 using System.Linq;
 using UnityEngine;
 using Tiled2Unity;
-using xyz._8bITProject.cooperace;
+using xyz._8bITProject.cooperace.multiplayer;
 
 namespace xyz._8bITProject.cooperace.recording {
 
@@ -96,10 +96,14 @@ namespace xyz._8bITProject.cooperace.recording {
 			}
 		}
 
-		public void EndRecording(){
+		public void EndRecording(float time){
 			if(hasStarted){
 				isRecording = false;
 				hasStarted = false;
+
+				recording.player1 = MultiPlayerController.Instance.ourName;
+				recording.player2 = MultiPlayerController.Instance.theirName;
+				recording.time = time;
 			}
 		}
 

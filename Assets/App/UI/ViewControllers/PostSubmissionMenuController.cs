@@ -11,7 +11,6 @@ using System.Collections;
 using xyz._8bITProject.cooperace.persistence;
 using xyz._8bITProject.cooperace.recording;
 using xyz._8bITProject.cooperace.multiplayer;
-using xyz._8bITProject.cooperace.leaderboard;
 
 namespace xyz._8bITProject.cooperace.ui {
 	public class PostSubmissionMenuController : MonoBehaviour {
@@ -82,17 +81,10 @@ namespace xyz._8bITProject.cooperace.ui {
 		public void SaveRecordingButtonHandler() {
 			
 			if (SceneManager.outs.recording != null) {
-
-				// make up a name for our recording file
-
-				string partner = SceneManager.outs.partner;
-				string time = Score.TimeToString((int)(SceneManager.outs.time*10));
-				string level = SceneManager.outs.opts.level;
-				string name = level + " in " + time + " with " + partner;
-
+				
 				// and save the recording
 
-				RecordingFileManager.WriteRecording (SceneManager.outs.recording, name);
+				RecordingFileManager.WriteRecording (SceneManager.outs.recording);
 
 				// we should set this message to notify the user of success
 
