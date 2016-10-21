@@ -42,10 +42,10 @@ namespace xyz._8bITProject.cooperace.multiplayer
 		public static readonly byte GAMER_TAG = BitConverter.GetBytes('g')[0];
 
 		// The body of the message sent when the clock is to be started
-		private static readonly byte START_CLOCK = 1;
+		public static readonly float START_CLOCK = 0f;
 
-		// The body of the message sent when the clock is to be stopped
-		private static readonly byte STOP_CLOCK = 0;
+		// The body of the message sent if the clock is to be stopped, but not set to a paticular time
+		public const float STOP_CLOCK = -1f;
 
 
 		// The ChatController to which chat message updates should be sent
@@ -128,12 +128,19 @@ namespace xyz._8bITProject.cooperace.multiplayer
 				} else if (header.messageType == CLOCK && clock != null) {
 					Debug.Log ("Notifying Clock");
 
+					// Get the time sent with the notification
+					float time = BitConverter.ToSingle (data.ToArray (), 0);
+
 					// Start or stop the clock as appropriate
-					if (data [0] == START_CLOCK) {
+					if (time == START_CLOCK) {
 						clock.StartTiming ();
-					} else if (data [0] == STOP_CLOCK) {
+					} else if (time == STOP_CLOCK) {
 						clock.StopTiming ();
 						FinalizeLevel.CrossFinishLine (clock.GetTime ());
+					} else {
+						clock.StopTiming ();
+						clock.SetTime (time);
+						FinalizeLevel.CrossFinishLine (time);
 					}
 				} else if (header.messageType == LEADERBOARDS) {
 					FinalizeLevel.position = data [0];
@@ -201,14 +208,14 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 		public void SendStartClock () {
 			List<byte> update = new List<byte> ();
-			update.Add (START_CLOCK);
+			update.AddRange (BitConverter.GetBytes(START_CLOCK));
 			ApplyHeader (update, CLOCK);
 			MultiPlayerController.Instance.SendMyReliable (update);
 		}
 
-		public void SendStopClock () {
+		public void SendStopClock (float time = STOP_CLOCK) {
 			List<byte> update = new List<byte> ();
-			update.Add (STOP_CLOCK);
+			update.AddRange (BitConverter.GetBytes(time));
 			ApplyHeader (update, CLOCK);
 			MultiPlayerController.Instance.SendMyReliable (update);
 		}

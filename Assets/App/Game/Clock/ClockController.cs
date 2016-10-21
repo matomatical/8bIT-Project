@@ -32,6 +32,10 @@ namespace xyz._8bITProject.cooperace {
 		public void StopTiming() {
 			isTiming = false;
 		}
+			
+		public void SetTime (float time) {
+			this.time = time;
+		}
 
 		public float GetTime(){
 			return time;

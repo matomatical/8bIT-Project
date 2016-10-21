@@ -97,6 +97,11 @@ namespace xyz._8bITProject.cooperace {
 
 					SubmitScore (time);
 
+					// the host must also let the client know the game is over
+					// and sent the time so the client's clock is right
+
+					updateManager.SendStopClock (time);
+
 				} else {
 					
 					// it's the client's job to send a finish line/clock stop
