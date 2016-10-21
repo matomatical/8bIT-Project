@@ -20,22 +20,33 @@ namespace xyz._8bITProject.cooperace.ui {
 		public Text levelNameText;
 		public GameObject messageText;
 
-		public static UIState previousState;
-		public static GameType type;
-		public static string level;
-		public static Recording recording;
+		// static state for setting up the menu matchmaking
+		public struct Options {
+			public readonly UIState previousState;
+			public readonly GameType type;
+			public readonly string level;
+			public readonly Recording recording;
+			public Options(UIState previousState, GameType type, string level, Recording recording = null){
+				this.previousState = previousState;
+				this.type = type;
+				this.level = level;
+				this.recording = recording;
+			}
+		}
+
+		public static Options options;
 
 		void OnEnable() {
 			HideRoomStatusMessage();
-			levelNameText.text = level;
-			MultiPlayerController.Instance.StartMatchMaking (level, this);
+			levelNameText.text = options.level;
+			MultiPlayerController.Instance.StartMatchMaking (options.level, this);
 		}
 
 		// public method to handle back button behaviour
 		public void BackButtonHandler() {
 			Debug.Log ("Pressed the back button!");
 			MultiPlayerController.Instance.StopMatchMaking ();
-			UIStateMachine.instance.GoTo(previousState);
+			UIStateMachine.instance.GoTo(options.previousState);
 		}
 
 		// IListener methods
@@ -48,10 +59,10 @@ namespace xyz._8bITProject.cooperace.ui {
 		}
 
 		public void OnConnectionComplete(){
-			if (type == GameType.MULTI) {
-				SceneManager.StartMultiplayerGame (level);
-			} else if (type == GameType.GHOST) {
-				SceneManager.StartPlayagainstGame (level, recording);
+			if (options.type == GameType.MULTI) {
+				SceneManager.StartMultiplayerGame (options.level);
+			} else if (options.type == GameType.GHOST) {
+				SceneManager.StartPlayagainstGame (options.level, options.recording);
 			}
 		}
 

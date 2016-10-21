@@ -77,7 +77,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 				ChatMessage m = new ChatMessage(strMessage, MultiPlayerController.Instance.theirName);
 				chatHistory.AddMessage(m);
 			}
-			catch (Exception e) {
+			catch (ArgumentNullException e) {
 				Debug.Log (e.Message);
 			}
 

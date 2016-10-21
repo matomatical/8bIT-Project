@@ -1,7 +1,8 @@
 /*
- * Post game menu logic.
+ * Logic for the screen that comes up after you finish
+ * playing a game
  *
- * Athir Saleem <isaleem@student.unimelb.edu.au>
+ * Matt Farrugia <farrugiam@student.unimelb.edu.au>
  *
  */
 

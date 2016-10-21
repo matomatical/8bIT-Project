@@ -122,15 +122,17 @@ namespace xyz._8bITProject.cooperace.ui {
 					return;
 				}
 
-				// set up matchmaking for playagainst game
+				// set up matchmaking for playagainst game,
+				// and start matchmaking!
 
-				MatchmakingMenuController.previousState = UIState.RecordingsMenu;
-				MatchmakingMenuController.type = GameType.GHOST;
-				MatchmakingMenuController.level = recording.level;
-				MatchmakingMenuController.recording = recording;
-
-				// start matchmaking!
-
+				MatchmakingMenuController.options =
+					new MatchmakingMenuController.Options (
+						UIState.RecordingsMenu,
+						GameType.GHOST,
+						recording.level,
+						recording
+					);
+				
 				UIStateMachine.instance.GoTo(UIState.Matchmaking);
 			}
 		}

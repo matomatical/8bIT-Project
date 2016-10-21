@@ -106,7 +106,7 @@ namespace xyz._8bITProject.cooperace {
 					
 				}
 
-				// we also need to save the time to make tha available
+				// we also need to save the time to make that available
 				FinalizeLevel.time = time;
 			}
 		}

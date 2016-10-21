@@ -65,9 +65,12 @@ namespace xyz._8bITProject.cooperace.ui {
 
 			// set up matchmaking for multiplayer game
 
-			MatchmakingMenuController.previousState = UIState.LevelSelect;
-			MatchmakingMenuController.type = GameType.MULTI;
-			MatchmakingMenuController.level = Maps.maps [currentLevelIndex];
+			MatchmakingMenuController.options =
+				new MatchmakingMenuController.Options (
+					UIState.LevelSelect,
+					GameType.MULTI,
+					Maps.maps [currentLevelIndex]
+				);
 
 			// start matchmaking!
 
