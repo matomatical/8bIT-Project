@@ -14,7 +14,8 @@ namespace xyz._8bITProject.cooperace {
 		public static string[] maps = new string[] {
 			"Tutorious",
 			"Twoality",
-			"Crossy Level"
+			"Crossy Level",
+			"Spelunkey"
 		};
 			
 		/// The index in Maps.maps of the map this name,
