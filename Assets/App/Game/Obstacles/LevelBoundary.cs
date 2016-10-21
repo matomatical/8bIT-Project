@@ -14,7 +14,7 @@ namespace xyz._8bITProject.cooperace {
 	public class LevelBoundary : MonoBehaviour {
 		
 		void OnTriggerEnter2D(Collider2D other) {
-			if (this.transform.position.z == other.transform.position.z) {
+			if (ArcadePhysics.SameWorld(this, other)) {
 				if (enabled) {
 					
 					// the game ends when the player touches the exit portal

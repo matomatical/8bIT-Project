@@ -26,7 +26,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		}
 
 		void OnTriggerEnter2D (Collider2D other) {
-			if (this.transform.position.z == other.transform.position.z) {
+			if (ArcadePhysics.SameWorld(this, other)) {
 
 				if (enabled) { // only trigger if this component is on
 					
