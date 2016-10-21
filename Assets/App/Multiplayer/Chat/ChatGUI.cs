@@ -51,9 +51,10 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 			
 			for (int i = 0; i< recentMessages.Count; i++) {
 				ChatMessage m = recentMessages[i];
+				string display = m.gamerTag + ": " + m.message;
 
 				// display it on screen
-				GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width), m.message, mystyle);
+				GUI.Label(new Rect(xpos, ypos+= offset, Screen.height,Screen.width),display, mystyle);
 			}
 
 
