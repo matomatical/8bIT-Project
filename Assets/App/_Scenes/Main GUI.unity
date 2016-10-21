@@ -376,6 +376,24 @@ Prefab:
     - {fileID: 114000011196186662, guid: 5a661a7ed0c243f4cabb6b7730b5c952, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 5a661a7ed0c243f4cabb6b7730b5c952, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &120022979 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010675763312, guid: 5a661a7ed0c243f4cabb6b7730b5c952,
+    type: 2}
+  m_PrefabInternal: {fileID: 120022978}
+--- !u!114 &120022980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 120022979}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c03562fd782e084f8a035723f8023eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  period: 120
+  amplitude: {x: 7, y: 1, z: 0}
 --- !u!1001 &211308435
 Prefab:
   m_ObjectHideFlags: 0
@@ -4349,9 +4367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c03562fd782e084f8a035723f8023eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 1, z: 0}
   period: 2
-  amplitude: 0.15
+  amplitude: {x: 0, y: 0.2, z: 0}
 --- !u!212 &1041712060
 SpriteRenderer:
   m_ObjectHideFlags: 0

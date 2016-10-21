@@ -1921,7 +1921,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c03562fd782e084f8a035723f8023eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  period: 60
+  period: 120
   amplitude: {x: 7, y: 1, z: 0}
 --- !u!1 &2082253600
 GameObject:
