@@ -52,33 +52,19 @@ namespace xyz._8bITProject.cooperace.multiplayer
 
 			}
 
-
 			// Enter update manager, stage left!
 
 			UpdateManager updateManager = MultiPlayerController.Instance.updateManager;
 
 
-			// link clock with updateManager
-			ClockController clock = FindObjectOfType<ClockController> ();
-			updateManager.clock = clock;
+			// Link the update manager to componenets it needs to know about
+
+			LinkUpdateManager (updateManager);
 
 
-			// link chat with updateManager
+			// Link the camera to follow the local player
 
-			ChatController chat = FindObjectOfType<ChatController>();
-
-			updateManager.chatController = chat;
-			chat.updateManager = updateManager;
-
-
-
-			// camera should track local player
-
-			CameraController camera = FindObjectOfType<CameraController> ();
-
-			camera.target = localPlayer.GetComponent<ArcadePhysicsController>();
-
-
+			LinkCamera (localPlayer);
 
 
 			// set up objects and their components!
@@ -108,6 +94,30 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			// Dont forget to let our peer know our gamertag!
 
 			updateManager.SendGamerTag ();
+		}
+
+
+		private static void LinkUpdateManager (UpdateManager updateManager) {
+
+			// link clock with updateManager
+			ClockController clock = FindObjectOfType<ClockController> ();
+			updateManager.clock = clock;
+
+
+			// link chat with updateManager
+
+			ChatController chat = FindObjectOfType<ChatController>();
+
+			updateManager.chatController = chat;
+			chat.updateManager = updateManager;
+		}
+
+		private static void LinkCamera (GameObject localPlayer) {
+			// camera should track local player
+
+			CameraController camera = FindObjectOfType<CameraController> ();
+
+			camera.target = localPlayer.GetComponent<ArcadePhysicsController>();
 		}
 
 		static void InitializePlayers(GameObject localPlayer, GameObject remotePlayer, UpdateManager updateManager){
