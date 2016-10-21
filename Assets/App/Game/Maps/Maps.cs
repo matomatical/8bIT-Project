@@ -33,7 +33,7 @@ namespace xyz._8bITProject.cooperace {
 		// return a random level instead.
 		// If no level is found, null is returned instead.
 		public static GameObject Load(string name=null) {
-			if (name == null || name.Equals("Random")) {
+			if (name == null) {
 				name = maps[Random.Range(0, maps.Length-1)];
 			}
 			return Resources.Load("Maps/" + name) as GameObject;
