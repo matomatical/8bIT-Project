@@ -25,8 +25,12 @@ namespace xyz._8bITProject.cooperace.ui {
 		// list of recordings
 		string[] recordings;
 
-		// list of recordings is nonempty
-		bool recordingsExist = true;
+		// true if list of recordings is non-empty
+		bool recordingsExist {
+			get {
+				return recordings != null && recordings.Length > 0;
+			}
+		}
 
 		// the currently displayed recording
 		int currentRecordingIndex_ = 0;
@@ -51,11 +55,6 @@ namespace xyz._8bITProject.cooperace.ui {
 		void OnEnable() {
 			recordings = RecordingFileManager.ListRecordings();
 
-			if (recordings.Length < 1) {
-				recordingsExist = false;
-				DisplayMessage ("No recordings found.\n\nPlay a game and\nsave a recording.");
-			}
-
 			// load in the first recording
 			UpdateRecordingDetails();
 		}
@@ -67,6 +66,8 @@ namespace xyz._8bITProject.cooperace.ui {
 				string levelName = recordings [currentRecordingIndex];
 				levelNameText.text = levelName;
 				LevelPreview.LoadPreview (levelName, preview);
+			} else {
+				DisplayMessage ("No recordings found.\n\nPlay a game and\nsave a recording.");
 			}
 		}
 
@@ -155,11 +156,8 @@ namespace xyz._8bITProject.cooperace.ui {
 
 			// refresh list, also make sure recordings still exists
 			recordings = RecordingFileManager.ListRecordings();
-			
-			if (recordings.Length < 1) {
-				recordingsExist = false;
-				DisplayMessage ("No recordings found.\n\nPlay a game and save a recording.");
-			}
+			currentRecordingIndex = currentRecordingIndex; // ensures validity of index
+			UpdateRecordingDetails();
 		}
 
 		// public method to handle cancel-deletion button behaviour
