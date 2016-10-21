@@ -105,18 +105,6 @@ namespace xyz._8bITProject.cooperace.multiplayer.tests {
 
 		}
 
-		[Test] public void AddNullMessageThrowsArgumentNullException () {
-			ChatHistory history = new ChatHistory ();
-
-			try {
-				history.AddMessage (null);
-				Assert.Fail ("didn't throw ArugmentNullException when adding a message with null body");
-			}
-			catch (ArgumentException e) {
-				Assert.Pass (e.Message);
-			}
-		}
-
 		// generate a list of random messages of random length
 		private List<ChatMessage> generateRandomMessages(int num) {
 			List<ChatMessage> messages = new List<ChatMessage>();

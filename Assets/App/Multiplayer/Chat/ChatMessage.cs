@@ -45,7 +45,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// Check if two objects of type ChatMessage are equal
 		public bool Equals(ChatMessage chat) {
 			// Return true if the fields match:
-			return (chat != null) && (chat.message == this.message) && (chat.gamerTag == this.gamerTag);
+			return (chat != null) && (chat.message == this.message);
 		}
 	}
 }

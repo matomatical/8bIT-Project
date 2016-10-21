@@ -35,7 +35,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		/// This is called when the chat icon is pressed on screen. 
 		/// It initialises the device's onscreen keyboard.
 		public void GetChatInput() {
-			keyboard = TouchScreenKeyboard.Open("HELLO");
+			keyboard = TouchScreenKeyboard.Open("");
 		}
 
 		/// Update is called once per frame
