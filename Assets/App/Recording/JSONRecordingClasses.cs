@@ -90,7 +90,7 @@ namespace xyz._8bITProject.cooperace.recording {
 			// that makes frames[head] the first frame before (or at) the 
 			// current time
 
-			// if this frame hasn't need rendered yet, we should play it
+			// if this frame hasn't been rendered yet, we should play it
 
 			if(head > prev){
 				frames[head].Apply(dynamics, statics);

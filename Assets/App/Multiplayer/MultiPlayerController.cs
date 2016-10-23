@@ -174,7 +174,6 @@ namespace xyz._8bITProject.cooperace.multiplayer
 			UILogger.Log("I have left the game");
 		}
 
-
 		/// What to do when an extra player has joined the room
 		public virtual void OnPeersConnected(string[] participantIds) {
 			foreach (string participantID in participantIds) {
