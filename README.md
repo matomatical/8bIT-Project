@@ -4,9 +4,11 @@ Welcome to team 8-bIT Project's IT Project Project repository.
 
 ## What is this repository for? ##
 
-We're building a cooperative platformer game for Android 4.1, using Unity 5.4. The game's working title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
+We're building a cooperative platformer game for Android 4.1, using Unity 5.4. The game's title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
 ## How do I get set up? ##
+
+The project has two major parts: an android application and a server that stores high scores. First up, here are the instructions for setting up the android application. The server instructions are a bit further down.
 
 ### Android Application ###
 
@@ -33,9 +35,7 @@ Once you have those installed, you'll be able to follow these steps to get the p
 ##### Setting up the Keystore
 
 Before the a build can be made, it is necessary to setup the keystore to be
-used.
-
-Go to `File > Build Settings > Player Settings > Publishing Settings`. Then
+used. Get in touch if you need access to the keystore and password. Otherwise, go to `File > Build Settings > Player Settings > Publishing Settings`. Then
 create a keystore file (or use the android debug key).
 
 ##### Deploying to Android Device Manually
