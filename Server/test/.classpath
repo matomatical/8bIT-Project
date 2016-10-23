@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="/Users/Matt/dev/uni/itp/itprepo/Server/jar/junit.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Server"/>
 	<classpathentry kind="lib" path="/Users/Matt/dev/uni/itp/itprepo/Server/jar/boon.jar"/>
+	<classpathentry kind="lib" path="/Server/jar/matomatical.jar"/>
 	<classpathentry kind="output" path=""/>
 </classpath>

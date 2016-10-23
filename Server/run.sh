@@ -18,7 +18,7 @@ if $forever; then
 	echo "starting server perpetually on port $port";
 
 	while true; do
-		java -cp "./bin:./jar/boon.jar:./jar/hamcrest.jar:./jar/junit.jar" xyz._8bITProject.cooperace.leaderboards.Server $port
+		java -cp "./bin:./jar/boon.jar:./jar/hamcrest.jar:./jar/junit.jar:./jar/matomatical.jar" xyz._8bITProject.cooperace.leaderboards.Server $port
 		echo "re-starting server"
 	done
 
@@ -26,6 +26,6 @@ else
 
 	echo "starting server once on port $port";
 
-	java -cp "./bin:./jar/boon.jar:./jar/hamcrest.jar:./jar/junit.jar" xyz._8bITProject.cooperace.leaderboards.Server $port
+	java -cp "./bin:./jar/boon.jar:./jar/hamcrest.jar:./jar/junit.jar:./jar/matomatical.jar" xyz._8bITProject.cooperace.leaderboards.Server $port
 
 fi;
