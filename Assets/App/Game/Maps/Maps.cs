@@ -15,7 +15,8 @@ namespace xyz._8bITProject.cooperace {
 			"Tutorious",
 			"Twoality",
 			"Crossy Level",
-			"Spelunkey"
+			"Spelunkey",
+			"Semaphobia"
 		};
 			
 		/// The index in Maps.maps of the map this name,
