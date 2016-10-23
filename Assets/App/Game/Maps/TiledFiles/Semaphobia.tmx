@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="100" tilewidth="21" tileheight="21" nextobjectid="1169">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="40" height="100" tilewidth="21" tileheight="21" nextobjectid="1170">
  <properties>
   <property name="DeleteTiles" type="bool" value="true"/>
   <property name="unity:resource" type="bool" value="true"/>
@@ -232,7 +232,7 @@
 14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14
 </data>
  </layer>
- <objectgroup name="UnityObjects" visible="0">
+ <objectgroup name="UnityObjects">
   <object id="1024" name="Player" x="63" y="21" width="21" height="21">
    <properties>
     <property name="Player" value=""/>
@@ -458,7 +458,7 @@
   </object>
   <object id="1068" name="Pressure Plate" x="756" y="588" width="21" height="21">
    <properties>
-    <property name="Address" value="d"/>
+    <property name="Address" value="e"/>
     <property name="PressurePlate" value=""/>
    </properties>
   </object>
@@ -602,7 +602,7 @@
   </object>
   <object id="1091" name="Pressure Plate Block (closed)" x="525" y="588" width="21" height="21">
    <properties>
-    <property name="Address" value="d"/>
+    <property name="Address" value="e"/>
     <property name="DefaultState" value="closed"/>
     <property name="PressurePlateBlock" value=""/>
    </properties>
@@ -1142,6 +1142,12 @@
   <object id="1168" name="Pressure Plate" x="168" y="1701" width="21" height="21">
    <properties>
     <property name="Address" value="i"/>
+    <property name="PressurePlate" value=""/>
+   </properties>
+  </object>
+  <object id="1169" name="Pressure Plate" x="441" y="588" width="21" height="21">
+   <properties>
+    <property name="Address" value="e"/>
     <property name="PressurePlate" value=""/>
    </properties>
   </object>
