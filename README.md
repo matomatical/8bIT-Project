@@ -73,14 +73,23 @@ Note: If the remote doesn't begin to show the game on your device, try restartin
 * Open android studio project and hit `Run`.
 * Further error or warning message resolutions can be found [here](https://developer.android.com/studio/run/emulator.html)
 
-#### Testing
+#### Integration Testing
 
-In order to run all tests
+Integration tests are located in `Assets/App/Tests` and sub folders. As it stands we have a gameplay testing scene `Assets/App/Tests/Gameplay Tests/Gameplay Tests.unity` to test game mechanics and a multiplayer testing scene `Assets/App/Tests/MultiplayerTests/MultiplayerTests.unity` to test sending and receiving updates. To run these tests:
 
 1. Open the project in unity.
-1. Open the unity scene Assets/App/Tests/GameplayTests.
+1. Open the scene containing the tests you would like to run.
 1. Go to the `Unity Test Tools > Integration Test Runner`.
 1. Click the `Run All` button.
+
+#### Unit Testing
+
+Unit tests are located in `Assets/App/Tests` and sub folders. To run these tests:
+
+1. Ensure you have a local instance of the leaderboards server running (see Server section below). Some leaderboards tests will fail otherwise.
+1. Open the project in Unity.
+1. Navigate to `Window > Editor Tests Runner`.
+1. In the windows which pops up, click `Run All`.
 
 ### Server ###
 
@@ -190,5 +199,3 @@ If you have any questions, email anyone of the following:
 * Athir at `isaleem@student.unimelb.edu.au`
 
 * Li at `lcheng3@student.unimelb.edu.au`
-
-
