@@ -36,7 +36,7 @@ namespace xyz._8bITProject.cooperace {
 
 
 		/// Is this putton being pressed?
-		bool pressed = false;
+		public bool pressed {get; private set;}
 
 
 		// sprites to show
@@ -48,6 +48,8 @@ namespace xyz._8bITProject.cooperace {
 			spriteRenderer = GetComponent<SpriteRenderer> ();
 
 			spriteRenderer.sprite = spriteOff;
+
+			pressed = false;
 		}
 
 
