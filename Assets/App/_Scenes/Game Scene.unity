@@ -422,6 +422,48 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 186285220}
   m_Script: {fileID: 11500000, guid: 54de2f58aa7ec954caf0e01534d163a2, type: 3}
+--- !u!1001 &201788323
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.8868854
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -26.642899
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+  m_IsPrefabParent: 0
 --- !u!114 &256504202 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000012343777784, guid: 1938b201b48f14e2f92ec403a1f2b6c4,

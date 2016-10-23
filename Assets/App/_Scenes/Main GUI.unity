@@ -4088,6 +4088,48 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 953658167}
+--- !u!1001 &970586120
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 3.8868854
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -26.642899
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000010868950486, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: c08b3ec70fe484f908e53c24b2a23797, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &979767264
 GameObject:
   m_ObjectHideFlags: 0
@@ -5190,7 +5232,6 @@ GameObject:
   - 114: {fileID: 1268361861}
   - 114: {fileID: 1268361860}
   - 114: {fileID: 1268361864}
-  - 114: {fileID: 1268361865}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -5295,17 +5336,6 @@ MonoBehaviour:
   recordingsMenu: {fileID: 1224744596}
   levelSelectMenu: {fileID: 1501012142}
   matchmakingMenu: {fileID: 1893400269}
---- !u!114 &1268361865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1268361859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c28b3b4f5fab649659b5d86c39a95098, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1289875414 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114000012801152694, guid: 3e92fed2e557ca54c80e0fb552392584,
