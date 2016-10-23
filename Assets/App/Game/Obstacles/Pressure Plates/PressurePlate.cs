@@ -43,7 +43,7 @@ namespace xyz._8bITProject.cooperace {
 		private SpriteRenderer spriteRenderer;
 		public Sprite spriteOff, spriteOn;
 
-		void Start() {
+		public void Start() {
 
 			spriteRenderer = GetComponent<SpriteRenderer> ();
 

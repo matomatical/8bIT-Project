@@ -24,7 +24,7 @@ namespace xyz._8bITProject.cooperace {
 		/// The sprite renderers
 		SpriteRenderer sprite;
 
-		void Start(){
+		public void Start(){
 
 			// link components
 

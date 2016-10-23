@@ -16,7 +16,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		/// the pressure plate to control
 		private PressurePlate plate;
 		
-		void Start(){
+		public void Start(){
 
 			// link components
 			
