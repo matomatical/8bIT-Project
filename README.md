@@ -103,6 +103,8 @@ You may want to select your own port for the server to listen on for testing pur
 
 You may also want the server to run perpetually. That is, to start itself up again even if it ever closes. To achieve this, you can use the `-f` (forever) flag: `sh run.sh -f`.
 
+> Note: The script is build purposely for the version of unix on the server it is running on. These flags may not all work due to some differences with bash versions. You should be able to run the server at least once on the default port, though.
+
 > Note: You'll no longer be able to shut down the script with `ctrl`+`C`; this will now close (and restart) the server. You can end the script with `ctrl`+`Z` followed by `kill PID` where `PID` is the process ID of the script (`run.sh`), found using the `ps` command.
 
 If you want to leave the server running while you are away, the simplest way to do this is to background the launch script with `sh run.sh [opts] &`, and then disown it using `disown -h PID` where `PID` is the process ID of the script, found using the `ps` command.
@@ -113,8 +115,7 @@ If you want to leave the server running while you are away, the simplest way to 
 
 ##### Configuring the Application to connect to an instance of the Server
 
-Instructions to come.
-
+One thing you might need to do if you want to test the leaderboards server is configure the application to connect to a specific server address. Right now, it's set up to use `localhost:2693` inside the unity editor, and `lb.cooperace.8bitproject.xyz:2693` outside of the editor (on Android builds). This address contains a live running version of the leaderboards server. But, for testing purposes, you may wish to redirect your app to connect to your own instance of the server at your own address. This can be achieved by changing the static strings at the top of the `Leaderboards` class inside `Assets/App/Leaderboards/Leaderboards.cs`. If you set the editor/build addresses to wherever you are running the server, that will work!
 
 #### Unit Testing
 
