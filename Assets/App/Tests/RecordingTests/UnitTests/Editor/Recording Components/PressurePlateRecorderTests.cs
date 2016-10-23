@@ -6,6 +6,7 @@
  */
 
 using UnityEngine;
+using System.Collections.Generic;
 using NUnit.Framework;
 
 namespace xyz._8bITProject.cooperace.recording.tests {
@@ -23,6 +24,7 @@ namespace xyz._8bITProject.cooperace.recording.tests {
 			
 			pressurePlate = gameObject.AddComponent<PressurePlate>();
 			gameObject.AddComponent<SpriteRenderer>();
+			pressurePlate.linkedBlocks = new List<PressurePlateBlock>();
 			pressurePlate.Start();
 			
 			pressurePlateRecorder = gameObject.AddComponent<PressurePlateRecorder>();
