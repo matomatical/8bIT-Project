@@ -1060,7 +1060,7 @@ PolygonCollider2D:
     - - {x: 38, y: -77}
       - {x: 40, y: -91}
       - {x: 37, y: -91}
-      - {x: 37, y: -78}
+      - {x: 37, y: -81}
       - {x: 37, y: -77}
 --- !u!60 &60000010890119806
 PolygonCollider2D:
@@ -2276,10 +2276,10 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Points:
     m_Paths:
-    - - {x: 37, y: -78}
+    - - {x: 37, y: -81}
       - {x: 37, y: -92}
       - {x: 36, y: -83}
-      - {x: 36, y: -78}
+      - {x: 36, y: -81}
 --- !u!60 &60000013156043148
 PolygonCollider2D:
   m_ObjectHideFlags: 1
