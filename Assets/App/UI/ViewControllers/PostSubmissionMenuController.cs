@@ -80,24 +80,28 @@ namespace xyz._8bITProject.cooperace.ui {
 
 		// public method to handle save recording button behaviour
 		public void SaveRecordingButtonHandler() {
-			
-			if (SceneManager.outs.recording != null) {
-				
+
+			try{
+
 				// and save the recording
 
 				RecordingFileManager.WriteRecording (SceneManager.outs.recording);
 
-				// we should set this message to notify the user of success
-
 				recordingMessage.text = "Recording saved";
 
-			} else {
+			} catch (PersistentStorageException e) {
 
-				// if there's no recording, something must have gone wrong
+				// if something goes wrong writing, there's not much we can do
 
 				recordingMessage.text = "Failed to save recording";
 
+			} catch (System.NullReferenceException e){
+
+				// if there's no recording, at this point, something must have gone wrong
+
+				recordingMessage.text = "Failed to capture recording";
 			}
+
 		}
 
 	}	
