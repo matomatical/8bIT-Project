@@ -135,5 +135,10 @@ namespace xyz._8bITProject.cooperace.recording {
 		public Recording GetRecording () {
 			return recording;
 		}
+		
+		public bool IsRecording() {
+			return isRecording;
+		}
+		
 	}
 }

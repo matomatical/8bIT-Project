@@ -91,5 +91,10 @@ namespace xyz._8bITProject.cooperace.recording {
 				recording.ApplyFrame(timer, dynamics, statics);
 			}
 		}
+		
+		public bool IsReplaying() {
+			return isReplaying;
+		}
+
 	}
 }
