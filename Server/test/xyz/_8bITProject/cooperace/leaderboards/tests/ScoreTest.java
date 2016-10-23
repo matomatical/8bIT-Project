@@ -11,8 +11,12 @@ import xyz._8bITProject.cooperace.leaderboards.Score;
  */
 public class ScoreTest {
 	
+	/** 
+	 * Trying to validate a score where the first name is too
+	 * long should fail and throw an exception
+	 */
 	@Test
-	public void validationShouldRejectLonFirstNames() {
+	public void validationShouldRejectLongFirstNames() {
 		try{
 			// must throw an exception:
 			Score score = new Score(1, "long name", "abc");
@@ -23,6 +27,10 @@ public class ScoreTest {
 		}
 	}
 	
+	/** 
+	 * Trying to validate a score where the second name is too
+	 * long should fail and throw an exception
+	 */
 	@Test
 	public void validationShouldRejectLongSecondNames() {
 		try{
@@ -35,6 +43,10 @@ public class ScoreTest {
 		}
 	}
 	
+	/** 
+	 * Trying to validate a score where the first name is too
+	 * short should fail and throw an exception
+	 */
 	@Test
 	public void validationShouldRejectShortFirstNames() {
 		try{
@@ -47,6 +59,10 @@ public class ScoreTest {
 		}
 	}
 	
+	/** 
+	 * Trying to validate a score where the second name is too
+	 * short should fail and throw an exception
+	 */
 	@Test
 	public void validationShouldRejectShortSecondNames() {
 		try{
@@ -59,6 +75,10 @@ public class ScoreTest {
 		}
 	}
 	
+	/** 
+	 * Trying to validate a score where the first name is null
+	 * should fail and throw an exception
+	 */
 	@Test
 	public void validationShouldRejectNullFirstNames() {
 		try{
@@ -71,6 +91,10 @@ public class ScoreTest {
 		}
 	}
 	
+	/** 
+	 * Trying to validate a score where the second name is null
+	 * should fail and throw an exception
+	 */
 	@Test
 	public void validationShouldRejectNullSecondNames() {
 		try{
@@ -83,6 +107,11 @@ public class ScoreTest {
 		}
 	}
 	
+	/** 
+	 * Comparing two times should function as per the Comparable
+	 * interface requirements: comparing to a score with a greater time
+	 * should give a negative result
+	 */
 	@Test
 	public void comparingToGreaterTimeShouldGiveNegative() {
 		
@@ -94,6 +123,11 @@ public class ScoreTest {
 		Assert.assertTrue(result < 0);
 	}
 	
+	/** 
+	 * Comparing two times should function as per the Comparable
+	 * interface requirements: comparing to a score with a smaller time
+	 * should give a positive result
+	 */
 	@Test
 	public void comparingToSmallerTimeShouldGivePositive() {
 		
@@ -105,6 +139,11 @@ public class ScoreTest {
 		Assert.assertTrue(result > 0);
 	}
 	
+	/** 
+	 * Comparing two times should function as per the Comparable
+	 * interface requirements: comparing to a score with the same time
+	 * should give 0 as the result
+	 */
 	@Test
 	public void comparingToEqualTimeShouldGiveZero() {
 		
@@ -116,6 +155,10 @@ public class ScoreTest {
 		Assert.assertEquals(0, result);
 	}
 	
+	/** 
+	 * Using Equals on the one score with itself
+	 * should return true
+	 */
 	@Test
 	public void equalsShouldAcceptSameScore() {
 		
@@ -126,6 +169,10 @@ public class ScoreTest {
 		Assert.assertEquals(true, result);
 	}
 	
+	/** 
+	 * Using Equals on two scores with the same time
+	 * should return true
+	 */
 	@Test
 	public void equalsShouldAcceptIdenticalScore() {
 		
@@ -137,6 +184,10 @@ public class ScoreTest {
 		Assert.assertEquals(true, result);
 	}
 	
+	/** 
+	 * Using Equals against a null score should
+	 * return false
+	 */
 	@Test
 	public void equalsShouldRejectNullScore() {
 		
@@ -147,6 +198,10 @@ public class ScoreTest {
 		Assert.assertEquals(false, result);
 	}
 	
+	/** 
+	 * Using Equals against something that is not even
+	 * a score should return false
+	 */
 	@Test
 	public void equalsShouldRejectNonScore() {
 		
@@ -157,6 +212,10 @@ public class ScoreTest {
 		Assert.assertEquals(false, result);
 	}
 	
+	/** 
+	 * Using Equals on two scores with different times
+	 * should return false
+	 */
 	@Test
 	public void equalsShouldRejectDifferentTime() {
 		
@@ -168,6 +227,10 @@ public class ScoreTest {
 		Assert.assertEquals(false, result);
 	}
 	
+	/** 
+	 * Using Equals on two scores with different first names
+	 * but the same time should return false
+	 */
 	@Test
 	public void equalsShouldRejectDifferentFirstName() {
 		
@@ -179,6 +242,10 @@ public class ScoreTest {
 		Assert.assertEquals(false, result);
 	}
 	
+	/** 
+	 * Using Equals on two scores with different second names
+	 * but the same time should also return false
+	 */
 	@Test
 	public void equalsShouldRejectDifferentSecondName() {
 		
@@ -190,6 +257,10 @@ public class ScoreTest {
 		Assert.assertEquals(false, result);
 	}
 	
+	/** 
+	 * Using Equals on two scores with the same two names but with
+	 * the opposite order should still return false
+	 */
 	@Test
 	public void equalsShouldRejectDifferentNameOrder() {
 		
@@ -201,6 +272,9 @@ public class ScoreTest {
 		Assert.assertEquals(false, result);
 	}
 	
+	/** 
+	 * The default score should pass score validation!
+	 */
 	@Test
 	public void validationShouldAcceptDefaultScore() {
 		try{

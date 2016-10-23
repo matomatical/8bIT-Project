@@ -12,6 +12,10 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.LeadersResponse;
  */
 public class LeadersResponseTest {
 	
+	/**
+	 * Test that the conversion process from class to JSON
+	 * matches the expected output from the protocol
+	 */
 	@Test
 	public void boonToJsonShouldMatchProtocol(){
 		

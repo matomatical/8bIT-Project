@@ -11,6 +11,10 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.PositionResponse;
  */
 public class PositionResponseTest {
 	
+	/**
+	 * If we try to convert a position response to a JSON string,
+	 * the result should match the protocol's requirements
+	 */
 	@Test
 	public void boonToJsonOfRankingPositionShouldMatchProtocol(){
 		
@@ -27,6 +31,11 @@ public class PositionResponseTest {
 		Assert.assertEquals("{\"position\":1}", json);
 	}
 
+	/**
+	 * If we try to convert a 0 position response to a JSON string,
+	 * the result should match the protocol's requirements
+	 * (an empty json object)
+	 */
 	@Test
 	public void boonToJsonOfZeroPositionShouldMatchProtocol(){
 		
@@ -44,6 +53,10 @@ public class PositionResponseTest {
 	}
 
 	
+	/**
+	 * Comparison of two different position position responses should
+	 * return false
+	 */
 	@Test
 	public void equalsShouldRejectDifferentPositions(){
 		
@@ -61,6 +74,10 @@ public class PositionResponseTest {
 		Assert.assertEquals(false, result);
 	}
 
+	/**
+	 * Comparison of the same position response to itself
+	 * should return true
+	 */
 	@Test
 	public void equalsShouldAcceptSamePosition(){
 
@@ -77,6 +94,10 @@ public class PositionResponseTest {
 		Assert.assertEquals(true, result);
 	}
 	
+	/**
+	 * Comparison of two identical position responses
+	 * should return true
+	 */
 	@Test
 	public void equalsShouldAcceptIdenticalPosition(){
 
@@ -94,7 +115,10 @@ public class PositionResponseTest {
 		Assert.assertEquals(true, result);
 	}
 	
-	
+	/**
+	 * Comparison of a position response to null
+	 * should return false
+	 */
 	@Test
 	public void equalsShouldRejectNullPositions(){
 
@@ -111,6 +135,10 @@ public class PositionResponseTest {
 		Assert.assertEquals(false, result);
 	}
 	
+	/**
+	 * Comparison of the same position response to something that
+	 * is not even a position response should return false
+	 */
 	@Test
 	public void equalsShouldRejectNonPositions(){
 

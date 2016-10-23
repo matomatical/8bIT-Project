@@ -15,6 +15,10 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.RequestBody;
  */
 public class RequestBodyTest {
 	
+	/**
+	 * If a request comes in without a level, an exception should
+	 * be thrown
+	 */
 	@Test
 	public void validationOfMissingLevelShouldFail(){
 		try{
@@ -32,6 +36,10 @@ public class RequestBodyTest {
 		}
 	}
 	
+	/**
+	 * If a request comes in with a level, the level's leaders should
+	 * return the leaders of that level
+	 */
 	@Test
 	public void requestForLevelShouldGiveLevelLeaders(){
 		
@@ -60,6 +68,7 @@ public class RequestBodyTest {
 		}
 		
 		scores = board.getLeaders(); // reflect padding, truncation, sorting
+		
 		
 		// request for this level's leaders
 		

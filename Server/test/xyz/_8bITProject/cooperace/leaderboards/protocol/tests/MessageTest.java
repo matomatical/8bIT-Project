@@ -17,6 +17,10 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.SubmissionBody;
  */
 public class MessageTest {
 
+	/**
+	 * If we try to respond to a message without a message type, a
+	 * message exception should be thrown
+	 */
 	@Test
 	public void responseToMissingTypeShouldFail(){
 		try{
@@ -36,6 +40,10 @@ public class MessageTest {
 		}
 	}
 	
+	/**
+	 * If we try to respond to a message with an unrecognised message type, a
+	 * message exception should be thrown
+	 */
 	@Test
 	public void responseToUnknownTypeShouldFail(){
 		try{
@@ -55,6 +63,10 @@ public class MessageTest {
 		}
 	}
 	
+	/**
+	 * If we try to respond to a submission message without a submission body,
+	 * a message exception should be thrown
+	 */
 	@Test
 	public void responseToMissingSubmissionBodyShouldFail(){
 		try{
@@ -72,6 +84,10 @@ public class MessageTest {
 		}
 	}
 	
+	/**
+	 * If we try to respond to a request message without a request body,
+	 * a message exception should be thrown
+	 */
 	@Test
 	public void responseToMissingRequestBodyShouldFail(){
 		try{
@@ -90,6 +106,10 @@ public class MessageTest {
 		}
 	}
 	
+	/**
+	 * If we try to respond to a submission message WITH a submission body,
+	 * a message exception should NOT be thrown.
+	 */
 	@Test
 	public void responseToSubmissionMessageShouldNotFail(){
 		try{
@@ -109,6 +129,10 @@ public class MessageTest {
 		}
 	}
 	
+	/**
+	 * If we try to respond to a request message WITH a request body,
+	 * a message exception should NOT be thrown.
+	 */
 	@Test
 	public void responseToRequestMessageBodyShouldNotFail(){
 		try{
@@ -129,6 +153,9 @@ public class MessageTest {
 	}
 	
 	
+	/**
+	 * The response to a submission message should be a valid position response
+	 */
 	@Test
 	public void responseToSubmissionShouldBePositionResponse(){
 		
@@ -146,6 +173,9 @@ public class MessageTest {
 		Assert.assertTrue(response instanceof PositionResponse);
 	}
 	
+	/**
+	 * The response to a request message should be a valid leaders response
+	 */
 	@Test
 	public void responseToRequestShouldBeLeadersMessage(){
 		

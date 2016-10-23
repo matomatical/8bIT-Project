@@ -11,6 +11,10 @@ import xyz._8bITProject.cooperace.leaderboards.Score;
  */
 public class LeaderboardTest {
 	
+	/** 
+	 * The number of leaders reported by numLeaders should match the length
+	 * of the leaders list returned on getLeaders
+	 */
 	@Test
 	public void leadersShouldHaveNumLeadersElements(){
 		
@@ -29,6 +33,9 @@ public class LeaderboardTest {
 		Assert.assertEquals(numLeaders, leadersLength);
 	}
 	
+	/** 
+	 * a new leaderboard should start with the predetermined default scores
+	 */
 	@Test
 	public void leadersShouldStartWithDefaultScores(){
 		
@@ -50,6 +57,9 @@ public class LeaderboardTest {
 		Assert.assertArrayEquals(scores, leaders);
 	}
 	
+	/** 
+	 * Trying to rank a low score on a leaderboard should return 0
+	 */
 	@Test
 	public void rankOfLowScoreShouldReturnZero(){
 		
@@ -69,6 +79,9 @@ public class LeaderboardTest {
 		Assert.assertEquals(0, position);
 	}
 	
+	/** 
+	 * Trying to rank a top score against a leaderboard should return first (1)
+	 */
 	@Test
 	public void rankOfTopScoreShouldReturnOne(){
 		
@@ -87,6 +100,9 @@ public class LeaderboardTest {
 		Assert.assertEquals(1, position);
 	}
 	
+	/** 
+	 * Trying to rank a score between first and second should then return second (2)
+	 */
 	@Test
 	public void rankOfMediumScoreShouldReturnTwo(){
 		
@@ -108,6 +124,9 @@ public class LeaderboardTest {
 		Assert.assertEquals(2, position);
 	}
 	
+	/** 
+	 * Trying to record a low score against a leaderboard should return zero
+	 */
 	@Test
 	public void recordOfLowScoreShouldReturnZero(){
 		
@@ -127,6 +146,10 @@ public class LeaderboardTest {
 		Assert.assertEquals(0, position);
 	}
 	
+	/** 
+	 * Trying to rank a high score against a leaderboard should
+	 * return one
+	 */
 	@Test
 	public void recordOfTopScoreShouldReturnOne(){
 		
@@ -145,6 +168,10 @@ public class LeaderboardTest {
 		Assert.assertEquals(1, position);
 	}
 	
+	/** 
+	 * Trying to record a score between first and second on a leaderboard should return
+	 * second (2)
+	 */
 	@Test
 	public void recordOfMediumScoreShouldReturnTwo(){
 	
@@ -167,6 +194,10 @@ public class LeaderboardTest {
 	}
 	
 
+	/** 
+	 * Recording a low score should not actually record the
+	 * score on the leaderboards
+	 */
 	@Test
 	public void recordOfLowScoreShouldNotChangeLeaders(){
 		
@@ -188,6 +219,9 @@ public class LeaderboardTest {
 		Assert.assertArrayEquals(leadersBefore, leadersAfter);
 	}
 	
+	/** 
+	 * Recording a top score should push the new score to the top of the list
+	 */
 	@Test
 	public void recordOfTopScoreShouldPushLeaderOnTop(){
 		
@@ -224,6 +258,10 @@ public class LeaderboardTest {
 		}
 	}
 	
+	/** 
+	 * Recording a second score should insert the score into the second
+	 * position of the list
+	 */
 	@Test
 	public void recordOfMediumScoreShouldPushScoreInMiddle(){
 	
@@ -264,6 +302,10 @@ public class LeaderboardTest {
 		}
 	}
 	
+	/** 
+	 * Creating a leaderboard with a null array should not fail,
+	 * the leaderboard should create its own empty array
+	 */
 	public void createWithNullArrayShouldRecover(){
 		
 		// new leaderboard with null
@@ -283,6 +325,10 @@ public class LeaderboardTest {
 		Assert.assertArrayEquals(scores, leaders);
 	}
 	
+	/** 
+	 * Creating a leaderboard with a short array should pad the
+	 * array with default scores
+	 */
 	@Test
 	public void createWithShortArrayShouldPad(){
 	
@@ -309,6 +355,10 @@ public class LeaderboardTest {
 		}
 	}
 	
+	/** 
+	 * Creating a leaderboard with a long array of scores should
+	 * truncate the long array to the appropriate length
+	 */
 	@Test
 	public void createWithLongArrayShouldTruncate(){
 	

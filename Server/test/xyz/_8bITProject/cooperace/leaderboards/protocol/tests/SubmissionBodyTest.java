@@ -16,6 +16,9 @@ import xyz._8bITProject.cooperace.leaderboards.protocol.SubmissionBody;
  */
 public class SubmissionBodyTest {
 	
+	/** 
+	 * A submission without a level should throw an exception
+	 */
 	@Test
 	public void validationOfMissingLevelShouldFail(){
 		try{
@@ -33,6 +36,9 @@ public class SubmissionBodyTest {
 		}
 	}
 	
+	/** 
+	 * A submission without a score should throw an exception
+	 */
 	@Test
 	public void validationOfMissingScoreShouldFail(){
 		try{
@@ -49,6 +55,10 @@ public class SubmissionBodyTest {
 		}
 	}
 	
+	
+	/** 
+	 * A submission with an invalid score should throw an exception
+	 */
 	@Test
 	public void validationOfInvalidScoreShouldFail(){
 		try{
@@ -66,6 +76,11 @@ public class SubmissionBodyTest {
 		}
 	}
 	
+	
+	/** 
+	 * A submission with a complete body (level + valid score) should
+	 * NOT throw an exception
+	 */
 	@Test
 	public void validationOfCompleteBodyShouldPass(){
 		try{
@@ -83,6 +98,11 @@ public class SubmissionBodyTest {
 		}
 	}
 	
+	
+	/** 
+	 * a submission of a score that ranks on a leaderboard should return
+	 * a position response with a position inside it
+	 */
 	@Test
 	public void submissionOfRankingScoreShouldReturnPosition(){
 		
@@ -107,6 +127,11 @@ public class SubmissionBodyTest {
 		Assert.assertEquals(new PositionResponse(1), response);
 	}
 	
+	
+	/** 
+	 * A submission of a score that does not rank should return a position
+	 * response with position zero
+	 */
 	@Test
 	public void submissionOfNonRankingScoreShouldReturnPositionZero(){
 		

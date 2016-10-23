@@ -11,6 +11,11 @@ import xyz._8bITProject.cooperace.leaderboards.LeaderboardsManager;
  */
 public class LeaderboardsManagerTest {
 	
+	
+	/** 
+	 * Testing the singleton pattern: calling 'instance' twice should
+	 * give the same instance
+	 */
 	@Test
 	public void singletonInstanceShouldGiveSameInstance(){
 		
@@ -24,6 +29,11 @@ public class LeaderboardsManagerTest {
 		Assert.assertTrue(one == two);
 	}
 	
+	
+	/** 
+	 * Testing the singleton pattern: calling 'instance' should never
+	 * give a null instance
+	 */
 	@Test
 	public void singletonInstanceShouldNotGiveNullInstance(){
 		
@@ -36,7 +46,10 @@ public class LeaderboardsManagerTest {
 		Assert.assertNotEquals(null, manager);
 	}
 	
-	// Testing lazy initialisation of leaderboards
+	/** 
+	 * Testing the lazy initialisation of leaderboards: calling getLeaderboard
+	 * with a new level name should never return null
+	 */
 	@Test
 	public void getArbitraryLeaderboardShouldNotGiveNullReference(){
 		
@@ -54,6 +67,10 @@ public class LeaderboardsManagerTest {
 		
 	}
 	
+	/** 
+	 * Getting the leaderboard for a level twice by the same name should
+	 * always return the exact same leaderboard
+	 */
 	@Test
 	public void getLeaderboardSameNameShouldReturnSameLeaderboard(){
 		
@@ -71,7 +88,10 @@ public class LeaderboardsManagerTest {
 		Assert.assertTrue(one == two);
 	}
 	
-
+	/** 
+	 * Getting leaderboards of a different name should return two different
+	 * leaderboards, not the same one!
+	 */
 	@Test
 	public void getLeaderboardDifferentNameShouldReturnDifferentLeaderboard(){
 		
