@@ -232,7 +232,7 @@
 14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14,14
 </data>
  </layer>
- <objectgroup name="UnityObjects" visible="0">
+ <objectgroup name="UnityObjects">
   <object id="1024" name="Player" x="63" y="21" width="21" height="21">
    <properties>
     <property name="Player" value=""/>
