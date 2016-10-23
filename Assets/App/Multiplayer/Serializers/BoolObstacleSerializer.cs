@@ -41,7 +41,7 @@ namespace xyz._8bITProject.cooperace.multiplayer {
 		}
 
 		void FixedUpdate () {
-			if (HasChanged ()) {
+			if (HasChanged () && updateManager != null) {
 				//UILogger.Log (string.Format ("ObjectID: {0}, sending", ID));
 				updateManager.SendObstacleUpdate (Serialize (new BoolObstacleInformation(ID, GetState ())));
 			}
