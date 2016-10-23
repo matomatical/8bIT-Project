@@ -17,7 +17,7 @@ namespace xyz._8bITProject.cooperace.recording {
 		/// the key to track
 		private Key key;
 
-		void Start(){
+		public void Start(){
 
 			// link components
 
