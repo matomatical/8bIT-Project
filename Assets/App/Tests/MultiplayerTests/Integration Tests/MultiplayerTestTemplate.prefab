@@ -108,7 +108,6 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010955363364}
   - 114: {fileID: 114000013955368038}
-  - 114: {fileID: 114000011740880992}
   m_Layer: 0
   m_Name: MultiplayerTestTemplate
   m_TagString: Untagged
@@ -551,27 +550,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02ab3f9430a1dbf4287277e960538692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000011740880992
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012879796312}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bafa54482a87ac4cbd7ff1bfd1ac93a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  checkAfterTime: 1
-  repeatCheckTime: 0
-  repeatEveryTime: 1
-  checkAfterFrames: 1
-  repeatCheckFrame: 1
-  repeatEveryFrame: 1
-  hasFailed: 0
-  checkMethods: 0
-  m_ActionBase: {fileID: 0}
-  checksPerformed: 0
 --- !u!114 &114000011820137880
 MonoBehaviour:
   m_ObjectHideFlags: 1
