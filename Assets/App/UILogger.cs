@@ -13,16 +13,7 @@ using System;
 namespace xyz._8bITProject.cooperace {
 	public class UILogger : MonoBehaviour {
 
-		public int maxMessages = 10;
-		public int fontSize = 40;
-
-		LinkedList<string> messages;
-
-		GUIStyle style;
-
-		void Awake() {
-			messages = new LinkedList<string>();
-		}
+		#if DEVELOPMENT_BUILD
 
 		void OnGUI() {
 			if (style == null) {
@@ -33,6 +24,19 @@ namespace xyz._8bITProject.cooperace {
 			foreach (string msg in messages) {
 				GUILayout.Label(msg, style);
 			}
+		}
+
+		#endif
+
+		public int maxMessages = 10;
+		public int fontSize = 40;
+
+		LinkedList<string> messages;
+
+		GUIStyle style;
+
+		void Awake() {
+			messages = new LinkedList<string>();
 		}
 
 		void AddMsg(string msg) {

@@ -43,6 +43,9 @@ create a keystore file (or use the android debug key).
 If you want to build and install the application directly on your device, follow these steps.
 
 * Go to `File > Build Settings > Build` (`cmd+B`/`ctrl+B`), and select a location to save your build.
+
+> Note: if you would like select debug messages to be logged on the screen (anything logged with the UILogger), select the `development build` option from the `File > Build Settings` right before you press `Build`.
+
 * After the build succeeds, connect your Android device and copy the resulting apk file to somewhere on your device.
 * Navigate to the apk file from your device, and press it to begin installing. You may have to alter your security settings to allow installation of third-party apks. 
 
