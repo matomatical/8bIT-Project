@@ -6,6 +6,14 @@ Welcome to team 8-bIT Project's IT Project Project repository.
 
 We're building a cooperative platformer game for Android 4.1, using Unity 5.4. The game's title is 'co-operace' (a portmanteau of 'co-operation' and 'race'). You can read more about it by checking out the Requirements doc and Design doc over on our [shared Google Drive](https://drive.google.com/drive/u/2/folders/0B-X6kHzx5k4TRGJ2dXlnTGR2aFU).
 
+On top of Unity 5.4, the project is built on top of a bunch of free resources:
+
+* [Google Play Games Services](https://developers.google.com/games/services/) for matchmaking and networking
+* [Tiled2Unity](http://www.seanba.com/tiled2unity) for importing levels made with [Tiled Map Editor](http://www.mapeditor.org/)
+* automated integration tests thanks to [Unity Test Tools](https://www.assetstore.unity3d.com/en/#!/content/13802)
+* the classic arcade font [Press Start 2P](http://www.dafont.com/press-start-2p.font)
+* sprites and tiles from [kenney's game assets](http://kenney.nl/)
+
 ## How do I get set up? ##
 
 The project has two major parts: an android application and a server that stores high scores. First up, here are the instructions for setting up the android application. The server instructions are a bit further down.
